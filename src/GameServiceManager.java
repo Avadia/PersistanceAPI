@@ -14,9 +14,9 @@
 */
 
 import Beans.PlayerBean;
-import dataManager.DatabaseManager;
-import dataManager.PlayerManager;
-import dataManager.SamaritanManager;
+import DataManager.DatabaseManager;
+import DataManager.PlayerManager;
+import DataManager.SamaritanManager;
 
 public class GameServiceManager
 {

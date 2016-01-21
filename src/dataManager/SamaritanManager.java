@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package dataManager;
+package DataManager;
 
 import Beans.PlayerBean;
 import Beans.SanctionBean;

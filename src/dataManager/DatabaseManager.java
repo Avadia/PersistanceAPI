@@ -13,14 +13,14 @@
 ===============================================================
 */
 
-package dataManager;
+package DataManager;
 
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 /*============================================
-  Database dataManager
+  Database DataManager
 ============================================*/
 public class DatabaseManager
 {

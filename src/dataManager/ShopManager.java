@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package dataManager;
+package DataManager;
 
 public class ShopManager
 {
