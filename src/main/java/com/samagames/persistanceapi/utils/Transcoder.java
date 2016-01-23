@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package Utils;
+package com.samagames.persistanceapi.utils;
 
 public class Transcoder
 {

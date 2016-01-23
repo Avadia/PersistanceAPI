@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package Beans;
+package com.samagames.persistanceapi.beans;
 
 import java.sql.Timestamp;
 
