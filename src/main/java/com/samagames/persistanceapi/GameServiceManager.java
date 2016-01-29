@@ -16,9 +16,14 @@
 package com.samagames.persistanceapi;
 
 import com.samagames.persistanceapi.beans.PlayerBean;
+import com.samagames.persistanceapi.beans.PlayerStatisticsBean;
+import com.samagames.persistanceapi.beans.aggregationbean.*;
 import com.samagames.persistanceapi.datamanager.DatabaseManager;
 import com.samagames.persistanceapi.datamanager.PlayerManager;
 import com.samagames.persistanceapi.datamanager.SamaritanManager;
+import com.samagames.persistanceapi.datamanager.StatisticsManager;
+
+import java.util.UUID;
 
 public class GameServiceManager
 {
@@ -26,6 +31,7 @@ public class GameServiceManager
     public DatabaseManager databaseManager;
     public PlayerManager playerManager;
     public SamaritanManager samaritanManager;
+    public StatisticsManager statisticsManager;
 
     // Super constructor
     public GameServiceManager()
@@ -33,17 +39,17 @@ public class GameServiceManager
         // Singleton of DatabaseManager
         this.databaseManager = DatabaseManager.getInstance();
         this.playerManager = new PlayerManager();
-
+        this.statisticsManager = new StatisticsManager();
     }
 
 
 
     /*============================================
-      Part of player Manager
+      Part of player manager
     ============================================*/
 
     // Get the player by UUID
-    public PlayerBean getPlayer(String uuid)
+    public PlayerBean getPlayer(UUID uuid)
     {
        // Get the PlayerBean
         PlayerBean player = this.playerManager.getPlayer(uuid, this.databaseManager.getDataSource());
@@ -62,7 +68,7 @@ public class GameServiceManager
 
 
     /*============================================
-      Part of samaritan Manager
+      Part of samaritan manager
     ============================================*/
 
     // Ban a player
@@ -113,4 +119,60 @@ public class GameServiceManager
         // Do the kick
         this.samaritanManager.kickPlayer(player, this.databaseManager.getDataSource());
     }
+
+
+
+    /*============================================
+      Part of statistics manager
+    ============================================*/
+
+    // Get Dimension player statistics
+    public DimensionStatisticsBean getDimensionStatistics(PlayerBean player)
+    {
+        // Get the statistics
+        return this.statisticsManager.getDimensionStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get HeroBattle player statistics
+    public HeroBattleStatisticsBean getHeroBattleStatistics(PlayerBean player)
+    {
+        // Get the statistics
+        return this.statisticsManager.getHeroBattleStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get JukeBox player statistics
+    public JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player)
+    {
+        // Get the statistics
+        return this.statisticsManager.getJukeBoxStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Quake player statistics
+    public QuakeStatisticsBean getQuakeStatistics(PlayerBean player)
+    {
+        // Get the statistics
+        return this.statisticsManager.getQuakeStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get UHCRun player statistics
+    public UHCRunStatisticsBean getUHCRunStatistics(PlayerBean player)
+    {
+        // Get the statistics
+        return this.statisticsManager.getUHCRunStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get UpperVoid player statistics
+    public UppervoidStatistics getUpperVoidStatistics(PlayerBean player)
+    {
+        // Get the statistics
+        return this.statisticsManager.getUpperVoidStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get all player statistics
+    public PlayerStatisticsBean getAllStatistics(PlayerBean player)
+    {
+        // Get all the statistics
+        return this.statisticsManager.getAllPlayerStatistics(player, this.databaseManager.getDataSource());
+    }
+
 }
