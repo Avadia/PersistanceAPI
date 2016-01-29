@@ -31,7 +31,7 @@ public class PlayerManager
     PlayerBean player = null;
 
     // Get player by UUID
-    public PlayerBean getPlayer(String uuid, DataSource dataSource)
+    public PlayerBean getPlayer(UUID uuid, DataSource dataSource)
     {
         // Make the research of player by UUID
         try
@@ -42,7 +42,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)), name, coins, stars, lastlogin, firstlogin from players where uuid=(UNHEX('"+Transcoder.Encode(uuid)+"'))";
+            sql += "select (HEX(uuid)), name, coins, stars, lastlogin, firstlogin from players where uuid=(UNHEX('"+Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
