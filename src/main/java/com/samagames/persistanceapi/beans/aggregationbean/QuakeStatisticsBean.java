@@ -42,4 +42,16 @@ public class QuakeStatisticsBean
     public int wins;
     public Timestamp creationDate;
     public Timestamp updateDate;
+
+    // Constructor
+    public QuakeStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate)
+    {
+        this.uuid = uuid;
+        this.deaths = deaths;
+        this.kills = kills;
+        this.playedGames = playedGames;
+        this. wins = wins;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
 }
