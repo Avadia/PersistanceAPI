@@ -18,7 +18,7 @@ package com.samagames.persistanceapi.beans.aggregationbean;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class HeroBatleStatisticsBean
+public class HeroBattleStatisticsBean
 {
     /* Database Structure
     +---------------+------------------+------+-----+---------------------+----------------+
@@ -46,4 +46,18 @@ public class HeroBatleStatisticsBean
     public int wins;
     public Timestamp creationDate;
     public Timestamp updateDate;
+
+    // Constructor
+    public HeroBattleStatisticsBean(UUID uuid, int deaths, int elo, int kills, int playedGames, int powerUpTaken, int wins, Timestamp creationDate, Timestamp updateDate)
+    {
+        this.uuid = uuid;
+        this.deaths = deaths;
+        this.elo = elo;
+        this.kills = kills;
+        this.playedGames = playedGames;
+        this.powerUpTaken = powerUpTaken;
+        this.wins = wins;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
 }
