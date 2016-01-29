@@ -16,6 +16,7 @@
 package com.samagames.persistanceapi.beans;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public class SanctionBean
 {
@@ -42,7 +43,7 @@ public class SanctionBean
     public static int TEXT = 5;
 
     // Define attributes
-    public String playerUuid;
+    public UUID playerUuid;
     public int typeId;
     public String reason;
     public String punisherUuid;
