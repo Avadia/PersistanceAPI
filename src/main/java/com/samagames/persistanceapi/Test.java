@@ -1,4 +1,4 @@
-package com.samagames.persistanceapi;/*
+/*
 ===============================================================
    _____                       ______
   / ___/____ _____ ___  ____ _/ ____/___ _____ ___  ___  _____
@@ -13,7 +13,11 @@ package com.samagames.persistanceapi;/*
 ===============================================================
 */
 
+package com.samagames.persistanceapi;
+
 import com.samagames.persistanceapi.beans.PlayerBean;
+
+import java.util.UUID;
 
 public class Test
 {
@@ -27,7 +31,7 @@ public class Test
 
         // Find a player test
         startTime = System.currentTimeMillis();
-        PlayerBean player = manager.getPlayer("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
+        PlayerBean player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"));
         System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Data player update test
