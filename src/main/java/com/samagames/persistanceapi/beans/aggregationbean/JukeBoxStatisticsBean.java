@@ -38,4 +38,14 @@ public class JukeBoxStatisticsBean
     public int woots;
     public Timestamp creationDate;
     public Timestamp updateDate;
+
+    // Constructor
+    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate)
+    {
+        this.uuid = uuid;
+        this.mehs = mehs;
+        this.woots = woots;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
 }
