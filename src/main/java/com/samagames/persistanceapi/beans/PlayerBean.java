@@ -16,6 +16,7 @@
 package com.samagames.persistanceapi.beans;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 public class PlayerBean
 {
@@ -33,7 +34,7 @@ public class PlayerBean
     */
 
     // Define attributes
-    public String uuid;
+    public UUID uuid;
     public String name;
     public int coins;
     public int stars;
@@ -41,7 +42,7 @@ public class PlayerBean
     public Timestamp firstLogin;
 
     // Constructor
-    public PlayerBean(String uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin)
+    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin)
     {
         this.uuid = uuid;
         this.name = name;
@@ -52,7 +53,7 @@ public class PlayerBean
     }
 
     // UUID getter
-    public String getUuid()
+    public UUID getUuid()
     {
         // Return the UUID
         return this.uuid;
