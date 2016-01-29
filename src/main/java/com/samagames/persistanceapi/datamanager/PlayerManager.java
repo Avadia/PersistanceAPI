@@ -19,6 +19,7 @@ import com.samagames.persistanceapi.beans.PlayerBean;
 import com.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.UUID;
 
 
 public class PlayerManager
@@ -54,7 +55,7 @@ public class PlayerManager
             int stars = resultset.getInt(4);
             Timestamp lastLogin = resultset.getTimestamp(5);
             Timestamp firsLogin = resultset.getTimestamp(6);
-            player = new PlayerBean(playerUuid, name, coins, stars, lastLogin, firsLogin);
+            player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin);
 
         }
         catch(SQLException e)
@@ -85,7 +86,7 @@ public class PlayerManager
             sql += ", stars=" + player.getStars();
             sql += ", lastlogin='" + player.getLastLogin() +"'";
             sql += ", firstlogin='" + player.getLastLogin() +"'";
-            sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid()) + "'))";
+            sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
             statement.executeUpdate(sql);
