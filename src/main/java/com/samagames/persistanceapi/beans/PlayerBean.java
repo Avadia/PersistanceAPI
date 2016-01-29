@@ -21,16 +21,16 @@ import java.util.UUID;
 public class PlayerBean
 {
     /* Database Structure
-    +------------+------------------+------+-----+---------------------+----------------+
-    | Field      | Type             | Null | Key | Default             | Extra          |
-    +------------+------------------+------+-----+---------------------+----------------+
-    | uuid       | binary(16)       | NO   | PRI | NULL                |                |
-    | name       | varchar(255)     | NO   |     | NULL                |                |
-    | coins      | int(11)          | NO   |     | NULL                |                |
-    | stars      | int(11)          | NO   |     | NULL                |                |
-    | lastLogin  | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    | firstLogin | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    +------------+------------------+------+-----+---------------------+----------------+
+    +-------------+------------------+------+-----+---------------------+----------------+
+    | Field       | Type             | Null | Key | Default             | Extra          |
+    +-------------+------------------+------+-----+---------------------+----------------+
+    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
+    | name        | varchar(255)     | NO   |     | NULL                |                |
+    | coins       | int(11)          | NO   |     | NULL                |                |
+    | stars       | int(11)          | NO   |     | NULL                |                |
+    | last_Login  | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | first_Login | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    +-------------+------------------+------+-----+---------------------+----------------+
     */
 
     // Define attributes
