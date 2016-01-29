@@ -38,9 +38,21 @@ public class DimensionStatisticsBean
     public UUID uuid;
     public int deaths;
     public int kills;
-    public int played_games;
+    public int playedGames;
     public int wins;
     public Timestamp creationDate;
     public Timestamp updateDate;
+
+    // Constructor
+    public DimensionStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate)
+    {
+        this.uuid = uuid;
+        this.deaths = deaths;
+        this.kills = kills;
+        this.playedGames = playedGames;
+        this.wins = wins;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
 
 }
