@@ -21,9 +21,20 @@ public class PlayerStatisticsBean
 {
     // Defines aggregation of statistics
     public DimensionStatisticsBean dimmensionStats;
-    public HeroBatleStatisticsBean heroBatleStats;
+    public HeroBattleStatisticsBean heroBatleStats;
     public JukeBoxStatisticsBean jukeBoxStats;
     public QuakeStatisticsBean quakeStats;
     public UHCRunStatisticsBean uhcRunStats;
     public UppervoidStatistics uppervoidStats;
+
+    // Constructor
+    public PlayerStatisticsBean(DimensionStatisticsBean dimmensionStats, HeroBattleStatisticsBean heroBatleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCRunStatisticsBean uhcRunStats, UppervoidStatistics uppervoidStatistics)
+    {
+        this.dimmensionStats = dimmensionStats;
+        this.heroBatleStats = heroBatleStats;
+        this.jukeBoxStats = jukeBoxStats;
+        this.quakeStats = quakeStats;
+        this.uhcRunStats = uhcRunStats;
+        this.uppervoidStats = uppervoidStatistics;
+    }
 }
