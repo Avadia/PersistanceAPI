@@ -46,4 +46,18 @@ public class UppervoidStatistics
     public int wins;
     public Timestamp creationDate;
     public Timestamp updateDate;
+
+    // Constructor
+    public UppervoidStatistics(UUID uuid, int blocks, int grenade, int kills, int playedGames, int tntLaunched, int wins, Timestamp creationDate, Timestamp updateDate)
+    {
+        this.uuid = uuid;
+        this.blocks = blocks;
+        this.grenade = grenade;
+        this.kills = kills;
+        this.playedGames = playedGames;
+        this.tntLaunched = tntLaunched;
+        this.wins = wins;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
 }
