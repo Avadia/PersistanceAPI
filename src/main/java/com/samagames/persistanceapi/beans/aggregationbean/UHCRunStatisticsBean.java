@@ -15,7 +15,6 @@
 
 package com.samagames.persistanceapi.beans.aggregationbean;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -26,10 +25,10 @@ public class UHCRunStatisticsBean
     | Field         | Type             | Null | Key | Default             | Extra          |
     +---------------+------------------+------+-----+---------------------+----------------+
     | uuid          | binary(16)       | NO   | PRI | NULL                |                |
-    | dammages      | int(11)          | NO   |     | NULL                |                |
+    | damages       | int(11)          | NO   |     | NULL                |                |
     | deaths        | int(11)          | NO   |     | NULL                |                |
     | kills         | int(11)          | NO   |     | NULL                |                |
-    | max_dammages  | int(11)          | NO   |     | NULL                |                |
+    | max_damages   | int(11)          | NO   |     | NULL                |                |
     | played_games  | int(11)          | NO   |     | NULL                |                |
     | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
@@ -39,12 +38,26 @@ public class UHCRunStatisticsBean
 
     // Defines
     public UUID uuid;
-    public int dammages;
+    public int damages;
     public int deaths;
     public int kills;
-    public int maxDammages;
+    public int maxDamages;
     public int playedGames;
     public int wins;
     public Timestamp creationDate;
     public Timestamp updateDate;
+
+    // Constructor
+    public UHCRunStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate)
+    {
+        this.uuid = uuid;
+        this.damages = damages;
+        this.deaths = deaths;
+        this.kills = kills;
+        this.maxDamages = maxDamages;
+        this.playedGames = playedGames;
+        this.wins = wins;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
 }
