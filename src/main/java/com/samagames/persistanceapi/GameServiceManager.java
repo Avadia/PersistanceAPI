@@ -1,4 +1,4 @@
-package com.samagames.persistanceapi;/*
+/*
 ===============================================================
    _____                       ______
   / ___/____ _____ ___  ____ _/ ____/___ _____ ___  ___  _____
@@ -12,6 +12,8 @@ package com.samagames.persistanceapi;/*
   By MisterSatch, January 2016
 ===============================================================
 */
+
+package com.samagames.persistanceapi;
 
 import com.samagames.persistanceapi.beans.PlayerBean;
 import com.samagames.persistanceapi.datamanager.DatabaseManager;
