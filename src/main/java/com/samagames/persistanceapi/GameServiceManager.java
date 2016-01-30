@@ -43,7 +43,6 @@ public class GameServiceManager
     }
 
 
-
     /*============================================
       Part of player manager
     ============================================*/
@@ -64,7 +63,6 @@ public class GameServiceManager
         // Update datas of player
         this.playerManager.updatePlayer(player, this.databaseManager.getDataSource());
     }
-
 
 
     /*============================================
@@ -119,7 +117,6 @@ public class GameServiceManager
         // Do the kick
         this.samaritanManager.kickPlayer(player, this.databaseManager.getDataSource());
     }
-
 
 
     /*============================================
