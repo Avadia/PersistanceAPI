@@ -42,19 +42,19 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)), name, coins, stars, lastlogin, firstlogin from players where uuid=(UNHEX('"+Transcoder.Encode(uuid.toString())+"'))";
+            sql += "select (HEX(uuid)) as uuid, name, coins, stars, last_login, first_login from players where uuid=(UNHEX('"+Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
             resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString(1));
-            String name = resultset.getString(2);
-            int coins = resultset.getInt(3);
-            int stars = resultset.getInt(4);
-            Timestamp lastLogin = resultset.getTimestamp(5);
-            Timestamp firsLogin = resultset.getTimestamp(6);
+            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+            String name = resultset.getString("name");
+            int coins = resultset.getInt("coins");
+            int stars = resultset.getInt("stars");
+            Timestamp lastLogin = resultset.getTimestamp("last_login");
+            Timestamp firsLogin = resultset.getTimestamp("first_login");
             player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin);
 
         }
@@ -84,8 +84,8 @@ public class PlayerManager
             String sql = "";
             sql += "update players set coins=" + player.getCoins();
             sql += ", stars=" + player.getStars();
-            sql += ", lastlogin='" + player.getLastLogin() +"'";
-            sql += ", firstlogin='" + player.getLastLogin() +"'";
+            sql += ", last_login='" + player.getLastLogin() +"'";
+            sql += ", first_login='" + player.getLastLogin() +"'";
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
