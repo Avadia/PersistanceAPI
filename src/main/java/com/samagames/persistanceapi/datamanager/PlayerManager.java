@@ -48,19 +48,21 @@ public class PlayerManager
             resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
-            String name = resultset.getString("name");
-            int coins = resultset.getInt("coins");
-            int stars = resultset.getInt("stars");
-            Timestamp lastLogin = resultset.getTimestamp("last_login");
-            Timestamp firsLogin = resultset.getTimestamp("first_login");
-            player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin);
-
-        }
-        catch(SQLException e)
+            if (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String name = resultset.getString("name");
+                int coins = resultset.getInt("coins");
+                int stars = resultset.getInt("stars");
+                Timestamp lastLogin = resultset.getTimestamp("last_login");
+                Timestamp firsLogin = resultset.getTimestamp("first_login");
+                player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin);
+            }
+         }
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -91,9 +93,9 @@ public class PlayerManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (Exception e)
+        catch (SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -124,9 +126,9 @@ public class PlayerManager
                 connection.close();
             }
         }
-        catch(Exception e)
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
     }
 }

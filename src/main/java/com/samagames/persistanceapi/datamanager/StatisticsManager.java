@@ -54,23 +54,26 @@ public class StatisticsManager
             sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
-            resultset = statement.executeQuery(sql); // TODO check if no results
+            resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
-            UUID uuid = UUID.fromString(playerUuid);
-            int deaths = resultset.getInt("deaths");
-            int kills = resultset.getInt("kills");
-            int playedGames = resultset.getInt("played_games");
-            int wins = resultset.getInt("wins");
-            Timestamp creationDate = resultset.getTimestamp("creation_date");
-            Timestamp updateDate = resultset.getTimestamp("update_date");
-            dimensionStats = new DimensionStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate);
+            if(resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                UUID uuid = UUID.fromString(playerUuid);
+                int deaths = resultset.getInt("deaths");
+                int kills = resultset.getInt("kills");
+                int playedGames = resultset.getInt("played_games");
+                int wins = resultset.getInt("wins");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                dimensionStats = new DimensionStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate);
+            }
         }
-        catch(SQLException e)
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -95,25 +98,28 @@ public class StatisticsManager
             sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
-            resultset = statement.executeQuery(sql); // TODO check if no results
+            resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
-            UUID uuid = UUID.fromString(playerUuid);
-            int deaths = resultset.getInt("deaths");
-            int elo = resultset.getInt("elo");
-            int kills = resultset.getInt("kills");
-            int playedGames = resultset.getInt("played_games");
-            int powerupTaken = resultset.getInt("powerup_taken");
-            int wins = resultset.getInt("wins");
-            Timestamp creationDate = resultset.getTimestamp("creation_date");
-            Timestamp updateDate = resultset.getTimestamp("update_date");
-            heroBattleStats = new HeroBattleStatisticsBean(uuid, deaths, elo, kills, playedGames, powerupTaken, wins, creationDate, updateDate);
+            if (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                UUID uuid = UUID.fromString(playerUuid);
+                int deaths = resultset.getInt("deaths");
+                int elo = resultset.getInt("elo");
+                int kills = resultset.getInt("kills");
+                int playedGames = resultset.getInt("played_games");
+                int powerupTaken = resultset.getInt("powerup_taken");
+                int wins = resultset.getInt("wins");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                heroBattleStats = new HeroBattleStatisticsBean(uuid, deaths, elo, kills, playedGames, powerupTaken, wins, creationDate, updateDate);
+            }
         }
-        catch(SQLException e)
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -138,21 +144,24 @@ public class StatisticsManager
             sql +=" where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
-            resultset = statement.executeQuery(sql); // TODO check if no results
+            resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
-            UUID uuid = UUID.fromString(playerUuid);
-            int mehs = resultset.getInt("mehs");
-            int woots = resultset.getInt("woots");
-            Timestamp creationDate = resultset.getTimestamp("creation_date");
-            Timestamp updateDate = resultset.getTimestamp("update_date");
-            jukeBoxStats = new JukeBoxStatisticsBean(uuid, mehs, woots, creationDate, updateDate);
+            if (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                UUID uuid = UUID.fromString(playerUuid);
+                int mehs = resultset.getInt("mehs");
+                int woots = resultset.getInt("woots");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                jukeBoxStats = new JukeBoxStatisticsBean(uuid, mehs, woots, creationDate, updateDate);
+            }
         }
-        catch(SQLException e)
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -177,23 +186,26 @@ public class StatisticsManager
             sql +=" where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
-            resultset = statement.executeQuery(sql); // TODO check if no results
+            resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
-            UUID uuid = UUID.fromString(playerUuid);
-            int deaths = resultset.getInt("deaths");
-            int kills = resultset.getInt("kills");
-            int playedGames = resultset.getInt("played_games");
-            int wins =  resultset.getInt("wins");
-            Timestamp creationDate = resultset.getTimestamp("creation_date");
-            Timestamp updateDate = resultset.getTimestamp("update_date");
-            quakeStats = new QuakeStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate);
+            if (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                UUID uuid = UUID.fromString(playerUuid);
+                int deaths = resultset.getInt("deaths");
+                int kills = resultset.getInt("kills");
+                int playedGames = resultset.getInt("played_games");
+                int wins = resultset.getInt("wins");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                quakeStats = new QuakeStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate);
+            }
         }
-        catch(SQLException e)
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -218,25 +230,28 @@ public class StatisticsManager
             sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
-            resultset = statement.executeQuery(sql); // TODO check if no results
+            resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
-            UUID uuid = UUID.fromString(playerUuid);
-            int damages = resultset.getInt("damages");
-            int deaths = resultset.getInt("deaths");
-            int kills = resultset.getInt("kills");
-            int maxDamages = resultset.getInt("max_damages");
-            int playedGames = resultset.getInt("played_games");
-            int wins = resultset.getInt("wins");
-            Timestamp creationDate = resultset.getTimestamp("creation_date");
-            Timestamp updateDate = resultset.getTimestamp("update_date");
-            uhcRunStats = new UHCRunStatisticsBean(uuid, damages, deaths, kills, maxDamages, playedGames, wins, creationDate, updateDate);
+            if (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                UUID uuid = UUID.fromString(playerUuid);
+                int damages = resultset.getInt("damages");
+                int deaths = resultset.getInt("deaths");
+                int kills = resultset.getInt("kills");
+                int maxDamages = resultset.getInt("max_damages");
+                int playedGames = resultset.getInt("played_games");
+                int wins = resultset.getInt("wins");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                uhcRunStats = new UHCRunStatisticsBean(uuid, damages, deaths, kills, maxDamages, playedGames, wins, creationDate, updateDate);
+            }
         }
-        catch(SQLException e)
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -261,25 +276,28 @@ public class StatisticsManager
             sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
-            resultset = statement.executeQuery(sql); // TODO check if no results
+            resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            resultset.next();
-            String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
-            UUID uuid = UUID.fromString(playerUuid);
-            int blocks = resultset.getInt("blocks");
-            int grenades = resultset.getInt("grenades");
-            int kills = resultset.getInt("kills");
-            int playedGames = resultset.getInt("played_games");
-            int tntLaunched = resultset.getInt("tnt_launched");
-            int wins = resultset.getInt("wins");
-            Timestamp creationDate = resultset.getTimestamp("creation_date");
-            Timestamp updateDate = resultset.getTimestamp("update_date");
-            uppervoidStats = new UppervoidStatistics(uuid, blocks, grenades, kills, playedGames, tntLaunched, wins, creationDate, updateDate);
+            if (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                UUID uuid = UUID.fromString(playerUuid);
+                int blocks = resultset.getInt("blocks");
+                int grenades = resultset.getInt("grenades");
+                int kills = resultset.getInt("kills");
+                int playedGames = resultset.getInt("played_games");
+                int tntLaunched = resultset.getInt("tnt_launched");
+                int wins = resultset.getInt("wins");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                uppervoidStats = new UppervoidStatistics(uuid, blocks, grenades, kills, playedGames, tntLaunched, wins, creationDate, updateDate);
+            }
         }
-        catch(SQLException e)
+        catch(SQLException exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
         finally
         {
@@ -304,6 +322,46 @@ public class StatisticsManager
         return playerStatisticsBean;
     }
 
+    // Update Dimension player statistics // FIXME WIP
+    public void updateDimensionStatistics(PlayerBean player, DataSource dataSource)
+    {
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Check if a record exists
+            if (this.getDimensionStatistics(player, dataSource) == null)
+            {
+                // Query construction for create
+                String sql = "";
+                sql += "";
+
+                // Execute the query
+                resultset = statement.executeQuery(sql);
+            }
+            else
+            {
+                // Query construction for update
+                String sql = "";
+                sql += "";
+
+                // Execute the query
+                statement.executeUpdate(sql);
+            }
+        }
+        catch(SQLException exception)
+        {
+            exception.printStackTrace();
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            close();
+        }
+    }
+
     // Close the connection
     public void close()
     {
@@ -326,9 +384,9 @@ public class StatisticsManager
                 connection.close();
             }
         }
-        catch(Exception e)
+        catch(Exception exception)
         {
-            e.printStackTrace(); //TODO Change the granularity of exception
+            exception.printStackTrace();
         }
     }
 
