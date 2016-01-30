@@ -35,13 +35,13 @@ public class DimensionStatisticsBean
     */
 
     // Defines
-    public UUID uuid;
-    public int deaths;
-    public int kills;
-    public int playedGames;
-    public int wins;
-    public Timestamp creationDate;
-    public Timestamp updateDate;
+    private UUID uuid;
+    private int deaths;
+    private int kills;
+    private int playedGames;
+    private int wins;
+    private Timestamp creationDate;
+    private Timestamp updateDate;
 
     // Constructor
     public DimensionStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate)
@@ -55,4 +55,49 @@ public class DimensionStatisticsBean
         this.updateDate = updateDate;
     }
 
+    // Getters
+    public int getDeaths()
+    {
+        return this.deaths;
+    }
+    public int getKills()
+    {
+        return this.kills;
+    }
+    public int getPlayedGames()
+    {
+        return this.playedGames;
+    }
+    public int getWins()
+    {
+        return this.wins;
+    }
+    public Timestamp getCreationDate() { return this.creationDate; }
+    public Timestamp getUpdateDate() { return this.updateDate; }
+
+    // Setters
+    public void setDeaths(int deaths)
+    {
+        this.deaths = deaths;
+    }
+    public void setKills(int kills)
+    {
+        this.kills = kills;
+    }
+    public void setPlayedGames(int playedGames)
+    {
+        this.playedGames = playedGames;
+    }
+    public void setWins(int wins)
+    {
+        this.wins = wins;
+    }
+    public void setCreationDate(Timestamp creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+    public void setUpdateDate(Timestamp updateDate)
+    {
+        this.updateDate = updateDate;
+    }
 }

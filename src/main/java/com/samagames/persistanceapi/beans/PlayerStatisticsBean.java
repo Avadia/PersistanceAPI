@@ -20,12 +20,12 @@ import com.samagames.persistanceapi.beans.aggregationbean.*;
 public class PlayerStatisticsBean
 {
     // Defines aggregation of statistics
-    public DimensionStatisticsBean dimmensionStats;
-    public HeroBattleStatisticsBean heroBatleStats;
-    public JukeBoxStatisticsBean jukeBoxStats;
-    public QuakeStatisticsBean quakeStats;
-    public UHCRunStatisticsBean uhcRunStats;
-    public UppervoidStatistics uppervoidStats;
+    private DimensionStatisticsBean dimmensionStats;
+    private HeroBattleStatisticsBean heroBatleStats;
+    private JukeBoxStatisticsBean jukeBoxStats;
+    private QuakeStatisticsBean quakeStats;
+    private UHCRunStatisticsBean uhcRunStats;
+    private UppervoidStatistics uppervoidStats;
 
     // Constructor
     public PlayerStatisticsBean(DimensionStatisticsBean dimmensionStats, HeroBattleStatisticsBean heroBatleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCRunStatisticsBean uhcRunStats, UppervoidStatistics uppervoidStatistics)
@@ -37,4 +37,45 @@ public class PlayerStatisticsBean
         this.uhcRunStats = uhcRunStats;
         this.uppervoidStats = uppervoidStatistics;
     }
+
+    // Getters
+    public DimensionStatisticsBean getDimmensionStats() {
+        return dimmensionStats;
+    }
+    public HeroBattleStatisticsBean getHeroBatleStats() {
+        return heroBatleStats;
+    }
+    public JukeBoxStatisticsBean getJukeBoxStats() {
+        return jukeBoxStats;
+    }
+    public QuakeStatisticsBean getQuakeStats() {
+        return quakeStats;
+    }
+    public UHCRunStatisticsBean getUhcRunStats() {
+        return uhcRunStats;
+    }
+    public UppervoidStatistics getUppervoidStats() {
+        return uppervoidStats;
+    }
+
+    // Setter
+    public void setDimmensionStats(DimensionStatisticsBean dimmensionStats) {
+        this.dimmensionStats = dimmensionStats;
+    }
+    public void setHeroBatleStats(HeroBattleStatisticsBean heroBatleStats) {
+        this.heroBatleStats = heroBatleStats;
+    }
+    public void setJukeBoxStats(JukeBoxStatisticsBean jukeBoxStats) {
+        this.jukeBoxStats = jukeBoxStats;
+    }
+    public void setQuakeStats(QuakeStatisticsBean quakeStats) {
+        this.quakeStats = quakeStats;
+    }
+    public void setUhcRunStats(UHCRunStatisticsBean uhcRunStats) {
+        this.uhcRunStats = uhcRunStats;
+    }
+    public void setUppervoidStats(UppervoidStatistics uppervoidStats) {
+        this.uppervoidStats = uppervoidStats;
+    }
+
 }

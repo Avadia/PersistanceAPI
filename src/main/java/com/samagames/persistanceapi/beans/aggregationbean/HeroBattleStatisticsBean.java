@@ -37,15 +37,15 @@ public class HeroBattleStatisticsBean
     */
 
     // Defines
-    public UUID uuid;
-    public int deaths;
-    public int elo;
-    public int kills;
-    public int playedGames;
-    public int powerUpTaken;
-    public int wins;
-    public Timestamp creationDate;
-    public Timestamp updateDate;
+    private UUID uuid;
+    private int deaths;
+    private int elo;
+    private int kills;
+    private int playedGames;
+    private int powerUpTaken;
+    private int wins;
+    private Timestamp creationDate;
+    private Timestamp updateDate;
 
     // Constructor
     public HeroBattleStatisticsBean(UUID uuid, int deaths, int elo, int kills, int playedGames, int powerUpTaken, int wins, Timestamp creationDate, Timestamp updateDate)
@@ -60,4 +60,67 @@ public class HeroBattleStatisticsBean
         this.creationDate = creationDate;
         this.updateDate = updateDate;
     }
+
+    // Getters
+    public int getDeaths()
+    {
+        return this.deaths;
+    }
+    public int getElo()
+    {
+        return this.elo;
+    }
+    public int getKills()
+    {
+        return this.kills;
+    }
+    public int getPlayedGames()
+    {
+        return this.playedGames;
+    }
+    public int getPowerUpTaken()
+    {
+        return this.powerUpTaken;
+    }
+    public int getWins()
+    {
+        return this.wins;
+    }
+    public Timestamp getCreationDate()
+    {
+        return this.creationDate;
+    }
+    public Timestamp getUpdateDate()
+    {
+        return this.updateDate;
+    }
+
+    // Setters
+    public void setDeaths(int deaths)
+    {
+        this.deaths = deaths;
+    }
+    public void setElo(int elo)
+    {
+        this.elo = elo;
+    }
+    public void setKills(int kills) { this.kills = kills; }
+    public void setPlayedGames(int playedGames)
+    {
+        this.playedGames = playedGames;
+    }
+    public void setPowerUpTaken(int powerUpTaken) { this.powerUpTaken = powerUpTaken; }
+    public void setWins(int wins)
+    {
+        this.wins = wins;
+    }
+    public void setCreationDate(Timestamp creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+    public void setUpdateDate(Timestamp updateDate)
+    {
+        this.updateDate = updateDate;
+    }
+
 }

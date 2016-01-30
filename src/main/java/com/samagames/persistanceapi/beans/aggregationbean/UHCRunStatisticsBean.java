@@ -37,15 +37,15 @@ public class UHCRunStatisticsBean
     */
 
     // Defines
-    public UUID uuid;
-    public int damages;
-    public int deaths;
-    public int kills;
-    public int maxDamages;
-    public int playedGames;
-    public int wins;
-    public Timestamp creationDate;
-    public Timestamp updateDate;
+    private UUID uuid;
+    private int damages;
+    private int deaths;
+    private int kills;
+    private int maxDamages;
+    private int playedGames;
+    private int wins;
+    private Timestamp creationDate;
+    private Timestamp updateDate;
 
     // Constructor
     public UHCRunStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate)
@@ -60,4 +60,73 @@ public class UHCRunStatisticsBean
         this.creationDate = creationDate;
         this.updateDate = updateDate;
     }
+
+    // Getters
+    public int getDamages()
+    {
+        return this.damages;
+    }
+    public int getDeaths()
+    {
+        return this.deaths;
+    }
+    public int getKills()
+    {
+        return this.kills;
+    }
+    public int getMaxDamages()
+    {
+        return this.maxDamages;
+    }
+    public int getPlayedGames()
+    {
+        return this.playedGames;
+    }
+    public int getWins()
+    {
+        return this.wins;
+    }
+    public Timestamp getCreationDate()
+    {
+        return this.creationDate;
+    }
+    public Timestamp getUpdateDate()
+    {
+        return this.updateDate;
+    }
+
+    // Setters
+    public void setDamages(int damages)
+    {
+        this.damages = damages;
+    }
+    public void setDeaths(int deaths)
+    {
+        this.deaths = deaths;
+    }
+    public void setKills(int kills)
+    {
+        this.kills = kills;
+    }
+    public void setMaxDamages(int maxDamages)
+    {
+        this.maxDamages = maxDamages;
+    }
+    public void setPlayedGames(int playedGames)
+    {
+        this.playedGames = playedGames;
+    }
+    public void setWins(int wins)
+    {
+        this.wins = wins;
+    }
+    public void setCreationDate(Timestamp creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+    public void setUpdateDate(Timestamp updateDate)
+    {
+        this.updateDate = updateDate;
+    }
+
 }

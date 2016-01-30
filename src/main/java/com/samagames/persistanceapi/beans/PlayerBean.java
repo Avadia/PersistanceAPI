@@ -34,12 +34,12 @@ public class PlayerBean
     */
 
     // Define attributes
-    public UUID uuid;
-    public String name;
-    public int coins;
-    public int stars;
-    public Timestamp lastLogin;
-    public Timestamp firstLogin;
+    private UUID uuid;
+    private String name;
+    private int coins;
+    private int stars;
+    private Timestamp lastLogin;
+    private Timestamp firstLogin;
 
     // Constructor
     public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin)
@@ -52,59 +52,44 @@ public class PlayerBean
         this.firstLogin = firstLogin;
     }
 
-    // UUID getter
-    public UUID getUuid()
-    {
-        // Return the UUID
+    // Getters
+    public UUID getUuid() {
         return this.uuid;
     }
-
-    // Name getter
-    public String getName()
-    {
-        // Return the name
+    public String getName() {
         return this.name;
     }
-
-    // Coins getter
-    public int getCoins()
-    {
-        // Return the coins
+    public int getCoins() {
         return this.coins;
     }
-
-    // Stars getter
-    public int getStars()
-    {
-        // Return the stars
+    public int getStars() {
         return this.stars;
     }
-
-    // LastLogin getter
-    public Timestamp getLastLogin()
-    {
-        // Return the last login
+    public Timestamp getLastLogin() {
         return this.lastLogin;
     }
-
-    // FirstLogin getter
-    public Timestamp getFirstLogin()
-    {
-        // Return the first login
+    public Timestamp getFirstLogin() {
         return this.firstLogin;
     }
 
-    // Coins setter
-    public void setCoins(int coins)
+    // Setters
+    public void setUuid(UUID uuid)
     {
-        // Set coins
-        this.coins=coins;
+        this.uuid = uuid;
     }
-
-    // Stars setter
-    public void setStars(int stars)
-    {
-        // set stars
-        this.stars=stars;
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+    public void setLastLogin(Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+    public void setFirstLogin(Timestamp firstLogin) {
+        this.firstLogin = firstLogin;
     }
 }

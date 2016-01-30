@@ -37,15 +37,15 @@ public class UppervoidStatistics
     */
 
     // Defines
-    public UUID uuid;
-    public int blocks;
-    public int grenades;
-    public int kills;
-    public int playedGames;
-    public int tntLaunched;
-    public int wins;
-    public Timestamp creationDate;
-    public Timestamp updateDate;
+    private UUID uuid;
+    private int blocks;
+    private int grenades;
+    private int kills;
+    private int playedGames;
+    private int tntLaunched;
+    private int wins;
+    private Timestamp creationDate;
+    private Timestamp updateDate;
 
     // Constructor
     public UppervoidStatistics(UUID uuid, int blocks, int grenades, int kills, int playedGames, int tntLaunched, int wins, Timestamp creationDate, Timestamp updateDate)
@@ -60,4 +60,73 @@ public class UppervoidStatistics
         this.creationDate = creationDate;
         this.updateDate = updateDate;
     }
+
+    // Getters
+    public int getBlocks()
+    {
+        return this.blocks;
+    }
+    public int getGrenades()
+    {
+        return this.grenades;
+    }
+    public int getKills()
+    {
+        return this.kills;
+    }
+    public int getPlayedGames()
+    {
+        return this.playedGames;
+    }
+    public int getTntLaunched()
+    {
+        return this.tntLaunched;
+    }
+    public int getWins()
+    {
+        return this.wins;
+    }
+    public Timestamp getCreationDate()
+    {
+        return this.creationDate;
+    }
+    public Timestamp getUpdateDate()
+    {
+        return this.updateDate;
+    }
+
+    // Setters
+    public void setBlocks(int blocks)
+    {
+        this.blocks = blocks;
+    }
+    public void setGrenades(int grenades)
+    {
+        this.grenades = grenades;
+    }
+    public void setKills(int kills)
+    {
+        this.kills = kills;
+    }
+    public void setPlayedGames(int playedGames)
+    {
+        this.playedGames = playedGames;
+    }
+    public void setTntLaunched(int tntLaunched)
+    {
+        this.tntLaunched = tntLaunched;
+    }
+    public void setWins(int wins)
+    {
+        this.wins = wins;
+    }
+    public void setCreationDate(Timestamp creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+    public void setUpdateDate(Timestamp updateDate)
+    {
+        this.updateDate = updateDate;
+    }
+
 }

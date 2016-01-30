@@ -33,11 +33,11 @@ public class JukeBoxStatisticsBean
     */
 
     // Defines
-    public UUID uuid;
-    public int mehs;
-    public int woots;
-    public Timestamp creationDate;
-    public Timestamp updateDate;
+    private UUID uuid;
+    private int mehs;
+    private int woots;
+    private Timestamp creationDate;
+    private Timestamp updateDate;
 
     // Constructor
     public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate)
@@ -48,4 +48,41 @@ public class JukeBoxStatisticsBean
         this.creationDate = creationDate;
         this.updateDate = updateDate;
     }
+
+    // Getters
+    public int getMehs()
+    {
+        return this.mehs;
+    }
+    public int getWoots()
+    {
+        return this.woots;
+    }
+    public Timestamp getCreationDate()
+    {
+        return this.creationDate;
+    }
+    public Timestamp getUpdateDate()
+    {
+        return this.updateDate;
+    }
+
+    // Setters
+    public void setMehs(int mehs)
+    {
+        this.mehs = mehs;
+    }
+    public void setWoots(int woots)
+    {
+        this.woots = woots;
+    }
+    public void setCreationDate(Timestamp creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+    public void setUpdateDate(Timestamp updateDate)
+    {
+        this.updateDate = updateDate;
+    }
+
 }
