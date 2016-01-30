@@ -26,7 +26,7 @@ public class UppervoidStatistics
     +---------------+------------------+------+-----+---------------------+----------------+
     | uuid          | binary(16)       | NO   | PRI | NULL                |                |
     | blocks        | int(11)          | NO   |     | NULL                |                |
-    | grenade       | int(11)          | NO   |     | NULL                |                |
+    | grenades      | int(11)          | NO   |     | NULL                |                |
     | kills         | int(11)          | NO   |     | NULL                |                |
     | played_games  | int(11)          | NO   |     | NULL                |                |
     | tnt_launched  | int(11)          | NO   |     | NULL                |                |
@@ -39,7 +39,7 @@ public class UppervoidStatistics
     // Defines
     public UUID uuid;
     public int blocks;
-    public int grenade;
+    public int grenades;
     public int kills;
     public int playedGames;
     public int tntLaunched;
@@ -48,11 +48,11 @@ public class UppervoidStatistics
     public Timestamp updateDate;
 
     // Constructor
-    public UppervoidStatistics(UUID uuid, int blocks, int grenade, int kills, int playedGames, int tntLaunched, int wins, Timestamp creationDate, Timestamp updateDate)
+    public UppervoidStatistics(UUID uuid, int blocks, int grenades, int kills, int playedGames, int tntLaunched, int wins, Timestamp creationDate, Timestamp updateDate)
     {
         this.uuid = uuid;
         this.blocks = blocks;
-        this.grenade = grenade;
+        this.grenades = grenades;
         this.kills = kills;
         this.playedGames = playedGames;
         this.tntLaunched = tntLaunched;
