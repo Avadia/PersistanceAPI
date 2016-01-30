@@ -68,6 +68,11 @@ public class Test
         manager.getUHCRunStatistics(player);
         System.out.println("UHCRun statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // UpperVoid statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getUpperVoidStatistics(player);
+        System.out.println("UpperVoid statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
         // All statistics read for player test
         startTime = System.currentTimeMillis();
         manager.getAllStatistics(player);
