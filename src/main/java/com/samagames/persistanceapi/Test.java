@@ -27,6 +27,8 @@ public class Test
         long startTime;
 
         // Initialize the manager
+        System.out.println("Exécution du test");
+        System.out.println("-----------------");
         GameServiceManager manager = new GameServiceManager();
 
         // Find a player test
@@ -40,5 +42,35 @@ public class Test
         player.setStars(10);
         manager.updatePlayer(player);
         System.out.println("Update player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Dimension statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getDimensionStatistics(player);
+        System.out.println("Dimension statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // HeroBattle statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getHeroBattleStatistics(player);
+        System.out.println("HeroBattle statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // JukeBox statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getJukeBoxStatistics(player);
+        System.out.println("JukeBox statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Quake statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getQuakeStatistics(player);
+        System.out.println("Quake statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // UHCRun statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getUHCRunStatistics(player);
+        System.out.println("UHCRun statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // All statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getAllStatistics(player);
+        System.out.println("All statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
     }
 }
