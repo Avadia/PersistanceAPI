@@ -4,3 +4,6 @@ snap.txt
 .idea/
 *.iml
 bdd.txt
+bdd.sql
+data_test.sql
+
