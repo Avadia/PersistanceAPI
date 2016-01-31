@@ -59,6 +59,11 @@ public class PlayerManager
                 Timestamp firsLogin = resultset.getTimestamp("first_login");
                 player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin);
             }
+            else
+            {
+                // If there no player for the uuid in database
+                return null;
+            }
          }
         catch(SQLException exception)
         {
@@ -89,6 +94,39 @@ public class PlayerManager
             sql += ", last_login='" + player.getLastLogin() +"'";
             sql += ", first_login='" + player.getLastLogin() +"'";
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (SQLException exception)
+        {
+            exception.printStackTrace();
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            close();
+        }
+    }
+
+    // Create the player
+    public void createPlayer(PlayerBean player, DataSource dataSource)
+    {
+        // Create the player
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "insert into players (uuid, name, coins, stars, last_login, first_login)";
+            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+            sql += ", '" + player.getName() + "'";
+            sql += ", " + player.getCoins();
+            sql += ", " + player.getStars();
+            sql += ", now(), now())";
 
             // Execute the query
             statement.executeUpdate(sql);
