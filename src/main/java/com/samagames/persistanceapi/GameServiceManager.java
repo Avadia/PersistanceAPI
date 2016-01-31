@@ -22,7 +22,6 @@ import com.samagames.persistanceapi.datamanager.DatabaseManager;
 import com.samagames.persistanceapi.datamanager.PlayerManager;
 import com.samagames.persistanceapi.datamanager.SamaritanManager;
 import com.samagames.persistanceapi.datamanager.StatisticsManager;
-
 import java.util.UUID;
 
 public class GameServiceManager
@@ -127,42 +126,42 @@ public class GameServiceManager
     public DimensionStatisticsBean getDimensionStatistics(PlayerBean player)
     {
         // Get the statistics
-        return this.statisticsManager.getDimensionStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.dimensionStatsManager.getDimensionStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get HeroBattle player statistics
     public HeroBattleStatisticsBean getHeroBattleStatistics(PlayerBean player)
     {
         // Get the statistics
-        return this.statisticsManager.getHeroBattleStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.heroBattleStatsManager.getHeroBattleStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get JukeBox player statistics
     public JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player)
     {
         // Get the statistics
-        return this.statisticsManager.getJukeBoxStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.jukeBoxStatsManager.getJukeBoxStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get Quake player statistics
     public QuakeStatisticsBean getQuakeStatistics(PlayerBean player)
     {
         // Get the statistics
-        return this.statisticsManager.getQuakeStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.quakeStatsManager.getQuakeStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get UHCRun player statistics
     public UHCRunStatisticsBean getUHCRunStatistics(PlayerBean player)
     {
         // Get the statistics
-        return this.statisticsManager.getUHCRunStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.uhcRunStatsManager.getUHCRunStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get UpperVoid player statistics
     public UppervoidStatistics getUpperVoidStatistics(PlayerBean player)
     {
         // Get the statistics
-        return this.statisticsManager.getUpperVoidStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.upperVoidStatsManager.getUpperVoidStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get all player statistics
@@ -170,6 +169,13 @@ public class GameServiceManager
     {
         // Get all the statistics
         return this.statisticsManager.getAllPlayerStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Update Dimension statistics
+    public void updateDimensionStatistics(PlayerBean player, DimensionStatisticsBean dimensionStats)
+    {
+        // Update statistics
+        this.statisticsManager.dimensionStatsManager.updateDimensionStatistics(player, dimensionStats, this.databaseManager.getDataSource());
     }
 
 }
