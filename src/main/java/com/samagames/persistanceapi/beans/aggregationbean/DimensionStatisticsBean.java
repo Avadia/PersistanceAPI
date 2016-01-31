@@ -68,12 +68,15 @@ public class DimensionStatisticsBean
     {
         return this.playedGames;
     }
-    public int getWins()
-    {
-        return this.wins;
+    public int getWins() {
+        return wins;
     }
-    public Timestamp getCreationDate() { return this.creationDate; }
-    public Timestamp getUpdateDate() { return this.updateDate; }
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
 
     // Setters
     public void setDeaths(int deaths)

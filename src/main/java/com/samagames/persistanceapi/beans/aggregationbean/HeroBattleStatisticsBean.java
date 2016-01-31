@@ -104,12 +104,16 @@ public class HeroBattleStatisticsBean
     {
         this.elo = elo;
     }
-    public void setKills(int kills) { this.kills = kills; }
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
     public void setPlayedGames(int playedGames)
     {
         this.playedGames = playedGames;
     }
-    public void setPowerUpTaken(int powerUpTaken) { this.powerUpTaken = powerUpTaken; }
+    public void setPowerUpTaken(int powerUpTaken) {
+        this.powerUpTaken = powerUpTaken;
+    }
     public void setWins(int wins)
     {
         this.wins = wins;
