@@ -58,7 +58,7 @@ public class PlayerStatisticsBean
         return uppervoidStats;
     }
 
-    // Setter
+    // Setters
     public void setDimmensionStats(DimensionStatisticsBean dimmensionStats) {
         this.dimmensionStats = dimmensionStats;
     }
