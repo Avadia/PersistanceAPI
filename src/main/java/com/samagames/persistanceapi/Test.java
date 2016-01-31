@@ -28,6 +28,7 @@ public class Test
         long startTime;
         DimensionStatisticsBean dimensionStats;
         UUID uuid;
+        PlayerBean player;
         PlayerBean otherPlayer;
 
         // Initialize the manager
@@ -35,10 +36,16 @@ public class Test
         System.out.println("-----------------");
         GameServiceManager manager = new GameServiceManager();
 
+        // Create the player
+        startTime = System.currentTimeMillis();
+        player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        manager.createPlayer(player);
+        System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
         // Find a player test
         startTime = System.currentTimeMillis();
-        PlayerBean player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"));
-        System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+        player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"));
+        System.out.println("Create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Data player update test
         player.setCoins(20);
