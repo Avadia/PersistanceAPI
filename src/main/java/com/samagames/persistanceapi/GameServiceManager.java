@@ -63,6 +63,13 @@ public class GameServiceManager
         this.playerManager.updatePlayer(player, this.databaseManager.getDataSource());
     }
 
+    // Create the player
+    public void createPlayer(PlayerBean player)
+    {
+        // Create the player
+        this.playerManager.createPlayer(player, this.databaseManager.getDataSource());
+    }
+
 
     /*============================================
       Part of samaritan manager
