@@ -16,7 +16,8 @@
 package com.samagames.persistanceapi;
 
 import com.samagames.persistanceapi.beans.PlayerBean;
-
+import com.samagames.persistanceapi.beans.aggregationbean.DimensionStatisticsBean;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public class Test
@@ -25,6 +26,9 @@ public class Test
     {
         // Defines
         long startTime;
+        DimensionStatisticsBean dimensionStats;
+        UUID uuid;
+        PlayerBean otherPlayer;
 
         // Initialize the manager
         System.out.println("Exécution du test");
@@ -37,9 +41,9 @@ public class Test
         System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Data player update test
-        startTime = System.currentTimeMillis();
         player.setCoins(20);
         player.setStars(10);
+        startTime = System.currentTimeMillis();
         manager.updatePlayer(player);
         System.out.println("Update player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
@@ -77,5 +81,20 @@ public class Test
         startTime = System.currentTimeMillis();
         manager.getAllStatistics(player);
         System.out.println("All statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create dimensions statistics
+        uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
+        otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        startTime = System.currentTimeMillis();
+        manager.updateDimensionStatistics(otherPlayer, dimensionStats);
+        System.out.println("Create dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Update dimension statistics
+        dimensionStats.setDeaths(0);
+        dimensionStats.setPlayedGames(0);
+        startTime = System.currentTimeMillis();
+        manager.updateDimensionStatistics(otherPlayer, dimensionStats);
+        System.out.println("Update dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
     }
 }
