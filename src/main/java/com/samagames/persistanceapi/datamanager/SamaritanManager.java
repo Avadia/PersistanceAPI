@@ -17,7 +17,6 @@ package com.samagames.persistanceapi.datamanager;
 
 import com.samagames.persistanceapi.beans.PlayerBean;
 import com.samagames.persistanceapi.beans.SanctionBean;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
