@@ -20,7 +20,7 @@ import com.samagames.persistanceapi.beans.PlayerStatisticsBean;
 import com.samagames.persistanceapi.beans.aggregationbean.*;
 import com.samagames.persistanceapi.datamanager.DatabaseManager;
 import com.samagames.persistanceapi.datamanager.PlayerManager;
-import com.samagames.persistanceapi.datamanager.SamaritanManager;
+import com.samagames.persistanceapi.datamanager.SanctionManager;
 import com.samagames.persistanceapi.datamanager.StatisticsManager;
 import java.util.UUID;
 
@@ -29,7 +29,7 @@ public class GameServiceManager
     // Defines attributes
     public DatabaseManager databaseManager;
     public PlayerManager playerManager;
-    public SamaritanManager samaritanManager;
+    public SanctionManager sanctionManager;
     public StatisticsManager statisticsManager;
 
     // Super constructor
@@ -72,56 +72,56 @@ public class GameServiceManager
 
 
     /*============================================
-      Part of samaritan manager
+      Part of sanction manager
     ============================================*/
 
     // Ban a player
     public void banPlayer(PlayerBean player)
     {
         // Do the ban
-        this.samaritanManager.banPlayer(player, this.databaseManager.getDataSource());
+        this.sanctionManager.banPlayer(player, this.databaseManager.getDataSource());
     }
 
     // Check if a player is banned
     public boolean isPlayerBanned(PlayerBean player)
     {
         // Check the ban status
-        return this.samaritanManager.isPlayerBanned(player, this.databaseManager.getDataSource());
+        return this.sanctionManager.isPlayerBanned(player, this.databaseManager.getDataSource());
     }
 
     // Remove ban from player
     public void removeBan(PlayerBean player)
     {
         // Remove the ban
-        this.samaritanManager.removeBan(player, this.databaseManager.getDataSource());
+        this.sanctionManager.removeBan(player, this.databaseManager.getDataSource());
     }
 
     // Mute a player
     public void mutePlayer(PlayerBean player)
     {
         // Do the mute
-        this.samaritanManager.mutePlayer(player, this.databaseManager.getDataSource());
+        this.sanctionManager.mutePlayer(player, this.databaseManager.getDataSource());
     }
 
     // Check if a player is muted
     public boolean isPlayerMuted(PlayerBean player)
     {
         // Check the mute status
-        return this.samaritanManager.isPlayerMuted(player, this.databaseManager.getDataSource());
+        return this.sanctionManager.isPlayerMuted(player, this.databaseManager.getDataSource());
     }
 
     // Remove mute from player
     public void removeMute(PlayerBean player)
     {
         // Remove the mute
-        this.samaritanManager.removeMute(player, this.databaseManager.getDataSource());
+        this.sanctionManager.removeMute(player, this.databaseManager.getDataSource());
     }
 
     // Kick a player
     public void kickPlayer(PlayerBean player)
     {
         // Do the kick
-        this.samaritanManager.kickPlayer(player, this.databaseManager.getDataSource());
+        this.sanctionManager.kickPlayer(player, this.databaseManager.getDataSource());
     }
 
 
