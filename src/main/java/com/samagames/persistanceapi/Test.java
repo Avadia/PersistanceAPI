@@ -16,7 +16,7 @@
 package com.samagames.persistanceapi;
 
 import com.samagames.persistanceapi.beans.PlayerBean;
-import com.samagames.persistanceapi.beans.aggregationbean.DimensionStatisticsBean;
+import com.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
 import java.sql.Timestamp;
 import java.util.UUID;
 
