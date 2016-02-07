@@ -93,7 +93,6 @@ public class PlayerManager
             sql += ", stars=" + player.getStars();
             sql += ", last_login='" + player.getLastLogin() +"'";
             sql += ", first_login='" + player.getLastLogin() +"'";
-            sql += ", played_time" + String.valueOf(player.getPlayedTime());
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
