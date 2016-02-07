@@ -31,6 +31,7 @@ public class DimensionStatisticsBean
     | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | played_time   | bigint(20)       | NO   |     | NULL                |                |
     +---------------+------------------+------+-----+---------------------+----------------+
     */
 
@@ -42,9 +43,10 @@ public class DimensionStatisticsBean
     private int wins;
     private Timestamp creationDate;
     private Timestamp updateDate;
+    private long playedTime;
 
     // Constructor
-    public DimensionStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate)
+    public DimensionStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
         this.deaths = deaths;
@@ -53,6 +55,7 @@ public class DimensionStatisticsBean
         this.wins = wins;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
+        this.playedTime = playedTime;
     }
 
     // Getters
@@ -77,6 +80,7 @@ public class DimensionStatisticsBean
     public Timestamp getUpdateDate() {
         return updateDate;
     }
+    public long getPlayedTime() { return playedTime; }
 
     // Setters
     public void setDeaths(int deaths)
@@ -103,4 +107,5 @@ public class DimensionStatisticsBean
     {
         this.updateDate = updateDate;
     }
+    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
 }

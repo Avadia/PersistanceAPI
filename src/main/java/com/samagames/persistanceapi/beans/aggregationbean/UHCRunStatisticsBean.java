@@ -33,6 +33,7 @@ public class UHCRunStatisticsBean
     | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | played_time   | bigint(20)       | NO   |     | NULL                |                |
     +---------------+------------------+------+-----+---------------------+----------------+
     */
 
@@ -46,9 +47,10 @@ public class UHCRunStatisticsBean
     private int wins;
     private Timestamp creationDate;
     private Timestamp updateDate;
+    private long playedTime;
 
     // Constructor
-    public UHCRunStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate)
+    public UHCRunStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
         this.damages = damages;
@@ -59,6 +61,7 @@ public class UHCRunStatisticsBean
         this.wins = wins;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
+        this.playedTime = playedTime;
     }
 
     // Getters
@@ -94,6 +97,7 @@ public class UHCRunStatisticsBean
     {
         return this.updateDate;
     }
+    public long getPlayedTime() { return playedTime; }
 
     // Setters
     public void setDamages(int damages)
@@ -128,5 +132,5 @@ public class UHCRunStatisticsBean
     {
         this.updateDate = updateDate;
     }
-
+    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
 }

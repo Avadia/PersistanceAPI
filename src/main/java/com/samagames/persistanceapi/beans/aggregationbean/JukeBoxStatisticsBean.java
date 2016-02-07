@@ -29,6 +29,7 @@ public class JukeBoxStatisticsBean
     | woots         | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | played_time   | bigint(20)       | NO   |     | NULL                |                |
     +---------------+------------------+------+-----+---------------------+----------------+
     */
 
@@ -38,15 +39,17 @@ public class JukeBoxStatisticsBean
     private int woots;
     private Timestamp creationDate;
     private Timestamp updateDate;
+    private long playedTime;
 
     // Constructor
-    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate)
+    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
         this.mehs = mehs;
         this.woots = woots;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
+        this.playedTime = playedTime;
     }
 
     // Getters
@@ -66,6 +69,7 @@ public class JukeBoxStatisticsBean
     {
         return this.updateDate;
     }
+    public long getPlayedTime() { return playedTime; }
 
     // Setters
     public void setMehs(int mehs)
@@ -84,5 +88,5 @@ public class JukeBoxStatisticsBean
     {
         this.updateDate = updateDate;
     }
-
+    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
 }

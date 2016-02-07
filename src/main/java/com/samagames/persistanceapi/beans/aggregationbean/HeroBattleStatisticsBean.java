@@ -33,6 +33,7 @@ public class HeroBattleStatisticsBean
     | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | played_time   | bigint(20)       | NO   |     | NULL                |                |
     +---------------+------------------+------+-----+---------------------+----------------+
     */
 
@@ -46,9 +47,10 @@ public class HeroBattleStatisticsBean
     private int wins;
     private Timestamp creationDate;
     private Timestamp updateDate;
+    private long playedTime;
 
     // Constructor
-    public HeroBattleStatisticsBean(UUID uuid, int deaths, int elo, int kills, int playedGames, int powerUpTaken, int wins, Timestamp creationDate, Timestamp updateDate)
+    public HeroBattleStatisticsBean(UUID uuid, int deaths, int elo, int kills, int playedGames, int powerUpTaken, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
         this.deaths = deaths;
@@ -59,13 +61,11 @@ public class HeroBattleStatisticsBean
         this.wins = wins;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
+        this.playedTime = playedTime;
     }
 
     // Getters
-    public int getDeaths()
-    {
-        return this.deaths;
-    }
+    public int getDeaths() { return this.deaths; }
     public int getElo()
     {
         return this.elo;
@@ -94,6 +94,7 @@ public class HeroBattleStatisticsBean
     {
         return this.updateDate;
     }
+    public long getPlayedTime() { return playedTime; }
 
     // Setters
     public void setDeaths(int deaths)
@@ -126,5 +127,5 @@ public class HeroBattleStatisticsBean
     {
         this.updateDate = updateDate;
     }
-
+    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
 }
