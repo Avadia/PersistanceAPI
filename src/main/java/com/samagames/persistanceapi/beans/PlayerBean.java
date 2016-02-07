@@ -41,6 +41,7 @@ public class PlayerBean
     private int stars;
     private Timestamp lastLogin;
     private Timestamp firstLogin;
+    // Non persistent attributes
     private long startTime;
     private long stopTime;
 
