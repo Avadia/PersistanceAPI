@@ -22,7 +22,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class SamaritanManager
+public class SanctionManager
 {
     // Defines
     Connection connection = null;
