@@ -104,8 +104,8 @@ public class DimensionStatisticsManager
                 sql += dimensionStats.getKills() + ", ";
                 sql += dimensionStats.getPlayedGames() + ", ";
                 sql += dimensionStats.getWins() + ", ";
-                sql += " now(), now()),";
-                sql += dimensionStats.getPlayedTime();
+                sql += " now(), now(), ";
+                sql += player.getPlayedTime() +")";
 
                 // Execute the query
                 statement.executeUpdate(sql);
@@ -123,7 +123,7 @@ public class DimensionStatisticsManager
                 sql += "played_games=" + dimensionStats.getPlayedGames() + ",";
                 sql += "wins=" + dimensionStats.getWins() + ", ";
                 sql += "update_date=now(),";
-                sql += "played_time=" + dimensionStats.getPlayedTime();
+                sql += "played_time=" + player.getPlayedTime();
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
