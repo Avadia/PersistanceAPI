@@ -42,7 +42,7 @@ public class HeroBattleStatisticsManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, deaths, elo, kills, played_games, powerup_taken, wins, creation_date, update_date from herobattle_stats";
+            sql += "select (HEX(uuid)) as uuid, deaths, elo, kills, played_games, powerup_taken, wins, creation_date, update_date, played_time from herobattle_stats";
             sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
@@ -62,7 +62,13 @@ public class HeroBattleStatisticsManager
                 int wins = resultset.getInt("wins");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
-                heroBattleStats = new HeroBattleStatisticsBean(uuid, deaths, elo, kills, playedGames, powerupTaken, wins, creationDate, updateDate);
+                long playedTime = resultset.getLong("played_time");
+                heroBattleStats = new HeroBattleStatisticsBean(uuid, deaths, elo, kills, playedGames, powerupTaken, wins, creationDate, updateDate, playedTime);
+            }
+            else
+            {
+                // If there no HeroBattle stats int the database
+                return null;
             }
         }
         catch(SQLException exception)
@@ -75,6 +81,58 @@ public class HeroBattleStatisticsManager
             close();
         }
         return heroBattleStats;
+    }
+
+    // Update Dimension player statistics
+    public void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean dimensionStats, DataSource dataSource)
+    {
+        try
+        {
+            // Set flag for nested query
+            this.nestedQuery = true;
+
+            // Check if a record exists
+            if (this.getHeroBattleStatistics(player, dataSource) == null)
+            {
+                // Set connection
+                connection = dataSource.getConnection();
+                statement = connection.createStatement();
+
+                // Query construction for create
+                String sql = "";
+                sql += "";
+
+                // Execute the query
+                statement.executeUpdate(sql);
+            }
+            else
+            {
+                // Set connection
+                connection = dataSource.getConnection();
+                statement = connection.createStatement();
+
+                // Query construction for update
+                String sql = "";
+
+                // Execute the query
+                statement.executeUpdate(sql);
+            }
+
+            // Set flag for nested query
+            this.nestedQuery = false;
+        }
+        catch(SQLException exception)
+        {
+            exception.printStackTrace();
+        }
+        finally
+        {
+            // Set flag for nested query
+            this.nestedQuery = false;
+
+            // Close the query environment in order to prevent leaks
+            close();
+        }
     }
 
     // Close all connection

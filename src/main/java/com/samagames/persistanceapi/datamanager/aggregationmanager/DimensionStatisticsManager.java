@@ -42,7 +42,7 @@ public class DimensionStatisticsManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, deaths, kills, played_games, wins, creation_date, update_date from dimensions_stats";
+            sql += "select (HEX(uuid)) as uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time from dimensions_stats";
             sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
@@ -60,10 +60,12 @@ public class DimensionStatisticsManager
                 int wins = resultset.getInt("wins");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
-                dimensionStats = new DimensionStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate);
+                long playedTime = resultset.getLong("played_time");
+                dimensionStats = new DimensionStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate, playedTime);
             }
             else
             {
+                // If there no dimension stats int the database
                 return null;
             }
         }
@@ -96,13 +98,14 @@ public class DimensionStatisticsManager
 
                 // Query construction for create
                 String sql = "";
-                sql += "insert into `dimensions_stats` (`uuid`, `deaths`, `kills`, `played_games`, `wins`, `creation_date`, `update_date`)";
+                sql += "insert into dimensions_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
                 sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'), ";
                 sql += dimensionStats.getDeaths() + ", ";
                 sql += dimensionStats.getKills() + ", ";
                 sql += dimensionStats.getPlayedGames() + ", ";
                 sql += dimensionStats.getWins() + ", ";
-                sql += " now(), now())";
+                sql += " now(), now()),";
+                sql += dimensionStats.getPlayedTime();
 
                 // Execute the query
                 statement.executeUpdate(sql);
@@ -119,7 +122,8 @@ public class DimensionStatisticsManager
                 sql += "kills=" + dimensionStats.getKills() + ", ";
                 sql += "played_games=" + dimensionStats.getPlayedGames() + ",";
                 sql += "wins=" + dimensionStats.getWins() + ", ";
-                sql += "update_date=now()";
+                sql += "update_date=now(),";
+                sql += "played_time=" + dimensionStats.getPlayedTime();
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
