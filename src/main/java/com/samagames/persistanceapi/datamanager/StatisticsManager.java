@@ -57,4 +57,5 @@ public class StatisticsManager
         PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcRunStatcs, upperVoidStats);
         return playerStatisticsBean;
     }
+
 }
