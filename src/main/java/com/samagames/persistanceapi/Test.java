@@ -92,7 +92,7 @@ public class Test
         // Create dimensions statistics
         uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
         otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
-        dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
         startTime = System.currentTimeMillis();
         manager.updateDimensionStatistics(otherPlayer, dimensionStats);
         System.out.println("Create dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
