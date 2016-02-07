@@ -13,12 +13,12 @@
 ===============================================================
 */
 
-package com.samagames.persistanceapi.beans.aggregationbean;
+package com.samagames.persistanceapi.beans.statistics;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class DimensionStatisticsBean
+public class HeroBattleStatisticsBean
 {
     /* Database Structure
     +---------------+------------------+------+-----+---------------------+----------------+
@@ -26,8 +26,10 @@ public class DimensionStatisticsBean
     +---------------+------------------+------+-----+---------------------+----------------+
     | uuid          | binary(16)       | NO   | PRI | NULL                |                |
     | deaths        | int(11)          | NO   |     | NULL                |                |
+    | elo           | int(11)          | NO   |     | NULL                |                |
     | kills         | int(11)          | NO   |     | NULL                |                |
     | played_games  | int(11)          | NO   |     | NULL                |                |
+    | powerup_taken | int(11)          | NO   |     | NULL                |                |
     | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
@@ -38,20 +40,24 @@ public class DimensionStatisticsBean
     // Defines
     private UUID uuid;
     private int deaths;
+    private int elo;
     private int kills;
     private int playedGames;
+    private int powerUpTaken;
     private int wins;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private long playedTime;
 
     // Constructor
-    public DimensionStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
+    public HeroBattleStatisticsBean(UUID uuid, int deaths, int elo, int kills, int playedGames, int powerUpTaken, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
         this.deaths = deaths;
+        this.elo = elo;
         this.kills = kills;
         this.playedGames = playedGames;
+        this.powerUpTaken = powerUpTaken;
         this.wins = wins;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
@@ -59,9 +65,10 @@ public class DimensionStatisticsBean
     }
 
     // Getters
-    public int getDeaths()
+    public int getDeaths() { return this.deaths; }
+    public int getElo()
     {
-        return this.deaths;
+        return this.elo;
     }
     public int getKills()
     {
@@ -71,14 +78,21 @@ public class DimensionStatisticsBean
     {
         return this.playedGames;
     }
-    public int getWins() {
-        return wins;
+    public int getPowerUpTaken()
+    {
+        return this.powerUpTaken;
     }
-    public Timestamp getCreationDate() {
-        return creationDate;
+    public int getWins()
+    {
+        return this.wins;
     }
-    public Timestamp getUpdateDate() {
-        return updateDate;
+    public Timestamp getCreationDate()
+    {
+        return this.creationDate;
+    }
+    public Timestamp getUpdateDate()
+    {
+        return this.updateDate;
     }
     public long getPlayedTime() { return playedTime; }
 
@@ -87,13 +101,19 @@ public class DimensionStatisticsBean
     {
         this.deaths = deaths;
     }
-    public void setKills(int kills)
+    public void setElo(int elo)
     {
+        this.elo = elo;
+    }
+    public void setKills(int kills) {
         this.kills = kills;
     }
     public void setPlayedGames(int playedGames)
     {
         this.playedGames = playedGames;
+    }
+    public void setPowerUpTaken(int powerUpTaken) {
+        this.powerUpTaken = powerUpTaken;
     }
     public void setWins(int wins)
     {

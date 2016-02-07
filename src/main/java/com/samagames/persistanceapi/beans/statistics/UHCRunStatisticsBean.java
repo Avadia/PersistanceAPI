@@ -13,20 +13,24 @@
 ===============================================================
 */
 
-package com.samagames.persistanceapi.beans.aggregationbean;
+package com.samagames.persistanceapi.beans.statistics;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class JukeBoxStatisticsBean
+public class UHCRunStatisticsBean
 {
     /* Database Structure
     +---------------+------------------+------+-----+---------------------+----------------+
     | Field         | Type             | Null | Key | Default             | Extra          |
     +---------------+------------------+------+-----+---------------------+----------------+
     | uuid          | binary(16)       | NO   | PRI | NULL                |                |
-    | mehs          | int(11)          | NO   |     | NULL                |                |
-    | woots         | int(11)          | NO   |     | NULL                |                |
+    | damages       | int(11)          | NO   |     | NULL                |                |
+    | deaths        | int(11)          | NO   |     | NULL                |                |
+    | kills         | int(11)          | NO   |     | NULL                |                |
+    | max_damages   | int(11)          | NO   |     | NULL                |                |
+    | played_games  | int(11)          | NO   |     | NULL                |                |
+    | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | played_time   | bigint(20)       | NO   |     | NULL                |                |
@@ -35,31 +39,55 @@ public class JukeBoxStatisticsBean
 
     // Defines
     private UUID uuid;
-    private int mehs;
-    private int woots;
+    private int damages;
+    private int deaths;
+    private int kills;
+    private int maxDamages;
+    private int playedGames;
+    private int wins;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private long playedTime;
 
     // Constructor
-    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate, long playedTime)
+    public UHCRunStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
-        this.mehs = mehs;
-        this.woots = woots;
+        this.damages = damages;
+        this.deaths = deaths;
+        this.kills = kills;
+        this.maxDamages = maxDamages;
+        this.playedGames = playedGames;
+        this.wins = wins;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
         this.playedTime = playedTime;
     }
 
     // Getters
-    public int getMehs()
+    public int getDamages()
     {
-        return this.mehs;
+        return this.damages;
     }
-    public int getWoots()
+    public int getDeaths()
     {
-        return this.woots;
+        return this.deaths;
+    }
+    public int getKills()
+    {
+        return this.kills;
+    }
+    public int getMaxDamages()
+    {
+        return this.maxDamages;
+    }
+    public int getPlayedGames()
+    {
+        return this.playedGames;
+    }
+    public int getWins()
+    {
+        return this.wins;
     }
     public Timestamp getCreationDate()
     {
@@ -72,13 +100,29 @@ public class JukeBoxStatisticsBean
     public long getPlayedTime() { return playedTime; }
 
     // Setters
-    public void setMehs(int mehs)
+    public void setDamages(int damages)
     {
-        this.mehs = mehs;
+        this.damages = damages;
     }
-    public void setWoots(int woots)
+    public void setDeaths(int deaths)
     {
-        this.woots = woots;
+        this.deaths = deaths;
+    }
+    public void setKills(int kills)
+    {
+        this.kills = kills;
+    }
+    public void setMaxDamages(int maxDamages)
+    {
+        this.maxDamages = maxDamages;
+    }
+    public void setPlayedGames(int playedGames)
+    {
+        this.playedGames = playedGames;
+    }
+    public void setWins(int wins)
+    {
+        this.wins = wins;
     }
     public void setCreationDate(Timestamp creationDate)
     {

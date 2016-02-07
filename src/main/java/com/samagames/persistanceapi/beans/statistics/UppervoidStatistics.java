@@ -13,23 +13,23 @@
 ===============================================================
 */
 
-package com.samagames.persistanceapi.beans.aggregationbean;
+package com.samagames.persistanceapi.beans.statistics;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class HeroBattleStatisticsBean
+public class UppervoidStatistics
 {
     /* Database Structure
     +---------------+------------------+------+-----+---------------------+----------------+
     | Field         | Type             | Null | Key | Default             | Extra          |
     +---------------+------------------+------+-----+---------------------+----------------+
     | uuid          | binary(16)       | NO   | PRI | NULL                |                |
-    | deaths        | int(11)          | NO   |     | NULL                |                |
-    | elo           | int(11)          | NO   |     | NULL                |                |
+    | blocks        | int(11)          | NO   |     | NULL                |                |
+    | grenades      | int(11)          | NO   |     | NULL                |                |
     | kills         | int(11)          | NO   |     | NULL                |                |
     | played_games  | int(11)          | NO   |     | NULL                |                |
-    | powerup_taken | int(11)          | NO   |     | NULL                |                |
+    | tnt_launched  | int(11)          | NO   |     | NULL                |                |
     | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
@@ -39,25 +39,25 @@ public class HeroBattleStatisticsBean
 
     // Defines
     private UUID uuid;
-    private int deaths;
-    private int elo;
+    private int blocks;
+    private int grenades;
     private int kills;
     private int playedGames;
-    private int powerUpTaken;
+    private int tntLaunched;
     private int wins;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private long playedTime;
 
     // Constructor
-    public HeroBattleStatisticsBean(UUID uuid, int deaths, int elo, int kills, int playedGames, int powerUpTaken, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
+    public UppervoidStatistics(UUID uuid, int blocks, int grenades, int kills, int playedGames, int tntLaunched, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
-        this.deaths = deaths;
-        this.elo = elo;
+        this.blocks = blocks;
+        this.grenades = grenades;
         this.kills = kills;
         this.playedGames = playedGames;
-        this.powerUpTaken = powerUpTaken;
+        this.tntLaunched = tntLaunched;
         this.wins = wins;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
@@ -65,10 +65,13 @@ public class HeroBattleStatisticsBean
     }
 
     // Getters
-    public int getDeaths() { return this.deaths; }
-    public int getElo()
+    public int getBlocks()
     {
-        return this.elo;
+        return this.blocks;
+    }
+    public int getGrenades()
+    {
+        return this.grenades;
     }
     public int getKills()
     {
@@ -78,9 +81,9 @@ public class HeroBattleStatisticsBean
     {
         return this.playedGames;
     }
-    public int getPowerUpTaken()
+    public int getTntLaunched()
     {
-        return this.powerUpTaken;
+        return this.tntLaunched;
     }
     public int getWins()
     {
@@ -97,23 +100,25 @@ public class HeroBattleStatisticsBean
     public long getPlayedTime() { return playedTime; }
 
     // Setters
-    public void setDeaths(int deaths)
+    public void setBlocks(int blocks)
     {
-        this.deaths = deaths;
+        this.blocks = blocks;
     }
-    public void setElo(int elo)
+    public void setGrenades(int grenades)
     {
-        this.elo = elo;
+        this.grenades = grenades;
     }
-    public void setKills(int kills) {
+    public void setKills(int kills)
+    {
         this.kills = kills;
     }
     public void setPlayedGames(int playedGames)
     {
         this.playedGames = playedGames;
     }
-    public void setPowerUpTaken(int powerUpTaken) {
-        this.powerUpTaken = powerUpTaken;
+    public void setTntLaunched(int tntLaunched)
+    {
+        this.tntLaunched = tntLaunched;
     }
     public void setWins(int wins)
     {

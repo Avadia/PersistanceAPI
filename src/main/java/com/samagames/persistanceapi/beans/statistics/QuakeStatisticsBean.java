@@ -13,22 +13,20 @@
 ===============================================================
 */
 
-package com.samagames.persistanceapi.beans.aggregationbean;
+package com.samagames.persistanceapi.beans.statistics;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class UHCRunStatisticsBean
+public class QuakeStatisticsBean
 {
     /* Database Structure
     +---------------+------------------+------+-----+---------------------+----------------+
     | Field         | Type             | Null | Key | Default             | Extra          |
     +---------------+------------------+------+-----+---------------------+----------------+
     | uuid          | binary(16)       | NO   | PRI | NULL                |                |
-    | damages       | int(11)          | NO   |     | NULL                |                |
     | deaths        | int(11)          | NO   |     | NULL                |                |
     | kills         | int(11)          | NO   |     | NULL                |                |
-    | max_damages   | int(11)          | NO   |     | NULL                |                |
     | played_games  | int(11)          | NO   |     | NULL                |                |
     | wins          | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
@@ -39,10 +37,8 @@ public class UHCRunStatisticsBean
 
     // Defines
     private UUID uuid;
-    private int damages;
     private int deaths;
     private int kills;
-    private int maxDamages;
     private int playedGames;
     private int wins;
     private Timestamp creationDate;
@@ -50,25 +46,19 @@ public class UHCRunStatisticsBean
     private long playedTime;
 
     // Constructor
-    public UHCRunStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
+    public QuakeStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
-        this.damages = damages;
         this.deaths = deaths;
         this.kills = kills;
-        this.maxDamages = maxDamages;
         this.playedGames = playedGames;
-        this.wins = wins;
+        this. wins = wins;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
         this.playedTime = playedTime;
     }
 
     // Getters
-    public int getDamages()
-    {
-        return this.damages;
-    }
     public int getDeaths()
     {
         return this.deaths;
@@ -76,10 +66,6 @@ public class UHCRunStatisticsBean
     public int getKills()
     {
         return this.kills;
-    }
-    public int getMaxDamages()
-    {
-        return this.maxDamages;
     }
     public int getPlayedGames()
     {
@@ -100,10 +86,6 @@ public class UHCRunStatisticsBean
     public long getPlayedTime() { return playedTime; }
 
     // Setters
-    public void setDamages(int damages)
-    {
-        this.damages = damages;
-    }
     public void setDeaths(int deaths)
     {
         this.deaths = deaths;
@@ -111,10 +93,6 @@ public class UHCRunStatisticsBean
     public void setKills(int kills)
     {
         this.kills = kills;
-    }
-    public void setMaxDamages(int maxDamages)
-    {
-        this.maxDamages = maxDamages;
     }
     public void setPlayedGames(int playedGames)
     {

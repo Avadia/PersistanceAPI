@@ -13,9 +13,9 @@
 ===============================================================
 */
 
-package com.samagames.persistanceapi.beans;
+package com.samagames.persistanceapi.beans.statistics;
 
-import com.samagames.persistanceapi.beans.aggregationbean.*;
+import com.samagames.persistanceapi.beans.statistics.*;
 
 public class PlayerStatisticsBean
 {

@@ -13,22 +13,20 @@
 ===============================================================
 */
 
-package com.samagames.persistanceapi.beans.aggregationbean;
+package com.samagames.persistanceapi.beans.statistics;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class QuakeStatisticsBean
+public class JukeBoxStatisticsBean
 {
     /* Database Structure
     +---------------+------------------+------+-----+---------------------+----------------+
     | Field         | Type             | Null | Key | Default             | Extra          |
     +---------------+------------------+------+-----+---------------------+----------------+
     | uuid          | binary(16)       | NO   | PRI | NULL                |                |
-    | deaths        | int(11)          | NO   |     | NULL                |                |
-    | kills         | int(11)          | NO   |     | NULL                |                |
-    | played_games  | int(11)          | NO   |     | NULL                |                |
-    | wins          | int(11)          | NO   |     | NULL                |                |
+    | mehs          | int(11)          | NO   |     | NULL                |                |
+    | woots         | int(11)          | NO   |     | NULL                |                |
     | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | played_time   | bigint(20)       | NO   |     | NULL                |                |
@@ -37,43 +35,31 @@ public class QuakeStatisticsBean
 
     // Defines
     private UUID uuid;
-    private int deaths;
-    private int kills;
-    private int playedGames;
-    private int wins;
+    private int mehs;
+    private int woots;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private long playedTime;
 
     // Constructor
-    public QuakeStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
+    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
-        this.deaths = deaths;
-        this.kills = kills;
-        this.playedGames = playedGames;
-        this. wins = wins;
+        this.mehs = mehs;
+        this.woots = woots;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
         this.playedTime = playedTime;
     }
 
     // Getters
-    public int getDeaths()
+    public int getMehs()
     {
-        return this.deaths;
+        return this.mehs;
     }
-    public int getKills()
+    public int getWoots()
     {
-        return this.kills;
-    }
-    public int getPlayedGames()
-    {
-        return this.playedGames;
-    }
-    public int getWins()
-    {
-        return this.wins;
+        return this.woots;
     }
     public Timestamp getCreationDate()
     {
@@ -86,21 +72,13 @@ public class QuakeStatisticsBean
     public long getPlayedTime() { return playedTime; }
 
     // Setters
-    public void setDeaths(int deaths)
+    public void setMehs(int mehs)
     {
-        this.deaths = deaths;
+        this.mehs = mehs;
     }
-    public void setKills(int kills)
+    public void setWoots(int woots)
     {
-        this.kills = kills;
-    }
-    public void setPlayedGames(int playedGames)
-    {
-        this.playedGames = playedGames;
-    }
-    public void setWins(int wins)
-    {
-        this.wins = wins;
+        this.woots = woots;
     }
     public void setCreationDate(Timestamp creationDate)
     {
