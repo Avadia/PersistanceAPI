@@ -123,7 +123,7 @@ public class DimensionStatisticsManager
                 sql += "played_games=" + dimensionStats.getPlayedGames() + ",";
                 sql += "wins=" + dimensionStats.getWins() + ", ";
                 sql += "update_date=now(),";
-                sql += "played_time=" + player.getPlayedTime();
+                sql += "played_time = played_time + " + player.getPlayedTime();
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
