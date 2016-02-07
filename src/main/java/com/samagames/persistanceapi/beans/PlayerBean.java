@@ -15,6 +15,7 @@
 
 package com.samagames.persistanceapi.beans;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -40,6 +41,8 @@ public class PlayerBean
     private int stars;
     private Timestamp lastLogin;
     private Timestamp firstLogin;
+    private long startTime;
+    private long stopTime;
 
     // Constructor
     public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin)
@@ -71,6 +74,8 @@ public class PlayerBean
     public Timestamp getFirstLogin() {
         return this.firstLogin;
     }
+    public long getStartTime() { return startTime; }
+    public long getStopTime() { return stopTime; }
 
     // Setters
     public void setUuid(UUID uuid)
@@ -91,5 +96,13 @@ public class PlayerBean
     }
     public void setFirstLogin(Timestamp firstLogin) {
         this.firstLogin = firstLogin;
+    }
+    public void setStartTime(long startTime) { this.startTime = startTime; }
+    public void setStopTime(long stopTime) { this.stopTime = stopTime; }
+
+    // Get played time
+    public long getPlayedTime()
+    {
+        return (this.getStopTime() - this.getStartTime());
     }
 }
