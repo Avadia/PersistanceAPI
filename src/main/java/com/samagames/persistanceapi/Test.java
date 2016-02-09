@@ -15,6 +15,7 @@
 
 package com.samagames.persistanceapi;
 
+import com.samagames.persistanceapi.beans.BungeeConfigBean;
 import com.samagames.persistanceapi.beans.PlayerBean;
 import com.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
 import java.sql.Timestamp;
@@ -35,6 +36,11 @@ public class Test
         System.out.println("Exécution du test");
         System.out.println("-----------------");
         GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagames","root","root");
+
+        // Config loading
+        startTime = System.currentTimeMillis();
+        manager.getBungeeConfig();
+        System.out.println("Load config time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Create the player
         startTime = System.currentTimeMillis();
