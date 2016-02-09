@@ -55,7 +55,6 @@ public class GameServiceManager
     }
 
 
-
     /*============================================
       Part of player manager
     ============================================*/
