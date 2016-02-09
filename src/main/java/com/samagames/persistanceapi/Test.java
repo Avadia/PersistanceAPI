@@ -44,7 +44,7 @@ public class Test
 
         // Create the player
         startTime = System.currentTimeMillis();
-        player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"125.125.125.125");
         manager.createPlayer(player);
         System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
@@ -56,6 +56,7 @@ public class Test
         // Data player update test
         player.setCoins(20);
         player.setStars(10);
+        player.setLastIP("100.100.100.100");
         startTime = System.currentTimeMillis();
         manager.updatePlayer(player);
         System.out.println("Update player process time: " + (System.currentTimeMillis()-startTime) + " ms");
@@ -97,7 +98,7 @@ public class Test
 
         // Create dimensions statistics
         uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
-        otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"50.50.50.50");
         dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
         startTime = System.currentTimeMillis();
         manager.updateDimensionStatistics(otherPlayer, dimensionStats);
