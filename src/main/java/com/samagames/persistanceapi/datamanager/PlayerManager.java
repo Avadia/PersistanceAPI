@@ -42,7 +42,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, name, coins, stars, last_login, first_login from players where uuid=(UNHEX('"+Transcoder.Encode(uuid.toString())+"'))";
+            sql += "select (HEX(uuid)) as uuid, name, coins, stars, last_login, first_login, last_ip from players where uuid=(UNHEX('"+Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -57,7 +57,8 @@ public class PlayerManager
                 int stars = resultset.getInt("stars");
                 Timestamp lastLogin = resultset.getTimestamp("last_login");
                 Timestamp firsLogin = resultset.getTimestamp("first_login");
-                player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin);
+                String lastIP = resultset.getString("last_ip");
+                player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin, lastIP);
             }
             else
             {
@@ -92,6 +93,7 @@ public class PlayerManager
             sql += "update players set coins=" + player.getCoins();
             sql += ", stars=" + player.getStars();
             sql += ", last_login='" + player.getLastLogin() +"'";
+            sql += ", last_ip='" + player.getLastIP() +"'";
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
@@ -120,12 +122,13 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "insert into players (uuid, name, coins, stars, last_login, first_login)";
+            sql += "insert into players (uuid, name, coins, stars, last_login, first_login, last_ip)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", '" + player.getName() + "'";
             sql += ", " + player.getCoins();
             sql += ", " + player.getStars();
-            sql += ", now(), now())";
+            sql += ", now(), now()";
+            sql += ", "+player.getLastIP() + ")";
 
             // Execute the query
             statement.executeUpdate(sql);
