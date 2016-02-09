@@ -92,7 +92,6 @@ public class PlayerManager
             sql += "update players set coins=" + player.getCoins();
             sql += ", stars=" + player.getStars();
             sql += ", last_login='" + player.getLastLogin() +"'";
-            sql += ", first_login='" + player.getLastLogin() +"'";
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
