@@ -31,6 +31,7 @@ public class PlayerBean
     | stars       | int(11)          | NO   |     | NULL                |                |
     | last_Login  | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | first_Login | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
+    | last_ip     | varchar(15)      | NO   |     | NULL                |                |
     +-------------+------------------+------+-----+---------------------+----------------+
     */
 
@@ -41,12 +42,13 @@ public class PlayerBean
     private int stars;
     private Timestamp lastLogin;
     private Timestamp firstLogin;
+    private String lastIP;
     // Non persistent attributes
     private long startTime;
     private long stopTime;
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin)
+    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP)
     {
         this.uuid = uuid;
         this.name = name;
@@ -54,6 +56,7 @@ public class PlayerBean
         this.stars = stars;
         this.lastLogin = lastLogin;
         this.firstLogin = firstLogin;
+        this.lastIP = lastIP;
     }
 
     // Getters
@@ -77,6 +80,7 @@ public class PlayerBean
     }
     public long getStartTime() { return startTime; }
     public long getStopTime() { return stopTime; }
+    public String getLastIP() { return lastIP; }
 
     // Setters
     public void setUuid(UUID uuid)
@@ -100,6 +104,7 @@ public class PlayerBean
     }
     public void setStartTime(long startTime) { this.startTime = startTime; }
     public void setStopTime(long stopTime) { this.stopTime = stopTime; }
+    public void setLastIP(String lastIP) { this.lastIP = lastIP; }
 
     // Get played time
     public long getPlayedTime()
