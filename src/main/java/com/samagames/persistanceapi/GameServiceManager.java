@@ -15,13 +15,12 @@
 
 package com.samagames.persistanceapi;
 
+import com.samagames.persistanceapi.beans.BungeeConfigBean;
 import com.samagames.persistanceapi.beans.PlayerBean;
 import com.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import com.samagames.persistanceapi.beans.statistics.*;
-import com.samagames.persistanceapi.datamanager.DatabaseManager;
-import com.samagames.persistanceapi.datamanager.PlayerManager;
-import com.samagames.persistanceapi.datamanager.SanctionManager;
-import com.samagames.persistanceapi.datamanager.StatisticsManager;
+import com.samagames.persistanceapi.datamanager.*;
+
 import java.util.UUID;
 
 public class GameServiceManager
@@ -31,6 +30,7 @@ public class GameServiceManager
     public PlayerManager playerManager;
     public SanctionManager sanctionManager;
     public StatisticsManager statisticsManager;
+    public ConfigurationManager configurationManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password)
@@ -39,7 +39,21 @@ public class GameServiceManager
         this.databaseManager = DatabaseManager.getInstance(url, name, password);
         this.playerManager = new PlayerManager();
         this.statisticsManager = new StatisticsManager();
+        this.configurationManager = new ConfigurationManager();
     }
+
+
+    /*============================================
+      Part of config manager
+    ============================================*/
+
+    // Get the bungee config
+    public BungeeConfigBean getBungeeConfig()
+    {
+        BungeeConfigBean config = this.configurationManager.getConfig(this.databaseManager.getDataSource());
+        return config;
+    }
+
 
 
     /*============================================
