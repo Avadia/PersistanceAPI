@@ -16,7 +16,7 @@
 package com.samagames.persistanceapi.datamanager.aggregationmanager;
 
 import com.samagames.persistanceapi.beans.PlayerBean;
-import com.samagames.persistanceapi.beans.aggregationbean.*;
+import com.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
 import com.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.*;
