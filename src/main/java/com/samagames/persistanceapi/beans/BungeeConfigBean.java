@@ -18,15 +18,15 @@ package com.samagames.persistanceapi.beans;
 public class BungeeConfigBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | slots       | int(11)          | NO   |     | NULL                |                |
-    | motd        | varchar(255)     | NO   |     | NULL                |                |
-    | close_type  | varchar(255)     | NO   |     | NULL                |                |
-    | server_line | varchar(255)     | NO   |     | NULL                |                |
-    | max_players | int(11)          | NO   |     | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +-------------+--------------+------+-----+---------+-------+
+    | Field       | Type         | Null | Key | Default | Extra |
+    +-------------+--------------+------+-----+---------+-------+
+    | slots       | int(11)      | NO   |     | NULL    |       |
+    | motd        | varchar(255) | NO   |     | NULL    |       |
+    | close_type  | varchar(255) | NO   |     | NULL    |       |
+    | server_line | varchar(255) | NO   |     | NULL    |       |
+    | max_players | int(11)      | NO   |     | NULL    |       |
+    +-------------+--------------+------+-----+---------+-------+
     */
 
     // Define attributes

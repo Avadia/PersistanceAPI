@@ -18,11 +18,14 @@ package com.samagames.persistanceapi.beans.permissions;
 public class BukkitPermissionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +------------------------+------------+------+-----+---------+-------+
+    | Field                  | Type       | Null | Key | Default | Extra |
+    +------------------------+------------+------+-----+---------+-------+
+    | bukkit_permission_id   | bigint(20) | NO   | PRI | NULL    |       |
+    | minecraft_command_op   | tinyint(1) | NO   |     | NULL    |       |
+    | bukkit_command_op_give | tinyint(1) | NO   |     | NULL    |       |
+    | bukkit_command_plugins | tinyint(1) | NO   |     | NULL    |       |
+    +------------------------+------------+------+-----+---------+-------+
     */
 
     // Defines

@@ -18,18 +18,31 @@ package com.samagames.persistanceapi.beans.permissions;
 public class APIPermissionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +-------------------------+------------+------+-----+---------+-------+
+    | Field                   | Type       | Null | Key | Default | Extra |
+    +-------------------------+------------+------+-----+---------+-------+
+    | api_permission_id       | bigint(20) | NO   | PRI | NULL    |       |
+    | api_servers_debug       | tinyint(1) | NO   |     | NULL    |       |
+    | api_permissions_refresh | tinyint(1) | NO   |     | NULL    |       |
+    | api_coins_get_other     | tinyint(1) | NO   |     | NULL    |       |
+    | api_coins_credit        | tinyint(1) | NO   |     | NULL    |       |
+    | api_coins_withdraw      | tinyint(1) | NO   |     | NULL    |       |
+    | api_inventory_show      | tinyint(1) | NO   |     | NULL    |       |
+    | api_player_data_set     | tinyint(1) | NO   |     | NULL    |       |
+    | api_player_data_del     | tinyint(1) | NO   |     | NULL    |       |
+    | api_modo_speakup        | tinyint(1) | NO   |     | NULL    |       |
+    | api_stars_getother      | tinyint(1) | NO   |     | NULL    |       |
+    | api_stars_credit        | tinyint(1) | NO   |     | NULL    |       |
+    | api_stars_withdraw      | tinyint(1) | NO   |     | NULL    |       |
+    | api_game_start          | tinyint(1) | NO   |     | NULL    |       |
+    +-------------------------+------------+------+-----+---------+-------+
     */
 
     // Defines
     private long apiPermissionId;
     private boolean apiServersDebug;
     private boolean apiPermissionsRefresh;
-    private boolean apiCoinsGetother;
+    private boolean apiCoinsGetOther;
     private boolean apiCoinsCredit;
     private boolean apiCoinsWithdraw;
     private boolean apiInventoryShow;
@@ -44,7 +57,7 @@ public class APIPermissionsBean
     // Getters
     public boolean isApiServersDebug() { return apiServersDebug; }
     public boolean isApiPermissionsRefresh() { return apiPermissionsRefresh; }
-    public boolean isApiCoinsGetother() { return apiCoinsGetother; }
+    public boolean isApiCoinsGetother() { return apiCoinsGetOther; }
     public boolean isApiCoinsCredit() { return apiCoinsCredit; }
     public boolean isApiCoinsWithdraw() { return apiCoinsWithdraw; }
     public boolean isApiInventoryShow() { return apiInventoryShow; }
@@ -60,7 +73,7 @@ public class APIPermissionsBean
     // Setters
     public void setApiServersDebug(boolean apiServersDebug) { this.apiServersDebug = apiServersDebug; }
     public void setApiPermissionsRefresh(boolean apiPermissionsRefresh) { this.apiPermissionsRefresh = apiPermissionsRefresh; }
-    public void setApiCoinsGetother(boolean apiCoinsGetother) { this.apiCoinsGetother = apiCoinsGetother; }
+    public void setApiCoinsGetother(boolean apiCoinsGetother) { this.apiCoinsGetOther = apiCoinsGetother; }
     public void setApiCoinsCredit(boolean apiCoinsCredit) { this.apiCoinsCredit = apiCoinsCredit; }
     public void setApiCoinsWithdraw(boolean apiCoinsWithdraw) { this.apiCoinsWithdraw = apiCoinsWithdraw; }
     public void setApiInventoryShow(boolean apiInventoryShow) { this.apiInventoryShow = apiInventoryShow; }

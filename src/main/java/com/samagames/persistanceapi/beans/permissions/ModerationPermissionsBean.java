@@ -18,11 +18,18 @@ package com.samagames.persistanceapi.beans.permissions;
 public class ModerationPermissionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +--------------------------+------------+------+-----+---------+-------+
+    | Field                    | Type       | Null | Key | Default | Extra |
+    +--------------------------+------------+------+-----+---------+-------+
+    | moderation_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | mod_ban                  | tinyint(1) | NO   |     | NULL    |       |
+    | mod_tp                   | tinyint(1) | NO   |     | NULL    |       |
+    | mod_kick                 | tinyint(1) | NO   |     | NULL    |       |
+    | mod_pardon               | tinyint(1) | NO   |     | NULL    |       |
+    | mod_mute_longtime        | tinyint(1) | NO   |     | NULL    |       |
+    | mod_mute                 | tinyint(1) | NO   |     | NULL    |       |
+    | mod_channel              | tinyint(1) | NO   |     | NULL    |       |
+    +--------------------------+------------+------+-----+---------+-------+
     */
 
     // Defines

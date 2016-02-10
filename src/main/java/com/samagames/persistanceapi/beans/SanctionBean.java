@@ -21,18 +21,18 @@ import java.util.UUID;
 public class SanctionBean
 {
     /* Database Structure
-    +-----------------+------------------+------+-----+---------------------+----------------+
-    | Field           | Type             | Null | Key | Default             | Extra          |
-    +-----------------+------------------+------+-----+---------------------+----------------+
-    | player_uuid     | binary(16)       | NO   | PRI | NULL                |                |
-    | type_id         | int(11)          | NO   |     | NULL                |                |
-    | reason          | varchar(25       | NO   |     | NULL                |                |
-    | punisher_uuid   | binary(16)       | NO   |     | NULL                |                |
-    | expiration_time | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    | is_deleted      | tinyint(1)       | NO   |     | NULL                |                |
-    | creation_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    | update_date     | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    +-----------------+------------------+------+-----+---------------------+----------------+
+    +-----------------+--------------+------+-----+---------------------+-------+
+    | Field           | Type         | Null | Key | Default             | Extra |
+    +-----------------+--------------+------+-----+---------------------+-------+
+    | player_uuid     | binary(16)   | NO   | PRI | NULL                |       |
+    | type_id         | int(11)      | NO   |     | NULL                |       |
+    | reason          | varchar(255) | NO   |     | NULL                |       |
+    | punisher_uuid   | binary(16)   | NO   |     | NULL                |       |
+    | expiration_date | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
+    | is_deleted      | tinyint(1)   | NO   |     | NULL                |       |
+    | creation_date   | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
+    | update_date     | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
+    +-----------------+--------------+------+-----+---------------------+-------+
     */
 
     // Defines sanctions types

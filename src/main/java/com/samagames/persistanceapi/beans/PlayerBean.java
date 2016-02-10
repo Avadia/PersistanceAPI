@@ -15,25 +15,24 @@
 
 package com.samagames.persistanceapi.beans;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
 public class PlayerBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    | name        | varchar(255)     | NO   |     | NULL                |                |
-    | coins       | int(11)          | NO   |     | NULL                |                |
-    | stars       | int(11)          | NO   |     | NULL                |                |
-    | last_Login  | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    | first_Login | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    | last_ip     | varchar(15)      | NO   |     | NULL                |                |
-    | toptp_key   | varchar(32)      | NO   |     | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +-------------+--------------+------+-----+---------------------+-------+
+    | Field       | Type         | Null | Key | Default             | Extra |
+    +-------------+--------------+------+-----+---------------------+-------+
+    | uuid        | binary(16)   | NO   | PRI | NULL                |       |
+    | name        | varchar(255) | NO   |     | NULL                |       |
+    | coins       | int(11)      | YES  |     | NULL                |       |
+    | stars       | int(11)      | YES  |     | NULL                |       |
+    | last_login  | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
+    | first_login | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
+    | last_ip     | varchar(15)  | YES  |     | NULL                |       |
+    | toptp_key   | varchar(32)  | YES  |     | NULL                |       |
+    +-------------+--------------+------+-----+---------------------+-------+
     */
 
     // Define attributes
@@ -78,9 +77,7 @@ public class PlayerBean
     public Timestamp getLastLogin() {
         return this.lastLogin;
     }
-    public Timestamp getFirstLogin() {
-        return this.firstLogin;
-    }
+    public Timestamp getFirstLogin() { return this.firstLogin; }
     public long getStartTime() { return startTime; }
     public long getStopTime() { return stopTime; }
     public String getLastIP() { return lastIP; }

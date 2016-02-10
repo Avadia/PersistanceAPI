@@ -18,17 +18,22 @@ package com.samagames.persistanceapi.beans.permissions;
 public class StaffPermissionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +---------------------+------------+------+-----+---------+-------+
+    | Field               | Type       | Null | Key | Default | Extra |
+    +---------------------+------------+------+-----+---------+-------+
+    | staff_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | staff_member        | tinyint(1) | NO   |     | NULL    |       |
+    | netjoin_closed      | tinyint(1) | NO   |     | NULL    |       |
+    | netjoin_vip         | tinyint(1) | NO   |     | NULL    |       |
+    | netjoin_full        | tinyint(1) | NO   |     | NULL    |       |
+    | tracker_famous      | tinyint(1) | NO   |     | NULL    |       |
+    +---------------------+------------+------+-----+---------+-------+
     */
 
     // Defines
     private long staffPermissionId;
     private boolean staffMember;
-    private boolean  netjoinClosed;
+    private boolean netjoinClosed;
     private boolean netjoinVip;
     private boolean netjoinFull;
     private boolean trackerFamous;

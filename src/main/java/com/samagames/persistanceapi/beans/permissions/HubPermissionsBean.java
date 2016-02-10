@@ -18,11 +18,24 @@ package com.samagames.persistanceapi.beans.permissions;
 public class HubPermissionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +-----------------------------+------------+------+-----+---------+-------+
+    | Field                       | Type       | Null | Key | Default | Extra |
+    +-----------------------------+------------+------+-----+---------+-------+
+    | hub_permission_id           | bigint(20) | NO   |     | NULL    |       |
+    | hub_jukebox_lock            | tinyint(1) | NO   |     | NULL    |       |
+    | hub_jukebox_next            | tinyint(1) | NO   |     | NULL    |       |
+    | hub_mod_slow                | tinyint(1) | NO   |     | NULL    |       |
+    | hub_mod_shutup              | tinyint(1) | NO   |     | NULL    |       |
+    | hub_admin_sign              | tinyint(1) | NO   |     | NULL    |       |
+    | hub_anguille                | tinyint(1) | NO   |     | NULL    |       |
+    | hub_jukebox_nbs             | tinyint(1) | NO   |     | NULL    |       |
+    | hub_announce                | tinyint(1) | NO   |     | NULL    |       |
+    | hub_gadgets_cooldown_bypass | tinyint(1) | NO   |     | NULL    |       |
+    | hub_jukebox_limit_bypass    | tinyint(1) | NO   |     | NULL    |       |
+    | hub_bypass_mute             | tinyint(1) | NO   |     | NULL    |       |
+    | hub_fly                     | tinyint(1) | NO   |     | NULL    |       |
+    | hub_debug_sign              | tinyint(1) | NO   |     | NULL    |       |
+    +-----------------------------+------------+------+-----+---------+-------+
     */
 
     // Defines

@@ -21,18 +21,18 @@ import java.util.UUID;
 public class DimensionStatisticsBean
 {
     /* Database Structure
-    +---------------+------------------+------+-----+---------------------+----------------+
-    | Field         | Type             | Null | Key | Default             | Extra          |
-    +---------------+------------------+------+-----+---------------------+----------------+
-    | uuid          | binary(16)       | NO   | PRI | NULL                |                |
-    | deaths        | int(11)          | NO   |     | NULL                |                |
-    | kills         | int(11)          | NO   |     | NULL                |                |
-    | played_games  | int(11)          | NO   |     | NULL                |                |
-    | wins          | int(11)          | NO   |     | NULL                |                |
-    | creation_date | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    | update_date   | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
-    | played_time   | bigint(20)       | NO   |     | NULL                |                |
-    +---------------+------------------+------+-----+---------------------+----------------+
+    +---------------+------------+------+-----+---------------------+-------+
+    | Field         | Type       | Null | Key | Default             | Extra |
+    +---------------+------------+------+-----+---------------------+-------+
+    | uuid          | binary(16) | NO   | PRI | NULL                |       |
+    | deaths        | int(11)    | NO   |     | NULL                |       |
+    | kills         | int(11)    | NO   |     | NULL                |       |
+    | played_games  | int(11)    | NO   |     | NULL                |       |
+    | wins          | int(11)    | NO   |     | NULL                |       |
+    | creation_date | timestamp  | NO   |     | 0000-00-00 00:00:00 |       |
+    | update_date   | timestamp  | NO   |     | 0000-00-00 00:00:00 |       |
+    | played_time   | bigint(20) | NO   |     | NULL                |       |
+    +---------------+------------+------+-----+---------------------+-------+
     */
 
     // Defines

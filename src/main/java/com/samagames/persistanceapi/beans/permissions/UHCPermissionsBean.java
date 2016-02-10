@@ -17,28 +17,31 @@ package com.samagames.persistanceapi.beans.permissions;
 public class UHCPermissionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +-------------------+------------+------+-----+---------+-------+
+    | Field             | Type       | Null | Key | Default | Extra |
+    +-------------------+------------+------+-----+---------+-------+
+    | uhc_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | uhc_team_lock     | tinyint(1) | NO   |     | NULL    |       |
+    | uhc_team_name     | tinyint(1) | NO   |     | NULL    |       |
+    | uhc_team_invite   | tinyint(1) | NO   |     | NULL    |       |
+    +-------------------+------------+------+-----+---------+-------+
     */
 
     // Defines
     private long uhcPermissionId;
-    private boolean uhcTeamlock;
+    private boolean uhcTeamLock;
     private boolean uhcTeamName;
-    private boolean uhcTeaminvite;
+    private boolean uhcTeamInvite;
 
     // Getters
     public long getUhcPermissionId() { return uhcPermissionId; }
-    public boolean isUhcTeamlock() { return uhcTeamlock; }
+    public boolean isUhcTeamlock() { return uhcTeamLock; }
     public boolean isUhcTeamName() { return uhcTeamName; }
-    public boolean isUhcTeaminvite() { return uhcTeaminvite; }
+    public boolean isUhcTeaminvite() { return uhcTeamInvite; }
 
     // Setters
-    public void setUhcTeamlock(boolean uhcTeamlock) { this.uhcTeamlock = uhcTeamlock; }
+    public void setUhcTeamlock(boolean uhcTeamlock) { this.uhcTeamLock = uhcTeamlock; }
     public void setUhcTeamName(boolean uhcTeamName) { this.uhcTeamName = uhcTeamName; }
-    public void setUhcTeaminvite(boolean uhcTeaminvite) { this.uhcTeaminvite = uhcTeaminvite; }
+    public void setUhcTeaminvite(boolean uhcTeaminvite) { this.uhcTeamInvite = uhcTeaminvite; }
 
 }

@@ -18,11 +18,15 @@ package com.samagames.persistanceapi.beans.permissions;
 public class ProxiesPermissionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +-----------------------+------------+------+-----+---------+-------+
+    | Field                 | Type       | Null | Key | Default | Extra |
+    +-----------------------+------------+------+-----+---------+-------+
+    | proxies_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | proxies_dispatch      | tinyint(1) | NO   |     | NULL    |       |
+    | proxies_global        | tinyint(1) | NO   |     | NULL    |       |
+    | proxies_debug         | tinyint(1) | NO   |     | NULL    |       |
+    | proxies_set_option    | tinyint(1) | NO   |     | NULL    |       |
+    +-----------------------+------------+------+-----+---------+-------+
     */
 
     // Defines

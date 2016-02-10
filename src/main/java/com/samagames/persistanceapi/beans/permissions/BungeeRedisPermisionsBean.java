@@ -18,11 +18,23 @@ package com.samagames.persistanceapi.beans.permissions;
 public class BungeeRedisPermisionsBean
 {
     /* Database Structure
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | Field       | Type             | Null | Key | Default             | Extra          |
-    +-------------+------------------+------+-----+---------------------+----------------+
-    | uuid        | binary(16)       | NO   | PRI | NULL                |                |
-    +-------------+------------------+------+-----+---------------------+----------------+
+    +---------------------------------+------------+------+-----+---------+-------+
+    | Field                           | Type       | Null | Key | Default | Extra |
+    +---------------------------------+------------+------+-----+---------+-------+
+    | bungee_redis_permission_id      | bigint(20) | NO   | PRI | NULL    |       |
+    | bungeecord_command_list         | tinyint(1) | NO   |     | NULL    |       |
+    | bungeecord_command_find         | tinyint(1) | NO   |     | NULL    |       |
+    | redisbungee_command_last_seen   | tinyint(1) | NO   |     | NULL    |       |
+    | redisbungee_command_send_to_all | tinyint(1) | NO   |     | NULL    |       |
+    | redisbungee_command_server_id   | tinyint(1) | NO   |     | NULL    |       |
+    | redisbunge_command_server_ids   | tinyint(1) | NO   |     | NULL    |       |
+    | redisbungee_command_pproxy      | tinyint(1) | NO   |     | NULL    |       |
+    | redisbungee_command_plist       | tinyint(1) | NO   |     | NULL    |       |
+    | bungeecord_command_server       | tinyint(1) | NO   |     | NULL    |       |
+    | bungeecord_command_send         | tinyint(1) | NO   |     | NULL    |       |
+    | bungeecord_command_end          | tinyint(1) | NO   |     | NULL    |       |
+    | bungeecord_command_alert        | tinyint(1) | NO   |     | NULL    |       |
+    +---------------------------------+------------+------+-----+---------+-------+
     */
 
     // Defines
