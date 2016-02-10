@@ -51,7 +51,7 @@ public class StatisticsManager
         JukeBoxStatisticsBean jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
         QuakeStatisticsBean quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
         UHCRunStatisticsBean uhcRunStatcs = this.uhcRunStatsManager.getUHCRunStatistics(player, dataSource);
-        UppervoidStatistics upperVoidStats = this.upperVoidStatsManager.getUpperVoidStatistics(player, dataSource);
+        UppervoidStatisticsBean upperVoidStats = this.upperVoidStatsManager.getUpperVoidStatistics(player, dataSource);
 
         // Create the aggregation of different statistics bean
         PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcRunStatcs, upperVoidStats);
