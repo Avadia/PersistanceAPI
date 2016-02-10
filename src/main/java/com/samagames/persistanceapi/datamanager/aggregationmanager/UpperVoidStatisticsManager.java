@@ -16,7 +16,7 @@
 package com.samagames.persistanceapi.datamanager.aggregationmanager;
 
 import com.samagames.persistanceapi.beans.PlayerBean;
-import com.samagames.persistanceapi.beans.statistics.UppervoidStatistics;
+import com.samagames.persistanceapi.beans.statistics.UppervoidStatisticsBean;
 import com.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.*;
@@ -28,11 +28,11 @@ public class UpperVoidStatisticsManager
     Connection connection = null;
     Statement statement = null;
     ResultSet resultset = null;
-    UppervoidStatistics uppervoidStats = null;
+    UppervoidStatisticsBean uppervoidStats = null;
     boolean nestedQuery = false;
 
     // Get UpperVoid player statistics
-    public UppervoidStatistics getUpperVoidStatistics(PlayerBean player, DataSource dataSource)
+    public UppervoidStatisticsBean getUpperVoidStatistics(PlayerBean player, DataSource dataSource)
     {
         try
         {
@@ -63,7 +63,7 @@ public class UpperVoidStatisticsManager
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 long playedTime = resultset.getLong("played_time");
-                uppervoidStats = new UppervoidStatistics(uuid, blocks, grenades, kills, playedGames, tntLaunched, wins, creationDate, updateDate, playedTime);
+                uppervoidStats = new UppervoidStatisticsBean(uuid, blocks, grenades, kills, playedGames, tntLaunched, wins, creationDate, updateDate, playedTime);
             }
             else
             {
@@ -84,7 +84,7 @@ public class UpperVoidStatisticsManager
     }
 
     // Update UpperVoid player statistics
-    public void updateUpperVoidStatistics(PlayerBean player, UppervoidStatistics dimensionStats, DataSource dataSource)
+    public void updateUpperVoidStatistics(PlayerBean player, UppervoidStatisticsBean dimensionStats, DataSource dataSource)
     {
         try
         {
