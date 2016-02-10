@@ -32,6 +32,7 @@ public class PlayerBean
     | last_Login  | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | first_Login | timestamp        | NO   |     | 0000-00-00 00:00:00 |                |
     | last_ip     | varchar(15)      | NO   |     | NULL                |                |
+    | toptp_key   | varchar(32)      | NO   |     | NULL                |                |
     +-------------+------------------+------+-----+---------------------+----------------+
     */
 
@@ -43,12 +44,13 @@ public class PlayerBean
     private Timestamp lastLogin;
     private Timestamp firstLogin;
     private String lastIP;
+    private String toptpKey;
     // Non persistent attributes
     private long startTime;
     private long stopTime;
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP)
+    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey)
     {
         this.uuid = uuid;
         this.name = name;
@@ -57,6 +59,7 @@ public class PlayerBean
         this.lastLogin = lastLogin;
         this.firstLogin = firstLogin;
         this.lastIP = lastIP;
+        this.toptpKey = toptpKey;
     }
 
     // Getters
@@ -81,6 +84,7 @@ public class PlayerBean
     public long getStartTime() { return startTime; }
     public long getStopTime() { return stopTime; }
     public String getLastIP() { return lastIP; }
+    public String getToptpKey() { return toptpKey; }
 
     // Setters
     public void setUuid(UUID uuid)
@@ -105,6 +109,7 @@ public class PlayerBean
     public void setStartTime(long startTime) { this.startTime = startTime; }
     public void setStopTime(long stopTime) { this.stopTime = stopTime; }
     public void setLastIP(String lastIP) { this.lastIP = lastIP; }
+    public void setToptpKey(String toptpKey) { this.toptpKey = toptpKey; }
 
     // Get played time
     public long getPlayedTime()
