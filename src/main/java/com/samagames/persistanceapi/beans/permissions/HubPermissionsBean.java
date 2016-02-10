@@ -32,7 +32,7 @@ public class HubPermissionsBean
     private boolean hubModSlow;
     private boolean hubModShutup;
     private boolean hubAdminSign;
-    private boolean hubAnguille; // FIXME wut ?
+    private boolean hubAnguille;
     private boolean hubJukeboxNbs;
     private boolean hubAnnounce;
     private boolean hubGadgetsCooldownbypass;
