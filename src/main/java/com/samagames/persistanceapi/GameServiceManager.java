@@ -184,7 +184,7 @@ public class GameServiceManager
     }
 
     // Get UpperVoid player statistics
-    public UppervoidStatistics getUpperVoidStatistics(PlayerBean player)
+    public UppervoidStatisticsBean getUpperVoidStatistics(PlayerBean player)
     {
         // Get the statistics
         return this.statisticsManager.upperVoidStatsManager.getUpperVoidStatistics(player, this.databaseManager.getDataSource());
