@@ -33,7 +33,7 @@ public class BungeeRedisPermisionsBean
     private boolean redisbungeeCommandSendtoAll;
     private boolean redisbungeeCommandServerId;
     private boolean redisbungeCommandServerIds;
-    private boolean redisbungeeCommandPproxy; // FIXME vraiment PProxy ?
+    private boolean redisbungeeCommandPproxy;
     private boolean redisbungeeCommandPlist;
     private boolean bungeecordCommandServer;
     private boolean bungeecordCommandSend;
