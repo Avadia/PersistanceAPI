@@ -44,7 +44,7 @@ public class Test
 
         // Config updating
         startTime = System.currentTimeMillis();
-        config.setSlots(0);
+        config.setSlots(10);
         config.setMaxPlayers(10000);
         manager.updateBungeeConfig(config);
         System.out.println("Update config time: " + (System.currentTimeMillis()-startTime) + " ms");
@@ -53,12 +53,13 @@ public class Test
         startTime = System.currentTimeMillis();
         player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"125.125.125.125","TheUltimateKey");
         manager.createPlayer(player);
-        System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+        System.out.println("Create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
 
         // Find a player test
         startTime = System.currentTimeMillis();
         player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"));
-        System.out.println("Create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+        System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Data player update test
         player.setCoins(20);
@@ -118,5 +119,6 @@ public class Test
         startTime = System.currentTimeMillis();
         manager.updateDimensionStatistics(otherPlayer, dimensionStats);
         System.out.println("Update dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
-    }
+
+     }
 }
