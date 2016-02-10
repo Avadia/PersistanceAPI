@@ -16,6 +16,7 @@
 package com.samagames.persistanceapi.datamanager;
 
 import com.samagames.persistanceapi.beans.BungeeConfigBean;
+import com.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -28,6 +29,7 @@ public class ConfigurationManager
     Statement statement = null;
     ResultSet resultset = null;
 
+    // Get the bungee config
     public BungeeConfigBean getConfig(DataSource dataSource)
     {
         // Make the research of player by UUID
@@ -70,6 +72,38 @@ public class ConfigurationManager
             close();
         }
         return null;
+    }
+
+    // Update the bungee config
+    public void updateConfig(BungeeConfigBean config, DataSource dataSource)
+    {
+        // Update the config
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "update configuration set slots=" + config.getSlots();
+            sql += ", motd=" + config.getMotd();
+            sql += ", close_type" + config.getCloseType();
+            sql += ", server_line" + config.getServerLine();
+            sql += ", max_players" + config.getMaxPlayers();
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (SQLException exception)
+        {
+            exception.printStackTrace();
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            close();
+        }
     }
 
     // Close the connection
