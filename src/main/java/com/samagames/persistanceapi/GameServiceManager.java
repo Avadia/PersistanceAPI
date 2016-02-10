@@ -33,10 +33,10 @@ public class GameServiceManager
     public ConfigurationManager configurationManager;
 
     // Super constructor
-    public GameServiceManager(String url, String name, String password)
+    public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
     {
         // Singleton of DatabaseManager
-        this.databaseManager = DatabaseManager.getInstance(url, name, password);
+        this.databaseManager = DatabaseManager.getInstance(url, name, password, minPoolSize, maxPoolSize);
         this.playerManager = new PlayerManager();
         this.statisticsManager = new StatisticsManager();
         this.configurationManager = new ConfigurationManager();
