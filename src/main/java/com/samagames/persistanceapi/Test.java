@@ -35,7 +35,7 @@ public class Test
         // Initialize the manager
         System.out.println("Exécution du test");
         System.out.println("-----------------");
-        GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagames","root","root");
+        GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagames", "root","root", 1, 10);
 
         // Config loading
         startTime = System.currentTimeMillis();
