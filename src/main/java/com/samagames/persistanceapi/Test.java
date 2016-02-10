@@ -64,6 +64,7 @@ public class Test
         player.setCoins(20);
         player.setStars(10);
         player.setLastIP("100.100.100.100");
+        player.setToptpKey("NewKey");
         startTime = System.currentTimeMillis();
         manager.updatePlayer(player);
         System.out.println("Update player process time: " + (System.currentTimeMillis()-startTime) + " ms");
