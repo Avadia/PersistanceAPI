@@ -15,8 +15,6 @@
 
 package com.samagames.persistanceapi.beans.statistics;
 
-import com.samagames.persistanceapi.beans.statistics.*;
-
 public class PlayerStatisticsBean
 {
     // Defines aggregation of statistics
@@ -25,17 +23,17 @@ public class PlayerStatisticsBean
     private JukeBoxStatisticsBean jukeBoxStats;
     private QuakeStatisticsBean quakeStats;
     private UHCRunStatisticsBean uhcRunStats;
-    private UppervoidStatistics uppervoidStats;
+    private UppervoidStatisticsBean uppervoidStats;
 
     // Constructor
-    public PlayerStatisticsBean(DimensionStatisticsBean dimmensionStats, HeroBattleStatisticsBean heroBatleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCRunStatisticsBean uhcRunStats, UppervoidStatistics uppervoidStatistics)
+    public PlayerStatisticsBean(DimensionStatisticsBean dimmensionStats, HeroBattleStatisticsBean heroBatleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCRunStatisticsBean uhcRunStats, UppervoidStatisticsBean uppervoidStatisticsBean)
     {
         this.dimmensionStats = dimmensionStats;
         this.heroBatleStats = heroBatleStats;
         this.jukeBoxStats = jukeBoxStats;
         this.quakeStats = quakeStats;
         this.uhcRunStats = uhcRunStats;
-        this.uppervoidStats = uppervoidStatistics;
+        this.uppervoidStats = uppervoidStatisticsBean;
     }
 
     // Getters
@@ -54,7 +52,7 @@ public class PlayerStatisticsBean
     public UHCRunStatisticsBean getUhcRunStats() {
         return uhcRunStats;
     }
-    public UppervoidStatistics getUppervoidStats() {
+    public UppervoidStatisticsBean getUppervoidStats() {
         return uppervoidStats;
     }
 
@@ -74,7 +72,7 @@ public class PlayerStatisticsBean
     public void setUhcRunStats(UHCRunStatisticsBean uhcRunStats) {
         this.uhcRunStats = uhcRunStats;
     }
-    public void setUppervoidStats(UppervoidStatistics uppervoidStats) {
+    public void setUppervoidStats(UppervoidStatisticsBean uppervoidStats) {
         this.uppervoidStats = uppervoidStats;
     }
 
