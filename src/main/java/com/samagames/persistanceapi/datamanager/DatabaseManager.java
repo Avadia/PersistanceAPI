@@ -30,20 +30,24 @@ public class DatabaseManager
     private String url;
     private String name;
     private String password;
+    private int minPoolSize;
+    private int maxPoolSize;
 
     // Default constructor
-    public DatabaseManager(String url, String name, String password)
+    public DatabaseManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
     {
         // Super constructor
         super();
         this.url = url;
         this.name = name;
         this.password = password;
+        this.minPoolSize = minPoolSize;
+        this.maxPoolSize = maxPoolSize;
         this.setupDataSource();
     }
 
     // Singleton generator
-    public final static DatabaseManager getInstance(String url, String name, String password)
+    public final static DatabaseManager getInstance(String url, String name, String password, int minPoolSize, int maxPoolSize)
     {
         if (DatabaseManager.instance == null)
         {
@@ -51,7 +55,7 @@ public class DatabaseManager
             {
                 if (DatabaseManager.instance == null)
                 {
-                    DatabaseManager.instance = new DatabaseManager(url, name, password);
+                    DatabaseManager.instance = new DatabaseManager(url, name, password, minPoolSize, maxPoolSize);
                 }
             }
         }
@@ -63,14 +67,12 @@ public class DatabaseManager
     {
         // Set a JDBC/MySQL connection
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver"); //TODO Externalize
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl(this.url);
         dataSource.setUsername(this.name);
         dataSource.setPassword(this.password);
-        // Set minimal pool size to 1
-        dataSource.setInitialSize(1);
-        // Set maximal pool size to 10
-        dataSource.setMaxTotal(10);
+        dataSource.setInitialSize(this.minPoolSize);
+        dataSource.setMaxTotal(this.maxPoolSize);
         this.dataSource = dataSource;
     }
 
