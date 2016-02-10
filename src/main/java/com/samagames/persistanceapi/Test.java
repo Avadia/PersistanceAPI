@@ -39,8 +39,15 @@ public class Test
 
         // Config loading
         startTime = System.currentTimeMillis();
-        manager.getBungeeConfig();
+        BungeeConfigBean config = manager.getBungeeConfig();
         System.out.println("Load config time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Config updating
+        startTime = System.currentTimeMillis();
+        config.setSlots(0);
+        config.setMaxPlayers(10000);
+        manager.updateBungeeConfig(config);
+        System.out.println("Update config time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Create the player
         startTime = System.currentTimeMillis();
