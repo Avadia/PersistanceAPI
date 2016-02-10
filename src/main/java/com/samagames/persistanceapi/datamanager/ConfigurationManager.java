@@ -16,8 +16,6 @@
 package com.samagames.persistanceapi.datamanager;
 
 import com.samagames.persistanceapi.beans.BungeeConfigBean;
-import com.samagames.persistanceapi.utils.Transcoder;
-
 import javax.sql.DataSource;
 import java.sql.*;
 
@@ -55,6 +53,8 @@ public class ConfigurationManager
                 String closeType = resultset.getString("close_type");
                 String serverLine = resultset.getString("server_line");
                 int maxPlayers = resultset.getInt("max_players");
+                BungeeConfigBean config = new BungeeConfigBean(slots, motd, closeType, serverLine, maxPlayers);
+                return config;
             }
             else
             {
@@ -87,10 +87,10 @@ public class ConfigurationManager
             // Query construction
             String sql = "";
             sql += "update configuration set slots=" + config.getSlots();
-            sql += ", motd=" + config.getMotd();
-            sql += ", close_type" + config.getCloseType();
-            sql += ", server_line" + config.getServerLine();
-            sql += ", max_players" + config.getMaxPlayers();
+            sql += ", motd='" + config.getMotd() + "'";
+            sql += ", close_type='" + config.getCloseType() + "'";
+            sql += ", server_line='" + config.getServerLine() + "'";
+            sql += ", max_players=" + config.getMaxPlayers();
 
             // Execute the query
             statement.executeUpdate(sql);
