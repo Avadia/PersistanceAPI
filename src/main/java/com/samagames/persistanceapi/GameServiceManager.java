@@ -54,6 +54,12 @@ public class GameServiceManager
         return config;
     }
 
+    // Update the bungee config
+    public void updateBungeeConfig(BungeeConfigBean config)
+    {
+        this.configurationManager.updateConfig(config, this.databaseManager.getDataSource());
+    }
+
 
     /*============================================
       Part of player manager
