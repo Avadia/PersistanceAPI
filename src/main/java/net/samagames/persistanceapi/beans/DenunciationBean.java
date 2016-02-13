@@ -18,7 +18,7 @@ package net.samagames.persistanceapi.beans;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class DenoucementBean
+public class DenunciationBean
 {
     /* Database Structure
     +-----------------+--------------+------+-----+---------------------+----------------+
