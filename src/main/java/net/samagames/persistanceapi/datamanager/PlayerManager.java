@@ -30,6 +30,7 @@ public class PlayerManager
     Statement statement = null;
     ResultSet resultset = null;
     PlayerBean player = null;
+    UUID suspectUUID = null;
 
     // Get player by UUID
     public PlayerBean getPlayer(UUID uuid, DataSource dataSource)
@@ -79,6 +80,49 @@ public class PlayerManager
             close();
         }
         return player;
+    }
+
+    // Try to recover a suspect UUID by name
+    public UUID recoverSuspect(String suspectName, DataSource dataSource)
+    {
+        // Try to find the player
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "select (HEX(uuid)) as uuid from players where name=''" + suspectName + "'";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            if (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                suspectUUID = UUID.fromString(playerUuid);
+                return suspectUUID;
+            }
+            else
+            {
+                // If there no player for the uuid in database
+                return null;
+            }
+        }
+        catch(SQLException exception)
+        {
+            exception.printStackTrace();
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            close();
+        }
+        return suspectUUID;
     }
 
     // Update the player data
