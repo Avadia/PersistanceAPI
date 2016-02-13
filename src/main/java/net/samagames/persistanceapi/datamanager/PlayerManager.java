@@ -94,7 +94,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid from players where name=''" + suspectName + "'";
+            sql += "select (HEX(uuid)) as uuid from players where name='" + suspectName + "'";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
