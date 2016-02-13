@@ -18,6 +18,7 @@ package net.samagames.persistanceapi;
 import net.samagames.persistanceapi.beans.BungeeConfigBean;
 import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
+import net.samagames.persistanceapi.beans.SanctionBean;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.*;
@@ -41,6 +42,7 @@ public class GameServiceManager
         // Singleton of DatabaseManager
         this.databaseManager = DatabaseManager.getInstance(url, name, password, minPoolSize, maxPoolSize);
         this.playerManager = new PlayerManager();
+        this.sanctionManager = new SanctionManager();
         this.statisticsManager = new StatisticsManager();
         this.configurationManager = new ConfigurationManager();
         this.denunciationManager = new DenunciationManager();
@@ -110,11 +112,17 @@ public class GameServiceManager
       Part of sanction manager
     ============================================*/
 
-    // Ban a player
-    public void banPlayer(PlayerBean player)
+    // Apply a sanction to a player
+    public void applySanction(int sanctionType, SanctionBean sanction)
     {
-        // Do the ban
-        this.sanctionManager.banPlayer(player, this.databaseManager.getDataSource());
+        // Do the sanction
+        this.sanctionManager.applySanction(sanctionType, sanction, this.databaseManager.getDataSource());
+    }
+
+    public void removeSanction(int sanctionType, PlayerBean player)
+    {
+        // Remove the sanction
+        this.sanctionManager.removeSanction(sanctionType, player, this.databaseManager.getDataSource());
     }
 
     // Check if a player is banned
@@ -124,39 +132,11 @@ public class GameServiceManager
         return this.sanctionManager.isPlayerBanned(player, this.databaseManager.getDataSource());
     }
 
-    // Remove ban from player
-    public void removeBan(PlayerBean player)
-    {
-        // Remove the ban
-        this.sanctionManager.removeBan(player, this.databaseManager.getDataSource());
-    }
-
-    // Mute a player
-    public void mutePlayer(PlayerBean player)
-    {
-        // Do the mute
-        this.sanctionManager.mutePlayer(player, this.databaseManager.getDataSource());
-    }
-
     // Check if a player is muted
     public boolean isPlayerMuted(PlayerBean player)
     {
         // Check the mute status
         return this.sanctionManager.isPlayerMuted(player, this.databaseManager.getDataSource());
-    }
-
-    // Remove mute from player
-    public void removeMute(PlayerBean player)
-    {
-        // Remove the mute
-        this.sanctionManager.removeMute(player, this.databaseManager.getDataSource());
-    }
-
-    // Kick a player
-    public void kickPlayer(PlayerBean player)
-    {
-        // Do the kick
-        this.sanctionManager.kickPlayer(player, this.databaseManager.getDataSource());
     }
 
 
