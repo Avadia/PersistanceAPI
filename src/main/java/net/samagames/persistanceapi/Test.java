@@ -18,6 +18,7 @@ package net.samagames.persistanceapi;
 import net.samagames.persistanceapi.beans.BungeeConfigBean;
 import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
+import net.samagames.persistanceapi.beans.SanctionBean;
 import net.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
 
 import java.sql.Timestamp;
@@ -54,7 +55,8 @@ public class Test
 
         // Create the player
         startTime = System.currentTimeMillis();
-        player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"125.125.125.125","TheUltimateKey");
+        player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", 0, 0, new Timestamp(System.currentTimeMillis()),
+                new Timestamp(System.currentTimeMillis()),"125.125.125.125","TheUltimateKey");
         manager.createPlayer(player);
         System.out.println("Create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
@@ -125,7 +127,7 @@ public class Test
         manager.getAllStatistics(player);
         System.out.println("All statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-        // Create dimensions statistics
+        // Create dimensions statistics test
         uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
         otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"50.50.50.50","AnotherKey");
         dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
@@ -133,12 +135,33 @@ public class Test
         manager.updateDimensionStatistics(otherPlayer, dimensionStats);
         System.out.println("Create dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-        // Update dimension statistics
+        // Update dimension statistics test
         dimensionStats.setDeaths(0);
         dimensionStats.setPlayedGames(0);
         startTime = System.currentTimeMillis();
         manager.updateDimensionStatistics(otherPlayer, dimensionStats);
         System.out.println("Update dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create a ban sanction test
+        startTime = System.currentTimeMillis();
+        SanctionBean sanction = new SanctionBean(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), SanctionBean.BAN, "fly", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"),
+                new Timestamp(System.currentTimeMillis()), false, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        manager.applySanction(SanctionBean.BAN, sanction);
+        System.out.println("Create sanction ban process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create a mute sanction test
+        startTime = System.currentTimeMillis();
+        sanction = new SanctionBean(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), SanctionBean.MUTE, "trololol", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"),
+                new Timestamp(System.currentTimeMillis()), false, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        manager.applySanction(SanctionBean.MUTE, sanction);
+        System.out.println("Create sanction mute process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Check if player is banned test
+
+        // Check if player is muted test
+
+        // Remove ban sanction test
+
 
      }
 }
