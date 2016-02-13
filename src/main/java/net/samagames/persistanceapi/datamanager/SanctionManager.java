@@ -28,7 +28,6 @@ public class SanctionManager
     Connection connection = null;
     Statement statement = null;
     ResultSet resultset = null;
-    SanctionBean sanction = null;
 
     // Ban a player
     public void banPlayer(PlayerBean player, DataSource dataSource)
