@@ -21,21 +21,22 @@ import java.util.UUID;
 public class SanctionBean
 {
     /* Database Structure
-    +-----------------+--------------+------+-----+---------------------+-------+
-    | Field           | Type         | Null | Key | Default             | Extra |
-    +-----------------+--------------+------+-----+---------------------+-------+
-    | player_uuid     | binary(16)   | NO   | PRI | NULL                |       |
-    | type_id         | int(11)      | NO   |     | NULL                |       |
-    | reason          | varchar(255) | NO   |     | NULL                |       |
-    | punisher_uuid   | binary(16)   | NO   |     | NULL                |       |
-    | expiration_date | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
-    | is_deleted      | tinyint(1)   | NO   |     | NULL                |       |
-    | creation_date   | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
-    | update_date     | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
-    +-----------------+--------------+------+-----+---------------------+-------+
+    +-----------------+--------------+------+-----+---------------------+----------------+
+    | Field           | Type         | Null | Key | Default             | Extra          |
+    +-----------------+--------------+------+-----+---------------------+----------------+
+    | sanction_id     | bigint(20)   | NO   | PRI | NULL                | auto_increment |
+    | player_uuid     | binary(16)   | NO   | MUL | NULL                |                |
+    | type_id         | int(11)      | NO   |     | NULL                |                |
+    | reason          | varchar(255) | NO   |     | NULL                |                |
+    | punisher_uuid   | binary(16)   | NO   |     | NULL                |                |
+    | expiration_date | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
+    | is_deleted      | tinyint(1)   | NO   |     | NULL                |                |
+    | creation_date   | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
+    | update_date     | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
+    +-----------------+--------------+------+-----+---------------------+----------------+
     */
 
-    // Defines sanctions types
+    // Defines sanctions types // TODO make enum
     public static int AVERTISSEMENT = 1;
     public static int BAN = 2;
     public static int KICK = 3;
@@ -43,17 +44,18 @@ public class SanctionBean
     public static int TEXT = 5;
 
     // Defines
+    private long sanctionId; // FIXME check if used in bean
     private UUID playerUuid;
     private int typeId;
     private String reason;
-    private String punisherUuid;
+    private UUID punisherUuid;
     private Timestamp expirationTime;
     private boolean isDeleted;
     private Timestamp creationDate;
     private Timestamp updateDate;
 
     // Constructor
-    public SanctionBean(UUID playerUuid, int typeId, String reason, String punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate)
+    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate)
     {
         this.playerUuid = playerUuid;
         this.typeId = typeId;
@@ -75,9 +77,7 @@ public class SanctionBean
     public String getReason() {
         return this.reason;
     }
-    public String getPunisherUuid() {
-        return this.punisherUuid;
-    }
+    public UUID getPunisherUuid() { return this.punisherUuid; }
     public Timestamp getExpirationTime() {
         return this.expirationTime;
     }
@@ -101,7 +101,7 @@ public class SanctionBean
     public void setReason(String reason) {
         this.reason = reason;
     }
-    public void setPunisherUuid(String punisherUuid) {
+    public void setPunisherUuid(UUID punisherUuid) {
         this.punisherUuid = punisherUuid;
     }
     public void setExpirationTime(Timestamp expirationTime) {
