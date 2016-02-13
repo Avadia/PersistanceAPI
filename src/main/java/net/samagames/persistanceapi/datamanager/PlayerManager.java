@@ -29,11 +29,10 @@ public class PlayerManager
     Connection connection = null;
     Statement statement = null;
     ResultSet resultset = null;
-    PlayerBean player = null;
-    UUID suspectUUID = null;
+    boolean nestedQuery = false;
 
-    // Get player by UUID
-    public PlayerBean getPlayer(UUID uuid, DataSource dataSource)
+    // Get player by UUID, create if unknown
+    public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource)
     {
         // Make the research of player by UUID
         try
@@ -41,6 +40,9 @@ public class PlayerManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+
+            // Set flag for nested query
+            this.nestedQuery = true;
 
             // Query construction
             String sql = "";
@@ -66,8 +68,10 @@ public class PlayerManager
             }
             else
             {
-                // If there no player for the uuid in database
-                return null;
+                // If there no player for the uuid in database create a new player
+                this.createPlayer(player, dataSource);
+                PlayerBean newPlayer = this.getPlayer(uuid, player, dataSource);
+                return newPlayer;
             }
          }
         catch(SQLException exception)
@@ -76,6 +80,9 @@ public class PlayerManager
         }
         finally
         {
+            // Set flag for nested query
+            this.nestedQuery = false;
+
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -85,6 +92,10 @@ public class PlayerManager
     // Try to recover a suspect UUID by name
     public UUID recoverSuspect(String suspectName, DataSource dataSource)
     {
+        // Defines
+        PlayerBean player = null;
+        UUID suspectUUID = null;
+
         // Try to find the player
         try
         {
@@ -209,7 +220,7 @@ public class PlayerManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
+            if (connection != null && this.nestedQuery == false)
             {
                 // Close the connection
                 connection.close();
