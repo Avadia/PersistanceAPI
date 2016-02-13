@@ -82,13 +82,13 @@ public class GameServiceManager
     ============================================*/
 
     // Get the player by UUID
-    public PlayerBean getPlayer(UUID uuid)
+    public PlayerBean getPlayer(UUID uuid, PlayerBean player)
     {
        // Get the PlayerBean
-        PlayerBean player = this.playerManager.getPlayer(uuid, this.databaseManager.getDataSource());
+        PlayerBean newPlayer = this.playerManager.getPlayer(uuid, player, this.databaseManager.getDataSource());
 
         // Return the player
-        return player;
+        return newPlayer;
     }
 
     // Update the player
