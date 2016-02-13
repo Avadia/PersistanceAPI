@@ -25,8 +25,8 @@ public class DenunciationBean
     | Field           | Type         | Null | Key | Default             | Extra          |
     +-----------------+--------------+------+-----+---------------------+----------------+
     | denouncement_id | int(11)      | NO   | PRI | NULL                | auto_increment |
-    | denouncer       | binary(36)   | NO   |     | NULL                |                |
-    | suspect         | binary(36)   | NO   |     | NULL                |                |
+    | denouncer       | binary(16)   | NO   |     | NULL                |                |
+    | suspect         | binary(16)   | YES  |     | NULL                |                |
     | date            | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
     | reason          | varchar(255) | NO   |     | NULL                |                |
     | suspect_name    | varchar(255) | NO   |     | NULL                |                |
@@ -42,10 +42,9 @@ public class DenunciationBean
     private String suspectName;
 
     // Constructor
-    public DenunciationBean(UUID denoucer, UUID suspect, Timestamp date, String reason, String suspectName)
+    public DenunciationBean(UUID denoucer, Timestamp date, String reason, String suspectName)
     {
         this.denoucer = denoucer;
-        this.suspect = suspect;
         this.date = date;
         this.reason = reason;
         this.suspectName = suspectName;
