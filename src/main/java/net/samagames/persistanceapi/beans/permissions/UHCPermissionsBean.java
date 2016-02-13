@@ -20,7 +20,7 @@ public class UHCPermissionsBean
     +-------------------+------------+------+-----+---------+-------+
     | Field             | Type       | Null | Key | Default | Extra |
     +-------------------+------------+------+-----+---------+-------+
-    | uhc_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | uhc_permission_id | bigint(20) | NO   | PRI | NULL    |       |
     | uhc_team_lock     | tinyint(1) | NO   |     | NULL    |       |
     | uhc_team_name     | tinyint(1) | NO   |     | NULL    |       |
     | uhc_team_invite   | tinyint(1) | NO   |     | NULL    |       |

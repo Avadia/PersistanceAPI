@@ -21,7 +21,7 @@ public class StaffPermissionsBean
     +---------------------+------------+------+-----+---------+-------+
     | Field               | Type       | Null | Key | Default | Extra |
     +---------------------+------------+------+-----+---------+-------+
-    | staff_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | staff_permission_id | bigint(20) | NO   | PRI | NULL    |       |
     | staff_member        | tinyint(1) | NO   |     | NULL    |       |
     | netjoin_closed      | tinyint(1) | NO   |     | NULL    |       |
     | netjoin_vip         | tinyint(1) | NO   |     | NULL    |       |

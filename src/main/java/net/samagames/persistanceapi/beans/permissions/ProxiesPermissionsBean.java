@@ -21,7 +21,7 @@ public class ProxiesPermissionsBean
     +-----------------------+------------+------+-----+---------+-------+
     | Field                 | Type       | Null | Key | Default | Extra |
     +-----------------------+------------+------+-----+---------+-------+
-    | proxies_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | proxies_permission_id | bigint(20) | NO   | PRI | NULL    |       |
     | proxies_dispatch      | tinyint(1) | NO   |     | NULL    |       |
     | proxies_global        | tinyint(1) | NO   |     | NULL    |       |
     | proxies_debug         | tinyint(1) | NO   |     | NULL    |       |

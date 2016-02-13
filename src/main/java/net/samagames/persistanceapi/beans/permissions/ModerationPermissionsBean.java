@@ -21,7 +21,7 @@ public class ModerationPermissionsBean
     +--------------------------+------------+------+-----+---------+-------+
     | Field                    | Type       | Null | Key | Default | Extra |
     +--------------------------+------------+------+-----+---------+-------+
-    | moderation_permission_id | bigint(20) | NO   |     | NULL    |       |
+    | moderation_permission_id | bigint(20) | NO   | PRI | NULL    |       |
     | mod_ban                  | tinyint(1) | NO   |     | NULL    |       |
     | mod_tp                   | tinyint(1) | NO   |     | NULL    |       |
     | mod_kick                 | tinyint(1) | NO   |     | NULL    |       |

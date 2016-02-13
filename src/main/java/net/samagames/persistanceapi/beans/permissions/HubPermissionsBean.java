@@ -21,7 +21,7 @@ public class HubPermissionsBean
     +-----------------------------+------------+------+-----+---------+-------+
     | Field                       | Type       | Null | Key | Default | Extra |
     +-----------------------------+------------+------+-----+---------+-------+
-    | hub_permission_id           | bigint(20) | NO   |     | NULL    |       |
+    | hub_permission_id           | bigint(20) | NO   | PRI | NULL    |       |
     | hub_jukebox_lock            | tinyint(1) | NO   |     | NULL    |       |
     | hub_jukebox_next            | tinyint(1) | NO   |     | NULL    |       |
     | hub_mod_slow                | tinyint(1) | NO   |     | NULL    |       |
