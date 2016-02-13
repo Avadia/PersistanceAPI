@@ -54,15 +54,15 @@ public class DenunciationManager
             sql += " values (UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "')";
             if (suspectUUID != null)
             {
-                sql += ", (UNHEX('" + Transcoder.Encode(suspectUUID.toString()) + "')";
+                sql += ", UNHEX('" + Transcoder.Encode(suspectUUID.toString()) + "')";
             }
             else
             {
                 sql += ", NULL";
             }
             sql += ", now()";
-            sql += ", " + denunciation.getReason();
-            sql += ", " + denunciation.getSuspect_name() + ")";
+            sql += ", '" + denunciation.getReason() + "'";
+            sql += ", '" + denunciation.getSuspect_name() + "')";
 
             // Execute the query
             statement.executeUpdate(sql);
