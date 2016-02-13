@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Sam 13 Février 2016 à 20:42
+-- Généré le :  Sam 13 Février 2016 à 23:36
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -270,6 +270,7 @@ CREATE TABLE `quake_stats` (
 
 DROP TABLE IF EXISTS `sanctions`;
 CREATE TABLE `sanctions` (
+  `sanction_id` bigint(20) NOT NULL,
   `player_uuid` binary(16) NOT NULL,
   `type_id` int(11) NOT NULL,
   `reason` varchar(255) COLLATE utf8_roman_ci NOT NULL,
@@ -453,7 +454,8 @@ ADD PRIMARY KEY (`uuid`);
 -- Index pour la table `sanctions`
 --
 ALTER TABLE `sanctions`
-ADD PRIMARY KEY (`player_uuid`);
+ADD PRIMARY KEY (`sanction_id`),
+ADD KEY `player_uuid` (`player_uuid`);
 
 --
 -- Index pour la table `sanctions_ref`
@@ -494,3 +496,8 @@ ADD PRIMARY KEY (`uuid`);
 --
 ALTER TABLE `denunciation`
 MODIFY `denouncement_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `sanctions`
+--
+ALTER TABLE `sanctions`
+MODIFY `sanction_id` bigint(20) NOT NULL AUTO_INCREMENT;
