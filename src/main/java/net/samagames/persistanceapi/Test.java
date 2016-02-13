@@ -60,8 +60,14 @@ public class Test
 
         // Find a player test
         startTime = System.currentTimeMillis();
-        player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"));
+        player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), player);
         System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Find player test and self create one
+        startTime = System.currentTimeMillis();
+        PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"),"gasper", 0, 0, null, null, null, null);
+        manager.getPlayer(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), selfPlayer);
+        System.out.println("Find and self create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Data player update test
         player.setCoins(20);
