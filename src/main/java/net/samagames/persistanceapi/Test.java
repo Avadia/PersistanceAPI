@@ -16,6 +16,7 @@
 package net.samagames.persistanceapi;
 
 import net.samagames.persistanceapi.beans.BungeeConfigBean;
+import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
 
@@ -29,6 +30,7 @@ public class Test
         // Defines
         long startTime;
         DimensionStatisticsBean dimensionStats;
+        DenunciationBean denunciationBean;
         UUID uuid;
         PlayerBean player;
         PlayerBean otherPlayer;
@@ -36,7 +38,7 @@ public class Test
         // Initialize the manager
         System.out.println("Exécution du test");
         System.out.println("-----------------");
-        GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagames", "root","root", 1, 10);
+        GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root","root", 1, 10);
 
         // Config loading
         startTime = System.currentTimeMillis();
@@ -56,7 +58,6 @@ public class Test
         manager.createPlayer(player);
         System.out.println("Create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-
         // Find a player test
         startTime = System.currentTimeMillis();
         player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"));
@@ -70,6 +71,18 @@ public class Test
         startTime = System.currentTimeMillis();
         manager.updatePlayer(player);
         System.out.println("Update player process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create a denunciation with existing player name
+        startTime = System.currentTimeMillis();
+        denunciationBean = new DenunciationBean(player.getUuid(), new Timestamp(System.currentTimeMillis()), "fly", "mistersatch");
+        manager.denouncePlayer(player, denunciationBean);
+        System.out.println("Denunciation with name process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create a denunciation without existing player name
+        startTime = System.currentTimeMillis();
+        denunciationBean = new DenunciationBean(player.getUuid(), new Timestamp(System.currentTimeMillis()), "fly", "billyboy");
+        manager.denouncePlayer(player, denunciationBean);
+        System.out.println("Denunciation without process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Dimension statistics read for player test
         startTime = System.currentTimeMillis();
