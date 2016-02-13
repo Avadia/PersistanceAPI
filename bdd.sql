@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Sam 13 Février 2016 à 18:55
+-- Généré le :  Sam 13 Février 2016 à 20:42
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -97,7 +97,7 @@ CREATE TABLE `configuration` (
 --
 
 INSERT INTO `configuration` (`slots`, `motd`, `close_type`, `server_line`, `max_players`) VALUES
-(10, 'MOTD', 'CLOSE', 'LINE', 10000);
+  (10, 'MOTD', 'CLOSE', 'LINE', 10000);
 
 -- --------------------------------------------------------
 
@@ -108,8 +108,8 @@ INSERT INTO `configuration` (`slots`, `motd`, `close_type`, `server_line`, `max_
 DROP TABLE IF EXISTS `denunciation`;
 CREATE TABLE `denunciation` (
   `denouncement_id` int(11) NOT NULL,
-  `denouncer` binary(36) NOT NULL,
-  `suspect` binary(36) NOT NULL,
+  `denouncer` binary(16) NOT NULL,
+  `suspect` binary(16) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `reason` varchar(255) NOT NULL,
   `suspect_name` varchar(255) NOT NULL
@@ -297,11 +297,11 @@ CREATE TABLE `sanctions_ref` (
 --
 
 INSERT INTO `sanctions_ref` (`id`, `text`) VALUES
-(1, 'Avertissement'),
-(2, 'Ban'),
-(3, 'Kick'),
-(4, 'Mute'),
-(5, 'Text');
+  (1, 'Avertissement'),
+  (2, 'Ban'),
+  (3, 'Kick'),
+  (4, 'Mute'),
+  (5, 'Text');
 
 -- --------------------------------------------------------
 
@@ -381,109 +381,109 @@ CREATE TABLE `uppervoid_stats` (
 -- Index pour la table `api_permissions`
 --
 ALTER TABLE `api_permissions`
-  ADD PRIMARY KEY (`api_permission_id`);
+ADD PRIMARY KEY (`api_permission_id`);
 
 --
 -- Index pour la table `bukkit_permissions`
 --
 ALTER TABLE `bukkit_permissions`
-  ADD PRIMARY KEY (`bukkit_permission_id`);
+ADD PRIMARY KEY (`bukkit_permission_id`);
 
 --
 -- Index pour la table `bungee_redis_permissions`
 --
 ALTER TABLE `bungee_redis_permissions`
-  ADD PRIMARY KEY (`bungee_redis_permission_id`);
+ADD PRIMARY KEY (`bungee_redis_permission_id`);
 
 --
 -- Index pour la table `denunciation`
 --
 ALTER TABLE `denunciation`
-  ADD PRIMARY KEY (`denouncement_id`);
+ADD PRIMARY KEY (`denouncement_id`);
 
 --
 -- Index pour la table `dimensions_stats`
 --
 ALTER TABLE `dimensions_stats`
-  ADD PRIMARY KEY (`uuid`);
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `herobattle_stats`
 --
 ALTER TABLE `herobattle_stats`
-  ADD PRIMARY KEY (`uuid`);
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `hub_permissions`
 --
 ALTER TABLE `hub_permissions`
-  ADD PRIMARY KEY (`hub_permission_id`);
+ADD PRIMARY KEY (`hub_permission_id`);
 
 --
 -- Index pour la table `jukebox_stats`
 --
 ALTER TABLE `jukebox_stats`
-  ADD PRIMARY KEY (`uuid`);
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `moderation_permissions`
 --
 ALTER TABLE `moderation_permissions`
-  ADD PRIMARY KEY (`moderation_permission_id`);
+ADD PRIMARY KEY (`moderation_permission_id`);
 
 --
 -- Index pour la table `players`
 --
 ALTER TABLE `players`
-  ADD PRIMARY KEY (`uuid`);
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `proxies_permissions`
 --
 ALTER TABLE `proxies_permissions`
-  ADD PRIMARY KEY (`proxies_permission_id`);
+ADD PRIMARY KEY (`proxies_permission_id`);
 
 --
 -- Index pour la table `quake_stats`
 --
 ALTER TABLE `quake_stats`
-  ADD PRIMARY KEY (`uuid`);
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `sanctions`
 --
 ALTER TABLE `sanctions`
-  ADD PRIMARY KEY (`player_uuid`);
+ADD PRIMARY KEY (`player_uuid`);
 
 --
 -- Index pour la table `sanctions_ref`
 --
 ALTER TABLE `sanctions_ref`
-  ADD PRIMARY KEY (`id`);
+ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `staff_permissions`
 --
 ALTER TABLE `staff_permissions`
-  ADD PRIMARY KEY (`staff_permission_id`);
+ADD PRIMARY KEY (`staff_permission_id`);
 
 --
 -- Index pour la table `uhcrun_stats`
 --
 ALTER TABLE `uhcrun_stats`
-  ADD PRIMARY KEY (`uuid`);
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `uhc_permissions`
 --
 ALTER TABLE `uhc_permissions`
-  ADD PRIMARY KEY (`uhc_permission_id`);
+ADD PRIMARY KEY (`uhc_permission_id`);
 
 --
 -- Index pour la table `uppervoid_stats`
 --
 ALTER TABLE `uppervoid_stats`
-  ADD PRIMARY KEY (`uuid`);
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -493,4 +493,4 @@ ALTER TABLE `uppervoid_stats`
 -- AUTO_INCREMENT pour la table `denunciation`
 --
 ALTER TABLE `denunciation`
-  MODIFY `denouncement_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `denouncement_id` int(11) NOT NULL AUTO_INCREMENT;
