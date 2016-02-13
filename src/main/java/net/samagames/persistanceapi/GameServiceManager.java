@@ -16,11 +16,13 @@
 package net.samagames.persistanceapi;
 
 import net.samagames.persistanceapi.beans.BungeeConfigBean;
+import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.*;
 
+import javax.sql.DataSource;
 import java.util.UUID;
 
 public class GameServiceManager
@@ -31,6 +33,7 @@ public class GameServiceManager
     public SanctionManager sanctionManager;
     public StatisticsManager statisticsManager;
     public ConfigurationManager configurationManager;
+    public DenunciationManager denunciationManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -40,7 +43,20 @@ public class GameServiceManager
         this.playerManager = new PlayerManager();
         this.statisticsManager = new StatisticsManager();
         this.configurationManager = new ConfigurationManager();
+        this.denunciationManager = new DenunciationManager();
     }
+
+
+    /*============================================
+      Part of denunciation manager
+    ============================================*/
+
+    // Make a denunciation
+    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation)
+    {
+        this.denunciationManager.denouncePlayer(player, denunciation, this.databaseManager.getDataSource(), this.playerManager);
+    }
+
 
 
     /*============================================
