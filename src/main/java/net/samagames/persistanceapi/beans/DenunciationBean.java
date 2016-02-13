@@ -39,7 +39,17 @@ public class DenunciationBean
     private UUID suspect;
     private Timestamp date;
     private String reason;
-    private String suspect_name;
+    private String suspectName;
+
+    // Constructor
+    public DenunciationBean(UUID denoucer, UUID suspect, Timestamp date, String reason, String suspectName)
+    {
+        this.denoucer = denoucer;
+        this.suspect = suspect;
+        this.date = date;
+        this.reason = reason;
+        this.suspectName = suspectName;
+    }
 
     // Getters
     public long getDenoucementId() { return denoucementId; }
@@ -47,13 +57,13 @@ public class DenunciationBean
     public UUID getSuspect() { return suspect; }
     public Timestamp getDate() { return date; }
     public String getReason() { return reason; }
-    public String getSuspect_name() { return suspect_name; }
+    public String getSuspect_name() { return suspectName; }
 
     // Setters
     public void setDenoucer(UUID denoucer) { this.denoucer = denoucer; }
     public void setSuspect(UUID suspect) { this.suspect = suspect; }
     public void setDate(Timestamp date) { this.date = date; }
     public void setReason(String reason) { this.reason = reason; }
-    public void setSuspect_name(String suspect_name) { this.suspect_name = suspect_name; }
+    public void suspectName(String suspectName) { this.suspectName = suspectName; }
 
 }
