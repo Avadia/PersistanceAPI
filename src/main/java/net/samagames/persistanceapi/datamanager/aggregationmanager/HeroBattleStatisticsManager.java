@@ -101,7 +101,17 @@ public class HeroBattleStatisticsManager
 
                 // Query construction for create
                 String sql = "";
-                sql += "";
+                sql += "insert into herobattle_stats (uuid, deaths, elo, kills, played_games, powerup_taken, wins, creation_date, update_date, played_time)";
+                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+                sql += ", " + dimensionStats.getDeaths();
+                sql += ", " + dimensionStats.getElo();
+                sql += ", " + dimensionStats.getKills();
+                sql += ", " + dimensionStats.getPlayedGames();
+                sql += ", " + dimensionStats.getPowerUpTaken();
+                sql += ", " + dimensionStats.getWins();
+                sql += ", now()";
+                sql += ", now()";
+                sql += ", " + dimensionStats.getPlayedGames() + ")";
 
                 // Execute the query
                 statement.executeUpdate(sql);
@@ -114,6 +124,14 @@ public class HeroBattleStatisticsManager
 
                 // Query construction for update
                 String sql = "";
+                sql += "update herobattle_stats set deaths=" + dimensionStats.getDeaths();
+                sql += ", elo=" + dimensionStats.getElo();
+                sql += ", kills=" + dimensionStats.getKills();
+                sql += ", played_games=" + dimensionStats.getPlayedGames();
+                sql += ", powerup_taken=" + dimensionStats.getPowerUpTaken();
+                sql += ", wins=" + dimensionStats.getWins();
+                sql += ", update_date=now()";
+                sql += ", played_time=" + dimensionStats.getPlayedGames();
 
                 // Execute the query
                 statement.executeUpdate(sql);
