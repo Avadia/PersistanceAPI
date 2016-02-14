@@ -72,7 +72,7 @@ public class SanctionManager
     // Remove a sanction
     public void removeSanction(int sanctionType, PlayerBean player, DataSource dataSource)
     {
-        // Remove the sanction
+        // Remove the last active sanction
         try
         {
             // Set connection
@@ -81,7 +81,9 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "";
+            sql += "update sanctions set is_deleted=true where type_id=";
+            sql += sanctionType + " and player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
+            sql += " order by creation_date desc limit 1";
 
             // Execute the query
             statement.executeUpdate(sql);
@@ -100,7 +102,7 @@ public class SanctionManager
     // Check if a player is banned
     public boolean isPlayerBanned(PlayerBean player, DataSource dataSource)
     {
-        // Do the check
+        // Do the check of ban
         try
         {
             // Set connection
@@ -109,12 +111,26 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "";
+            sql += "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
+            sql += " and type_id=" + SanctionBean.BAN;
+            sql += " and expiration_date>now()";
+            sql += " and is_deleted=false";
 
             // Execute the query
-            statement.executeUpdate(sql);
+            resultset = statement.executeQuery(sql);
 
-            return true;
+            // Manage the result
+            if (resultset.next())
+            {
+                // The player is banned
+                return true;
+            }
+            else
+            {
+                // The player is not banned
+                return false;
+            }
         }
         catch (SQLException exception)
         {
@@ -131,7 +147,7 @@ public class SanctionManager
     // Check if a player is muted
     public boolean isPlayerMuted(PlayerBean player, DataSource dataSource)
     {
-        // Do the check
+        // Do the check of mute
         try
         {
             // Set connection
@@ -140,12 +156,26 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "";
+            sql += "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
+            sql += " and type_id=" + SanctionBean.MUTE;
+            sql += " and expiration_date>now()";
+            sql += " and is_deleted=false";
 
             // Execute the query
-            statement.executeUpdate(sql);
+            resultset = statement.executeQuery(sql);
 
-            return true;
+            // Manage the result
+            if (resultset.next())
+            {
+                // The player is banned
+                return true;
+            }
+            else
+            {
+                // The player is not banned
+                return false;
+            }
         }
         catch (SQLException exception)
         {
