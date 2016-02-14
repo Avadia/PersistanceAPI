@@ -152,16 +152,24 @@ public class Test
         // Create a mute sanction test
         startTime = System.currentTimeMillis();
         sanction = new SanctionBean(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), SanctionBean.MUTE, "trololol", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"),
-                new Timestamp(System.currentTimeMillis()), false, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+                new Timestamp(System.currentTimeMillis()+800000), false, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
         manager.applySanction(SanctionBean.MUTE, sanction);
         System.out.println("Create sanction mute process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Remove ban sanction test
+        startTime = System.currentTimeMillis();
+        manager.removeSanction(SanctionBean.BAN, otherPlayer);
+        System.out.println("Remove sanction ban process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
         // Check if player is banned test
+        startTime = System.currentTimeMillis();
+        boolean isBaned = manager.isPlayerBanned(otherPlayer);
+        System.out.println("Check isBanned process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Check if player is muted test
-
-        // Remove ban sanction test
-
+        startTime = System.currentTimeMillis();
+        boolean isMute = manager.isPlayerMuted(otherPlayer);
+        System.out.println("Check isMute process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
      }
 }
