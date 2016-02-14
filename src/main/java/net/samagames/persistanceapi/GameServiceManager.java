@@ -200,4 +200,11 @@ public class GameServiceManager
         this.statisticsManager.dimensionStatsManager.updateDimensionStatistics(player, dimensionStats, this.databaseManager.getDataSource());
     }
 
+    // Update HeroBattle statistics
+    public void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean heroBattleStats)
+    {
+        // Update statistics
+        this.statisticsManager.heroBattleStatsManager.updateHeroBattleStatistics(player, heroBattleStats, this.databaseManager.getDataSource());
+    }
+
 }

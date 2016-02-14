@@ -20,6 +20,7 @@ import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.SanctionBean;
 import net.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.HeroBattleStatisticsBean;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -30,16 +31,19 @@ public class Test
     {
         // Defines
         long startTime;
-        DimensionStatisticsBean dimensionStats;
         DenunciationBean denunciationBean;
         UUID uuid;
         PlayerBean player;
         PlayerBean otherPlayer;
+        DimensionStatisticsBean dimensionStats;
+        HeroBattleStatisticsBean heroBattleStats;
 
         // Initialize the manager
         System.out.println("Exécution du test");
         System.out.println("-----------------");
+        startTime = System.currentTimeMillis();
         GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root","root", 1, 10);
+        System.out.println("Manager init time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Config loading
         startTime = System.currentTimeMillis();
@@ -92,41 +96,6 @@ public class Test
         manager.denouncePlayer(player, denunciationBean);
         System.out.println("Denunciation without process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-        // Dimension statistics read for player test
-        startTime = System.currentTimeMillis();
-        manager.getDimensionStatistics(player);
-        System.out.println("Dimension statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
-
-        // HeroBattle statistics read for player test
-        startTime = System.currentTimeMillis();
-        manager.getHeroBattleStatistics(player);
-        System.out.println("HeroBattle statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
-
-        // JukeBox statistics read for player test
-        startTime = System.currentTimeMillis();
-        manager.getJukeBoxStatistics(player);
-        System.out.println("JukeBox statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
-
-        // Quake statistics read for player test
-        startTime = System.currentTimeMillis();
-        manager.getQuakeStatistics(player);
-        System.out.println("Quake statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
-
-        // UHCRun statistics read for player test
-        startTime = System.currentTimeMillis();
-        manager.getUHCRunStatistics(player);
-        System.out.println("UHCRun statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
-
-        // UpperVoid statistics read for player test
-        startTime = System.currentTimeMillis();
-        manager.getUpperVoidStatistics(player);
-        System.out.println("UpperVoid statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
-
-        // All statistics read for player test
-        startTime = System.currentTimeMillis();
-        manager.getAllStatistics(player);
-        System.out.println("All statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
-
         // Create dimensions statistics test
         uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
         otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"50.50.50.50","AnotherKey");
@@ -141,6 +110,40 @@ public class Test
         startTime = System.currentTimeMillis();
         manager.updateDimensionStatistics(otherPlayer, dimensionStats);
         System.out.println("Update dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Read dimension statistics test
+        startTime = System.currentTimeMillis();
+        manager.getDimensionStatistics(otherPlayer);
+        System.out.println("Read dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create herobattle statistics tes
+        heroBattleStats = new HeroBattleStatisticsBean(uuid, 10, 20, 50, 8, 4, 2, new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()), 100);
+        startTime = System.currentTimeMillis();
+        manager.updateHeroBattleStatistics(otherPlayer, heroBattleStats);
+        System.out.println("Create herobattle statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Update herobattle statistics test
+        heroBattleStats.setKills(1000);
+        heroBattleStats.setDeaths(42);
+        startTime = System.currentTimeMillis();
+        manager.updateHeroBattleStatistics(otherPlayer, heroBattleStats);
+        System.out.println("Update herobattle statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Read herobattle statistics test
+        startTime = System.currentTimeMillis();
+        manager.getHeroBattleStatistics(otherPlayer);
+        System.out.println("Read herobattle statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+
+        // TODO Add others stats
+
+        // TODO Here !
+
+
+        // All statistics read for player test
+        startTime = System.currentTimeMillis();
+        manager.getAllStatistics(player);
+        System.out.println("All statistics read process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Create a ban sanction test
         startTime = System.currentTimeMillis();
