@@ -81,7 +81,7 @@ public class JukeBoxStatisticsManager
     }
 
     // Update JukeBox player statistics
-    public void updateJukeBoxStatistics(PlayerBean player, JukeBoxStatisticsBean dimensionStats, DataSource dataSource)
+    public void updateJukeBoxStatistics(PlayerBean player, JukeBoxStatisticsBean jukeBoxStats, DataSource dataSource)
     {
         try
         {
@@ -97,6 +97,13 @@ public class JukeBoxStatisticsManager
 
                 // Query construction for create
                 String sql = "";
+                sql += "insert into jukebox_stats (uuid, mehs, woots, creation_date, update_date, played_time)";
+                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+                sql += ", " + jukeBoxStats.getMehs();
+                sql += ", " + jukeBoxStats.getWoots();
+                sql += ", now()";
+                sql += ", now()";
+                sql += ", 10)";
 
                 // Execute the query
                 statement.executeUpdate(sql);
@@ -109,6 +116,10 @@ public class JukeBoxStatisticsManager
 
                 // Query construction for update
                 String sql = "";
+                sql += "update jukebox_stats set mehs=" + jukeBoxStats.getMehs();
+                sql += ", woots=" + jukeBoxStats.getWoots();
+                sql += ", update_date=now()";
+                sql += ", played_time=" + jukeBoxStats.getPlayedTime();
 
                 // Execute the query
                 statement.executeUpdate(sql);
