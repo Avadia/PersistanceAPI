@@ -207,4 +207,17 @@ public class GameServiceManager
         this.statisticsManager.heroBattleStatsManager.updateHeroBattleStatistics(player, heroBattleStats, this.databaseManager.getDataSource());
     }
 
+    // Update JukeBox statistics
+    public void updateJukeBoxStatistics(PlayerBean player, JukeBoxStatisticsBean jukeBoxStats)
+    {
+        // Update statistics
+        this.statisticsManager.jukeBoxStatsManager.updateJukeBoxStatistics(player, jukeBoxStats, this.databaseManager.getDataSource());
+    }
+
+    // Update Quake statistics
+    public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean quakeStats)
+    {
+        // Update statistics
+        this.statisticsManager.quakeStatsManager.updateQuakeStatistics(player, quakeStats, this.databaseManager.getDataSource());
+    }
 }
