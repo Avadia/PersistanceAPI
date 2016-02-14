@@ -21,6 +21,7 @@ import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.SanctionBean;
 import net.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.HeroBattleStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.JukeBoxStatisticsBean;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -37,6 +38,7 @@ public class Test
         PlayerBean otherPlayer;
         DimensionStatisticsBean dimensionStats;
         HeroBattleStatisticsBean heroBattleStats;
+        JukeBoxStatisticsBean jukeBoxStats;
 
         // Initialize the manager
         System.out.println("Exécution du test");
@@ -134,8 +136,28 @@ public class Test
         manager.getHeroBattleStatistics(otherPlayer);
         System.out.println("Read herobattle statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Create jukebox statistics test
+        jukeBoxStats = new JukeBoxStatisticsBean(uuid, 10, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        startTime = System.currentTimeMillis();
+        manager.updateJukeBoxStatistics(otherPlayer, jukeBoxStats);
+        System.out.println("Create jukebox statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Update jukebox statistics test
+        jukeBoxStats.setWoots(42);
+        jukeBoxStats.setMehs(77);
+        startTime = System.currentTimeMillis();
+        manager.updateJukeBoxStatistics(otherPlayer, jukeBoxStats);
+        System.out.println("Update jukebox statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Read jukebox statistics test
+        startTime = System.currentTimeMillis();
+        manager.getJukeBoxStatistics(otherPlayer);
+        System.out.println("Read jukebox statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
 
         // TODO Add others stats
+
+
 
         // TODO Here !
 
