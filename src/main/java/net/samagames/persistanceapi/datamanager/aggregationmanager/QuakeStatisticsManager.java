@@ -30,7 +30,6 @@ public class QuakeStatisticsManager
     Statement statement = null;
     ResultSet resultset = null;
     QuakeStatisticsBean quakeStats = null;
-    boolean nestedQuery = false;
 
     // Get Quake player statistics
     public QuakeStatisticsBean getQuakeStatistics(PlayerBean player, DataSource dataSource)
@@ -83,13 +82,10 @@ public class QuakeStatisticsManager
     }
 
     // Update Quake player statistics
-    public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean dimensionStats, DataSource dataSource)
+    public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean quakeStats, DataSource dataSource)
     {
         try
         {
-            // Set flag for nested query
-            this.nestedQuery = true;
-
             // Check if a record exists
             if (this.getQuakeStatistics(player, dataSource) == null)
             {
@@ -99,25 +95,39 @@ public class QuakeStatisticsManager
 
                 // Query construction for create
                 String sql = "";
+                sql += "insert into quake_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
+                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+                sql += ", " + quakeStats.getDeaths();
+                sql += ", " + quakeStats.getKills();
+                sql += ", " + quakeStats.getPlayedGames();
+                sql += ", " + quakeStats.getWins();
+                sql += ", now()";
+                sql += ", now()";
+                sql += ", " + quakeStats.getPlayedTime() +")";
 
                 // Execute the query
                 statement.executeUpdate(sql);
             }
             else
             {
+
                 // Set connection
                 connection = dataSource.getConnection();
                 statement = connection.createStatement();
 
                 // Query construction for update
                 String sql = "";
+                sql += "update quake_stats set deaths=" + quakeStats.getDeaths();
+                sql += ", kills=" + quakeStats.getKills();
+                sql += ", played_games=" + quakeStats.getPlayedGames();
+                sql += ", wins=" + quakeStats.getWins();
+                sql += ", update_date=now()";
+                sql += ", played_time=" + quakeStats.getPlayedTime();
+                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
                 statement.executeUpdate(sql);
             }
-
-            // Set flag for nested query
-            this.nestedQuery = false;
         }
         catch(SQLException exception)
         {
@@ -125,9 +135,6 @@ public class QuakeStatisticsManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -149,7 +156,7 @@ public class QuakeStatisticsManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
