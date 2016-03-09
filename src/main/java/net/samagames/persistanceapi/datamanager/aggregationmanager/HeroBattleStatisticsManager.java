@@ -30,7 +30,6 @@ public class HeroBattleStatisticsManager
     Statement statement = null;
     ResultSet resultset = null;
     HeroBattleStatisticsBean heroBattleStats = null;
-    boolean nestedQuery = false;
 
     // Get HeroBattle player statistics
     public HeroBattleStatisticsBean getHeroBattleStatistics(PlayerBean player, DataSource dataSource)
@@ -89,9 +88,6 @@ public class HeroBattleStatisticsManager
     {
         try
         {
-            // Set flag for nested query
-            this.nestedQuery = true;
-
             // Check if a record exists
             if (this.getHeroBattleStatistics(player, dataSource) == null)
             {
@@ -132,13 +128,11 @@ public class HeroBattleStatisticsManager
                 sql += ", wins=" + dimensionStats.getWins();
                 sql += ", update_date=now()";
                 sql += ", played_time=" + dimensionStats.getPlayedGames();
+                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
                 statement.executeUpdate(sql);
             }
-
-            // Set flag for nested query
-            this.nestedQuery = false;
         }
         catch(SQLException exception)
         {
@@ -146,9 +140,6 @@ public class HeroBattleStatisticsManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -170,7 +161,7 @@ public class HeroBattleStatisticsManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
