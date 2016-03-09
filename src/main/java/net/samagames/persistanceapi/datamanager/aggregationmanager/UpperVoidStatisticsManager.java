@@ -30,7 +30,6 @@ public class UpperVoidStatisticsManager
     Statement statement = null;
     ResultSet resultset = null;
     UppervoidStatisticsBean uppervoidStats = null;
-    boolean nestedQuery = false;
 
     // Get UpperVoid player statistics
     public UppervoidStatisticsBean getUpperVoidStatistics(PlayerBean player, DataSource dataSource)
@@ -85,13 +84,10 @@ public class UpperVoidStatisticsManager
     }
 
     // Update UpperVoid player statistics
-    public void updateUpperVoidStatistics(PlayerBean player, UppervoidStatisticsBean dimensionStats, DataSource dataSource)
+    public void updateUpperVoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats, DataSource dataSource)
     {
         try
         {
-            // Set flag for nested query
-            this.nestedQuery = true;
-
             // Check if a record exists
             if (this.getUpperVoidStatistics(player, dataSource) == null)
             {
@@ -100,7 +96,16 @@ public class UpperVoidStatisticsManager
                 statement = connection.createStatement();
 
                 // Query construction for create
-                String sql = "";
+                String sql = "insert into uppervoid_stats (uuid, blocks, grenades, kills, played_games, tnt_launched, wins, creation_date, update_date, played_time)";
+                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+                sql += ", " + uppervoidStats.getBlocks();
+                sql += ", " + uppervoidStats.getGrenades();
+                sql += ", " + uppervoidStats.getKills();
+                sql += ", " + uppervoidStats.getPlayedGames();
+                sql += ", " + uppervoidStats.getTntLaunched();
+                sql += ", " + uppervoidStats.getWins();
+                sql += ", now(), now()";
+                sql += ", " + uppervoidStats.getPlayedTime() + ")";
 
                 // Execute the query
                 statement.executeUpdate(sql);
@@ -112,14 +117,19 @@ public class UpperVoidStatisticsManager
                 statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "";
+                String sql = "update uppervoid_stats set blocks=" + uppervoidStats.getBlocks();
+                sql += ", grenades=" + uppervoidStats.getGrenades();
+                sql += ", kills=" + uppervoidStats.getKills();
+                sql += ", played_games=" + uppervoidStats.getPlayedGames();
+                sql += ", tnt_launched=" + uppervoidStats.getTntLaunched();
+                sql += ", wins=" + uppervoidStats.getWins();
+                sql +=", update_date=now()";
+                sql += ", played_time=" + uppervoidStats.getPlayedTime();
+                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
                 statement.executeUpdate(sql);
             }
-
-            // Set flag for nested query
-            this.nestedQuery = false;
         }
         catch(SQLException exception)
         {
@@ -127,9 +137,6 @@ public class UpperVoidStatisticsManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -151,7 +158,7 @@ public class UpperVoidStatisticsManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
