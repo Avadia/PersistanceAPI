@@ -30,7 +30,6 @@ public class UHCRunStatisticsManager
     Statement statement = null;
     ResultSet resultset = null;
     UHCRunStatisticsBean uhcRunStats = null;
-    boolean nestedQuery = false;
 
     // Get UHCRun player statistics
     public UHCRunStatisticsBean getUHCRunStatistics(PlayerBean player, DataSource dataSource)
@@ -89,9 +88,6 @@ public class UHCRunStatisticsManager
     {
         try
         {
-            // Set flag for nested query
-            this.nestedQuery = true;
-
             // Check if a record exists
             if (this.getUHCRunStatistics(player, dataSource) == null)
             {
@@ -100,7 +96,16 @@ public class UHCRunStatisticsManager
                 statement = connection.createStatement();
 
                 // Query construction for create
-                String sql = "";
+                String sql = "insert into uhcrun_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
+                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+                sql += ", " + dimensionStats.getDamages();
+                sql += ", " + dimensionStats.getDeaths();
+                sql += ", " + dimensionStats.getKills();
+                sql += ", " + dimensionStats.getMaxDamages();
+                sql += ", " + dimensionStats.getPlayedGames();
+                sql += ", " + dimensionStats.getWins();
+                sql += ", now(), now()";
+                sql += ", " + dimensionStats.getPlayedTime() + ")";
 
                 // Execute the query
                 statement.executeUpdate(sql);
@@ -112,14 +117,19 @@ public class UHCRunStatisticsManager
                 statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "";
+                String sql = "update uhcrun_stats set damages=" + dimensionStats.getDamages();
+                sql += ", deaths=" + dimensionStats.getDeaths();
+                sql += ", kills=" + dimensionStats.getKills();
+                sql += ", max_damages=" + dimensionStats.getMaxDamages();
+                sql += ", played_games=" + dimensionStats.getPlayedGames();
+                sql += ", wins=" + dimensionStats.getWins();
+                sql += ", update_date=now()";
+                sql += ", played_time=" + dimensionStats.getPlayedTime();
+                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
                 statement.executeUpdate(sql);
             }
-
-            // Set flag for nested query
-            this.nestedQuery = false;
         }
         catch(SQLException exception)
         {
@@ -127,9 +137,6 @@ public class UHCRunStatisticsManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -151,7 +158,7 @@ public class UHCRunStatisticsManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
