@@ -18,34 +18,38 @@ package net.samagames.persistanceapi.beans.permissions;
 public class APIPermissionsBean
 {
     /* Database Structure
-    +-------------------------+------------+------+-----+---------+-------+
-    | Field                   | Type       | Null | Key | Default | Extra |
-    +-------------------------+------------+------+-----+---------+-------+
-    | api_permission_id       | bigint(20) | NO   | PRI | NULL    |       |
-    | api_servers_debug       | tinyint(1) | NO   |     | NULL    |       |
-    | api_permissions_refresh | tinyint(1) | NO   |     | NULL    |       |
-    | api_coins_get_other     | tinyint(1) | NO   |     | NULL    |       |
-    | api_coins_credit        | tinyint(1) | NO   |     | NULL    |       |
-    | api_coins_withdraw      | tinyint(1) | NO   |     | NULL    |       |
-    | api_inventory_show      | tinyint(1) | NO   |     | NULL    |       |
-    | api_player_data_set     | tinyint(1) | NO   |     | NULL    |       |
-    | api_player_data_del     | tinyint(1) | NO   |     | NULL    |       |
-    | api_modo_speakup        | tinyint(1) | NO   |     | NULL    |       |
-    | api_stars_getother      | tinyint(1) | NO   |     | NULL    |       |
-    | api_stars_credit        | tinyint(1) | NO   |     | NULL    |       |
-    | api_stars_withdraw      | tinyint(1) | NO   |     | NULL    |       |
-    | api_game_start          | tinyint(1) | NO   |     | NULL    |       |
-    +-------------------------+------------+------+-----+---------+-------+
+
+    Table : api_permissions
+    +-------------------------+------------+------+-----+---------+----------------+
+    | Field                   | Type       | Null | Key | Default | Extra          |
+    +-------------------------+------------+------+-----+---------+----------------+
+    | groups_id               | bigint(20) | NO   | PRI | NULL    | auto_increment |
+    | api_servers_debug       | tinyint(1) | NO   |     | NULL    |                |
+    | api_permissions_refresh | tinyint(1) | NO   |     | NULL    |                |
+    | api_coins_getother      | tinyint(1) | NO   |     | NULL    |                |
+    | api_coins_credit        | tinyint(1) | NO   |     | NULL    |                |
+    | api_coins_withdraw      | tinyint(1) | NO   |     | NULL    |                |
+    | api_inventory_show      | tinyint(1) | NO   |     | NULL    |                |
+    | api_playerdata_show     | tinyint(1) | NO   |     | NULL    |                |
+    | api_playerdata_set      | tinyint(1) | NO   |     | NULL    |                |
+    | api_playerdata_del      | tinyint(1) | NO   |     | NULL    |                |
+    | api_modo_speakup        | tinyint(1) | NO   |     | NULL    |                |
+    | api_stars_getother      | tinyint(1) | NO   |     | NULL    |                |
+    | api_stars_credit        | tinyint(1) | NO   |     | NULL    |                |
+    | api_stars_withdraw      | tinyint(1) | NO   |     | NULL    |                |
+    | api_game_start          | tinyint(1) | NO   |     | NULL    |                |
+    +-------------------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
-    private long apiPermissionId;
+    private long groupsId;
     private boolean apiServersDebug;
     private boolean apiPermissionsRefresh;
     private boolean apiCoinsGetOther;
     private boolean apiCoinsCredit;
     private boolean apiCoinsWithdraw;
     private boolean apiInventoryShow;
+    private boolean apiPlayerDataShow;
     private boolean apiPlayerdataSet;
     private boolean apiPlayerdataDel;
     private boolean apiModoSpeakup;
@@ -54,21 +58,23 @@ public class APIPermissionsBean
     private boolean apiStarsWithdraw;
     private boolean apiGameStart;
 
+
     // Getters
-    public boolean isApiServersDebug() { return apiServersDebug; }
-    public boolean isApiPermissionsRefresh() { return apiPermissionsRefresh; }
-    public boolean isApiCoinsGetother() { return apiCoinsGetOther; }
-    public boolean isApiCoinsCredit() { return apiCoinsCredit; }
-    public boolean isApiCoinsWithdraw() { return apiCoinsWithdraw; }
-    public boolean isApiInventoryShow() { return apiInventoryShow; }
-    public boolean isApiPlayerdataSet() { return apiPlayerdataSet; }
-    public boolean isApiPlayerdataDel() { return apiPlayerdataDel; }
-    public boolean isApiModoSpeakup() { return apiModoSpeakup; }
-    public boolean isApiStarsGetother() { return apiStarsGetother; }
-    public boolean isApiStarsCredit() { return apiStarsCredit; }
-    public boolean isApiStarsWithdraw() { return apiStarsWithdraw; }
-    public boolean isApiGameStart() { return apiGameStart; }
-    public long getApiPermissionId() { return apiPermissionId; }
+    public long groups_id() { return this.groupsId; }
+    public boolean isApiServersDebug() { return this.apiServersDebug; }
+    public boolean isApiPermissionsRefresh() { return this.apiPermissionsRefresh; }
+    public boolean isApiCoinsGetother() { return this.apiCoinsGetOther; }
+    public boolean isApiCoinsCredit() { return this.apiCoinsCredit; }
+    public boolean isApiCoinsWithdraw() { return this.apiCoinsWithdraw; }
+    public boolean isApiInventoryShow() { return this.apiInventoryShow; }
+    public boolean isApiPlayerDataShow() {return this.apiPlayerDataShow;}
+    public boolean isApiPlayerdataSet() { return this.apiPlayerdataSet; }
+    public boolean isApiPlayerdataDel() { return this.apiPlayerdataDel; }
+    public boolean isApiModoSpeakup() { return this.apiModoSpeakup; }
+    public boolean isApiStarsGetother() { return this.apiStarsGetother; }
+    public boolean isApiStarsCredit() { return this.apiStarsCredit; }
+    public boolean isApiStarsWithdraw() { return this.apiStarsWithdraw; }
+    public boolean isApiGameStart() { return this.apiGameStart; }
 
     // Setters
     public void setApiServersDebug(boolean apiServersDebug) { this.apiServersDebug = apiServersDebug; }
@@ -77,6 +83,7 @@ public class APIPermissionsBean
     public void setApiCoinsCredit(boolean apiCoinsCredit) { this.apiCoinsCredit = apiCoinsCredit; }
     public void setApiCoinsWithdraw(boolean apiCoinsWithdraw) { this.apiCoinsWithdraw = apiCoinsWithdraw; }
     public void setApiInventoryShow(boolean apiInventoryShow) { this.apiInventoryShow = apiInventoryShow; }
+    public void setApiPlayerDataShow(boolean apiPlayerDataShow) { this.apiPlayerDataShow = apiPlayerDataShow; }
     public void setApiPlayerdataSet(boolean apiPlayerdataSet) { this.apiPlayerdataSet = apiPlayerdataSet; }
     public void setApiPlayerdataDel(boolean apiPlayerdataDel) { this.apiPlayerdataDel = apiPlayerdataDel; }
     public void setApiModoSpeakup(boolean apiModoSpeakup) { this.apiModoSpeakup = apiModoSpeakup; }
