@@ -220,4 +220,18 @@ public class GameServiceManager
         // Update statistics
         this.statisticsManager.quakeStatsManager.updateQuakeStatistics(player, quakeStats, this.databaseManager.getDataSource());
     }
+
+    // Update UHCRun statistics
+    public void updateUHCRunStatistics(PlayerBean player, UHCRunStatisticsBean uhcRunStats)
+    {
+        // Update statistics
+        this.statisticsManager.uhcRunStatsManager.updateUHCRunStatistics(player, uhcRunStats,this.databaseManager.getDataSource());
+    }
+
+    // Update UpperVoid statistics
+    public void updateUpperVoidStatistics(PlayerBean player, UppervoidStatisticsBean upperVoidStats)
+    {
+        // Update statistics
+        this.statisticsManager.upperVoidStatsManager.updateUpperVoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
+    }
 }
