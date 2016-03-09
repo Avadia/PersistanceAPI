@@ -26,5 +26,4 @@ public class PermissionsManager
     Statement statement = null;
     ResultSet resultset = null;
 
-
 }
