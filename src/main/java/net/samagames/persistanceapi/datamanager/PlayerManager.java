@@ -29,7 +29,6 @@ public class PlayerManager
     Connection connection = null;
     Statement statement = null;
     ResultSet resultset = null;
-    boolean nestedQuery = false;
 
     // Get player by UUID, create if unknown
     public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource)
@@ -40,9 +39,6 @@ public class PlayerManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
-
-            // Set flag for nested query
-            this.nestedQuery = true;
 
             // Query construction
             String sql = "";
@@ -69,8 +65,10 @@ public class PlayerManager
             else
             {
                 // If there no player for the uuid in database create a new player
+                this.close();
                 this.createPlayer(player, dataSource);
                 PlayerBean newPlayer = this.getPlayer(uuid, player, dataSource);
+                this.close();
                 return newPlayer;
             }
          }
@@ -80,9 +78,6 @@ public class PlayerManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -220,7 +215,7 @@ public class PlayerManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
