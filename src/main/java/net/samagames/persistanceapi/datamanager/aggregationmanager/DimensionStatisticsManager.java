@@ -30,7 +30,6 @@ public class DimensionStatisticsManager
     Statement statement = null;
     ResultSet resultset = null;
     DimensionStatisticsBean dimensionStats = null;
-    boolean nestedQuery = false;
 
     // Get Dimension player statistics
     public DimensionStatisticsBean getDimensionStatistics(PlayerBean player, DataSource dataSource)
@@ -87,9 +86,6 @@ public class DimensionStatisticsManager
     {
         try
         {
-            // Set flag for nested query
-            this.nestedQuery = true;
-
             // Check if a record exists
             if (this.getDimensionStatistics(player, dataSource) == null)
             {
@@ -132,7 +128,6 @@ public class DimensionStatisticsManager
             }
 
             // Set flag for nested query
-            this.nestedQuery = false;
         }
         catch(SQLException exception)
         {
@@ -140,9 +135,6 @@ public class DimensionStatisticsManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -164,7 +156,7 @@ public class DimensionStatisticsManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
