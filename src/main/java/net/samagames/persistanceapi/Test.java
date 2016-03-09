@@ -19,9 +19,8 @@ import net.samagames.persistanceapi.beans.BungeeConfigBean;
 import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.SanctionBean;
-import net.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
-import net.samagames.persistanceapi.beans.statistics.HeroBattleStatisticsBean;
-import net.samagames.persistanceapi.beans.statistics.JukeBoxStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.*;
+import net.samagames.persistanceapi.datamanager.aggregationmanager.DimensionStatisticsManager;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -39,12 +38,16 @@ public class Test
         DimensionStatisticsBean dimensionStats;
         HeroBattleStatisticsBean heroBattleStats;
         JukeBoxStatisticsBean jukeBoxStats;
+        QuakeStatisticsBean quakeStats;
+        UHCRunStatisticsBean uhcRunStats;
+        UppervoidStatisticsBean upperVoidStats;
 
         // Initialize the manager
         System.out.println("Exécution du test");
         System.out.println("-----------------");
         startTime = System.currentTimeMillis();
-        GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root","root", 1, 10);
+        //GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root","root", 1, 10);
+        GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root","", 1, 20);
         System.out.println("Manager init time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Config loading
@@ -118,7 +121,7 @@ public class Test
         manager.getDimensionStatistics(otherPlayer);
         System.out.println("Read dimension statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-        // Create herobattle statistics tes
+        // Create herobattle statistics test
         heroBattleStats = new HeroBattleStatisticsBean(uuid, 10, 20, 50, 8, 4, 2, new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()), 100);
         startTime = System.currentTimeMillis();
         manager.updateHeroBattleStatistics(otherPlayer, heroBattleStats);
@@ -154,13 +157,58 @@ public class Test
         manager.getJukeBoxStatistics(otherPlayer);
         System.out.println("Read jukebox statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Create quake statistics test
+        quakeStats = new QuakeStatisticsBean(uuid, 10, 20, 30, 5, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        startTime = System.currentTimeMillis();
+        manager.updateQuakeStatistics(otherPlayer, quakeStats);
+        System.out.println("Create quake statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-        // TODO Add others stats
+        // Update quake statistics test
+        quakeStats.setDeaths(1000);
+        quakeStats.setWins(1);
+        startTime = System.currentTimeMillis();
+        manager.updateQuakeStatistics(otherPlayer, quakeStats);
+        System.out.println("Update quake statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Read quake statistics test
+        startTime = System.currentTimeMillis();
+        manager.getQuakeStatistics(otherPlayer);
+        System.out.println("Read quake statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Create UHCRun statistics test
+        uhcRunStats = new UHCRunStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),8000);
+        startTime = System.currentTimeMillis();
+        manager.updateUHCRunStatistics(otherPlayer, uhcRunStats);
+        System.out.println("Create UHCRun statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-        // TODO Here !
+        // Update UHCRun statistics test
+        uhcRunStats.setKills(1000);
+        uhcRunStats.setPlayedGames(42);
+        startTime = System.currentTimeMillis();
+        manager.updateUHCRunStatistics(otherPlayer, uhcRunStats);
+        System.out.println("Update UHCRun statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Read UHCRun statistics test
+        startTime = System.currentTimeMillis();
+        manager.getUHCRunStatistics(otherPlayer);
+        System.out.println("Read UHCRun statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create UpperVoid statistics test
+        upperVoidStats = new UppervoidStatisticsBean(uuid, 40, 60, 5, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),6000);
+        startTime = System.currentTimeMillis();
+        manager.updateUpperVoidStatistics(otherPlayer, upperVoidStats);
+        System.out.println("Create UpperVoid statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Update UpperVoid statistics test
+        upperVoidStats.setPlayedGames(555);
+        startTime = System.currentTimeMillis();
+        manager.updateUHCRunStatistics(otherPlayer, uhcRunStats);
+        System.out.println("Update UpperVoid statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Read UpperVoid statistics test
+        startTime = System.currentTimeMillis();
+        manager.getUpperVoidStatistics(otherPlayer);
+        System.out.println("Read UpperVoid statistics process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // All statistics read for player test
         startTime = System.currentTimeMillis();
