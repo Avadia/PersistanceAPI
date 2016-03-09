@@ -79,6 +79,7 @@ public class DatabaseManager
     public DataSource getDataSource()
     {
         // Return the datasource
+        this.getSourcesStats(this.dataSource); // Fixme remove this trace
         return this.dataSource;
     }
 
@@ -88,6 +89,7 @@ public class DatabaseManager
         BasicDataSource basicDataSource = (BasicDataSource) dataSource;
         System.out.println("Number of active: " + basicDataSource.getNumActive());
         System.out.println("Number of idle: " + basicDataSource.getNumIdle());
+        System.out.println("================================================================================");
     }
 
     // Shutdown the data source
