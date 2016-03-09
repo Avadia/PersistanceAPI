@@ -31,7 +31,6 @@ public class DenunciationManager
     Connection connection = null;
     Statement statement = null;
     ResultSet resultset = null;
-    boolean nestedQuery = false;
 
     // Denunciation by a player
     public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource, PlayerManager playerManager)
@@ -39,14 +38,12 @@ public class DenunciationManager
         // Create denunciation
         try
         {
+            // Retrieve suspect UUID
+            UUID suspectUUID = playerManager.recoverSuspect(denunciation.getSuspect_name(), dataSource);
+
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
-
-            // Set flag for nested query
-            this.nestedQuery = true;
-
-            UUID suspectUUID = playerManager.recoverSuspect(denunciation.getSuspect_name(), dataSource);
 
             // Query construction
             String sql = "";
@@ -73,9 +70,6 @@ public class DenunciationManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -97,7 +91,7 @@ public class DenunciationManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
