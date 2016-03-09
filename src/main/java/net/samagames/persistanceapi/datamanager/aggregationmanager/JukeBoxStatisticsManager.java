@@ -30,7 +30,6 @@ public class JukeBoxStatisticsManager
     Statement statement = null;
     ResultSet resultset = null;
     JukeBoxStatisticsBean jukeBoxStats = null;
-    boolean nestedQuery = false;
 
     // Get JukeBox player statistics
     public JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player, DataSource dataSource)
@@ -85,9 +84,6 @@ public class JukeBoxStatisticsManager
     {
         try
         {
-            // Set flag for nested query
-            this.nestedQuery = true;
-
             // Check if a record exists
             if (this.getJukeBoxStatistics(player, dataSource) == null)
             {
@@ -103,7 +99,7 @@ public class JukeBoxStatisticsManager
                 sql += ", " + jukeBoxStats.getWoots();
                 sql += ", now()";
                 sql += ", now()";
-                sql += ", 10)";
+                sql += ", played_time=" + jukeBoxStats.getPlayedTime() + ")";
 
                 // Execute the query
                 statement.executeUpdate(sql);
@@ -120,13 +116,11 @@ public class JukeBoxStatisticsManager
                 sql += ", woots=" + jukeBoxStats.getWoots();
                 sql += ", update_date=now()";
                 sql += ", played_time=" + jukeBoxStats.getPlayedTime();
+                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
                 statement.executeUpdate(sql);
             }
-
-            // Set flag for nested query
-            this.nestedQuery = false;
         }
         catch(SQLException exception)
         {
@@ -134,9 +128,6 @@ public class JukeBoxStatisticsManager
         }
         finally
         {
-            // Set flag for nested query
-            this.nestedQuery = false;
-
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -158,7 +149,7 @@ public class JukeBoxStatisticsManager
                 // Close the statement
                 statement.close();
             }
-            if (connection != null && this.nestedQuery == false)
+            if (connection != null)
             {
                 // Close the connection
                 connection.close();
