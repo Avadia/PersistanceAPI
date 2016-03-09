@@ -21,7 +21,7 @@ public class GroupsBean
     +------------+--------------+------+-----+---------+-------+
     | Field      | Type         | Null | Key | Default | Extra |
     +------------+--------------+------+-----+---------+-------+
-    | group_id   | bigint(20)   | NO   |     | NULL    |       |
+    | group_id   | bigint(20)   | NO   | PRI | NULL    |       |
     | name       | varchar(255) | NO   |     | NULL    |       |
     | rank       | int(11)      | NO   |     | NULL    |       |
     | tag        | varchar(255) | NO   |     | NULL    |       |
