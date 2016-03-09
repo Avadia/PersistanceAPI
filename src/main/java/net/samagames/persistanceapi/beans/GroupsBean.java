@@ -18,11 +18,17 @@ package net.samagames.persistanceapi.beans;
 public class GroupsBean
 {
     /* Database Structure
-    +-------------+--------------+------+-----+---------------------+-------+
-    | Field       | Type         | Null | Key | Default             | Extra |
-    +-------------+--------------+------+-----+---------------------+-------+
-
-    +-------------+--------------+------+-----+---------------------+-------+
+    +------------+--------------+------+-----+---------+-------+
+    | Field      | Type         | Null | Key | Default | Extra |
+    +------------+--------------+------+-----+---------+-------+
+    | group_id   | bigint(20)   | NO   |     | NULL    |       |
+    | name       | varchar(255) | NO   |     | NULL    |       |
+    | rank       | int(11)      | NO   |     | NULL    |       |
+    | tag        | varchar(255) | NO   |     | NULL    |       |
+    | prefix     | varchar(255) | NO   |     | NULL    |       |
+    | suffix     | varchar(255) | NO   |     | NULL    |       |
+    | multiplier | int(11)      | NO   |     | NULL    |       |
+    +------------+--------------+------+-----+---------+-------+
     */
 
     // Defines
