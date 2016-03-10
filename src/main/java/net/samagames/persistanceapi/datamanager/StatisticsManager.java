@@ -18,7 +18,7 @@ package net.samagames.persistanceapi.datamanager;
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
-import net.samagames.persistanceapi.datamanager.aggregationmanager.*;
+import net.samagames.persistanceapi.datamanager.aggregationmanager.statistics.*;
 
 import javax.sql.DataSource;
 
