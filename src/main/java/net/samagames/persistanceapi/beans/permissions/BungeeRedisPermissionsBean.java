@@ -15,7 +15,7 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
-public class BungeeRedisPermisionsBean
+public class BungeeRedisPermissionsBean
 {
     /* Database Structure
 
