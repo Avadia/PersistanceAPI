@@ -34,6 +34,7 @@ public class PlayerBean
     | first_login | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
     | last_ip     | varchar(15)  | YES  |     | NULL                |       |
     | toptp_key   | varchar(32)  | YES  |     | NULL                |       |
+    | group_id    | bigint(20)   | NO   |     | NULL                |       |
     +-------------+--------------+------+-----+---------------------+-------+
     */
 
@@ -46,12 +47,13 @@ public class PlayerBean
     private Timestamp firstLogin;
     private String lastIP;
     private String toptpKey;
+    private long groupId;
     // Non persistent attributes
     private long startTime;
     private long stopTime;
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey)
+    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
     {
         this.uuid = uuid;
         this.name = name;
@@ -61,6 +63,7 @@ public class PlayerBean
         this.firstLogin = firstLogin;
         this.lastIP = lastIP;
         this.toptpKey = toptpKey;
+        this.groupId = groupId;
     }
 
     // Getters
@@ -80,10 +83,11 @@ public class PlayerBean
         return this.lastLogin;
     }
     public Timestamp getFirstLogin() { return this.firstLogin; }
-    public long getStartTime() { return startTime; }
-    public long getStopTime() { return stopTime; }
-    public String getLastIP() { return lastIP; }
-    public String getToptpKey() { return toptpKey; }
+    public long getStartTime() { return this.startTime; }
+    public long getStopTime() { return this.stopTime; }
+    public String getLastIP() { return this.lastIP; }
+    public String getToptpKey() { return this.toptpKey; }
+    public long getGroupId() { return this.groupId; }
 
     // Setters
     public void setUuid(UUID uuid)
@@ -109,6 +113,7 @@ public class PlayerBean
     public void setStopTime(long stopTime) { this.stopTime = stopTime; }
     public void setLastIP(String lastIP) { this.lastIP = lastIP; }
     public void setToptpKey(String toptpKey) { this.toptpKey = toptpKey; }
+    public void setGroupId(long groupId) { this.groupId = groupId; }
 
     // Get played time
     public long getPlayedTime()
