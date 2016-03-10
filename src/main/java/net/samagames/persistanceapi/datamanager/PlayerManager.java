@@ -149,6 +149,7 @@ public class PlayerManager
             sql += ", last_login='" + player.getLastLogin() +"'";
             sql += ", last_ip='" + player.getLastIP() +"'";
             sql += ", toptp_key='" + player.getToptpKey() +"'";
+            sql += ", group_id=" + player.getGroupId();
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
@@ -177,14 +178,15 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "insert into players (uuid, name, coins, stars, last_login, first_login, last_ip, toptp_key)";
+            sql += "insert into players (uuid, name, coins, stars, last_login, first_login, last_ip, toptp_key, group_id)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", '" + player.getName() + "'";
             sql += ", " + player.getCoins();
             sql += ", " + player.getStars();
             sql += ", now(), now()";
             sql += ", '" + player.getLastIP() + "'";
-            sql +=", '" + player.getToptpKey() + "')";
+            sql +=", '" + player.getToptpKey() + "'";
+            sql +=", " + player.getGroupId() + ")";
 
             // Execute the query
             statement.executeUpdate(sql);
