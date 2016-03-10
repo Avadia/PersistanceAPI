@@ -42,7 +42,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, name, coins, stars, last_login, first_login, last_ip, toptp_key from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += "select (HEX(uuid)) as uuid, name, coins, stars, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -59,7 +59,8 @@ public class PlayerManager
                 Timestamp firsLogin = resultset.getTimestamp("first_login");
                 String lastIP = resultset.getString("last_ip");
                 String toptpKey = resultset.getString("toptp_key");
-                player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin, lastIP, toptpKey);
+                long groupId = resultset.getLong("group_id");
+                player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin, lastIP, toptpKey, groupId);
                 return player;
             }
             else
