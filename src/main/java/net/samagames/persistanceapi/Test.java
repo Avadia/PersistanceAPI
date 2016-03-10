@@ -20,7 +20,6 @@ import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.SanctionBean;
 import net.samagames.persistanceapi.beans.statistics.*;
-import net.samagames.persistanceapi.datamanager.aggregationmanager.DimensionStatisticsManager;
 
 import java.sql.Timestamp;
 import java.util.UUID;
