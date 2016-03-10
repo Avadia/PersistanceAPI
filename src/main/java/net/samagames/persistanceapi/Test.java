@@ -65,7 +65,7 @@ public class Test
         // Create the player
         startTime = System.currentTimeMillis();
         player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", 0, 0, new Timestamp(System.currentTimeMillis()),
-                new Timestamp(System.currentTimeMillis()),"125.125.125.125","TheUltimateKey");
+                new Timestamp(System.currentTimeMillis()),"125.125.125.125","TheUltimateKey", 1);
         manager.createPlayer(player);
         System.out.println("Create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
@@ -76,7 +76,7 @@ public class Test
 
         // Find player test and self create one
         startTime = System.currentTimeMillis();
-        PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"),"gasper", 0, 0, null, null, null, null);
+        PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"),"gasper", 0, 0, null, null, null, null, 1);
         manager.getPlayer(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), selfPlayer);
         System.out.println("Find and self create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
@@ -103,7 +103,7 @@ public class Test
 
         // Create dimensions statistics test
         uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
-        otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"50.50.50.50","AnotherKey");
+        otherPlayer = new PlayerBean(uuid, "thegreatancien", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),"50.50.50.50","AnotherKey", 1);
         dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
         startTime = System.currentTimeMillis();
         manager.updateDimensionStatistics(otherPlayer, dimensionStats);
