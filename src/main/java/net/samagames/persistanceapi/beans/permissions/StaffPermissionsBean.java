@@ -40,6 +40,17 @@ public class StaffPermissionsBean
     private boolean netjoinFull;
     private boolean trackerFamous;
 
+    // Constructor
+    public StaffPermissionsBean(long groupsId, boolean staffMember, boolean netjoinClosed, boolean netjoinVip, boolean netjoinFull, boolean trackerFamous)
+    {
+        this.groupsId = groupsId;
+        this.staffMember = staffMember;
+        this.netjoinClosed = netjoinClosed;
+        this.netjoinVip = netjoinVip;
+        this.netjoinFull = netjoinFull;
+        this.trackerFamous = trackerFamous;
+    }
+
     // Getters
     public long getGroupsId() { return this.groupsId; }
     public boolean isStaffMember() { return this.staffMember; }

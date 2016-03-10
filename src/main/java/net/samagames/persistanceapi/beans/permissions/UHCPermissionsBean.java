@@ -35,6 +35,15 @@ public class UHCPermissionsBean
     private boolean uhcTeamName;
     private boolean uhcTeamInvite;
 
+    // Constructor
+    public UHCPermissionsBean(long groupsId, boolean uhcTeamLock, boolean uhcTeamName, boolean uhcTeamInvite)
+    {
+        this.groupsId = groupsId;
+        this.uhcTeamLock = uhcTeamLock;
+        this.uhcTeamName = uhcTeamName;
+        this.uhcTeamInvite = uhcTeamInvite;
+    }
+
     // Getters
     public long getGroupsId() { return this.groupsId; }
     public boolean isUhcTeamlock() { return this.uhcTeamLock; }

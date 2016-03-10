@@ -56,6 +56,27 @@ public class BungeeRedisPermissionsBean
     private boolean bungeecordCommandEnd;
     private boolean bungeecordCommandAlert;
 
+    // Constructor
+    public BungeeRedisPermissionsBean(long groupsId, boolean bungeecordCommandList, boolean bungeecordCommandFind, boolean redisbungeeCommandLastSeen, boolean redisbungeeCommandSendtoAll,
+                                      boolean bungeecordCommandIp, boolean redisbungeeCommandServerId, boolean redisbungeCommandServerIds, boolean redisbungeeCommandPproxy,
+                                      boolean redisbungeeCommandPlist, boolean bungeecordCommandServer, boolean bungeecordCommandSend, boolean bungeecordCommandEnd, boolean bungeecordCommandAlert)
+    {
+        this.groupsId = groupsId;
+        this.bungeecordCommandList = bungeecordCommandList;
+        this.bungeecordCommandFind = bungeecordCommandFind;
+        this.redisbungeeCommandLastSeen = redisbungeeCommandLastSeen;
+        this.redisbungeeCommandSendtoAll = redisbungeeCommandSendtoAll;
+        this.bungeecordCommandIp = bungeecordCommandIp;
+        this.redisbungeeCommandServerId = redisbungeeCommandServerId;
+        this.redisbungeCommandServerIds = redisbungeCommandServerIds;
+        this.redisbungeeCommandPproxy = redisbungeeCommandPproxy;
+        this.redisbungeeCommandPlist = redisbungeeCommandPlist;
+        this.bungeecordCommandServer = bungeecordCommandServer;
+        this.bungeecordCommandSend = bungeecordCommandSend;
+        this.bungeecordCommandEnd = bungeecordCommandEnd;
+        this.bungeecordCommandAlert = bungeecordCommandAlert;
+    }
+
     // Getters
     public long getGroupsId() { return this.groupsId; }
     public boolean isBungeecordCommandList() { return this.bungeecordCommandList; }

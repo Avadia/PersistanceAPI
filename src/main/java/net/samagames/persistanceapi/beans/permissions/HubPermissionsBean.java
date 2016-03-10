@@ -66,6 +66,32 @@ public class HubPermissionsBean
     private boolean hubFly;
     private boolean hubDebugSign;
 
+    // Constructor
+    public HubPermissionsBean(long groupsId, boolean hubJukeboxLock, boolean hubJukeboxNext, boolean hubJukeBoxClear, boolean hubModSlow, boolean hubModShutup, boolean hubAdminNpc,
+                              boolean hubAdminSign, boolean hubAnguille, boolean hubJukeboxNbs, boolean hubAdminEvacuate, boolean hubAnnounce, boolean hubGadgetsCooldownbypass,
+                              boolean hubGadgetsNuke, boolean hubJukeboxLimitbypass, boolean hubJukeboxLimitstaff, boolean hubBypassmute, boolean hubFly, boolean hubDebugSign)
+    {
+        this.groupsId = groupsId;
+        this.hubJukeboxLock = hubJukeboxLock;
+        this.hubJukeboxNext = hubJukeboxNext;
+        this.hubJukeBoxClear = hubJukeBoxClear;
+        this.hubModSlow = hubModSlow;
+        this.hubModShutup = hubModShutup;
+        this.hubAdminNpc = hubAdminNpc;
+        this.hubAdminSign = hubAdminSign;
+        this.hubAnguille = hubAnguille;
+        this.hubJukeboxNbs = hubJukeboxNbs;
+        this.hubAdminEvacuate = hubAdminEvacuate;
+        this.hubAnnounce = hubAnnounce;
+        this.hubGadgetsCooldownbypass = hubGadgetsCooldownbypass;
+        this.hubGadgetsNuke = hubGadgetsNuke;
+        this.hubJukeboxLimitbypass = hubJukeboxLimitbypass;
+        this.hubJukeboxLimitstaff = hubJukeboxLimitstaff;
+        this.hubBypassmute = hubBypassmute;
+        this.hubFly = hubFly;
+        this.hubDebugSign = hubDebugSign;
+    }
+
     // Getters
     public long getGroupsId() { return this.groupsId; }
     public boolean isHubJukeboxLock() { return this.hubJukeboxLock; }

@@ -58,6 +58,26 @@ public class APIPermissionsBean
     private boolean apiStarsWithdraw;
     private boolean apiGameStart;
 
+    // Constructor
+    public APIPermissionsBean(long groupsId, boolean apiServersDebug, boolean apiPermissionsRefresh, boolean apiCoinsGetOther, boolean apiCoinsCredit, boolean apiCoinsWithdraw,
+                              boolean apiInventoryShow, boolean apiPlayerDataShow, boolean apiPlayerdataSet, boolean apiPlayerdataDel, boolean apiModoSpeakup, boolean apiStarsGetother,
+                              boolean apiStarsCredit, boolean apiStarsWithdraw, boolean apiGameStart)
+    {
+        this.apiServersDebug = apiServersDebug;
+        this.apiPermissionsRefresh = apiPermissionsRefresh;
+        this.apiCoinsGetOther = apiCoinsGetOther;
+        this.apiCoinsCredit = apiCoinsCredit;
+        this.apiCoinsWithdraw = apiCoinsWithdraw;
+        this.apiInventoryShow = apiInventoryShow;
+        this.apiPlayerDataShow = apiPlayerDataShow;
+        this.apiPlayerdataSet = apiPlayerdataSet;
+        this.apiPlayerdataDel = apiPlayerdataDel;
+        this.apiModoSpeakup = apiModoSpeakup;
+        this.apiStarsGetother = apiStarsGetother;
+        this.apiStarsCredit = apiStarsCredit;
+        this.apiStarsWithdraw = apiStarsWithdraw;
+        this.apiGameStart =apiGameStart;
+    }
 
     // Getters
     public long groups_id() { return this.groupsId; }

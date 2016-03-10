@@ -36,6 +36,15 @@ public class BukkitPermissionsBean
     private boolean bukkitCommandOpGive;
     private boolean bukkitCommandPlugins;
 
+    // Constructor
+    public BukkitPermissionsBean(long groupsId, boolean minecraftCommandOp, boolean bukkitCommandOpGive, boolean bukkitCommandPlugins)
+    {
+        this.groupsId = groupsId;
+        this.minecraftCommandOp = minecraftCommandOp;
+        this.bukkitCommandOpGive = bukkitCommandOpGive;
+        this.bukkitCommandPlugins = bukkitCommandPlugins;
+    }
+
     // Getters
     public long getGroupsId() { return groupsId; }
     public boolean isMinecraftCommandOp() { return this.minecraftCommandOp; }

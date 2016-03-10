@@ -44,6 +44,19 @@ public class ModerationPermissionsBean
     private boolean modMute;
     private boolean modChannel;
 
+    // Constructor
+    public ModerationPermissionsBean(long groupsId, boolean modBan, boolean modTp, boolean modKick, boolean modPardon, boolean modMuteLongtime, boolean modMute, boolean modChannel)
+    {
+        this.groupsId = groupsId;
+        this.modBan = modBan;
+        this.modTp = modTp;
+        this.modKick = modKick;
+        this.modPardon = modPardon;
+        this.modMuteLongtime = modMuteLongtime;
+        this.modMute = modMute;
+        this.modChannel = modChannel;
+    }
+
     // Getters
     public long getGroupsId() { return this.groupsId; }
     public boolean isModBan() { return this.modBan; }

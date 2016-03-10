@@ -38,6 +38,16 @@ public class ProxiesPermissionsBean
     private boolean proxiesDebug;
     private boolean proxiesSetOption;
 
+    // Constructor
+    public ProxiesPermissionsBean(long groupsId, boolean proxiesDispatch, boolean proxiesGlobal, boolean proxiesDebug, boolean proxiesSetOption)
+    {
+        this.groupsId = groupsId;
+        this.proxiesDispatch = proxiesDispatch;
+        this.proxiesGlobal = proxiesGlobal;
+        this.proxiesDebug = proxiesDebug;
+        this.proxiesSetOption = proxiesSetOption;
+    }
+
     // Getters
     public long getGroupsId() { return this.groupsId; }
     public boolean isProxiesDispatch() { return this.proxiesDispatch; }
