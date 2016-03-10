@@ -21,6 +21,8 @@ import java.util.UUID;
 public class PlayerBean
 {
     /* Database Structure
+
+    Table : players
     +-------------+--------------+------+-----+---------------------+-------+
     | Field       | Type         | Null | Key | Default             | Extra |
     +-------------+--------------+------+-----+---------------------+-------+

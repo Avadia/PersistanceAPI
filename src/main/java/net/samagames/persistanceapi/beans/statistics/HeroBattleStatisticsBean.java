@@ -21,6 +21,8 @@ import java.util.UUID;
 public class HeroBattleStatisticsBean
 {
     /* Database Structure
+
+    Table : herobattle_stats
     +---------------+------------+------+-----+---------------------+-------+
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+

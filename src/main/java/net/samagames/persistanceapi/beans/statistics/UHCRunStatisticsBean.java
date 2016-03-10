@@ -21,6 +21,8 @@ import java.util.UUID;
 public class UHCRunStatisticsBean
 {
     /* Database Structure
+
+    Table: uhcrun_stats
     +---------------+------------+------+-----+---------------------+-------+
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+

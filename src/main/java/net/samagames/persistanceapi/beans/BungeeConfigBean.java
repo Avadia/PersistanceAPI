@@ -18,6 +18,8 @@ package net.samagames.persistanceapi.beans;
 public class BungeeConfigBean
 {
     /* Database Structure
+
+    Table : configuration
     +-------------+--------------+------+-----+---------+-------+
     | Field       | Type         | Null | Key | Default | Extra |
     +-------------+--------------+------+-----+---------+-------+

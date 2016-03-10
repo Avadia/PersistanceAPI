@@ -21,6 +21,8 @@ import java.util.UUID;
 public class DimensionStatisticsBean
 {
     /* Database Structure
+
+    Table : dimensions_stats
     +---------------+------------+------+-----+---------------------+-------+
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+

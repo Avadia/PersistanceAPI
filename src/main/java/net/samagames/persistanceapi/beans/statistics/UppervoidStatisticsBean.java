@@ -21,6 +21,8 @@ import java.util.UUID;
 public class UppervoidStatisticsBean
 {
     /* Database Structure
+
+    Table : uppervoid_stats
     +---------------+------------+------+-----+---------------------+-------+
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+

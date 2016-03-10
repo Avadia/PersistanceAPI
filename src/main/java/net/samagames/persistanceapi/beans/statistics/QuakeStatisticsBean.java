@@ -21,6 +21,8 @@ import java.util.UUID;
 public class QuakeStatisticsBean
 {
     /* Database Structure
+
+    Tbale : quake_stats
     +---------------+------------+------+-----+---------------------+-------+
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+

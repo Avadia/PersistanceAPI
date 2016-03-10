@@ -21,6 +21,8 @@ import java.util.UUID;
 public class SanctionBean
 {
     /* Database Structure
+
+    Table : sanctions
     +-----------------+--------------+------+-----+---------------------+----------------+
     | Field           | Type         | Null | Key | Default             | Extra          |
     +-----------------+--------------+------+-----+---------------------+----------------+

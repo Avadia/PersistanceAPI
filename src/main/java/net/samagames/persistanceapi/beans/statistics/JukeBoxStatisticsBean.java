@@ -21,6 +21,8 @@ import java.util.UUID;
 public class JukeBoxStatisticsBean
 {
     /* Database Structure
+
+    Table : jukebox_stats
     +---------------+------------+------+-----+---------------------+-------+
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+

@@ -18,6 +18,8 @@ package net.samagames.persistanceapi.beans;
 public class GroupsBean
 {
     /* Database Structure
+
+    Table : groups
     +------------+--------------+------+-----+---------+-------+
     | Field      | Type         | Null | Key | Default | Extra |
     +------------+--------------+------+-----+---------+-------+

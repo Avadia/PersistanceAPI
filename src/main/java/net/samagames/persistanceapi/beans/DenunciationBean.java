@@ -21,6 +21,8 @@ import java.util.UUID;
 public class DenunciationBean
 {
     /* Database Structure
+
+    Table : denunciation
     +-----------------+--------------+------+-----+---------------------+----------------+
     | Field           | Type         | Null | Key | Default             | Extra          |
     +-----------------+--------------+------+-----+---------------------+----------------+
