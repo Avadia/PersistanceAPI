@@ -17,27 +17,29 @@ package net.samagames.persistanceapi.beans.permissions;
 public class UHCPermissionsBean
 {
     /* Database Structure
-    +-------------------+------------+------+-----+---------+-------+
-    | Field             | Type       | Null | Key | Default | Extra |
-    +-------------------+------------+------+-----+---------+-------+
-    | uhc_permission_id | bigint(20) | NO   | PRI | NULL    |       |
-    | uhc_team_lock     | tinyint(1) | NO   |     | NULL    |       |
-    | uhc_team_name     | tinyint(1) | NO   |     | NULL    |       |
-    | uhc_team_invite   | tinyint(1) | NO   |     | NULL    |       |
-    +-------------------+------------+------+-----+---------+-------+
+
+    Table : uhc_permissions
+    +-----------------+------------+------+-----+---------+----------------+
+    | Field           | Type       | Null | Key | Default | Extra          |
+    +-----------------+------------+------+-----+---------+----------------+
+    | groups_id       | bigint(20) | NO   | PRI | NULL    | auto_increment |
+    | uhc_team_lock   | tinyint(1) | NO   |     | NULL    |                |
+    | uhc_team_name   | tinyint(1) | NO   |     | NULL    |                |
+    | uhc_team_invite | tinyint(1) | NO   |     | NULL    |                |
+    +-----------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
-    private long uhcPermissionId;
+    private long groupsId;
     private boolean uhcTeamLock;
     private boolean uhcTeamName;
     private boolean uhcTeamInvite;
 
     // Getters
-    public long getUhcPermissionId() { return uhcPermissionId; }
-    public boolean isUhcTeamlock() { return uhcTeamLock; }
-    public boolean isUhcTeamName() { return uhcTeamName; }
-    public boolean isUhcTeaminvite() { return uhcTeamInvite; }
+    public long getGroupsId() { return this.groupsId; }
+    public boolean isUhcTeamlock() { return this.uhcTeamLock; }
+    public boolean isUhcTeamName() { return this.uhcTeamName; }
+    public boolean isUhcTeaminvite() { return this.uhcTeamInvite; }
 
     // Setters
     public void setUhcTeamlock(boolean uhcTeamlock) { this.uhcTeamLock = uhcTeamlock; }

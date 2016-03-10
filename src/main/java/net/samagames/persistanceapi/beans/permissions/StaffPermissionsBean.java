@@ -18,20 +18,22 @@ package net.samagames.persistanceapi.beans.permissions;
 public class StaffPermissionsBean
 {
     /* Database Structure
-    +---------------------+------------+------+-----+---------+-------+
-    | Field               | Type       | Null | Key | Default | Extra |
-    +---------------------+------------+------+-----+---------+-------+
-    | staff_permission_id | bigint(20) | NO   | PRI | NULL    |       |
-    | staff_member        | tinyint(1) | NO   |     | NULL    |       |
-    | netjoin_closed      | tinyint(1) | NO   |     | NULL    |       |
-    | netjoin_vip         | tinyint(1) | NO   |     | NULL    |       |
-    | netjoin_full        | tinyint(1) | NO   |     | NULL    |       |
-    | tracker_famous      | tinyint(1) | NO   |     | NULL    |       |
-    +---------------------+------------+------+-----+---------+-------+
+
+    Table : staff_permissions
+    +----------------+------------+------+-----+---------+----------------+
+    | Field          | Type       | Null | Key | Default | Extra          |
+    +----------------+------------+------+-----+---------+----------------+
+    | groups_id      | bigint(20) | NO   | PRI | NULL    | auto_increment |
+    | staff_member   | tinyint(1) | NO   |     | NULL    |                |
+    | netjoin_closed | tinyint(1) | NO   |     | NULL    |                |
+    | netjoin_vip    | tinyint(1) | NO   |     | NULL    |                |
+    | netjoin_full   | tinyint(1) | NO   |     | NULL    |                |
+    | tracker_famous | tinyint(1) | NO   |     | NULL    |                |
+    +----------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
-    private long staffPermissionId;
+    private long groupsId;
     private boolean staffMember;
     private boolean netjoinClosed;
     private boolean netjoinVip;
@@ -39,12 +41,12 @@ public class StaffPermissionsBean
     private boolean trackerFamous;
 
     // Getters
-    public long getStaffPermissionId() { return staffPermissionId; }
-    public boolean isStaffMember() { return staffMember; }
-    public boolean isNetjoinClosed() { return netjoinClosed; }
-    public boolean isNetjoinVip() { return netjoinVip; }
-    public boolean isNetjoinFull() { return netjoinFull; }
-    public boolean isTrackerFamous() { return trackerFamous; }
+    public long getGroupsId() { return this.groupsId; }
+    public boolean isStaffMember() { return this.staffMember; }
+    public boolean isNetjoinClosed() { return this.netjoinClosed; }
+    public boolean isNetjoinVip() { return this.netjoinVip; }
+    public boolean isNetjoinFull() { return this.netjoinFull; }
+    public boolean isTrackerFamous() { return this.trackerFamous; }
 
     // Setters
     public void setStaffMember(boolean staffMember) { this.staffMember = staffMember; }

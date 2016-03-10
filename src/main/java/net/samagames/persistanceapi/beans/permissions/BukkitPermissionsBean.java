@@ -18,27 +18,29 @@ package net.samagames.persistanceapi.beans.permissions;
 public class BukkitPermissionsBean
 {
     /* Database Structure
-    +------------------------+------------+------+-----+---------+-------+
-    | Field                  | Type       | Null | Key | Default | Extra |
-    +------------------------+------------+------+-----+---------+-------+
-    | bukkit_permission_id   | bigint(20) | NO   | PRI | NULL    |       |
-    | minecraft_command_op   | tinyint(1) | NO   |     | NULL    |       |
-    | bukkit_command_op_give | tinyint(1) | NO   |     | NULL    |       |
-    | bukkit_command_plugins | tinyint(1) | NO   |     | NULL    |       |
-    +------------------------+------------+------+-----+---------+-------+
+
+    Table : bukkit_permissions
+    +------------------------+------------+------+-----+---------+----------------+
+    | Field                  | Type       | Null | Key | Default | Extra          |
+    +------------------------+------------+------+-----+---------+----------------+
+    | groups_id              | bigint(20) | NO   | PRI | NULL    | auto_increment |
+    | minecraft_command_op   | tinyint(1) | NO   |     | NULL    |                |
+    | bukkit_command_op_give | tinyint(1) | NO   |     | NULL    |                |
+    | bukkit_command_plugins | tinyint(1) | NO   |     | NULL    |                |
+    +------------------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
-    private long bukkitPermissionId;
+    private long groupsId;
     private boolean minecraftCommandOp;
     private boolean bukkitCommandOpGive;
     private boolean bukkitCommandPlugins;
 
     // Getters
-    public long getBukkitPermissionId() { return bukkitPermissionId; }
-    public boolean isMinecraftCommandOp() { return minecraftCommandOp; }
-    public boolean isBukkitCommandOpGive() { return bukkitCommandOpGive; }
-    public boolean isBukkitCommandPlugins() { return bukkitCommandPlugins; }
+    public long getGroupsId() { return groupsId; }
+    public boolean isMinecraftCommandOp() { return this.minecraftCommandOp; }
+    public boolean isBukkitCommandOpGive() { return this.bukkitCommandOpGive; }
+    public boolean isBukkitCommandPlugins() { return this.bukkitCommandPlugins; }
 
     // Setters
     public void setMinecraftCommandOp(boolean minecraftCommandOp) { this.minecraftCommandOp = minecraftCommandOp; }

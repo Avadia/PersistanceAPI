@@ -18,22 +18,24 @@ package net.samagames.persistanceapi.beans.permissions;
 public class ModerationPermissionsBean
 {
     /* Database Structure
-    +--------------------------+------------+------+-----+---------+-------+
-    | Field                    | Type       | Null | Key | Default | Extra |
-    +--------------------------+------------+------+-----+---------+-------+
-    | moderation_permission_id | bigint(20) | NO   | PRI | NULL    |       |
-    | mod_ban                  | tinyint(1) | NO   |     | NULL    |       |
-    | mod_tp                   | tinyint(1) | NO   |     | NULL    |       |
-    | mod_kick                 | tinyint(1) | NO   |     | NULL    |       |
-    | mod_pardon               | tinyint(1) | NO   |     | NULL    |       |
-    | mod_mute_longtime        | tinyint(1) | NO   |     | NULL    |       |
-    | mod_mute                 | tinyint(1) | NO   |     | NULL    |       |
-    | mod_channel              | tinyint(1) | NO   |     | NULL    |       |
-    +--------------------------+------------+------+-----+---------+-------+
+
+    Table : moderation_permissions
+    +-------------------+------------+------+-----+---------+----------------+
+    | Field             | Type       | Null | Key | Default | Extra          |
+    +-------------------+------------+------+-----+---------+----------------+
+    | groups_id         | bigint(20) | NO   | PRI | NULL    | auto_increment |
+    | mod_ban           | tinyint(1) | NO   |     | NULL    |                |
+    | mod_tp            | tinyint(1) | NO   |     | NULL    |                |
+    | mod_kick          | tinyint(1) | NO   |     | NULL    |                |
+    | mod_pardon        | tinyint(1) | NO   |     | NULL    |                |
+    | mod_mute_longtime | tinyint(1) | NO   |     | NULL    |                |
+    | mod_mute          | tinyint(1) | NO   |     | NULL    |                |
+    | mod_channel       | tinyint(1) | NO   |     | NULL    |                |
+    +-------------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
-    private long moderationPermissionId;
+    private long groupsId;
     private boolean modBan;
     private boolean modTp;
     private boolean modKick;
@@ -43,14 +45,14 @@ public class ModerationPermissionsBean
     private boolean modChannel;
 
     // Getters
-    public long getModerationPermissionId() { return moderationPermissionId; }
-    public boolean isModBan() { return modBan; }
-    public boolean isModTp() { return modTp; }
-    public boolean isModKick() { return modKick; }
-    public boolean isModPardon() { return modPardon; }
-    public boolean isModMuteLongtime() { return modMuteLongtime; }
-    public boolean isModMute() { return modMute; }
-    public boolean isModChannel() { return modChannel; }
+    public long getGroupsId() { return this.groupsId; }
+    public boolean isModBan() { return this.modBan; }
+    public boolean isModTp() { return this.modTp; }
+    public boolean isModKick() { return this.modKick; }
+    public boolean isModPardon() { return this.modPardon; }
+    public boolean isModMuteLongtime() { return this.modMuteLongtime; }
+    public boolean isModMute() { return this.modMute; }
+    public boolean isModChannel() { return this.modChannel; }
 
     // Setters
     public void setModBan(boolean modBan) { this.modBan = modBan; }

@@ -18,31 +18,35 @@ package net.samagames.persistanceapi.beans.permissions;
 public class BungeeRedisPermisionsBean
 {
     /* Database Structure
-    +---------------------------------+------------+------+-----+---------+-------+
-    | Field                           | Type       | Null | Key | Default | Extra |
-    +---------------------------------+------------+------+-----+---------+-------+
-    | bungee_redis_permission_id      | bigint(20) | NO   | PRI | NULL    |       |
-    | bungeecord_command_list         | tinyint(1) | NO   |     | NULL    |       |
-    | bungeecord_command_find         | tinyint(1) | NO   |     | NULL    |       |
-    | redisbungee_command_last_seen   | tinyint(1) | NO   |     | NULL    |       |
-    | redisbungee_command_send_to_all | tinyint(1) | NO   |     | NULL    |       |
-    | redisbungee_command_server_id   | tinyint(1) | NO   |     | NULL    |       |
-    | redisbunge_command_server_ids   | tinyint(1) | NO   |     | NULL    |       |
-    | redisbungee_command_pproxy      | tinyint(1) | NO   |     | NULL    |       |
-    | redisbungee_command_plist       | tinyint(1) | NO   |     | NULL    |       |
-    | bungeecord_command_server       | tinyint(1) | NO   |     | NULL    |       |
-    | bungeecord_command_send         | tinyint(1) | NO   |     | NULL    |       |
-    | bungeecord_command_end          | tinyint(1) | NO   |     | NULL    |       |
-    | bungeecord_command_alert        | tinyint(1) | NO   |     | NULL    |       |
-    +---------------------------------+------------+------+-----+---------+-------+
+
+    Table : bungee_redis_permissions
+    +-------------------------------+------------+------+-----+---------+----------------+
+    | Field                         | Type       | Null | Key | Default | Extra          |
+    +-------------------------------+------------+------+-----+---------+----------------+
+    | groups_id                     | bigint(20) | NO   | PRI | NULL    | auto_increment |
+    | bungeecord_command_list       | tinyint(1) | NO   |     | NULL    |                |
+    | bungeecord_command_find       | tinyint(1) | NO   |     | NULL    |                |
+    | redisbungee_command_lastseen  | tinyint(1) | NO   |     | NULL    |                |
+    | bungeecord_command_ip         | tinyint(1) | NO   |     | NULL    |                |
+    | redisbungee_command_sendtoall | tinyint(1) | NO   |     | NULL    |                |
+    | redisbungee_command_serverid  | tinyint(1) | NO   |     | NULL    |                |
+    | redisbunge_command_serverids  | tinyint(1) | NO   |     | NULL    |                |
+    | redisbungee_command_pproxy    | tinyint(1) | NO   |     | NULL    |                |
+    | redisbungee_command_plist     | tinyint(1) | NO   |     | NULL    |                |
+    | bungeecord_command_server     | tinyint(1) | NO   |     | NULL    |                |
+    | bungeecord_command_send       | tinyint(1) | NO   |     | NULL    |                |
+    | bungeecord_command_end        | tinyint(1) | NO   |     | NULL    |                |
+    | bungeecord_command_alert      | tinyint(1) | NO   |     | NULL    |                |
+    +-------------------------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
-    private long bungeeRedisPermissionId;
+    private long groupsId;
     private boolean bungeecordCommandList;
     private boolean bungeecordCommandFind;
     private boolean redisbungeeCommandLastSeen;
     private boolean redisbungeeCommandSendtoAll;
+    private boolean bungeecordCommandIp;
     private boolean redisbungeeCommandServerId;
     private boolean redisbungeCommandServerIds;
     private boolean redisbungeeCommandPproxy;
@@ -53,25 +57,27 @@ public class BungeeRedisPermisionsBean
     private boolean bungeecordCommandAlert;
 
     // Getters
-    public long getBungeeRedisPermissionId() { return bungeeRedisPermissionId; }
-    public boolean isBungeecordCommandList() { return bungeecordCommandList; }
-    public boolean isBungeecordCommandFind() { return bungeecordCommandFind; }
-    public boolean isRedisbungeeCommandLastSeen() { return redisbungeeCommandLastSeen; }
-    public boolean isRedisbungeeCommandSendtoAll() { return redisbungeeCommandSendtoAll; }
-    public boolean isRedisbungeeCommandServerId() { return redisbungeeCommandServerId; }
-    public boolean isRedisbungeCommandServerIds() { return redisbungeCommandServerIds; }
-    public boolean isRedisbungeeCommandPproxy() { return redisbungeeCommandPproxy; }
-    public boolean isRedisbungeeCommandPlist() { return redisbungeeCommandPlist; }
-    public boolean isBungeecordCommandServer() { return bungeecordCommandServer; }
-    public boolean isBungeecordCommandSend() { return bungeecordCommandSend; }
-    public boolean isBungeecordCommandEnd() { return bungeecordCommandEnd; }
-    public boolean isBungeecordCommandAlert() { return bungeecordCommandAlert; }
+    public long getGroupsId() { return this.groupsId; }
+    public boolean isBungeecordCommandList() { return this.bungeecordCommandList; }
+    public boolean isBungeecordCommandFind() { return this.bungeecordCommandFind; }
+    public boolean isRedisbungeeCommandLastSeen() { return this.redisbungeeCommandLastSeen; }
+    public boolean isRedisbungeeCommandSendtoAll() { return this.redisbungeeCommandSendtoAll; }
+    public boolean isBungeecordCommandIp() { return this.bungeecordCommandIp; }
+    public boolean isRedisbungeeCommandServerId() { return this.redisbungeeCommandServerId; }
+    public boolean isRedisbungeCommandServerIds() { return this.redisbungeCommandServerIds; }
+    public boolean isRedisbungeeCommandPproxy() { return this.redisbungeeCommandPproxy; }
+    public boolean isRedisbungeeCommandPlist() { return this.redisbungeeCommandPlist; }
+    public boolean isBungeecordCommandServer() { return this.bungeecordCommandServer; }
+    public boolean isBungeecordCommandSend() { return this.bungeecordCommandSend; }
+    public boolean isBungeecordCommandEnd() { return this.bungeecordCommandEnd; }
+    public boolean isBungeecordCommandAlert() { return this.bungeecordCommandAlert; }
 
     // Setters
     public void setBungeecordCommandList(boolean bungeecordCommandList) { this.bungeecordCommandList = bungeecordCommandList; }
     public void setBungeecordCommandFind(boolean bungeecordCommandFind) { this.bungeecordCommandFind = bungeecordCommandFind; }
     public void setRedisbungeeCommandLastSeen(boolean redisbungeeCommandLastSeen) { this.redisbungeeCommandLastSeen = redisbungeeCommandLastSeen; }
     public void setRedisbungeeCommandSendtoAll(boolean redisbungeeCommandSendtoAll) { this.redisbungeeCommandSendtoAll = redisbungeeCommandSendtoAll; }
+    public void setBungeecordCommandIp(boolean bungeecordCommandIp) { this.bungeecordCommandIp = bungeecordCommandIp; }
     public void setRedisbungeeCommandServerId(boolean redisbungeeCommandServerId) { this.redisbungeeCommandServerId = redisbungeeCommandServerId; }
     public void setRedisbungeCommandServerIds(boolean redisbungeCommandServerIds) { this.redisbungeCommandServerIds = redisbungeCommandServerIds; }
     public void setRedisbungeeCommandPproxy(boolean redisbungeeCommandPproxy) { this.redisbungeeCommandPproxy = redisbungeeCommandPproxy; }
