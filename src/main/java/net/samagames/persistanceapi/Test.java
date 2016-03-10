@@ -28,6 +28,9 @@ public class Test
 {
     public static void main (String[] args)
     {
+        // Execution plateform
+        String cible = args[0];
+
         // Defines
         long startTime;
         DenunciationBean denunciationBean;
@@ -40,13 +43,20 @@ public class Test
         QuakeStatisticsBean quakeStats;
         UHCRunStatisticsBean uhcRunStats;
         UppervoidStatisticsBean upperVoidStats;
+        GameServiceManager manager;
 
         // Initialize the manager
         System.out.println("Exécution du test");
         System.out.println("-----------------");
         startTime = System.currentTimeMillis();
-        //GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root","root", 1, 10);
-        GameServiceManager manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root","", 1, 20);
+        if (cible.equals("maison"))
+        {
+             manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root", "root", 1, 10);
+        }
+        else
+        {
+             manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root", "", 1, 20);
+        }
         System.out.println("Manager init time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Config loading
