@@ -30,6 +30,10 @@ public class Test
     {
         // Execution plateform
         String cible = args[0];
+        if (cible == null)
+        {
+            cible = "";
+        }
 
         // Defines
         long startTime;
@@ -51,11 +55,13 @@ public class Test
         startTime = System.currentTimeMillis();
         if (cible.equals("maison"))
         {
-             manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root", "root", 1, 10);
+            // For MisterSatch only
+            manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root", "root", 1, 10);
         }
         else
         {
-             manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root", "", 1, 20);
+            // For standard localhost configuration
+            manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root", "", 1, 20);
         }
         System.out.println("Manager init time: " + (System.currentTimeMillis()-startTime) + " ms");
 
