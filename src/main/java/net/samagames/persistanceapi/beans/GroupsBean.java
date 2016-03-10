@@ -42,6 +42,18 @@ public class GroupsBean
     private String suffix;
     private int multiplier;
 
+    // Constructor
+    public GroupsBean(long groupId, String name, int rank, String tag, String prefix, String suffix, int multiplier)
+    {
+        this.groupId = groupId;
+        this.name = name;
+        this.rank = rank;
+        this.tag = tag;
+        this.prefix = prefix;
+        this.suffix = suffix;
+        this.multiplier = multiplier;
+    }
+
     // Getters
     public long getGroupId() { return groupId; }
     public String getName() { return name; }
