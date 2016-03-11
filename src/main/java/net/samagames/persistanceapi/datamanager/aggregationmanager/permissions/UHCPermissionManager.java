@@ -43,7 +43,7 @@ public class UHCPermissionManager
 
             // Query construction
             String sql = "select groups_id, uhc_team_lock, uhc_team_name, uhc_team_invite";
-            sql += " from uhc_permissions where group_id=" + player.getGroupId();
+            sql += " from uhc_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -52,7 +52,7 @@ public class UHCPermissionManager
             if(resultset.next())
             {
                 // There's a result
-                long groupId = resultset.getLong("group_id");
+                long groupId = resultset.getLong("groups_id");
                 boolean uhcTeamLock = resultset.getBoolean("uhc_team_lock");
                 boolean uhcTeamName = resultset.getBoolean("uhc_team_name");
                 boolean uhcTeamInvite = resultset.getBoolean("uhc_team_invite");
