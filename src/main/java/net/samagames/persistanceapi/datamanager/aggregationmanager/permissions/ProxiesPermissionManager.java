@@ -44,7 +44,7 @@ public class ProxiesPermissionManager
 
             // Query construction
             String sql = "select groups_id, proxies_dispatch, proxies_global, proxies_debug, proxies_set_option";
-            sql += " from proxies_permissions where group_id=" + player.getGroupId();
+            sql += " from proxies_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -53,7 +53,7 @@ public class ProxiesPermissionManager
             if(resultset.next())
             {
                 // There's a result
-                long groupId = resultset.getLong("group_id");
+                long groupId = resultset.getLong("groups_id");
                 boolean proxiesDispatch = resultset.getBoolean("proxies_dispatch");
                 boolean proxiesGlobal = resultset.getBoolean("proxies_global");
                 boolean proxiesDebug = resultset.getBoolean("proxies_debug");
