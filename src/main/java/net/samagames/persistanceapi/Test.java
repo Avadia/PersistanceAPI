@@ -259,5 +259,49 @@ public class Test
         boolean isMute = manager.isPlayerMuted(otherPlayer);
         System.out.println("Check isMute process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Get API permissions
+        startTime = System.currentTimeMillis();
+        manager.getAPIPermission(otherPlayer);
+        System.out.println("Get API permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get Bukkit permissions
+        startTime = System.currentTimeMillis();
+        manager.getBukkitPermission(otherPlayer);
+        System.out.println("Get Bukkit permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get Bungee & Redis permissions
+        startTime = System.currentTimeMillis();
+        manager.getBungeeRedisPemission(otherPlayer);
+        System.out.println("Get Bungee & Redis permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get Hub permissions
+        startTime = System.currentTimeMillis();
+        manager.getHubPermission(otherPlayer);
+        System.out.println("Get Hub permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get moderation permissions
+        startTime = System.currentTimeMillis();
+        manager.getModerationPermission(otherPlayer);
+        System.out.println("Get moderation permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get proxies permissions
+        startTime = System.currentTimeMillis();
+        manager.getProxiesPermission(otherPlayer);
+        System.out.println("Get proxies permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get staff permissions
+        startTime = System.currentTimeMillis();
+        manager.getStaffPermission(otherPlayer);
+        System.out.println("Get staff permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get UHC permissions
+        startTime = System.currentTimeMillis();
+        manager.getUHCPermission(otherPlayer);
+        System.out.println("Get UHC permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get all permissions
+        startTime = System.currentTimeMillis();
+        manager.getPlayerPermission(otherPlayer);
+        System.out.println("Get all permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
      }
 }
