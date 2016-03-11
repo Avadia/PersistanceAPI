@@ -49,14 +49,14 @@ public class PermissionsManager
     public PlayerPermissionBean getPlayerPermission(PlayerBean player, DataSource dataSource)
     {
         // Get the different permissions bean
-        APIPermissionsBean apiPermissions = this.apiPermissionManager.getPermission(player, dataSource);
-        BukkitPermissionsBean bukkitPermissions = this.bukkitPermissionManager.getPermission(player, dataSource);
-        BungeeRedisPermissionsBean bungeeRedisPermisions = this.bungeeRedisPermissionManager.getPemission(player, dataSource);
-        HubPermissionsBean hubPermissions = this.hubPermissionManager.getPermission(player, dataSource);
-        ModerationPermissionsBean moderationPermissions = this.moderationPermissionManager.getPermission(player, dataSource);
-        ProxiesPermissionsBean proxiesPermissions = this.proxiesPermissionManager.getPermission(player, dataSource);
-        StaffPermissionsBean staffPermissions = this.staffPermissionManager.getPermission(player, dataSource);
-        UHCPermissionsBean uhcPermissions = this.uhcPermissionManager.getPermission(player, dataSource);
+        APIPermissionsBean apiPermissions = this.apiPermissionManager.getAPIPermission(player, dataSource);
+        BukkitPermissionsBean bukkitPermissions = this.bukkitPermissionManager.getBukkitPermission(player, dataSource);
+        BungeeRedisPermissionsBean bungeeRedisPermisions = this.bungeeRedisPermissionManager.getBungeeRedisPemission(player, dataSource);
+        HubPermissionsBean hubPermissions = this.hubPermissionManager.getHubPermission(player, dataSource);
+        ModerationPermissionsBean moderationPermissions = this.moderationPermissionManager.getModerationPermission(player, dataSource);
+        ProxiesPermissionsBean proxiesPermissions = this.proxiesPermissionManager.getProxiesPermission(player, dataSource);
+        StaffPermissionsBean staffPermissions = this.staffPermissionManager.getStaffPermission(player, dataSource);
+        UHCPermissionsBean uhcPermissions = this.uhcPermissionManager.getUHCPermission(player, dataSource);
 
         // Create the aggregation of different permissions bean
         PlayerPermissionBean playerPermissionBean = new PlayerPermissionBean(apiPermissions, bukkitPermissions, bungeeRedisPermisions, hubPermissions, moderationPermissions, proxiesPermissions,
