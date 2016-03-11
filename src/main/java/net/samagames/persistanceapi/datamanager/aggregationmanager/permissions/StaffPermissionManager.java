@@ -44,7 +44,7 @@ public class StaffPermissionManager
 
             // Query construction
             String sql = "select groups_id, staff_member, netjoin_closed, netjoin_vip, netjoin_full, tracker_famous";
-            sql += " from staff_permissions where group_id=" + player.getGroupId();
+            sql += " from staff_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -53,7 +53,7 @@ public class StaffPermissionManager
             if(resultset.next())
             {
                 // There's a result
-                long groupId = resultset.getLong("group_id");
+                long groupId = resultset.getLong("groups_id");
                 boolean staffMember = resultset.getBoolean("staff_member");
                 boolean netjoinClosed = resultset.getBoolean("netjoin_closed");
                 boolean netjoinVip = resultset.getBoolean("netjoin_vip");
