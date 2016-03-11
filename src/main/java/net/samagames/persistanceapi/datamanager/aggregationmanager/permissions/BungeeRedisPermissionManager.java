@@ -44,7 +44,7 @@ public class BungeeRedisPermissionManager
             String sql = "select groups_id, bungeecord_command_list, bungeecord_command_find, redisbungee_command_lastseen, bungeecord_command_ip, redisbungee_command_sendtoall, ";
             sql += "redisbungee_command_serverid, redisbunge_command_serverids, redisbungee_command_pproxy, redisbungee_command_plist, bungeecord_command_server, bungeecord_command_send, ";
             sql += "bungeecord_command_end, bungeecord_command_alert";
-            sql += " from bukkit_permissions where group_id=" + player.getGroupId();
+            sql += " from bungee_redis_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -53,7 +53,7 @@ public class BungeeRedisPermissionManager
             if(resultset.next())
             {
                 // There's a result
-                long groupId = resultset.getLong("group_id");
+                long groupId = resultset.getLong("groups_id");
                 boolean bungeecordCommandList = resultset.getBoolean("bungeecord_command_list");
                 boolean bungeecordCommandFind = resultset.getBoolean("bungeecord_command_find");
                 boolean redisbungeeCommandLastSeen = resultset.getBoolean("redisbungee_command_lastseen");
