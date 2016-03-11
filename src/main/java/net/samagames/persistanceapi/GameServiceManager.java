@@ -19,9 +19,11 @@ import net.samagames.persistanceapi.beans.BungeeConfigBean;
 import net.samagames.persistanceapi.beans.DenunciationBean;
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.SanctionBean;
+import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.*;
+import net.samagames.persistanceapi.datamanager.aggregationmanager.permissions.HubPermissionManager;
 
 import javax.sql.DataSource;
 import java.util.UUID;
@@ -35,6 +37,7 @@ public class GameServiceManager
     public StatisticsManager statisticsManager;
     public ConfigurationManager configurationManager;
     public DenunciationManager denunciationManager;
+    public PermissionsManager permissionsManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -46,6 +49,7 @@ public class GameServiceManager
         this.statisticsManager = new StatisticsManager();
         this.configurationManager = new ConfigurationManager();
         this.denunciationManager = new DenunciationManager();
+        this.permissionsManager = new PermissionsManager();
     }
 
 
@@ -233,5 +237,73 @@ public class GameServiceManager
     {
         // Update statistics
         this.statisticsManager.upperVoidStatsManager.updateUpperVoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
+    }
+
+
+    /*============================================
+      Part of permissions manager
+    ============================================*/
+
+    // Get API permissions
+    public APIPermissionsBean getAPIPermission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.apiPermissionManager.getAPIPermission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Bukkit permissions
+    public BukkitPermissionsBean getBukkitPermission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.bukkitPermissionManager.getBukkitPermission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Bungee & Redis permissions
+    public BungeeRedisPermissionsBean getBungeeRedisPemission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.bungeeRedisPermissionManager.getBungeeRedisPemission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Hub permissions
+    public HubPermissionsBean getHubPermission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.hubPermissionManager.getHubPermission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Moderation permissions
+    public ModerationPermissionsBean getModerationPermission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.moderationPermissionManager.getModerationPermission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Proxies permissions
+    public ProxiesPermissionsBean getProxiesPermission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.proxiesPermissionManager.getProxiesPermission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Staff permissions
+    public StaffPermissionsBean getStaffPermission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.staffPermissionManager.getStaffPermission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get UHC permissions
+    public UHCPermissionsBean getUHCPermission(PlayerBean player)
+    {
+        // Get the permissions
+        return this.permissionsManager.uhcPermissionManager.getUHCPermission(player, this.databaseManager.getDataSource());
+    }
+
+    // Get all player permissions
+    public PlayerPermissionBean getPlayerPermission(PlayerBean player)
+    {
+        // Get all the statistics
+        return this.permissionsManager.getPlayerPermission(player, this.databaseManager.getDataSource());
     }
 }
