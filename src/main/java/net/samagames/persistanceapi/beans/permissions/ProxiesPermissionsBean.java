@@ -19,7 +19,7 @@ public class ProxiesPermissionsBean
 {
     /* Database Structure
 
-    Table :
+    Table : proxies_permissions
     +--------------------+------------+------+-----+---------+----------------+
     | Field              | Type       | Null | Key | Default | Extra          |
     +--------------------+------------+------+-----+---------+----------------+
