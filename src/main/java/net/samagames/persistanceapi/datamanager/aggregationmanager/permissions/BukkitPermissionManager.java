@@ -45,7 +45,7 @@ public class BukkitPermissionManager
 
             // Query construction
             String sql = "select groups_id, minecraft_command_op, bukkit_command_op_give, bukkit_command_plugins";
-            sql += " from bukkit_permissions where group_id=" + player.getGroupId();
+            sql += " from bukkit_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -54,7 +54,7 @@ public class BukkitPermissionManager
             if(resultset.next())
             {
                 // There's a result
-                long groupId = resultset.getLong("group_id");
+                long groupId = resultset.getLong("groups_id");
                 boolean minecraftCommandOp = resultset.getBoolean("minecraft_command_op");
                 boolean bukkitCommandOpGive = resultset.getBoolean("bukkit_command_op_give");
                 boolean bukkitCommandPlugins = resultset.getBoolean("bukkit_command_plugins");

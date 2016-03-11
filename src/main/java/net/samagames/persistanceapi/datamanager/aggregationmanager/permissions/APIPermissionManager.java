@@ -45,7 +45,7 @@ public class APIPermissionManager
             // Query construction
             String sql = "select groups_id, api_servers_debug, api_permissions_refresh, api_coins_getother, api_coins_credit, api_coins_withdraw, api_inventory_show";
             sql += ", api_playerdata_show, api_playerdata_set, api_playerdata_del, api_modo_speakup, api_stars_getother, api_stars_credit, api_stars_withdraw, api_game_start";
-            sql += " from api_permissions where group_id=" + player.getGroupId();
+            sql += " from api_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -54,7 +54,7 @@ public class APIPermissionManager
             if(resultset.next())
             {
                 // There's a result
-                long groupId = resultset.getLong("group_id");
+                long groupId = resultset.getLong("groups_id");
                 boolean apiServersDebug = resultset.getBoolean("api_servers_debug");
                 boolean apiPermissionsRefresh = resultset.getBoolean("api_permissions_refresh");
                 boolean apiCoinsGetOther = resultset.getBoolean("api_coins_getother");
