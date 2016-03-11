@@ -33,6 +33,7 @@ public class HubPermissionManager
     ResultSet resultset = null;
     HubPermissionsBean hubPermissionsBean = null;
 
+    // Get the permissions for the hub
     public HubPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
     {
         try

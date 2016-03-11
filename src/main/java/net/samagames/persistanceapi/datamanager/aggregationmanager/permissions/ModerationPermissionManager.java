@@ -33,6 +33,7 @@ public class ModerationPermissionManager
     ResultSet resultset = null;
     ModerationPermissionsBean moderationPermissionsBean = null;
 
+    // Get the permissions for moderation
     public ModerationPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
     {
         try

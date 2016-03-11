@@ -31,6 +31,7 @@ public class BungeeRedisPermissionManager
     ResultSet resultset = null;
     BungeeRedisPermissionsBean bungeeRedisPermissionsBean = null;
 
+    // Get the permissions for Bungee & Redis
     public BungeeRedisPermissionsBean getPemission(PlayerBean player, DataSource dataSource)
     {
         try
