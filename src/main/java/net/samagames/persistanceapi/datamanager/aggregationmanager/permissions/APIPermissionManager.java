@@ -34,7 +34,7 @@ public class APIPermissionManager
     APIPermissionsBean apiPermissionsBean = null;
 
     // Get the permissions for the API
-    public APIPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
+    public APIPermissionsBean getAPIPermission(PlayerBean player, DataSource dataSource)
     {
         try
         {

@@ -34,7 +34,7 @@ public class ProxiesPermissionManager
     ProxiesPermissionsBean proxiesPermissionsBean = null;
 
     // Get the permissions for proxies
-    public ProxiesPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
+    public ProxiesPermissionsBean getProxiesPermission(PlayerBean player, DataSource dataSource)
     {
         try
         {

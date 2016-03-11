@@ -33,7 +33,7 @@ public class UHCPermissionManager
     ResultSet resultset = null;
     UHCPermissionsBean uhcPermissionsBean = null;
 
-    public UHCPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
+    public UHCPermissionsBean getUHCPermission(PlayerBean player, DataSource dataSource)
     {
         try
         {

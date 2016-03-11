@@ -34,7 +34,7 @@ public class ModerationPermissionManager
     ModerationPermissionsBean moderationPermissionsBean = null;
 
     // Get the permissions for moderation
-    public ModerationPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
+    public ModerationPermissionsBean getModerationPermission(PlayerBean player, DataSource dataSource)
     {
         try
         {

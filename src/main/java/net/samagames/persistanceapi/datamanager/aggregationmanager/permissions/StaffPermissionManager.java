@@ -34,7 +34,7 @@ public class StaffPermissionManager
     StaffPermissionsBean staffPermissionsBean = null;
 
     // Get the permissions for staff
-    public StaffPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
+    public StaffPermissionsBean getStaffPermission(PlayerBean player, DataSource dataSource)
     {
         try
         {

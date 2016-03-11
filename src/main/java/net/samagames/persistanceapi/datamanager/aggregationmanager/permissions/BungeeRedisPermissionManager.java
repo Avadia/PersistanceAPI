@@ -32,7 +32,7 @@ public class BungeeRedisPermissionManager
     BungeeRedisPermissionsBean bungeeRedisPermissionsBean = null;
 
     // Get the permissions for Bungee & Redis
-    public BungeeRedisPermissionsBean getPemission(PlayerBean player, DataSource dataSource)
+    public BungeeRedisPermissionsBean getBungeeRedisPemission(PlayerBean player, DataSource dataSource)
     {
         try
         {

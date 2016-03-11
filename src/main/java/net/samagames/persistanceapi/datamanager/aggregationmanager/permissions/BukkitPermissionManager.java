@@ -35,7 +35,7 @@ public class BukkitPermissionManager
     BukkitPermissionsBean bukkitPermissionsBean = null;
 
     // Get the permissions for Bukkit
-    public BukkitPermissionsBean getPermission(PlayerBean player, DataSource dataSource)
+    public BukkitPermissionsBean getBukkitPermission(PlayerBean player, DataSource dataSource)
     {
         try
         {
