@@ -566,11 +566,11 @@ CREATE TABLE IF NOT EXISTS `uhcrun_stats` (
 
 DROP TABLE IF EXISTS `uhc_permissions`;
 CREATE TABLE IF NOT EXISTS `uhc_permissions` (
-  `uhc_permission_id` bigint(20) NOT NULL,
+  `groups_id` bigint(20) NOT NULL,
   `uhc_team_lock` tinyint(1) NOT NULL,
   `uhc_team_name` tinyint(1) NOT NULL,
   `uhc_team_invite` tinyint(1) NOT NULL,
-  PRIMARY KEY (`uhc_permission_id`)
+  PRIMARY KEY (`groups_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
