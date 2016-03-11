@@ -44,7 +44,7 @@ public class ModerationPermissionManager
 
             // Query construction
             String sql = "select groups_id, mod_ban, mod_tp, mod_kick, mod_pardon, mod_mute_longtime, mod_mute, mod_channel";
-            sql += " from moderation_permissions where group_id=" + player.getGroupId();
+            sql += " from moderation_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -53,7 +53,7 @@ public class ModerationPermissionManager
             if(resultset.next())
             {
                 // There's a result
-                long groupId = resultset.getLong("group_id");
+                long groupId = resultset.getLong("groups_id");
                 boolean modBan = resultset.getBoolean("mod_ban");
                 boolean modTp = resultset.getBoolean("mod_tp");
                 boolean modKick = resultset.getBoolean("mod_kick");
