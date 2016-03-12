@@ -301,7 +301,7 @@ public class Test
 
         // Get all permissions
         startTime = System.currentTimeMillis();
-        manager.getPlayerPermission(otherPlayer);
+        manager.getAllPlayerPermission(otherPlayer);
         System.out.println("Get all permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
      }
 }

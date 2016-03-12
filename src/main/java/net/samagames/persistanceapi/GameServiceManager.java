@@ -301,9 +301,9 @@ public class GameServiceManager
     }
 
     // Get all player permissions
-    public PlayerPermissionBean getPlayerPermission(PlayerBean player)
+    public PlayerPermissionBean getAllPlayerPermission(PlayerBean player)
     {
         // Get all the statistics
-        return this.permissionsManager.getPlayerPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.getAllPlayerPermission(player, this.databaseManager.getDataSource());
     }
 }

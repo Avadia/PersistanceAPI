@@ -46,7 +46,7 @@ public class PermissionsManager
     }
 
     // Get all player permissions
-    public PlayerPermissionBean getPlayerPermission(PlayerBean player, DataSource dataSource)
+    public PlayerPermissionBean getAllPlayerPermission(PlayerBean player, DataSource dataSource)
     {
         // Get the different permissions bean
         APIPermissionsBean apiPermissions = this.apiPermissionManager.getAPIPermission(player, dataSource);
