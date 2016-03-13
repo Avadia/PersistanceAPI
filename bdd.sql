@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 13 Mars 2016 à 15:42
+-- Généré le :  Dim 13 Mars 2016 à 21:24
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -219,6 +219,30 @@ CREATE TABLE `friendship` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `game_ref`
+--
+
+DROP TABLE IF EXISTS `game_ref`;
+CREATE TABLE `game_ref` (
+  `id` int(20) NOT NULL,
+  `text` varchar(255) COLLATE utf8_roman_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+--
+-- Contenu de la table `game_ref`
+--
+
+INSERT INTO `game_ref` (`id`, `text`) VALUES
+  (1, 'herobattle'),
+  (2, 'jukebox'),
+  (3, 'quake'),
+  (4, 'uhcrun'),
+  (5, 'uppervoid'),
+  (6, 'dimensions');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `groups`
 --
 
@@ -397,6 +421,43 @@ CREATE TABLE `players` (
   `toptp_key` varchar(32) COLLATE utf8_roman_ci DEFAULT NULL,
   `group_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `promotions`
+--
+
+DROP TABLE IF EXISTS `promotions`;
+CREATE TABLE `promotions` (
+  `promotion_id` bigint(20) NOT NULL,
+  `type_promotion` int(11) NOT NULL,
+  `game` int(11) NOT NULL,
+  `multiplier` int(11) NOT NULL,
+  `message` varchar(255) COLLATE utf8_roman_ci NOT NULL,
+  `start_date` timestamp NULL DEFAULT NULL,
+  `end_date` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `promotions_ref`
+--
+
+DROP TABLE IF EXISTS `promotions_ref`;
+CREATE TABLE `promotions_ref` (
+  `id` int(11) NOT NULL,
+  `text` varchar(255) COLLATE utf8_roman_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+--
+-- Contenu de la table `promotions_ref`
+--
+
+INSERT INTO `promotions_ref` (`id`, `text`) VALUES
+  (0, 'coins'),
+  (1, 'stars');
 
 -- --------------------------------------------------------
 
@@ -629,6 +690,12 @@ ADD KEY `recepient_uuid` (`recipient_uuid`),
 ADD KEY `active_status` (`active_status`);
 
 --
+-- Index pour la table `game_ref`
+--
+ALTER TABLE `game_ref`
+ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `groups`
 --
 ALTER TABLE `groups`
@@ -664,6 +731,18 @@ ADD PRIMARY KEY (`groups_id`);
 --
 ALTER TABLE `players`
 ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `promotions`
+--
+ALTER TABLE `promotions`
+ADD PRIMARY KEY (`promotion_id`);
+
+--
+-- Index pour la table `promotions_ref`
+--
+ALTER TABLE `promotions_ref`
+ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `proxies_permissions`
@@ -758,6 +837,11 @@ MODIFY `groups_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 ALTER TABLE `moderation_permissions`
 MODIFY `groups_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT pour la table `promotions`
+--
+ALTER TABLE `promotions`
+MODIFY `promotion_id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `proxies_permissions`
 --
