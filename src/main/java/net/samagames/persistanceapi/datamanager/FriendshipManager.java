@@ -132,6 +132,7 @@ public class FriendshipManager
             String sql = "select friendship_id, HEX(requester_uuid) as requester, requester_name, HEX(recipient_uuid) as recipient, recipient_name, demand_date, acceptation_date, active_status";
             sql += " from friendship where recipient_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
             sql += " and active_status=false";
+
             // Execute the query
             resultset = statement.executeQuery(sql);
 
