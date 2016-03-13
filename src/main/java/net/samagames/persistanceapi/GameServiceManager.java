@@ -38,6 +38,7 @@ public class GameServiceManager
     public PermissionsManager permissionsManager;
     public GroupsManager groupsManager;
     public FriendshipManager friendshipManager;
+    public PromotionsManager promotionsManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -52,6 +53,7 @@ public class GameServiceManager
         this.permissionsManager = new PermissionsManager();
         this.groupsManager = new GroupsManager();
         this.friendshipManager = new FriendshipManager();
+        this.promotionsManager = new PromotionsManager();
     }
 
 
@@ -357,5 +359,37 @@ public class GameServiceManager
     {
         // Get the list
         return this.friendshipManager.getFriendshipList(player, this.databaseManager.getDataSource());
+    }
+
+    /*============================================
+      Part of promotions manager
+    ============================================*/
+
+    // Get all active promotions
+    public ArrayList<PromotionsBean> getAllActivePromotions()
+    {
+        // Get promotions list
+        return this.promotionsManager.getAllActivePromotions(this.databaseManager.getDataSource());
+    }
+
+    // Get specific promotions
+    public ArrayList<PromotionsBean> getPromotion(int typePromotion, int typeGame)
+    {
+        // Get promotions
+        return this.promotionsManager.getPromotion(this.databaseManager.getDataSource(), typePromotion, typeGame);
+    }
+
+    // Create promotion
+    public void createPromotion(PromotionsBean promotionsBean)
+    {
+        // Create promotion
+        this.promotionsManager.createPromotion(promotionsBean, this.databaseManager.getDataSource());
+    }
+
+    // Delete promotion
+    public void deletePromotion(PromotionsBean promotionsBean)
+    {
+        // Delete promotion
+        this.promotionsManager.deletePromotion(promotionsBean, this.databaseManager.getDataSource());
     }
 }
