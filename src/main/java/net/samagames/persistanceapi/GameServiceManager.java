@@ -15,10 +15,7 @@
 
 package net.samagames.persistanceapi;
 
-import net.samagames.persistanceapi.beans.BungeeConfigBean;
-import net.samagames.persistanceapi.beans.DenunciationBean;
-import net.samagames.persistanceapi.beans.PlayerBean;
-import net.samagames.persistanceapi.beans.SanctionBean;
+import net.samagames.persistanceapi.beans.*;
 import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
@@ -38,6 +35,7 @@ public class GameServiceManager
     public ConfigurationManager configurationManager;
     public DenunciationManager denunciationManager;
     public PermissionsManager permissionsManager;
+    public GroupsManager groupsManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -50,6 +48,7 @@ public class GameServiceManager
         this.configurationManager = new ConfigurationManager();
         this.denunciationManager = new DenunciationManager();
         this.permissionsManager = new PermissionsManager();
+        this.groupsManager = new GroupsManager();
     }
 
 
@@ -305,5 +304,14 @@ public class GameServiceManager
     {
         // Get all the statistics
         return this.permissionsManager.getAllPlayerPermission(player, this.databaseManager.getDataSource());
+    }
+
+    /*============================================
+      Part of groups manager
+    ============================================*/
+    public GroupsBean getGroupPlayer(PlayerBean player)
+    {
+        // Get the groups permision for a player
+        return this.groupsManager.getGroupPlayer(player, this.databaseManager.getDataSource());
     }
 }
