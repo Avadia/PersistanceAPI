@@ -23,6 +23,7 @@ import net.samagames.persistanceapi.datamanager.*;
 import net.samagames.persistanceapi.datamanager.aggregationmanager.permissions.HubPermissionManager;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class GameServiceManager
@@ -36,6 +37,7 @@ public class GameServiceManager
     public DenunciationManager denunciationManager;
     public PermissionsManager permissionsManager;
     public GroupsManager groupsManager;
+    public FriendshipManager friendshipManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -49,6 +51,7 @@ public class GameServiceManager
         this.denunciationManager = new DenunciationManager();
         this.permissionsManager = new PermissionsManager();
         this.groupsManager = new GroupsManager();
+        this.friendshipManager = new FriendshipManager();
     }
 
 
@@ -309,9 +312,50 @@ public class GameServiceManager
     /*============================================
       Part of groups manager
     ============================================*/
+
     public GroupsBean getGroupPlayer(PlayerBean player)
     {
         // Get the groups permision for a player
         return this.groupsManager.getGroupPlayer(player, this.databaseManager.getDataSource());
+    }
+
+
+    /*============================================
+      Part of groups manager
+    ============================================*/
+
+    // Post a friendship demand
+    public void postFriendshipDemand(FriendshipBean friendship)
+    {
+        // Post the friendship demand
+        this.friendshipManager.postFriendshipDemand(friendship, this.databaseManager.getDataSource());
+    }
+
+    // Accept a friendship demand
+    public void acceptFriendshipDemand(FriendshipBean friendship)
+    {
+        // Accept the demand
+        this.friendshipManager.acceptFriendshipDemand(friendship, this.databaseManager.getDataSource());
+    }
+
+    // Refuse a friendship demand
+    public void refuseFriendshipDemand(FriendshipBean friendship)
+    {
+        // Refuse the demand
+        this.friendshipManager.refuseFriendshipDemand(friendship, this.databaseManager.getDataSource());
+    }
+
+    // Get the list of friendship demand
+    public ArrayList<FriendshipBean> getFriendshipDemandList(PlayerBean player)
+    {
+        // Get the list
+        return this.friendshipManager.getFriendshipDemandList(player, this.databaseManager.getDataSource());
+    }
+
+    // Get the list of friendship
+    public ArrayList<FriendshipBean> getFriendshipList(PlayerBean player)
+    {
+        // Get the list
+        return this.friendshipManager.getFriendshipList(player, this.databaseManager.getDataSource());
     }
 }
