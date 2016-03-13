@@ -48,6 +48,19 @@ public class FriendshipBean
     private boolean activeStatus;
 
     // Constructor
+    public FriendshipBean(long friendshipId, UUID requesterUUID, String requesterName, UUID recipientUUID, String recipientName, Timestamp demandDate, Timestamp acceptationDate, boolean activeStatus)
+    {
+        this.friendshipId = friendshipId;
+        this.requesterUUID = requesterUUID;
+        this.requesterName = requesterName;
+        this.recipientUUID = recipientUUID;
+        this.recipientName = recipientName;
+        this.demandDate = demandDate;
+        this.acceptationDate = acceptationDate;
+        this.activeStatus = activeStatus;
+    }
+
+    // Constructor without id
     public FriendshipBean(UUID requesterUUID, String requesterName, UUID recipientUUID, String recipientName, Timestamp demandDate, Timestamp acceptationDate, boolean activeStatus)
     {
         this.requesterUUID = requesterUUID;
