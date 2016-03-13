@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 13 Mars 2016 à 14:48
+-- Généré le :  Dim 13 Mars 2016 à 15:42
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -196,6 +196,24 @@ CREATE TABLE `dimensions_stats` (
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `friendship`
+--
+
+DROP TABLE IF EXISTS `friendship`;
+CREATE TABLE `friendship` (
+  `friendship_id` bigint(20) NOT NULL,
+  `requester_uuid` binary(16) NOT NULL,
+  `requester_name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
+  `recipient_uuid` binary(16) NOT NULL,
+  `recipient_name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
+  `demand_date` timestamp NULL DEFAULT NULL,
+  `acceptation_date` timestamp NULL DEFAULT NULL,
+  `active_status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
@@ -602,6 +620,15 @@ ALTER TABLE `dimensions_stats`
 ADD PRIMARY KEY (`uuid`);
 
 --
+-- Index pour la table `friendship`
+--
+ALTER TABLE `friendship`
+ADD PRIMARY KEY (`friendship_id`),
+ADD KEY `Requester_uuid` (`requester_uuid`),
+ADD KEY `recepient_uuid` (`recipient_uuid`),
+ADD KEY `active_status` (`active_status`);
+
+--
 -- Index pour la table `groups`
 --
 ALTER TABLE `groups`
@@ -711,6 +738,11 @@ MODIFY `groups_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 ALTER TABLE `denunciation`
 MODIFY `denouncement_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `friendship`
+--
+ALTER TABLE `friendship`
+MODIFY `friendship_id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `groups`
 --
