@@ -28,6 +28,10 @@ public class Test
 {
     public static void main (String[] args)
     {
+        /*
+            Pour la connetion à la Bdd en local ligne de commande :  /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
+        */
+
         // Execution plateform
         String cible = args[0];
         if (cible == null)
@@ -303,5 +307,10 @@ public class Test
         startTime = System.currentTimeMillis();
         manager.getAllPlayerPermission(otherPlayer);
         System.out.println("Get all permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get group permission for a player
+        startTime = System.currentTimeMillis();
+        manager.getGroupPlayer(otherPlayer);
+        System.out.println("Get group permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
      }
 }
