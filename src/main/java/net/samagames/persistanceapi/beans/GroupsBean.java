@@ -20,22 +20,22 @@ public class GroupsBean
     /* Database Structure
 
     Table : groups
-    +------------+--------------+------+-----+---------+-------+
-    | Field      | Type         | Null | Key | Default | Extra |
-    +------------+--------------+------+-----+---------+-------+
-    | group_id   | bigint(20)   | NO   | PRI | NULL    |       |
-    | name       | varchar(255) | NO   |     | NULL    |       |
-    | rank       | int(11)      | NO   |     | NULL    |       |
-    | tag        | varchar(255) | NO   |     | NULL    |       |
-    | prefix     | varchar(255) | NO   |     | NULL    |       |
-    | suffix     | varchar(255) | NO   |     | NULL    |       |
-    | multiplier | int(11)      | NO   |     | NULL    |       |
-    +------------+--------------+------+-----+---------+-------+
+    +-------------+--------------+------+-----+---------+----------------+
+    | Field       | Type         | Null | Key | Default | Extra          |
+    +-------------+--------------+------+-----+---------+----------------+
+    | group_id    | bigint(20)   | NO   | PRI | NULL    | auto_increment |
+    | player_name | varchar(255) | NO   |     | NULL    |                |
+    | rank        | int(11)      | NO   |     | NULL    |                |
+    | tag         | varchar(255) | NO   |     | NULL    |                |
+    | prefix      | varchar(255) | NO   |     | NULL    |                |
+    | suffix      | varchar(255) | NO   |     | NULL    |                |
+    | multiplier  | int(11)      | NO   |     | NULL    |                |
+    +-------------+--------------+------+-----+---------+----------------+
     */
 
     // Defines
     private long groupId;
-    private String name;
+    private String playerName;
     private int rank;
     private String tag;
     private String prefix;
@@ -43,10 +43,10 @@ public class GroupsBean
     private int multiplier;
 
     // Constructor
-    public GroupsBean(long groupId, String name, int rank, String tag, String prefix, String suffix, int multiplier)
+    public GroupsBean(long groupId, String playerName, int rank, String tag, String prefix, String suffix, int multiplier)
     {
         this.groupId = groupId;
-        this.name = name;
+        this.playerName = playerName;
         this.rank = rank;
         this.tag = tag;
         this.prefix = prefix;
@@ -55,16 +55,16 @@ public class GroupsBean
     }
 
     // Getters
-    public long getGroupId() { return groupId; }
-    public String getName() { return name; }
-    public int getRank() { return rank; }
-    public String getTag() { return tag; }
-    public String getPrefix() { return prefix; }
-    public String getSuffix() { return suffix; }
-    public int getMultiplier() { return multiplier; }
+    public long getGroupId() { return this.groupId; }
+    public String getPlayerName() { return this.playerName; }
+    public int getRank() { return this.rank; }
+    public String getTag() { return this.tag; }
+    public String getPrefix() { return this.prefix; }
+    public String getSuffix() { return this.suffix; }
+    public int getMultiplier() { return this.multiplier; }
 
     // Setters
-    public void setName(String name) { this.name = name; }
+    public void setName(String playerName) { this.playerName = playerName; }
     public void setRank(int rank) { this.rank = rank; }
     public void setTag(String tag) { this.tag = tag; }
     public void setPrefix(String prefix) { this.prefix = prefix; }
