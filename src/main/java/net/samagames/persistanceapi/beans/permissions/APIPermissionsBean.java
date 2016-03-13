@@ -15,6 +15,9 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
 public class APIPermissionsBean
 {
     /* Database Structure
@@ -80,7 +83,7 @@ public class APIPermissionsBean
     }
 
     // Getters
-    public long groups_id() { return this.groupsId; }
+    public long groupsId() { return this.groupsId; }
     public boolean isApiServersDebug() { return this.apiServersDebug; }
     public boolean isApiPermissionsRefresh() { return this.apiPermissionsRefresh; }
     public boolean isApiCoinsGetother() { return this.apiCoinsGetOther; }
@@ -112,4 +115,39 @@ public class APIPermissionsBean
     public void setApiStarsWithdraw(boolean apiStarsWithdraw) { this.apiStarsWithdraw = apiStarsWithdraw; }
     public void setApiGameStart(boolean apiGameStart) { this.apiGameStart = apiGameStart; }
 
+
+    public HashMap getHashMapPromotions()
+    {
+        HashMap promotionsHashMap = new HashMap();
+        Field field;
+        String fieldName;
+        Object fieldValue;
+        Field[] fields;
+        Class theClass;
+
+        try
+        {
+            theClass = this.getClass();
+            fields = theClass.getDeclaredFields();
+            for (int i = 0 ; i < fields.length ; i++)
+            {
+                field = fields[i];
+                field.setAccessible(true);
+                fieldName = field.getName();
+                if (! fieldName.equals("groupsId"))
+                {
+                    fieldValue = field.get(this);
+                    // TODO replace Maj by point
+                    promotionsHashMap.put(fieldName, fieldValue);
+                }
+
+
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return promotionsHashMap;
+    }
 }
