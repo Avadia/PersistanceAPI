@@ -17,7 +17,6 @@ package net.samagames.persistanceapi;
 
 import net.samagames.persistanceapi.beans.*;
 import net.samagames.persistanceapi.beans.statistics.*;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -337,5 +336,30 @@ public class Test
         startTime = System.currentTimeMillis();
         manager.refuseFriendshipDemand(friendshipList.get(0));
         System.out.println("Friendhip refuse demand process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Create a promotion
+        startTime = System.currentTimeMillis();
+        long time = System.currentTimeMillis();
+        PromotionsBean promotionsBean = new PromotionsBean(0, 1, 10, "super promo", new Timestamp(time), new Timestamp(time + 20000));
+        PromotionsBean otherPromotionBean = new PromotionsBean(1, 4, 50, "promo", new Timestamp(time), new Timestamp(time + 20000));
+        manager.createPromotion(promotionsBean);
+        manager.createPromotion(otherPromotionBean);
+        System.out.println("Promotion creation process time: " + (System.currentTimeMillis()-startTime)/2 + " ms");
+
+        // Get all active promotion
+        startTime = System.currentTimeMillis();
+        manager.getAllActivePromotions();
+        System.out.println("Get all active promotion process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get specific promotion
+        startTime = System.currentTimeMillis();
+        otherPromotionBean = manager.getPromotion(0, 1).get(0);
+        System.out.println("Get specific promotion process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Delete promotion
+        startTime = System.currentTimeMillis();
+        manager.deletePromotion(otherPromotionBean);
+        System.out.println("Delete promotion process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
     }
 }
