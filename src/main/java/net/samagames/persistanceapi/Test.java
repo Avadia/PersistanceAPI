@@ -15,13 +15,11 @@
 
 package net.samagames.persistanceapi;
 
-import net.samagames.persistanceapi.beans.BungeeConfigBean;
-import net.samagames.persistanceapi.beans.DenunciationBean;
-import net.samagames.persistanceapi.beans.PlayerBean;
-import net.samagames.persistanceapi.beans.SanctionBean;
+import net.samagames.persistanceapi.beans.*;
 import net.samagames.persistanceapi.beans.statistics.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Test
@@ -312,5 +310,32 @@ public class Test
         startTime = System.currentTimeMillis();
         manager.getGroupPlayer(otherPlayer);
         System.out.println("Get group permissions process time: " + (System.currentTimeMillis()-startTime) + " ms");
-     }
+
+        // Create a friendship demand
+        FriendshipBean friendhip = new FriendshipBean(otherPlayer.getUuid(), "thegreatancien", player.getUuid(), "mistersatch", null, null, false);
+        startTime = System.currentTimeMillis();
+        manager.postFriendshipDemand(friendhip);
+        System.out.println("Friendhip demand creation process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get friendship demand list
+        startTime = System.currentTimeMillis();
+        ArrayList<FriendshipBean> friendshipList = manager.getFriendshipDemandList(player);
+        System.out.println("Friendhip get list process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Accept a friendship demand
+        startTime = System.currentTimeMillis();
+        FriendshipBean friendshipDemand = friendshipList.get(0);
+        manager.acceptFriendshipDemand(friendshipDemand);
+        System.out.println("Friendship accept demand process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get friendship  list
+        startTime = System.currentTimeMillis();
+        friendshipList = manager.getFriendshipList(player);
+        System.out.println("Friendhip get list process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Refuse a friendship demand
+        startTime = System.currentTimeMillis();
+        manager.refuseFriendshipDemand(friendshipList.get(0));
+        System.out.println("Friendhip refuse demand process time: " + (System.currentTimeMillis()-startTime) + " ms");
+    }
 }
