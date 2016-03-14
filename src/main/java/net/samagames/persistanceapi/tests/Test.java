@@ -13,8 +13,9 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi;
+package net.samagames.persistanceapi.tests;
 
+import net.samagames.persistanceapi.GameServiceManager;
 import net.samagames.persistanceapi.beans.*;
 import net.samagames.persistanceapi.beans.statistics.*;
 import java.sql.Timestamp;
