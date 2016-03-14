@@ -15,6 +15,10 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.util.HashMap;
+
 public class BungeeRedisPermissionsBean
 {
     /* Database Structure
@@ -107,4 +111,10 @@ public class BungeeRedisPermissionsBean
     public void setBungeecordCommandSend(boolean bungeecordCommandSend) { this.bungeecordCommandSend = bungeecordCommandSend; }
     public void setBungeecordCommandEnd(boolean bungeecordCommandEnd) { this.bungeecordCommandEnd = bungeecordCommandEnd; }
     public void setBungeecordCommandAlert(boolean bungeecordCommandAlert) { this.bungeecordCommandAlert = bungeecordCommandAlert; }
+
+    // Reverse the bean to HashMap
+    public HashMap getHashMap()
+    {
+        return Transcoder.getHashMap(this);
+    }
 }

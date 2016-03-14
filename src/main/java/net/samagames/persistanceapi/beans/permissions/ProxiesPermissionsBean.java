@@ -15,6 +15,10 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.util.HashMap;
+
 public class ProxiesPermissionsBean
 {
     /* Database Structure
@@ -61,4 +65,9 @@ public class ProxiesPermissionsBean
     public void setProxiesDebug(boolean proxiesDebug) { this.proxiesDebug = proxiesDebug; }
     public void setProxiesSetOption(boolean proxiesSetOption) { this.proxiesSetOption = proxiesSetOption; }
 
+    // Reverse the bean to HashMap
+    public HashMap getHashMap()
+    {
+        return Transcoder.getHashMap(this);
+    }
 }

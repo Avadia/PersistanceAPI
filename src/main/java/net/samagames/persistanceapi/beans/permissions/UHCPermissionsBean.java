@@ -14,6 +14,10 @@
 */
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.util.HashMap;
+
 public class UHCPermissionsBean
 {
     /* Database Structure
@@ -55,4 +59,9 @@ public class UHCPermissionsBean
     public void setUhcTeamName(boolean uhcTeamName) { this.uhcTeamName = uhcTeamName; }
     public void setUhcTeaminvite(boolean uhcTeaminvite) { this.uhcTeamInvite = uhcTeaminvite; }
 
+    // Reverse the bean to HashMap
+    public HashMap getHashMap()
+    {
+        return Transcoder.getHashMap(this);
+    }
 }

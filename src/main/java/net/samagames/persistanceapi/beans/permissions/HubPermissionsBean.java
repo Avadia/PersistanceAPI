@@ -15,6 +15,10 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.util.HashMap;
+
 public class HubPermissionsBean
 {
     /* Database Structure
@@ -133,4 +137,9 @@ public class HubPermissionsBean
     public void setHubFly(boolean hubFly) { this.hubFly = hubFly; }
     public void setHubDebugSign(boolean hubDebugSign) { this.hubDebugSign = hubDebugSign; }
 
+    // Reverse the bean to HashMap
+    public HashMap getHashMap()
+    {
+        return Transcoder.getHashMap(this);
+    }
 }

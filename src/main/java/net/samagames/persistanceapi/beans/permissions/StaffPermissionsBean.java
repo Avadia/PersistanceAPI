@@ -15,6 +15,10 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.util.HashMap;
+
 public class StaffPermissionsBean
 {
     /* Database Structure
@@ -65,4 +69,10 @@ public class StaffPermissionsBean
     public void setNetjoinVip(boolean netjoinVip) { this.netjoinVip = netjoinVip; }
     public void setNetjoinFull(boolean netjoinFull) { this.netjoinFull = netjoinFull; }
     public void setTrackerFamous(boolean trackerFamous) { this.trackerFamous = trackerFamous; }
+
+    // Reverse the bean to HashMap
+    public HashMap getHashMap()
+    {
+        return Transcoder.getHashMap(this);
+    }
 }

@@ -15,6 +15,10 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.util.HashMap;
+
 public class ModerationPermissionsBean
 {
     /* Database Structure
@@ -76,4 +80,9 @@ public class ModerationPermissionsBean
     public void setModMute(boolean modMute) { this.modMute = modMute; }
     public void setModChannel(boolean modChannel) { this.modChannel = modChannel; }
 
+    // Reverse the bean to HashMap
+    public HashMap getHashMap()
+    {
+        return Transcoder.getHashMap(this);
+    }
 }

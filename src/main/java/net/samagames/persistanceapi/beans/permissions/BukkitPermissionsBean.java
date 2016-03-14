@@ -15,6 +15,10 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.util.HashMap;
+
 public class BukkitPermissionsBean
 {
     /* Database Structure
@@ -56,4 +60,9 @@ public class BukkitPermissionsBean
     public void setBukkitCommandOpGive(boolean bukkitCommandOpGive) { this.bukkitCommandOpGive = bukkitCommandOpGive; }
     public void setBukkitCommandPlugins(boolean bukkitCommandPlugins) { this.bukkitCommandPlugins = bukkitCommandPlugins; }
 
+    // Reverse the bean to HashMap
+    public HashMap getHashMap()
+    {
+        return Transcoder.getHashMap(this);
+    }
 }

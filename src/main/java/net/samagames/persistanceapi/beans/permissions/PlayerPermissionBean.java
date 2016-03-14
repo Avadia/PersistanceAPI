@@ -15,6 +15,11 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Transcoder;
+
+import java.lang.annotation.Target;
+import java.util.HashMap;
+
 public class PlayerPermissionBean
 {
     // Defines aggregation of permissions
@@ -60,4 +65,19 @@ public class PlayerPermissionBean
     public void setProxiesPermissions(ProxiesPermissionsBean proxiesPermissions) { this.proxiesPermissions = proxiesPermissions; }
     public void setStaffPermissions(StaffPermissionsBean staffPermissions) { this.staffPermissions = staffPermissions; }
     public void setUhcPermissions(UHCPermissionsBean uhcPermissions) { this.uhcPermissions = uhcPermissions; }
+
+    // Reverse the bean to HashMap
+    public HashMap<String, String> getHashMap()
+    {
+        HashMap<String, String> permissionHashMap = new HashMap<>();
+        permissionHashMap.putAll(Transcoder.getHashMap(this.apiPermissions));
+        permissionHashMap.putAll(Transcoder.getHashMap(this.bukkitPermissions));
+        permissionHashMap.putAll(Transcoder.getHashMap(this.bungeeRedisPermisions));
+        permissionHashMap.putAll(Transcoder.getHashMap(this.hubPermissions));
+        permissionHashMap.putAll(Transcoder.getHashMap(this.moderationPermissions));
+        permissionHashMap.putAll(Transcoder.getHashMap(this.proxiesPermissions));
+        permissionHashMap.putAll(Transcoder.getHashMap(this.staffPermissions));
+        permissionHashMap.putAll(Transcoder.getHashMap(this.uhcPermissions));
+        return permissionHashMap;
+    }
 }
