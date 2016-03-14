@@ -81,7 +81,6 @@ public class Transcoder
                     // Transcode the field name
                     fieldName = Transcoder.parseField(fieldName);
                     // Construct the HashMap
-                    System.out.println(fieldName + " / " + fieldValue);
                     processedHashMap.put(fieldName, fieldValue);
                 }
             }
