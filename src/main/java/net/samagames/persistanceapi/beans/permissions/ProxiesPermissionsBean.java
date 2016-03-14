@@ -15,9 +15,11 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ProxiesPermissionsBean
 {
@@ -37,9 +39,13 @@ public class ProxiesPermissionsBean
 
     // Defines
     private long groupsId;
+    @Perm("proxies.dispatch")
     private boolean proxiesDispatch;
+    @Perm("proxies.global")
     private boolean proxiesGlobal;
+    @Perm("proxies.debug")
     private boolean proxiesDebug;
+    @Perm("proxies.setoption")
     private boolean proxiesSetOption;
 
     // Constructor
@@ -66,8 +72,13 @@ public class ProxiesPermissionsBean
     public void setProxiesSetOption(boolean proxiesSetOption) { this.proxiesSetOption = proxiesSetOption; }
 
     // Reverse the bean to HashMap
-    public HashMap getHashMap()
+    public Map<String, Boolean> getHashMap()
     {
-        return Transcoder.getHashMap(this);
+        return Transcoder.getHashMapPerm(this);
+    }
+
+    public void set(String key, Boolean value)
+    {
+        Transcoder.setAnnotationValue(this, key, value);
     }
 }

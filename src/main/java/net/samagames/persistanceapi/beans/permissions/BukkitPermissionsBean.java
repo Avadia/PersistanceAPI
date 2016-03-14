@@ -15,9 +15,10 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class BukkitPermissionsBean
 {
@@ -36,8 +37,11 @@ public class BukkitPermissionsBean
 
     // Defines
     private long groupsId;
+    @Perm("minecraft.command.op")
     private boolean minecraftCommandOp;
+    @Perm("bukkit.command.op.give")
     private boolean bukkitCommandOpGive;
+    @Perm("bukkit.command.plugins")
     private boolean bukkitCommandPlugins;
 
     // Constructor
@@ -61,8 +65,14 @@ public class BukkitPermissionsBean
     public void setBukkitCommandPlugins(boolean bukkitCommandPlugins) { this.bukkitCommandPlugins = bukkitCommandPlugins; }
 
     // Reverse the bean to HashMap
-    public HashMap getHashMap()
+    public Map<String, Boolean> getHashMap()
     {
-        return Transcoder.getHashMap(this);
+        return Transcoder.getHashMapPerm(this);
     }
+
+    public void set(String key, Boolean value)
+    {
+        Transcoder.setAnnotationValue(this, key, value);
+    }
+
 }

@@ -17,6 +17,7 @@ package net.samagames.persistanceapi.utils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Transcoder
 {
@@ -47,6 +48,44 @@ public class Transcoder
         }
         parsedField = parsedField.substring(0,parsedField.length()-1);
         return parsedField;
+    }
+
+    public static HashMap<String, Boolean> getHashMapPerm(Object permissions)
+    {
+        HashMap<String, Boolean> result = new HashMap<>();
+        try {
+            //Iterate class fields
+            for (Field field : permissions.getClass().getDeclaredFields())
+            {
+                //Check if annotations present
+                if (field.isAnnotationPresent(Perm.class))
+                {
+                    //Add to hashmap with correct value
+                    result.put(field.getAnnotation(Perm.class).value(), field.getBoolean(permissions));
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static void setAnnotationValue(Object permissions, String key, Boolean value)
+    {
+        try {
+            //Iterate class fields
+            for (Field field : permissions.getClass().getDeclaredFields())
+            {
+                //Check if annotations present and equal the key
+                if (field.isAnnotationPresent(Perm.class) && field.getAnnotation(Perm.class).value().equals(key))
+                {
+                    field.setBoolean(permissions, value);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Make introspection of field of class

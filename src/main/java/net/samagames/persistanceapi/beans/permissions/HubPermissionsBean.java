@@ -15,9 +15,11 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HubPermissionsBean
 {
@@ -51,23 +53,41 @@ public class HubPermissionsBean
 
     // Defines
     private long groupsId;
+    @Perm("hub.jukebox.lock")
     private boolean hubJukeboxLock;
+    @Perm("hub.jukebox.next")
     private boolean hubJukeboxNext;
+    @Perm("hub.jukebox.clear")
     private boolean hubJukeBoxClear;
+    @Perm("hub.mod.slow")
     private boolean hubModSlow;
+    @Perm("hub.mod.shutup")
     private boolean hubModShutup;
+    @Perm("hub.admin.npc")
     private boolean hubAdminNpc;
+    @Perm("hub.admin.sign")
     private boolean hubAdminSign;
+    @Perm("hub.anguille")
     private boolean hubAnguille;
+    @Perm("hub.jukebox.nbs")
     private boolean hubJukeboxNbs;
+    @Perm("hub.admin.evacuate")
     private boolean hubAdminEvacuate;
+    @Perm("hub.announce")
     private boolean hubAnnounce;
+    @Perm("hub.gadgets.cooldownbypass")
     private boolean hubGadgetsCooldownbypass;
+    @Perm("hub.gadgets.nuke")
     private boolean hubGadgetsNuke;
+    @Perm("hub.jukebox.limitbypass")
     private boolean hubJukeboxLimitbypass;
+    @Perm("hub.jukebox.limitstaff")
     private boolean hubJukeboxLimitstaff;
+    @Perm("hub.bypassmute")
     private boolean hubBypassmute;
+    @Perm("hub.fly")
     private boolean hubFly;
+    @Perm("hub.debug.sign")
     private boolean hubDebugSign;
 
     // Constructor
@@ -138,8 +158,13 @@ public class HubPermissionsBean
     public void setHubDebugSign(boolean hubDebugSign) { this.hubDebugSign = hubDebugSign; }
 
     // Reverse the bean to HashMap
-    public HashMap getHashMap()
+    public Map<String, Boolean> getHashMap()
     {
-        return Transcoder.getHashMap(this);
+        return Transcoder.getHashMapPerm(this);
+    }
+
+    public void set(String key, Boolean value)
+    {
+        Transcoder.setAnnotationValue(this, key, value);
     }
 }

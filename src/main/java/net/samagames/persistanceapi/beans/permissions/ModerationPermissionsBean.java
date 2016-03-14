@@ -15,9 +15,11 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ModerationPermissionsBean
 {
@@ -40,12 +42,19 @@ public class ModerationPermissionsBean
 
     // Defines
     private long groupsId;
+    @Perm("mod.ban")
     private boolean modBan;
+    @Perm("mod.tp")
     private boolean modTp;
+    @Perm("mod.kick")
     private boolean modKick;
+    @Perm("mod.pardon")
     private boolean modPardon;
+    @Perm("mod.mute.longtime")
     private boolean modMuteLongtime;
+    @Perm("mod.mute")
     private boolean modMute;
+    @Perm("mod.channel")
     private boolean modChannel;
 
     // Constructor
@@ -81,8 +90,13 @@ public class ModerationPermissionsBean
     public void setModChannel(boolean modChannel) { this.modChannel = modChannel; }
 
     // Reverse the bean to HashMap
-    public HashMap getHashMap()
+    public Map<String, Boolean> getHashMap()
     {
-        return Transcoder.getHashMap(this);
+        return Transcoder.getHashMapPerm(this);
+    }
+
+    public void set(String key, Boolean value)
+    {
+        Transcoder.setAnnotationValue(this, key, value);
     }
 }

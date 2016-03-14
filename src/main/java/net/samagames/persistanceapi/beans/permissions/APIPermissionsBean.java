@@ -15,10 +15,11 @@
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
+import java.util.Map;
 
 public class APIPermissionsBean
 {
@@ -48,19 +49,34 @@ public class APIPermissionsBean
 
     // Defines
     private long groupsId;
+
+    @Perm("api.servers.debug")
     private boolean apiServersDebug;
+    @Perm("api.permissions.refresh")
     private boolean apiPermissionsRefresh;
+    @Perm("api.coins.other")
     private boolean apiCoinsGetOther;
+    @Perm("api.coins.credit")
     private boolean apiCoinsCredit;
+    @Perm("api.coins.withdraw")
     private boolean apiCoinsWithdraw;
+    @Perm("api.inventory.show")
     private boolean apiInventoryShow;
+    @Perm("api.playerdata.show")
     private boolean apiPlayerDataShow;
+    @Perm("api.playerdata.set")
     private boolean apiPlayerdataSet;
+    @Perm("api.playerdata.del")
     private boolean apiPlayerdataDel;
+    @Perm("api.modo.speakup")
     private boolean apiModoSpeakup;
+    @Perm("api.stars.getother")
     private boolean apiStarsGetother;
+    @Perm("api.stars.credit")
     private boolean apiStarsCredit;
+    @Perm("api.stars.withdraw")
     private boolean apiStarsWithdraw;
+    @Perm("api.game.start")
     private boolean apiGameStart;
 
     // Constructor
@@ -118,8 +134,13 @@ public class APIPermissionsBean
     public void setApiGameStart(boolean apiGameStart) { this.apiGameStart = apiGameStart; }
 
     // Reverse the bean to HashMap
-    public HashMap getHashMap()
+    public Map<String, Boolean> getHashMap()
     {
-        return Transcoder.getHashMap(this);
+        return Transcoder.getHashMapPerm(this);
+    }
+
+    public void set(String key, Boolean value)
+    {
+        Transcoder.setAnnotationValue(this, key, value);
     }
 }
