@@ -73,14 +73,15 @@ public class Transcoder
                 field = fields[i];
                 field.setAccessible(true);
                 fieldName = field.getName();
-                // Check if the field is a permission
-                if (! fieldName.equals("groupsId"))
+                // Check if the field is a permission : boolean
+                if (field.getType().equals(boolean.class))
                 {
                     // Get the value
                     fieldValue = field.get(permissions).toString();
                     // Transcode the field name
                     fieldName = Transcoder.parseField(fieldName);
                     // Construct the HashMap
+                    System.out.println(fieldName + " / " + fieldValue);
                     processedHashMap.put(fieldName, fieldValue);
                 }
             }
