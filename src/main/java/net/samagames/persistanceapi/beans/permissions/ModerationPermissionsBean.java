@@ -9,7 +9,7 @@
 ===============================================================
   Persistance API
   Copyright (c) for SamaGames, all right reserved
-  By MisterSatch, January 2016
+  By MisterSatch & Silvanosky, January 2016
 ===============================================================
 */
 
@@ -17,8 +17,6 @@ package net.samagames.persistanceapi.beans.permissions;
 
 import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class ModerationPermissionsBean
@@ -95,6 +93,7 @@ public class ModerationPermissionsBean
         return Transcoder.getHashMapPerm(this);
     }
 
+    // Set a value into the HashMap
     public void set(String key, Boolean value)
     {
         Transcoder.setAnnotationValue(this, key, value);

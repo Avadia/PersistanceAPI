@@ -9,15 +9,12 @@
 ===============================================================
   Persistance API
   Copyright (c) for SamaGames, all right reserved
-  By MisterSatch, January 2016
+  By MisterSatch & Silvanosky, January 2016
 ===============================================================
 */
 
 package net.samagames.persistanceapi.beans.permissions;
 
-import net.samagames.persistanceapi.utils.Transcoder;
-
-import java.lang.annotation.Target;
 import java.util.HashMap;
 
 public class PlayerPermissionBean

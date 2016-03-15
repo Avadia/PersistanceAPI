@@ -9,7 +9,7 @@
 ===============================================================
   Persistance API
   Copyright (c) for SamaGames, all right reserved
-  By MisterSatch, January 2016
+  By MisterSatch & Silvanosky, January 2016
 ===============================================================
 */
 
@@ -17,8 +17,8 @@ package net.samagames.persistanceapi.utils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.Objects;
 
+// Utility to transcode some usual things
 public class Transcoder
 {
     // Remove dash to insert in the database
@@ -37,19 +37,7 @@ public class Transcoder
         return uuid;
     }
 
-    // Convert javafield to string separate by point
-    public static String parseField(String fieldName)
-    {
-        String parsedField = "";
-        String[] separateField = fieldName.split("(?=\\p{Upper})");
-        for (int i=0; i< separateField.length; i++)
-        {
-            parsedField += separateField[i].toLowerCase() +".";
-        }
-        parsedField = parsedField.substring(0,parsedField.length()-1);
-        return parsedField;
-    }
-
+    // Get the permissions to a HashMap
     public static HashMap<String, Boolean> getHashMapPerm(Object permissions)
     {
         HashMap<String, Boolean> result = new HashMap<>();
@@ -60,19 +48,23 @@ public class Transcoder
                 //Check if annotations present
                 if (field.isAnnotationPresent(Perm.class))
                 {
-                    //Add to hashmap with correct value
+                    //Add to HashMap with correct value
                     result.put(field.getAnnotation(Perm.class).value(), field.getBoolean(permissions));
                 }
             }
-        } catch (IllegalAccessException e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
         return result;
     }
 
+    // Set the annotations values
     public static void setAnnotationValue(Object permissions, String key, Boolean value)
     {
-        try {
+        try
+        {
             //Iterate class fields
             for (Field field : permissions.getClass().getDeclaredFields())
             {
@@ -83,52 +75,10 @@ public class Transcoder
                     break;
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Make introspection of field of class
-    public static HashMap<String, String> getHashMap(Object permissions)
-    {
-        // Defines
-        Class theClass;
-        Field[] fields;
-        Field field;
-        String fieldName;
-        String fieldValue;
-        HashMap<String, String> processedHashMap = new HashMap<>();
-
-        // Do the reverse engineering
-        try
-        {
-            // Get the class and fields
-            theClass = permissions.getClass();
-            fields = theClass.getDeclaredFields();
-            // Iterate the fields
-            for (int i = 0 ; i < fields.length ; i++)
-            {
-                // Set field accessible and get the name
-                field = fields[i];
-                field.setAccessible(true);
-                fieldName = field.getName();
-                // Check if the field is a permission : boolean
-                if (field.getType().equals(boolean.class))
-                {
-                    // Get the value
-                    fieldValue = field.get(permissions).toString();
-                    // Transcode the field name
-                    fieldName = Transcoder.parseField(fieldName);
-                    // Construct the HashMap
-                    processedHashMap.put(fieldName, fieldValue);
-                }
-            }
-            return processedHashMap;
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        return processedHashMap;
     }
 }
