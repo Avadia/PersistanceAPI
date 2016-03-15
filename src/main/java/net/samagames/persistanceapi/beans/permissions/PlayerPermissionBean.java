@@ -9,15 +9,12 @@
 ===============================================================
   Persistance API
   Copyright (c) for SamaGames, all right reserved
-  By MisterSatch, January 2016
+  By MisterSatch & Silvanosky, January 2016
 ===============================================================
 */
 
 package net.samagames.persistanceapi.beans.permissions;
 
-import net.samagames.persistanceapi.utils.Transcoder;
-
-import java.lang.annotation.Target;
 import java.util.HashMap;
 
 public class PlayerPermissionBean
@@ -67,17 +64,17 @@ public class PlayerPermissionBean
     public void setUhcPermissions(UHCPermissionsBean uhcPermissions) { this.uhcPermissions = uhcPermissions; }
 
     // Reverse the bean to HashMap
-    public HashMap<String, String> getHashMap()
+    public HashMap<String, Boolean> getHashMap()
     {
-        HashMap<String, String> permissionHashMap = new HashMap<>();
-        permissionHashMap.putAll(Transcoder.getHashMap(this.apiPermissions));
-        permissionHashMap.putAll(Transcoder.getHashMap(this.bukkitPermissions));
-        permissionHashMap.putAll(Transcoder.getHashMap(this.bungeeRedisPermisions));
-        permissionHashMap.putAll(Transcoder.getHashMap(this.hubPermissions));
-        permissionHashMap.putAll(Transcoder.getHashMap(this.moderationPermissions));
-        permissionHashMap.putAll(Transcoder.getHashMap(this.proxiesPermissions));
-        permissionHashMap.putAll(Transcoder.getHashMap(this.staffPermissions));
-        permissionHashMap.putAll(Transcoder.getHashMap(this.uhcPermissions));
+        HashMap<String, Boolean> permissionHashMap = new HashMap<>();
+        permissionHashMap.putAll(this.apiPermissions.getHashMap());
+        permissionHashMap.putAll(this.bukkitPermissions.getHashMap());
+        permissionHashMap.putAll(this.bungeeRedisPermisions.getHashMap());
+        permissionHashMap.putAll(this.hubPermissions.getHashMap());
+        permissionHashMap.putAll(this.moderationPermissions.getHashMap());
+        permissionHashMap.putAll(this.proxiesPermissions.getHashMap());
+        permissionHashMap.putAll(this.staffPermissions.getHashMap());
+        permissionHashMap.putAll(this.uhcPermissions.getHashMap());
         return permissionHashMap;
     }
 }

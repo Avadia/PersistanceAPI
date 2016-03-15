@@ -9,15 +9,15 @@
 ===============================================================
   Persistance API
   Copyright (c) for SamaGames, all right reserved
-  By MisterSatch, January 2016
+  By MisterSatch & Silvanosky, January 2016
 ===============================================================
 */
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
-
-import java.util.HashMap;
+import java.util.Map;
 
 public class BungeeRedisPermissionsBean
 {
@@ -46,18 +46,31 @@ public class BungeeRedisPermissionsBean
 
     // Defines
     private long groupsId;
+    @Perm("bungeecord.command.list")
     private boolean bungeecordCommandList;
+    @Perm("bungeecord.command.find")
     private boolean bungeecordCommandFind;
+    @Perm("redisbungee.command.lastseen")
     private boolean redisbungeeCommandLastSeen;
+    @Perm("redisbungee.command.sendtoall")
     private boolean redisbungeeCommandSendtoAll;
+    @Perm("bungeecord.command.ip")
     private boolean bungeecordCommandIp;
+    @Perm("redisbungee.command.serverid")
     private boolean redisbungeeCommandServerId;
+    @Perm("redisbungee.command.serverids")
     private boolean redisbungeCommandServerIds;
+    @Perm("redisbungee.command.pproxy")
     private boolean redisbungeeCommandPproxy;
+    @Perm("redisbungee.command.plist")
     private boolean redisbungeeCommandPlist;
+    @Perm("bungeecord.command.server")
     private boolean bungeecordCommandServer;
+    @Perm("bungeecord.command.send")
     private boolean bungeecordCommandSend;
+    @Perm("bungeecord.command.end")
     private boolean bungeecordCommandEnd;
+    @Perm("bungeecord.command.alert")
     private boolean bungeecordCommandAlert;
 
     // Constructor
@@ -113,8 +126,14 @@ public class BungeeRedisPermissionsBean
     public void setBungeecordCommandAlert(boolean bungeecordCommandAlert) { this.bungeecordCommandAlert = bungeecordCommandAlert; }
 
     // Reverse the bean to HashMap
-    public HashMap getHashMap()
+    public Map<String, Boolean> getHashMap()
     {
-        return Transcoder.getHashMap(this);
+        return Transcoder.getHashMapPerm(this);
+    }
+
+    // Set a value into the HashMap
+    public void set(String key, Boolean value)
+    {
+        Transcoder.setAnnotationValue(this, key, value);
     }
 }

@@ -9,15 +9,15 @@
 ===============================================================
   Persistance API
   Copyright (c) for SamaGames, all right reserved
-  By MisterSatch, January 2016
+  By MisterSatch & Silvanosky, January 2016
 ===============================================================
 */
 
 package net.samagames.persistanceapi.beans.permissions;
 
+import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
-
-import java.util.HashMap;
+import java.util.Map;
 
 public class StaffPermissionsBean
 {
@@ -38,10 +38,15 @@ public class StaffPermissionsBean
 
     // Defines
     private long groupsId;
+    @Perm("staff.member")
     private boolean staffMember;
+    @Perm("netjoin.closed")
     private boolean netjoinClosed;
+    @Perm("netjoin.vip")
     private boolean netjoinVip;
+    @Perm("netjoin.full")
     private boolean netjoinFull;
+    @Perm("tracker.famous")
     private boolean trackerFamous;
 
     // Constructor
@@ -71,8 +76,14 @@ public class StaffPermissionsBean
     public void setTrackerFamous(boolean trackerFamous) { this.trackerFamous = trackerFamous; }
 
     // Reverse the bean to HashMap
-    public HashMap getHashMap()
+    public Map<String, Boolean> getHashMap()
     {
-        return Transcoder.getHashMap(this);
+        return Transcoder.getHashMapPerm(this);
+    }
+
+    // Set a value into the HashMap
+    public void set(String key, Boolean value)
+    {
+        Transcoder.setAnnotationValue(this, key, value);
     }
 }
