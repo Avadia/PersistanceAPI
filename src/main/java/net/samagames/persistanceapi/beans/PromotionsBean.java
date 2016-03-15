@@ -37,10 +37,12 @@ public class PromotionsBean
     */
 
     // Defines promotions types // TODO make enum
-    public static int COINS = 0;
-    public static int STARS = 1;
+    public static int GLOBAL = 0;
+    public static int COINS = 1;
+    public static int STARS = 2;
 
     // Defines games types // TODO make enum
+    //public static int GLOBAL = 0; // TODO add in enum
     public static int HEROBATTLE = 1;
     public static int JUKEBOX = 2;
     public static int QUAKE = 3;
