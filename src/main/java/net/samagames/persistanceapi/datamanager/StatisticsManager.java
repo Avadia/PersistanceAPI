@@ -59,4 +59,5 @@ public class StatisticsManager
         return playerStatisticsBean;
     }
 
+
 }
