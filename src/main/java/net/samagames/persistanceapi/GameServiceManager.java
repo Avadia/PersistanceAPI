@@ -24,6 +24,7 @@ import net.samagames.persistanceapi.datamanager.aggregationmanager.permissions.H
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class GameServiceManager
@@ -241,6 +242,13 @@ public class GameServiceManager
     {
         // Update statistics
         this.statisticsManager.upperVoidStatsManager.updateUpperVoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
+    }
+
+    // Get the dimensions statistics leaderboard
+    public List<String> getLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.dimensionStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
 
