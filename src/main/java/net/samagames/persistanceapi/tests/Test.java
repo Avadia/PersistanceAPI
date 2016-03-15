@@ -88,7 +88,7 @@ public class Test
 
         // Find a player test
         startTime = System.currentTimeMillis();
-        player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), player);
+        player = manager.getPlayer(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), null);
         System.out.println("Find player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Find player test and self create one
