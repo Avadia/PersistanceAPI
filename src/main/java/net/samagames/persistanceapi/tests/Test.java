@@ -362,5 +362,10 @@ public class Test
         manager.deletePromotion(otherPromotionBean);
         System.out.println("Delete promotion process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Get dimensions leaderboard
+        startTime = System.currentTimeMillis();
+        manager.getLeaderBoard("deaths");
+        System.out.println("Get dimensions leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
     }
 }
