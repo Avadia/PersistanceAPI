@@ -13,16 +13,26 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi.tests;
+package net.samagames.persistanceapi.beans.statistics;
 
-import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
-
-public class Introspection
+public class LeaderboardBean
 {
-    public static void main (String[] args)
-    {
-        APIPermissionsBean bean = new APIPermissionsBean(1, true, false, true, false, true, false, true, false, true, false, true, false, true, false);
-        bean.getHashMap();
-    }
-}
+    // Defines
+    private String name;
+    private int score;
 
+    // Constructor
+    public LeaderboardBean(String name, int score)
+    {
+        this.name = name;
+        this.score = score;
+    }
+
+    // Getters
+    public String getName() { return name; }
+    public Integer getScore() { return score; }
+
+    // Setters
+    public void setName(String name) { this.name = name; }
+    public void setScore(Integer score) { this.score = score; }
+}
