@@ -17,6 +17,7 @@ package net.samagames.persistanceapi.tests;
 
 import net.samagames.persistanceapi.GameServiceManager;
 import net.samagames.persistanceapi.beans.*;
+import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class Test
 
         // Find player test and self create one
         startTime = System.currentTimeMillis();
-        PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"),"gasper", 0, 0, null, null, null, null, 1);
+        PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"),"player_1", 0, 0, null, null, null, null, 1);
         manager.getPlayer(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), selfPlayer);
         System.out.println("Find and self create player process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
@@ -362,10 +363,104 @@ public class Test
         manager.deletePromotion(otherPromotionBean);
         System.out.println("Delete promotion process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
-        // Get dimensions leaderboard
+        // Permission to hashmap test
         startTime = System.currentTimeMillis();
-        manager.getLeaderBoard("deaths");
+        APIPermissionsBean bean = new APIPermissionsBean(1, true, false, true, false, true, false, true, false, true, false, true, false, true, false);
+        bean.getHashMap();
+        System.out.println("Permission to hashmap process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // HashMap permission setup test
+        startTime = System.currentTimeMillis();
+        bean.set("api.servers.debug",new Boolean(false));
+        System.out.println("HashMap permissions setup process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get dimensions leaderboard
+        PlayerBean player_2 = new PlayerBean(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"),"player_2", 0, 0, null, null, null, null, 1);
+        manager.getPlayer(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"), player_2);
+        PlayerBean player_3 = new PlayerBean(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"),"player_3", 0, 0, null, null, null, null, 1);
+        manager.getPlayer(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), player_3);
+        uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
+        dimensionStats = new DimensionStatisticsBean(uuid, 10, 20, 30, 40, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+        manager.updateDimensionStatistics(player_2, dimensionStats);
+        uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
+        dimensionStats = new DimensionStatisticsBean(uuid, 100, 200, 300, 400, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+        manager.updateDimensionStatistics(player_3, dimensionStats);
+        uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
+        dimensionStats = new DimensionStatisticsBean(uuid, 1, 2, 3, 4, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+        manager.updateDimensionStatistics(player, dimensionStats);
+        startTime = System.currentTimeMillis();
+        manager.getDimmensionLeaderBoard("deaths");
         System.out.println("Get dimensions leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get herobattle leaderboard
+        uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
+        heroBattleStats = new HeroBattleStatisticsBean(uuid, 30, 20, 50, 8, 4, 2, new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()), 100);
+        manager.updateHeroBattleStatistics(player_2, heroBattleStats);
+        uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
+        heroBattleStats = new HeroBattleStatisticsBean(uuid, 20, 20, 40, 8, 4, 2, new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()), 100);
+        manager.updateHeroBattleStatistics(player_3, heroBattleStats);
+        uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
+        heroBattleStats = new HeroBattleStatisticsBean(uuid, 10, 20, 30, 8, 4, 2, new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()), 100);
+        manager.updateHeroBattleStatistics(player, heroBattleStats);
+        startTime = System.currentTimeMillis();
+        manager.getHeroBattleLeaderBoard("kills");
+        System.out.println("Get herobattle leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get jukebox leaderboard
+        uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
+        jukeBoxStats = new JukeBoxStatisticsBean(uuid, 10, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        manager.updateJukeBoxStatistics(player_2, jukeBoxStats);
+        uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
+        jukeBoxStats = new JukeBoxStatisticsBean(uuid, 5, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        manager.updateJukeBoxStatistics(player_3, jukeBoxStats);
+        uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
+        jukeBoxStats = new JukeBoxStatisticsBean(uuid, 15, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        manager.updateJukeBoxStatistics(player, jukeBoxStats);
+        startTime = System.currentTimeMillis();
+        manager.getJukeBoxLeaderBoard("mehs");
+        System.out.println("Get jukebox leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get quake leaderboard
+        uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
+        quakeStats = new QuakeStatisticsBean(uuid, 10, 20, 30, 5, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        manager.updateQuakeStatistics(player_2, quakeStats);
+        uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
+        quakeStats = new QuakeStatisticsBean(uuid, 10, 20, 40, 5, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        manager.updateQuakeStatistics(player_3, quakeStats);
+        uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
+        quakeStats = new QuakeStatisticsBean(uuid, 10, 20, 50, 5, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+        manager.updateQuakeStatistics(player, quakeStats);
+        startTime = System.currentTimeMillis();
+        manager.getQuakeLeaderBoard("wins");
+        System.out.println("Get quake leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get uhcrun leaderboard
+        uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
+        uhcRunStats = new UHCRunStatisticsBean(uuid, 10, 20, 20, 30, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),8000);
+        manager.updateUHCRunStatistics(player_2, uhcRunStats);
+        uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
+        uhcRunStats = new UHCRunStatisticsBean(uuid, 10, 20, 30, 40, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),8000);
+        manager.updateUHCRunStatistics(player_3, uhcRunStats);
+        uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
+        uhcRunStats = new UHCRunStatisticsBean(uuid, 10, 20, 10, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),8000);
+        manager.updateUHCRunStatistics(player, uhcRunStats);
+        startTime = System.currentTimeMillis();
+        manager.getUhcLeaderBoard("kills");
+        System.out.println("Get uhcrun leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get uppervoid leaderboard
+        uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
+        upperVoidStats = new UppervoidStatisticsBean(uuid, 40, 60, 5, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),6000);
+        manager.updateUpperVoidStatistics(player_2, upperVoidStats);
+        uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
+        upperVoidStats = new UppervoidStatisticsBean(uuid, 40, 60, 6, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),6000);
+        manager.updateUpperVoidStatistics(player_3, upperVoidStats);
+        uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
+        upperVoidStats = new UppervoidStatisticsBean(uuid, 50, 60, 4, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),6000);
+        manager.updateUpperVoidStatistics(player, upperVoidStats);
+        startTime = System.currentTimeMillis();
+        manager.getUpperVoidLeaderBoard("kills");
+        System.out.println("Get uppervoid leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
     }
 }
