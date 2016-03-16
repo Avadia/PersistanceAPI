@@ -20,9 +20,6 @@ import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.*;
-import net.samagames.persistanceapi.datamanager.aggregationmanager.permissions.HubPermissionManager;
-
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -244,11 +241,46 @@ public class GameServiceManager
         this.statisticsManager.upperVoidStatsManager.updateUpperVoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
     }
 
-    // Get the dimensions statistics leaderboard
-    public List<String> getLeaderBoard(String category)
+    // Get the dimensions leaderboard
+    public List<LeaderboardBean> getDimmensionLeaderBoard(String category)
     {
         // Get the leaderboard
         return this.statisticsManager.dimensionStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the herobattle leaderboard
+    public List<LeaderboardBean> getHeroBattleLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.heroBattleStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the jukebox leaderboard
+    public List<LeaderboardBean> getJukeBoxLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.jukeBoxStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the quake leaderboard
+    public List<LeaderboardBean> getQuakeLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.quakeStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the uhcrun leaderboard
+    public List<LeaderboardBean> getUhcLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.uhcRunStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the uppervoid leaderboard
+    public List<LeaderboardBean> getUpperVoidLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.upperVoidStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
 
