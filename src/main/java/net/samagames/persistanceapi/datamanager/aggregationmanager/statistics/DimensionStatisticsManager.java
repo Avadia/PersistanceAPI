@@ -17,12 +17,11 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.DimensionStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class DimensionStatisticsManager
 {
@@ -142,9 +141,9 @@ public class DimensionStatisticsManager
     }
 
     // Get the board for this game
-    public List<String> getLeaderBoard(String category, DataSource dataSource)
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource)
     {
-        List<String> leaderBoard = new ArrayList<>();
+        List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try
         {
             // Set connection
@@ -152,24 +151,16 @@ public class DimensionStatisticsManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select p.name as name, d." + category + " from players as p, dimensions_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
+            String sql = "select p.name as name, d." + category + " as score from players as p, dimensions_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
 
             // Manage the result in a bean
-            if(resultset.next())
+            while(resultset.next())
             {
-                // There's a result
-                while(resultset.next())
-                {
-                    leaderBoard.add(resultset.getString("name"));
-                }
-            }
-            else
-            {
-                // If there no dimension stats int the database
-                return null;
+                LeaderboardBean bean = new LeaderboardBean(resultset.getString("name"), resultset.getInt("score"));
+                leaderBoard.add(bean);
             }
         }
         catch(SQLException exception)
