@@ -185,14 +185,14 @@ public class SanctionManager
                 // The player is muted
                 String mutePlayer = Transcoder.Decode(resultset.getString("uuid"));
                 UUID playerUuid = UUID.fromString(mutePlayer);
-                int typeId = resultset.getInt("");
-                String reason = resultset.getString("");
+                int typeId = resultset.getInt("type_id");
+                String reason = resultset.getString("reason");
                 String punisher = Transcoder.Decode(resultset.getString("punisher"));
                 UUID punisherUuid = UUID.fromString(punisher);
-                Timestamp expirationTime = resultset.getTimestamp("");
-                boolean isDeleted = resultset.getBoolean("");
-                Timestamp creationDate = resultset.getTimestamp("");
-                Timestamp updateDate = resultset.getTimestamp("");
+                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                boolean isDeleted = resultset.getBoolean("is_deleted");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
                 sanction = new SanctionBean(playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
                 return sanction;
             }
