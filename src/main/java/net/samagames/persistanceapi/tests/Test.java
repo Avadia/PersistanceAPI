@@ -254,12 +254,12 @@ public class Test
 
         // Check if player is banned test
         startTime = System.currentTimeMillis();
-        boolean isBaned = manager.isPlayerBanned(otherPlayer);
+        manager.getPlayerBanned(otherPlayer);
         System.out.println("Check isBanned process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Check if player is muted test
         startTime = System.currentTimeMillis();
-        boolean isMute = manager.isPlayerMuted(otherPlayer);
+        manager.getPlayerMuted(otherPlayer);
         System.out.println("Check isMute process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
         // Get API permissions
