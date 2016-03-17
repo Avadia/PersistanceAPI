@@ -167,7 +167,7 @@ public class FriendshipManager
     }
 
     // Get friendship list for a player
-    public ArrayList<FriendshipBean>  getFriendshipList(PlayerBean player, DataSource dataSource)
+    public ArrayList<FriendshipBean>  getFriendshipList(PlayerBean player, DataSource dataSource) // FIXME Make it bidirectionnal !
     {
         try
         {
