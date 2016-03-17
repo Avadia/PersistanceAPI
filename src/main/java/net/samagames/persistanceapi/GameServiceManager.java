@@ -132,17 +132,17 @@ public class GameServiceManager
     }
 
     // Check if a player is banned
-    public boolean isPlayerBanned(PlayerBean player)
+    public SanctionBean getPlayerBanned(PlayerBean player)
     {
         // Check the ban status
-        return this.sanctionManager.isPlayerBanned(player, this.databaseManager.getDataSource());
+        return this.sanctionManager.getPlayerBanned(player, this.databaseManager.getDataSource());
     }
 
     // Check if a player is muted
-    public boolean isPlayerMuted(PlayerBean player)
+    public SanctionBean getPlayerMuted(PlayerBean player)
     {
         // Check the mute status
-        return this.sanctionManager.isPlayerMuted(player, this.databaseManager.getDataSource());
+        return this.sanctionManager.getPlayerMuted(player, this.databaseManager.getDataSource());
     }
 
 
