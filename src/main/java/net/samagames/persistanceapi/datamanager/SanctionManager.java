@@ -20,10 +20,7 @@ import net.samagames.persistanceapi.beans.SanctionBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.UUID;
 
 public class SanctionManager
@@ -100,8 +97,11 @@ public class SanctionManager
     }
 
     // Check if a player is banned
-    public boolean isPlayerBanned(PlayerBean player, DataSource dataSource)
+    public SanctionBean getPlayerBanned(PlayerBean player, DataSource dataSource)
     {
+        // Defines
+        SanctionBean sanction = null;
+
         // Do the check of ban
         try
         {
@@ -111,7 +111,7 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += "select sanction_id, (HEX(player_uuid)) as uuid , type_id, reason, (HEX(punisher_uuid)) as punisher, expiration_date, is_deleted, creation_date, update_date from sanctions";
             sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
             sql += " and type_id=" + SanctionBean.BAN;
             sql += " and expiration_date>now()";
@@ -124,12 +124,23 @@ public class SanctionManager
             if (resultset.next())
             {
                 // The player is banned
-                return true;
+                String banPlayer = Transcoder.Decode(resultset.getString("uuid"));
+                UUID playerUuid = UUID.fromString(banPlayer);
+                int typeId = resultset.getInt("");
+                String reason = resultset.getString("");
+                String punisher = Transcoder.Decode(resultset.getString("punisher"));
+                UUID punisherUuid = UUID.fromString(punisher);
+                Timestamp expirationTime = resultset.getTimestamp("");
+                boolean isDeleted = resultset.getBoolean("");
+                Timestamp creationDate = resultset.getTimestamp("");
+                Timestamp updateDate = resultset.getTimestamp("");
+                sanction = new SanctionBean(playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
+                return sanction;
             }
             else
             {
                 // The player is not banned
-                return false;
+                return null;
             }
         }
         catch (SQLException exception)
@@ -141,12 +152,15 @@ public class SanctionManager
             // Close the query environment in order to prevent leaks
             close();
         }
-        return false;
+        return null;
     }
 
     // Check if a player is muted
-    public boolean isPlayerMuted(PlayerBean player, DataSource dataSource)
+    public SanctionBean getPlayerMuted(PlayerBean player, DataSource dataSource)
     {
+        // Defines
+        SanctionBean sanction = null;
+
         // Do the check of mute
         try
         {
@@ -156,7 +170,7 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += "select sanction_id, (HEX(player_uuid)) as uuid , type_id, reason, (HEX(punisher_uuid)) as punisher, expiration_date, is_deleted, creation_date, update_date from sanctions";
             sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
             sql += " and type_id=" + SanctionBean.MUTE;
             sql += " and expiration_date>now()";
@@ -168,13 +182,24 @@ public class SanctionManager
             // Manage the result
             if (resultset.next())
             {
-                // The player is banned
-                return true;
+                // The player is muted
+                String mutePlayer = Transcoder.Decode(resultset.getString("uuid"));
+                UUID playerUuid = UUID.fromString(mutePlayer);
+                int typeId = resultset.getInt("");
+                String reason = resultset.getString("");
+                String punisher = Transcoder.Decode(resultset.getString("punisher"));
+                UUID punisherUuid = UUID.fromString(punisher);
+                Timestamp expirationTime = resultset.getTimestamp("");
+                boolean isDeleted = resultset.getBoolean("");
+                Timestamp creationDate = resultset.getTimestamp("");
+                Timestamp updateDate = resultset.getTimestamp("");
+                sanction = new SanctionBean(playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
+                return sanction;
             }
             else
             {
                 // The player is not banned
-                return false;
+                return null;
             }
         }
         catch (SQLException exception)
@@ -186,7 +211,7 @@ public class SanctionManager
             // Close the query environment in order to prevent leaks
             close();
         }
-        return false;
+        return null;
     }
 
 
