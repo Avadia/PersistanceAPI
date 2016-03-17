@@ -20,6 +20,8 @@ import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.*;
+
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -37,6 +39,7 @@ public class GameServiceManager
     public GroupsManager groupsManager;
     public FriendshipManager friendshipManager;
     public PromotionsManager promotionsManager;
+    public PlayerSettingsManager playerSettingsManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -52,6 +55,7 @@ public class GameServiceManager
         this.groupsManager = new GroupsManager();
         this.friendshipManager = new FriendshipManager();
         this.promotionsManager = new PromotionsManager();
+        this.playerSettingsManager = new PlayerSettingsManager();
     }
 
 
@@ -432,4 +436,34 @@ public class GameServiceManager
         // Delete promotion
         this.promotionsManager.deletePromotion(promotionsBean, this.databaseManager.getDataSource());
     }
+
+
+    /*============================================
+      Part of player settings manager
+    ============================================*/
+
+    // Get the player settings
+    public PlayerSettingsBean getPlayerSettings(PlayerBean player)
+    {
+        // Get settings
+        return this.playerSettingsManager.getPlayerSettings(player, this.databaseManager.getDataSource());
+    }
+
+    // Set the player settings
+    public void setPlayerSettings(PlayerBean player, PlayerSettingsBean settingsBeans)
+    {
+        // Set settings
+        this.playerSettingsManager.setPlayerSettings(player, settingsBeans, this.databaseManager.getDataSource());
+    }
+
+    // Create default settings
+    public void createDefaultPlayerSettings(PlayerBean player)
+    {
+        // Create settings
+        this.playerSettingsManager.createDefaultPlayerSettings(player, this.databaseManager.getDataSource());
+    }
+
+
+
+
 }
