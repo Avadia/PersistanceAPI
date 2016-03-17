@@ -462,5 +462,22 @@ public class Test
         manager.getUpperVoidLeaderBoard("kills");
         System.out.println("Get uppervoid leaderboard process time: " + (System.currentTimeMillis()-startTime) + " ms");
 
+        // Create player settings test
+        startTime = System.currentTimeMillis();
+        manager.createDefaultPlayerSettings(otherPlayer);
+        System.out.println("Create default player settings process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Get player settings test
+        startTime = System.currentTimeMillis();
+        PlayerSettingsBean settings = manager.getPlayerSettings(otherPlayer);
+        System.out.println("Get player settings process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
+        // Update player settings test
+        settings.setAllowClickOnOther(false);
+        settings.setClickOnMeActivation(false);
+        startTime = System.currentTimeMillis();
+        manager.setPlayerSettings(otherPlayer, settings);
+        System.out.println("Update player settings process time: " + (System.currentTimeMillis()-startTime) + " ms");
+
     }
 }
