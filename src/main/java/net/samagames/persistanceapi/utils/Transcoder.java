@@ -48,7 +48,9 @@ public class Transcoder
                 //Check if annotations present
                 if (field.isAnnotationPresent(Perm.class))
                 {
-                    //Add to HashMap with correct value
+                    // Make the private field accessible
+                    field.setAccessible(true);
+                    // Add to HashMap with correct value
                     result.put(field.getAnnotation(Perm.class).value(), field.getBoolean(permissions));
                 }
             }
@@ -68,7 +70,9 @@ public class Transcoder
             //Iterate class fields
             for (Field field : permissions.getClass().getDeclaredFields())
             {
-                //Check if annotations present and equal the key
+                // Make the private field accessible
+                field.setAccessible(true);
+                // Check if annotations present and equal the key
                 if (field.isAnnotationPresent(Perm.class) && field.getAnnotation(Perm.class).value().equals(key))
                 {
                     field.setBoolean(permissions, value);

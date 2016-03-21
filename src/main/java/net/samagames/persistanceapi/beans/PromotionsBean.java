@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 
 public class PromotionsBean
 {
-    /*
+    /* Database structure
 
     Table : promotions
     +----------------+--------------+------+-----+---------+----------------+

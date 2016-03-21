@@ -20,10 +20,8 @@ import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.*;
-import net.samagames.persistanceapi.datamanager.aggregationmanager.permissions.HubPermissionManager;
-
-import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class GameServiceManager
@@ -134,17 +132,17 @@ public class GameServiceManager
     }
 
     // Check if a player is banned
-    public boolean isPlayerBanned(PlayerBean player)
+    public SanctionBean getPlayerBanned(PlayerBean player)
     {
         // Check the ban status
-        return this.sanctionManager.isPlayerBanned(player, this.databaseManager.getDataSource());
+        return this.sanctionManager.getPlayerBanned(player, this.databaseManager.getDataSource());
     }
 
     // Check if a player is muted
-    public boolean isPlayerMuted(PlayerBean player)
+    public SanctionBean getPlayerMuted(PlayerBean player)
     {
         // Check the mute status
-        return this.sanctionManager.isPlayerMuted(player, this.databaseManager.getDataSource());
+        return this.sanctionManager.getPlayerMuted(player, this.databaseManager.getDataSource());
     }
 
 
@@ -248,6 +246,48 @@ public class GameServiceManager
     {
         // Update statistics
         this.statisticsManager.upperVoidStatsManager.updateUpperVoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
+    }
+
+    // Get the dimensions leaderboard
+    public List<LeaderboardBean> getDimmensionLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.dimensionStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the herobattle leaderboard
+    public List<LeaderboardBean> getHeroBattleLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.heroBattleStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the jukebox leaderboard
+    public List<LeaderboardBean> getJukeBoxLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.jukeBoxStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the quake leaderboard
+    public List<LeaderboardBean> getQuakeLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.quakeStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the uhcrun leaderboard
+    public List<LeaderboardBean> getUhcLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.uhcRunStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the uppervoid leaderboard
+    public List<LeaderboardBean> getUpperVoidLeaderBoard(String category)
+    {
+        // Get the leaderboard
+        return this.statisticsManager.upperVoidStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
 

@@ -17,10 +17,13 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 
 import net.samagames.persistanceapi.beans.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.HeroBattleStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class HeroBattleStatisticsManager
@@ -143,6 +146,41 @@ public class HeroBattleStatisticsManager
             // Close the query environment in order to prevent leaks
             close();
         }
+    }
+
+    // Get the board for this game
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource)
+    {
+        List<LeaderboardBean> leaderBoard = new ArrayList<>();
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "select p.name as name, d." + category + " as score from players as p, herobattle_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while(resultset.next())
+            {
+                LeaderboardBean bean = new LeaderboardBean(resultset.getString("name"), resultset.getInt("score"));
+                leaderBoard.add(bean);
+            }
+        }
+        catch(SQLException exception)
+        {
+            exception.printStackTrace();
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            close();
+        }
+        return leaderBoard;
     }
 
     // Close all connection
