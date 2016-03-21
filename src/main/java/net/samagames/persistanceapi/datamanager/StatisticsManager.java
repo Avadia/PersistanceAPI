@@ -59,4 +59,16 @@ public class StatisticsManager
         return playerStatisticsBean;
     }
 
+    // Update all player statistics
+    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean datas, DataSource dataSource)
+    {
+        // Update the different statistics bean
+        this.dimensionStatsManager.updateDimensionStatistics(player, datas.getDimmensionStats(),dataSource);
+        this.heroBattleStatsManager.updateHeroBattleStatistics(player, datas.getHeroBatleStats(), dataSource);
+        this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
+        this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
+        this.uhcRunStatsManager.updateUHCRunStatistics(player, datas.getUhcRunStats(), dataSource);
+        this.upperVoidStatsManager.updateUpperVoidStatistics(player, datas.getUppervoidStats(), dataSource);
+    }
+
 }
