@@ -23,9 +23,9 @@ import java.sql.*;
 public class ConfigurationManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultset = null;
 
     // Get the bungee config
     public BungeeConfigBean getConfig(DataSource dataSource)
