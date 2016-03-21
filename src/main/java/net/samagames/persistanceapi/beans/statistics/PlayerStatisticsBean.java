@@ -28,7 +28,7 @@ public class PlayerStatisticsBean
     // Empty constructor for reflection creation
     public PlayerStatisticsBean()
     {
-
+        super();
     }
 
     // Constructor
