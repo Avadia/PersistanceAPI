@@ -83,7 +83,7 @@ public class PlayerSettingsManager
                 this.createDefaultPlayerSettings(player, dataSource);
                 PlayerSettingsBean settings = this.getPlayerSettings(player, dataSource);
                 this.close();
-                return playerSettingsBean;
+                return settings;
             }
         }
         catch(SQLException exception)
