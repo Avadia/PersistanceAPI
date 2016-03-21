@@ -26,10 +26,10 @@ import java.util.UUID;
 public class FriendshipManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    ArrayList<FriendshipBean> friendshipList = new ArrayList<>(); // Fixme see for concurrency !
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultset = null;
+    public ArrayList<FriendshipBean> friendshipList = new ArrayList<>(); // Fixme see for concurrency !
     //List friendshipList = Collections.synchronizedList(new ArrayList<FriendshipBean>);
 
     // Make a friendship demand

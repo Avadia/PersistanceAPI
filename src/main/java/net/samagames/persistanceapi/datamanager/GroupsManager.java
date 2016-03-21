@@ -23,10 +23,10 @@ import java.sql.*;
 public class GroupsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    GroupsBean groupsBean = null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultset = null;
+    public GroupsBean groupsBean = null;
 
     // Get the permission group for a player
     public GroupsBean getGroupPlayer(PlayerBean player, DataSource dataSource)

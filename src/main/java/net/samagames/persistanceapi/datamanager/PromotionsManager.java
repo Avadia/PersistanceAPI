@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class PromotionsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    ArrayList<PromotionsBean> promotionList = new ArrayList<>(); // Fixme see for concurrency !
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultset = null;
+    public ArrayList<PromotionsBean> promotionList = new ArrayList<>(); // Fixme see for concurrency !
     //List promotionList = Collections.synchronizedList(new ArrayList<PromotionsBean>);
 
     // Get all the promotions

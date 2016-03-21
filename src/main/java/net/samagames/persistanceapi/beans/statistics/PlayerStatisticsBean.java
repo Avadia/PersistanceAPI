@@ -25,6 +25,12 @@ public class PlayerStatisticsBean
     private UHCRunStatisticsBean uhcRunStats;
     private UppervoidStatisticsBean uppervoidStats;
 
+    // Empty constructor for reflection creation
+    public PlayerStatisticsBean()
+    {
+        super();
+    }
+
     // Constructor
     public PlayerStatisticsBean(DimensionStatisticsBean dimmensionStats, HeroBattleStatisticsBean heroBatleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCRunStatisticsBean uhcRunStats, UppervoidStatisticsBean uppervoidStatisticsBean)
     {

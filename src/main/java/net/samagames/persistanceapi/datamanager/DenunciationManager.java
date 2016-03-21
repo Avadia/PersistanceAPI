@@ -28,9 +28,9 @@ import java.util.UUID;
 public class DenunciationManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultset = null;
 
     // Denunciation by a player
     public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource, PlayerManager playerManager)

@@ -26,9 +26,9 @@ import java.util.UUID;
 public class PlayerSettingsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultset = null;
 
     // Get the player ingame settings
     public PlayerSettingsBean getPlayerSettings(PlayerBean player, DataSource dataSource)

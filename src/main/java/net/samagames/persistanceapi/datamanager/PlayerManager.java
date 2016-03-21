@@ -26,9 +26,9 @@ import java.util.UUID;
 public class PlayerManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultset = null;
 
     // Get player by UUID, create if unknown
     public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource)

@@ -69,6 +69,16 @@ public class SanctionBean
         this.updateDate = updateDate;
     }
 
+    // Constructor without date
+    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, boolean isDeleted)
+    {
+        this.playerUuid = playerUuid;
+        this.typeId = typeId;
+        this.reason = reason;
+        this.punisherUuid = punisherUuid;
+        this.isDeleted = isDeleted;
+    }
+
     // Getters
     public UUID getPlayerUuid() {
         return this.playerUuid;

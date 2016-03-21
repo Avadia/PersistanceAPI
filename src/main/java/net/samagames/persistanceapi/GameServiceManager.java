@@ -20,8 +20,6 @@ import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.*;
-
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -29,17 +27,17 @@ import java.util.UUID;
 public class GameServiceManager
 {
     // Defines attributes
-    public DatabaseManager databaseManager;
-    public PlayerManager playerManager;
-    public SanctionManager sanctionManager;
-    public StatisticsManager statisticsManager;
-    public ConfigurationManager configurationManager;
-    public DenunciationManager denunciationManager;
-    public PermissionsManager permissionsManager;
-    public GroupsManager groupsManager;
-    public FriendshipManager friendshipManager;
-    public PromotionsManager promotionsManager;
-    public PlayerSettingsManager playerSettingsManager;
+    private DatabaseManager databaseManager;
+    private PlayerManager playerManager;
+    private SanctionManager sanctionManager;
+    private StatisticsManager statisticsManager;
+    private ConfigurationManager configurationManager;
+    private DenunciationManager denunciationManager;
+    private PermissionsManager permissionsManager;
+    private GroupsManager groupsManager;
+    private FriendshipManager friendshipManager;
+    private PromotionsManager promotionsManager;
+    private PlayerSettingsManager playerSettingsManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -78,8 +76,7 @@ public class GameServiceManager
     // Get the bungee config
     public BungeeConfigBean getBungeeConfig()
     {
-        BungeeConfigBean config = this.configurationManager.getConfig(this.databaseManager.getDataSource());
-        return config;
+        return this.configurationManager.getConfig(this.databaseManager.getDataSource());
     }
 
     // Update the bungee config
@@ -97,10 +94,7 @@ public class GameServiceManager
     public PlayerBean getPlayer(UUID uuid, PlayerBean player)
     {
        // Get the PlayerBean
-        PlayerBean newPlayer = this.playerManager.getPlayer(uuid, player, this.databaseManager.getDataSource());
-
-        // Return the player
-        return newPlayer;
+        return this.playerManager.getPlayer(uuid, player, this.databaseManager.getDataSource());
     }
 
     // Update the player
@@ -201,6 +195,13 @@ public class GameServiceManager
     {
         // Get all the statistics
         return this.statisticsManager.getAllPlayerStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Update all player statistics
+    public void updateAllStatistics(PlayerBean player, PlayerStatisticsBean stats)
+    {
+        // Update statistics
+        this.statisticsManager.updateAllPlayerStatistics(player, stats, this.databaseManager.getDataSource());
     }
 
     // Update Dimension statistics
