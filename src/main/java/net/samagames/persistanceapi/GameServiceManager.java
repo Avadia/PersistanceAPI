@@ -201,6 +201,13 @@ public class GameServiceManager
         return this.statisticsManager.getAllPlayerStatistics(player, this.databaseManager.getDataSource());
     }
 
+    // Update all player statistics
+    public void updateAllStatistics(PlayerBean player, PlayerStatisticsBean stats)
+    {
+        // Update statistics
+        this.statisticsManager.updateAllPlayerStatistics(player, stats, this.databaseManager.getDataSource());
+    }
+
     // Update Dimension statistics
     public void updateDimensionStatistics(PlayerBean player, DimensionStatisticsBean dimensionStats)
     {
