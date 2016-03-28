@@ -15,6 +15,7 @@
 
 package net.samagames.persistanceapi.beans.statistics;
 
+import java.beans.ConstructorProperties;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -44,6 +45,7 @@ public class JukeBoxStatisticsBean
     private long playedTime;
 
     // Constructor
+    @ConstructorProperties({"uuid", "mehs", "woots", "creationDate", "updateDate", "playedTime"})
     public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;

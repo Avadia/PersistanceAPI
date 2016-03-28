@@ -15,6 +15,7 @@
 
 package net.samagames.persistanceapi.beans.statistics;
 
+import java.beans.ConstructorProperties;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -52,6 +53,7 @@ public class HeroBattleStatisticsBean
     private long playedTime;
 
     // Constructor
+    @ConstructorProperties({"uuid", "deaths", "elo", "kills", "playedGames", "powerUpTaken", "wins", "creationDate", "updateDate", "playedTime"})
     public HeroBattleStatisticsBean(UUID uuid, int deaths, int elo, int kills, int playedGames, int powerUpTaken, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
