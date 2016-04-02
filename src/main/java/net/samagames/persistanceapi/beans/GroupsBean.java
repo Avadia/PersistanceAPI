@@ -42,6 +42,12 @@ public class GroupsBean
     private String suffix;
     private int multiplier;
 
+    //Empty constructor because we fill it when needed
+    public GroupsBean()
+    {
+        super();
+    }
+
     // Constructor
     public GroupsBean(long groupId, String playerName, int rank, String tag, String prefix, String suffix, int multiplier)
     {

@@ -52,6 +52,12 @@ public class PlayerBean
     private long startTime;
     private long stopTime;
 
+    //Empty constructor because we fill it when needed
+    public PlayerBean()
+    {
+        super();
+    }
+
     // Constructor
     public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
     {
