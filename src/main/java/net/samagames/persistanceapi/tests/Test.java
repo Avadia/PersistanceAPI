@@ -67,7 +67,7 @@ public class Test
         else
         {
             // For standard localhost configuration
-            manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root", "", 1, 20);
+            manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root", "", 1, 10);
         }
         System.out.println("Manager init time: " + (System.currentTimeMillis()-startTime) + " ms");
 
