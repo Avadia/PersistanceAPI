@@ -15,7 +15,7 @@
 
 package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 
-import net.samagames.persistanceapi.beans.PlayerBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.QuakeStatisticsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
