@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi;
+package net.samagames.persistanceapi.datamanager;
 
 public class MinigameTimelineManager
 {
