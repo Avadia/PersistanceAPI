@@ -40,6 +40,7 @@ public class GameServiceManager
     private FriendshipManager friendshipManager;
     private PromotionsManager promotionsManager;
     private PlayerSettingsManager playerSettingsManager;
+    private TransactionManager transactionManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -56,6 +57,7 @@ public class GameServiceManager
         this.friendshipManager = new FriendshipManager();
         this.promotionsManager = new PromotionsManager();
         this.playerSettingsManager = new PlayerSettingsManager();
+        this.transactionManager = new TransactionManager();
     }
 
 
@@ -467,6 +469,8 @@ public class GameServiceManager
     }
 
 
-
+    /*============================================
+      Part of transaction manager
+    ============================================*/
 
 }
