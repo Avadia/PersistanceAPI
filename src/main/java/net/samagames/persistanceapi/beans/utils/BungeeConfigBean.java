@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi.beans;
+package net.samagames.persistanceapi.beans.utils;
 
 public class BungeeConfigBean
 {

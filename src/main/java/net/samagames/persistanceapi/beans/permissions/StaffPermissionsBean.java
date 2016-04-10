@@ -27,12 +27,12 @@ public class StaffPermissionsBean
     +----------------+------------+------+-----+---------+----------------+
     | Field          | Type       | Null | Key | Default | Extra          |
     +----------------+------------+------+-----+---------+----------------+
-    | groups_id      | bigint(20) | NO   | PRI | NULL    | auto_increment |
-    | staff_member   | tinyint(1) | NO   |     | NULL    |                |
-    | netjoin_closed | tinyint(1) | NO   |     | NULL    |                |
-    | netjoin_vip    | tinyint(1) | NO   |     | NULL    |                |
-    | netjoin_full   | tinyint(1) | NO   |     | NULL    |                |
-    | tracker_famous | tinyint(1) | NO   |     | NULL    |                |
+    | groups_id      | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | staff_member   | bit(1)     | NO   |     | NULL    |                |
+    | netjoin_closed | bit(1)     | NO   |     | NULL    |                |
+    | netjoin_vip    | bit(1)     | NO   |     | NULL    |                |
+    | netjoin_full   | bit(1)     | NO   |     | NULL    |                |
+    | tracker_famous | bit(1)     | NO   |     | NULL    |                |
     +----------------+------------+------+-----+---------+----------------+
     */
 

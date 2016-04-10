@@ -15,8 +15,8 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.PlayerBean;
-import net.samagames.persistanceapi.beans.SanctionBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.beans.players.SanctionBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;

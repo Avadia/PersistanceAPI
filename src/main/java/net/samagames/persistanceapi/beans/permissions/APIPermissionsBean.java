@@ -28,21 +28,21 @@ public class APIPermissionsBean
     +-------------------------+------------+------+-----+---------+----------------+
     | Field                   | Type       | Null | Key | Default | Extra          |
     +-------------------------+------------+------+-----+---------+----------------+
-    | groups_id               | bigint(20) | NO   | PRI | NULL    | auto_increment |
-    | api_servers_debug       | tinyint(1) | NO   |     | NULL    |                |
-    | api_permissions_refresh | tinyint(1) | NO   |     | NULL    |                |
-    | api_coins_getother      | tinyint(1) | NO   |     | NULL    |                |
-    | api_coins_credit        | tinyint(1) | NO   |     | NULL    |                |
-    | api_coins_withdraw      | tinyint(1) | NO   |     | NULL    |                |
-    | api_inventory_show      | tinyint(1) | NO   |     | NULL    |                |
-    | api_playerdata_show     | tinyint(1) | NO   |     | NULL    |                |
-    | api_playerdata_set      | tinyint(1) | NO   |     | NULL    |                |
-    | api_playerdata_del      | tinyint(1) | NO   |     | NULL    |                |
-    | api_modo_speakup        | tinyint(1) | NO   |     | NULL    |                |
-    | api_stars_getother      | tinyint(1) | NO   |     | NULL    |                |
-    | api_stars_credit        | tinyint(1) | NO   |     | NULL    |                |
-    | api_stars_withdraw      | tinyint(1) | NO   |     | NULL    |                |
-    | api_game_start          | tinyint(1) | NO   |     | NULL    |                |
+    | groups_id               | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | api_servers_debug       | bit(1)     | NO   |     | NULL    |                |
+    | api_permissions_refresh | bit(1)     | NO   |     | NULL    |                |
+    | api_coins_getother      | bit(1)     | NO   |     | NULL    |                |
+    | api_coins_credit        | bit(1)     | NO   |     | NULL    |                |
+    | api_coins_withdraw      | bit(1)     | NO   |     | NULL    |                |
+    | api_inventory_show      | bit(1)     | NO   |     | NULL    |                |
+    | api_playerdata_show     | bit(1)     | NO   |     | NULL    |                |
+    | api_playerdata_set      | bit(1)     | NO   |     | NULL    |                |
+    | api_playerdata_del      | bit(1)     | NO   |     | NULL    |                |
+    | api_modo_speakup        | bit(1)     | NO   |     | NULL    |                |
+    | api_stars_getother      | bit(1)     | NO   |     | NULL    |                |
+    | api_stars_credit        | bit(1)     | NO   |     | NULL    |                |
+    | api_stars_withdraw      | bit(1)     | NO   |     | NULL    |                |
+    | api_game_start          | bit(1)     | NO   |     | NULL    |                |
     +-------------------------+------------+------+-----+---------+----------------+
     */
 

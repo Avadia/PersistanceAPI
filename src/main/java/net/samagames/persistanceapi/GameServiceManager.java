@@ -15,10 +15,12 @@
 
 package net.samagames.persistanceapi;
 
-import net.samagames.persistanceapi.beans.*;
 import net.samagames.persistanceapi.beans.permissions.*;
+import net.samagames.persistanceapi.beans.players.*;
+import net.samagames.persistanceapi.beans.shop.PromotionsBean;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
+import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
 import net.samagames.persistanceapi.datamanager.*;
 import java.util.ArrayList;
 import java.util.List;

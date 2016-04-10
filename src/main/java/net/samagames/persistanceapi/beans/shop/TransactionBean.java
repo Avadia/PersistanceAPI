@@ -13,9 +13,9 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi.beans;
+package net.samagames.persistanceapi.beans.shop;
 
-public class ShopBean
+public class TransactionBean
 {
     /* Database Structure
     +-----------------+------------------+------+-----+---------------------+----------------+

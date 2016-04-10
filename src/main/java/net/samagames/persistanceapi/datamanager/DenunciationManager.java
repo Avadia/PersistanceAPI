@@ -15,8 +15,8 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.DenunciationBean;
-import net.samagames.persistanceapi.beans.PlayerBean;
+import net.samagames.persistanceapi.beans.players.DenunciationBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -47,16 +47,8 @@ public class DenunciationManager
 
             // Query construction
             String sql = "";
-            sql += "insert into denunciation (denouncer, suspect, date, reason, suspect_name)";
+            sql += "insert into denunciations (denouncer, date, reason, suspect_name)";
             sql += " values (UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "')";
-            if (suspectUUID != null)
-            {
-                sql += ", UNHEX('" + Transcoder.Encode(suspectUUID.toString()) + "')";
-            }
-            else
-            {
-                sql += ", NULL";
-            }
             sql += ", now()";
             sql += ", '" + denunciation.getReason() + "'";
             sql += ", '" + denunciation.getSuspect_name() + "')";

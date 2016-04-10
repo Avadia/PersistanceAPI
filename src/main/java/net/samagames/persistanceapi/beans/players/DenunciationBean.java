@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi.beans;
+package net.samagames.persistanceapi.beans.players;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -28,7 +28,6 @@ public class DenunciationBean
     +-----------------+--------------+------+-----+---------------------+----------------+
     | denouncement_id | int(11)      | NO   | PRI | NULL                | auto_increment |
     | denouncer       | binary(16)   | NO   |     | NULL                |                |
-    | suspect         | binary(16)   | YES  |     | NULL                |                |
     | date            | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
     | reason          | varchar(255) | NO   |     | NULL                |                |
     | suspect_name    | varchar(255) | NO   |     | NULL                |                |
@@ -55,14 +54,12 @@ public class DenunciationBean
     // Getters
     public long getDenoucementId() { return denoucementId; }
     public UUID getDenoucer() { return denoucer; }
-    public UUID getSuspect() { return suspect; }
     public Timestamp getDate() { return date; }
     public String getReason() { return reason; }
     public String getSuspect_name() { return suspectName; }
 
     // Setters
     public void setDenoucer(UUID denoucer) { this.denoucer = denoucer; }
-    public void setSuspect(UUID suspect) { this.suspect = suspect; }
     public void setDate(Timestamp date) { this.date = date; }
     public void setReason(String reason) { this.reason = reason; }
     public void suspectName(String suspectName) { this.suspectName = suspectName; }

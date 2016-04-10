@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi.beans;
+package net.samagames.persistanceapi.beans.players;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -28,6 +28,7 @@ public class PlayerBean
     +-------------+--------------+------+-----+---------------------+-------+
     | uuid        | binary(16)   | NO   | PRI | NULL                |       |
     | name        | varchar(255) | NO   |     | NULL                |       |
+    | nickname    | varchar(45)  | YES  |     | NULL                |       |
     | coins       | int(11)      | YES  |     | NULL                |       |
     | stars       | int(11)      | YES  |     | NULL                |       |
     | last_login  | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
@@ -41,6 +42,7 @@ public class PlayerBean
     // Define attributes
     private UUID uuid;
     private String name;
+    private String nickName;
     private int coins;
     private int stars;
     private Timestamp lastLogin;
@@ -59,10 +61,11 @@ public class PlayerBean
     }
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
+    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
     {
         this.uuid = uuid;
         this.name = name;
+        this.nickName = nickName;
         this.coins = coins;
         this.stars = stars;
         this.lastLogin = lastLogin;
@@ -79,6 +82,7 @@ public class PlayerBean
     public String getName() {
         return this.name;
     }
+    public String getNickName() { return this.nickName; }
     public int getCoins() {
         return this.coins;
     }
@@ -103,6 +107,7 @@ public class PlayerBean
     public void setName(String name) {
         this.name = name;
     }
+    public void setNickNale(String nickName) { this.nickName = nickName; }
     public void setCoins(int coins) {
         this.coins = coins;
     }

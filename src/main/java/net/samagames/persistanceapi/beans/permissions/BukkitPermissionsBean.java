@@ -28,10 +28,10 @@ public class BukkitPermissionsBean
     +------------------------+------------+------+-----+---------+----------------+
     | Field                  | Type       | Null | Key | Default | Extra          |
     +------------------------+------------+------+-----+---------+----------------+
-    | groups_id              | bigint(20) | NO   | PRI | NULL    | auto_increment |
-    | minecraft_command_op   | tinyint(1) | NO   |     | NULL    |                |
-    | bukkit_command_op_give | tinyint(1) | NO   |     | NULL    |                |
-    | bukkit_command_plugins | tinyint(1) | NO   |     | NULL    |                |
+    | groups_id              | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | minecraft_command_op   | bit(1)     | NO   |     | NULL    |                |
+    | bukkit_command_op_give | bit(1)     | NO   |     | NULL    |                |
+    | bukkit_command_plugins | bit(1)     | NO   |     | NULL    |                |
     +------------------------+------------+------+-----+---------+----------------+
     */
 

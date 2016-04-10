@@ -15,8 +15,8 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.PlayerBean;
-import net.samagames.persistanceapi.beans.PlayerSettingsBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.beans.players.PlayerSettingsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
@@ -45,9 +45,9 @@ public class PlayerSettingsManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(player_uuid)) as uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive, chat_visible, player_visible";
+            sql += "select (HEX(uuid)) as uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive, chat_visible, player_visible";
             sql += ", waiting_line_notification, other_player_interaction, click_on_me_activation, allow_statistic_onclick, allow_coins_onclick, allow_stars_onclick, allow_click_on_other";
-            sql += " from player_settings where player_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
+            sql += " from player_settings where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -124,7 +124,7 @@ public class PlayerSettingsManager
             sql += ", allow_coins_onclick=" + settingsBeans.isAllowCoinsOnClick();
             sql += ", allow_stars_onclick=" + settingsBeans.isAllowStarsOnclick();
             sql += ", allow_click_on_other=" + settingsBeans.isAllowClickOnOther();
-             sql += " where player_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
+             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
             statement.executeUpdate(sql);
@@ -150,7 +150,7 @@ public class PlayerSettingsManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "insert into player_settings (player_uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive";
+            String sql = "insert into player_settings (uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive";
             sql += ", chat_visible, player_visible, waiting_line_notification, other_player_interaction, click_on_me_activation, allow_statistic_onclick, allow_coins_onclick";
             sql += ", allow_stars_onclick, allow_click_on_other)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";

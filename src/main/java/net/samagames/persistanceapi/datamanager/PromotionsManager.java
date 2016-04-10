@@ -15,7 +15,7 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.PromotionsBean;
+import net.samagames.persistanceapi.beans.shop.PromotionsBean;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class PromotionsManager
 
             // Query construction
             String sql = "";
-            sql += "select promotion_id, type_promotion, game, multiplier, message, start_date, end_date from promotions where end_date>now()";
+            sql += "select promotion_id, type_id, game, multiplier, message, start_date, end_date from promotions where end_date>now()";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -50,7 +50,7 @@ public class PromotionsManager
             {
                 // Manage the result in a list of bean
                 long promitionId = resultset.getLong("promotion_id");
-                int typePromotion = resultset.getInt("type_promotion");
+                int typePromotion = resultset.getInt("type_id");
                 int game = resultset.getInt("game");
                 int multiplier = resultset.getInt("multiplier");
                 String message = resultset.getString("message");
@@ -84,8 +84,8 @@ public class PromotionsManager
 
             // Query construction
             String sql = "";
-            sql += "select promotion_id, type_promotion, game, multiplier, message, start_date, end_date from promotions where end_date>now()";
-            sql += " and type_promotion=" + typePromotion;
+            sql += "select promotion_id, type_id, game, multiplier, message, start_date, end_date from promotions where end_date>now()";
+            sql += " and type_id=" + typePromotion;
             sql += " and game=" + typeGame;
 
             // Execute the query
@@ -95,14 +95,14 @@ public class PromotionsManager
             while(resultset.next())
             {
                 // Manage the result in a list of bean
-                long promitionId = resultset.getLong("promotion_id");
-                int type = resultset.getInt("type_promotion");
+                long promotionId = resultset.getLong("promotion_id");
+                int type = resultset.getInt("type_id");
                 int game = resultset.getInt("game");
                 int multiplier = resultset.getInt("multiplier");
                 String message = resultset.getString("message");
                 Timestamp startDate = resultset.getTimestamp("start_date");
                 Timestamp endDate = resultset.getTimestamp("end_date");
-                PromotionsBean promotionsBean = new PromotionsBean(promitionId, type, game, multiplier, message, startDate, endDate);
+                PromotionsBean promotionsBean = new PromotionsBean(promotionId, type, game, multiplier, message, startDate, endDate);
                 promotionList.add(promotionsBean);
             }
             return promotionList;
@@ -128,7 +128,7 @@ public class PromotionsManager
 
             // Query construction
             String sql = "";
-            sql += "insert into promotions(type_promotion, game, multiplier, message, start_date, end_date)";
+            sql += "insert into promotions(type_id, game, multiplier, message, start_date, end_date)";
             sql += " values (" + promotionsBean.getTypePromotion();
             sql += ", " + promotionsBean.getGame() + "";
             sql += ", " + promotionsBean.getMultiplier();

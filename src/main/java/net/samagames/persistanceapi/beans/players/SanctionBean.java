@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi.beans;
+package net.samagames.persistanceapi.beans.players;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -27,12 +27,12 @@ public class SanctionBean
     | Field           | Type         | Null | Key | Default             | Extra          |
     +-----------------+--------------+------+-----+---------------------+----------------+
     | sanction_id     | bigint(20)   | NO   | PRI | NULL                | auto_increment |
-    | player_uuid     | binary(16)   | NO   | MUL | NULL                |                |
-    | type_id         | int(11)      | NO   |     | NULL                |                |
+    | player_uuid     | binary(16)   | NO   |     | NULL                |                |
+    | type_id         | tinyint(4)   | NO   |     | NULL                |                |
     | reason          | varchar(255) | NO   |     | NULL                |                |
     | punisher_uuid   | binary(16)   | NO   |     | NULL                |                |
     | expiration_date | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
-    | is_deleted      | tinyint(1)   | NO   |     | NULL                |                |
+    | is_deleted      | bit(1)       | NO   |     | NULL                |                |
     | creation_date   | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
     | update_date     | timestamp    | NO   |     | 0000-00-00 00:00:00 |                |
     +-----------------+--------------+------+-----+---------------------+----------------+

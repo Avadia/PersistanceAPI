@@ -27,25 +27,25 @@ public class HubPermissionsBean
     +----------------------------+------------+------+-----+---------+----------------+
     | Field                      | Type       | Null | Key | Default | Extra          |
     +----------------------------+------------+------+-----+---------+----------------+
-    | groups_id                  | bigint(20) | NO   | PRI | NULL    | auto_increment |
-    | hub_jukebox_lock           | tinyint(1) | NO   |     | NULL    |                |
-    | hub_jukebox_next           | tinyint(1) | NO   |     | NULL    |                |
-    | hub_jukebox_clear          | tinyint(1) | NO   |     | NULL    |                |
-    | hub_mod_slow               | tinyint(1) | NO   |     | NULL    |                |
-    | hub_mod_shutup             | tinyint(1) | NO   |     | NULL    |                |
-    | hub_admin_npc              | tinyint(1) | NO   |     | NULL    |                |
-    | hub_admin_sign             | tinyint(1) | NO   |     | NULL    |                |
-    | hub_anguille               | tinyint(1) | NO   |     | NULL    |                |
-    | hub_jukebox_nbs            | tinyint(1) | NO   |     | NULL    |                |
-    | hub_admin_evacuate         | tinyint(1) | NO   |     | NULL    |                |
-    | hub_announce               | tinyint(1) | NO   |     | NULL    |                |
-    | hub_gadgets_cooldownbypass | tinyint(1) | NO   |     | NULL    |                |
-    | hub_gadgets_nuke           | tinyint(1) | NO   |     | NULL    |                |
-    | hub_jukebox_limitbypass    | tinyint(1) | NO   |     | NULL    |                |
-    | hub_jukebox_limitstaff     | tinyint(1) | NO   |     | NULL    |                |
-    | hub_bypassmute             | tinyint(1) | NO   |     | NULL    |                |
-    | hub_fly                    | tinyint(1) | NO   |     | NULL    |                |
-    | hub_debug_sign             | tinyint(1) | NO   |     | NULL    |                |
+    | groups_id                  | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | hub_jukebox_lock           | bit(1)     | NO   |     | NULL    |                |
+    | hub_jukebox_next           | bit(1)     | NO   |     | NULL    |                |
+    | hub_jukebox_clear          | bit(1)     | NO   |     | NULL    |                |
+    | hub_mod_slow               | bit(1)     | NO   |     | NULL    |                |
+    | hub_mod_shutup             | bit(1)     | NO   |     | NULL    |                |
+    | hub_admin_npc              | bit(1)     | NO   |     | NULL    |                |
+    | hub_admin_sign             | bit(1)     | NO   |     | NULL    |                |
+    | hub_anguille               | bit(1)     | NO   |     | NULL    |                |
+    | hub_jukebox_nbs            | bit(1)     | NO   |     | NULL    |                |
+    | hub_admin_evacuate         | bit(1)     | NO   |     | NULL    |                |
+    | hub_announce               | bit(1)     | NO   |     | NULL    |                |
+    | hub_gadgets_cooldownbypass | bit(1)     | NO   |     | NULL    |                |
+    | hub_gadgets_nuke           | bit(1)     | NO   |     | NULL    |                |
+    | hub_jukebox_limitbypass    | bit(1)     | NO   |     | NULL    |                |
+    | hub_jukebox_limitstaff     | bit(1)     | NO   |     | NULL    |                |
+    | hub_bypassmute             | bit(1)     | NO   |     | NULL    |                |
+    | hub_fly                    | bit(1)     | NO   |     | NULL    |                |
+    | hub_debug_sign             | bit(1)     | NO   |     | NULL    |                |
     +----------------------------+------------+------+-----+---------+----------------+
     */
 

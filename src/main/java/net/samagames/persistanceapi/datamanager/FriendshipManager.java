@@ -15,8 +15,8 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.FriendshipBean;
-import net.samagames.persistanceapi.beans.PlayerBean;
+import net.samagames.persistanceapi.beans.players.FriendshipBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.*;
@@ -43,11 +43,9 @@ public class FriendshipManager
 
             // Query construction
             String sql = "";
-            sql += "insert into friendship(requester_uuid, requester_name, recipient_uuid, recipient_name, demand_date, active_status)";
+            sql += "insert into friendship(requester_uuid, recipient_uuid, demand_date, active_status)";
             sql += " values (UNHEX('"+ Transcoder.Encode(friendship.getRequesterUUID().toString())+"')";
-            sql += ", '" + friendship.getRequesterName() + "'";
             sql += ", UNHEX('"+ Transcoder.Encode(friendship.getRecipientUUID().toString())+"')";
-            sql += ", '" + friendship.getRecipientName() + "'";
             sql += ", now(), false)";
 
             // Execute the query
@@ -129,7 +127,7 @@ public class FriendshipManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select friendship_id, HEX(requester_uuid) as requester, requester_name, HEX(recipient_uuid) as recipient, recipient_name, demand_date, acceptation_date, active_status";
+            String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";
             sql += " from friendship where recipient_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
             sql += " and active_status=false";
 
@@ -142,14 +140,12 @@ public class FriendshipManager
                 long friendshipId = resultset.getLong("friendship_id");
                 String requester = Transcoder.Decode(resultset.getString("requester"));
                 UUID requesterUuid = UUID.fromString(requester);
-                String requesterName = resultset.getString("requester_name");
                 String recipient = Transcoder.Decode(resultset.getString("recipient"));
                 UUID recipientUuid = UUID.fromString(recipient);
-                String recipientName = resultset.getString("recipient_name");
                 Timestamp demandDate = resultset.getTimestamp("demand_date");
                 Timestamp acceptationDate = resultset.getTimestamp("acceptation_date");
                 boolean activeStatus = resultset.getBoolean("active_status");
-                FriendshipBean friendshipBean = new FriendshipBean(friendshipId, requesterUuid, requesterName, recipientUuid, recipientName, demandDate, acceptationDate, activeStatus);
+                FriendshipBean friendshipBean = new FriendshipBean(friendshipId, requesterUuid, recipientUuid, demandDate, acceptationDate, activeStatus);
                 friendshipList.add(friendshipBean);
             }
             return friendshipList;
@@ -176,7 +172,7 @@ public class FriendshipManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select friendship_id, HEX(requester_uuid) as requester, requester_name, HEX(recipient_uuid) as recipient, recipient_name, demand_date, acceptation_date, active_status";
+            String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";
             sql += " from friendship where recipient_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
             sql += " and active_status=true";
             // Execute the query
@@ -188,14 +184,12 @@ public class FriendshipManager
                 long friendshipId = resultset.getLong("friendship_id");
                 String requester = Transcoder.Decode(resultset.getString("requester"));
                 UUID requesterUuid = UUID.fromString(requester);
-                String requesterName = resultset.getString("requester_name");
                 String recipient = Transcoder.Decode(resultset.getString("recipient"));
                 UUID recipientUuid = UUID.fromString(recipient);
-                String recipientName = resultset.getString("recipient_name");
                 Timestamp demandDate = resultset.getTimestamp("demand_date");
                 Timestamp acceptationDate = resultset.getTimestamp("acceptation_date");
                 boolean activeStatus = resultset.getBoolean("active_status");
-                FriendshipBean friendshipBean = new FriendshipBean(friendshipId, requesterUuid, requesterName, recipientUuid, recipientName, demandDate, acceptationDate, activeStatus);
+                FriendshipBean friendshipBean = new FriendshipBean(friendshipId, requesterUuid, recipientUuid, demandDate, acceptationDate, activeStatus);
                 friendshipList.add(friendshipBean);
             }
             return friendshipList;

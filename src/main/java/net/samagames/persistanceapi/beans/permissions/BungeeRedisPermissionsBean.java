@@ -27,20 +27,20 @@ public class BungeeRedisPermissionsBean
     +-------------------------------+------------+------+-----+---------+----------------+
     | Field                         | Type       | Null | Key | Default | Extra          |
     +-------------------------------+------------+------+-----+---------+----------------+
-    | groups_id                     | bigint(20) | NO   | PRI | NULL    | auto_increment |
-    | bungeecord_command_list       | tinyint(1) | NO   |     | NULL    |                |
-    | bungeecord_command_find       | tinyint(1) | NO   |     | NULL    |                |
-    | redisbungee_command_lastseen  | tinyint(1) | NO   |     | NULL    |                |
-    | bungeecord_command_ip         | tinyint(1) | NO   |     | NULL    |                |
-    | redisbungee_command_sendtoall | tinyint(1) | NO   |     | NULL    |                |
-    | redisbungee_command_serverid  | tinyint(1) | NO   |     | NULL    |                |
-    | redisbunge_command_serverids  | tinyint(1) | NO   |     | NULL    |                |
-    | redisbungee_command_pproxy    | tinyint(1) | NO   |     | NULL    |                |
-    | redisbungee_command_plist     | tinyint(1) | NO   |     | NULL    |                |
-    | bungeecord_command_server     | tinyint(1) | NO   |     | NULL    |                |
-    | bungeecord_command_send       | tinyint(1) | NO   |     | NULL    |                |
-    | bungeecord_command_end        | tinyint(1) | NO   |     | NULL    |                |
-    | bungeecord_command_alert      | tinyint(1) | NO   |     | NULL    |                |
+    | groups_id                     | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | bungeecord_command_list       | bit(1)     | NO   |     | NULL    |                |
+    | bungeecord_command_find       | bit(1)     | NO   |     | NULL    |                |
+    | redisbungee_command_lastseen  | bit(1)     | NO   |     | NULL    |                |
+    | bungeecord_command_ip         | bit(1)     | NO   |     | NULL    |                |
+    | redisbungee_command_sendtoall | bit(1)     | NO   |     | NULL    |                |
+    | redisbungee_command_serverid  | bit(1)     | NO   |     | NULL    |                |
+    | redisbunge_command_serverids  | bit(1)     | NO   |     | NULL    |                |
+    | redisbungee_command_pproxy    | bit(1)     | NO   |     | NULL    |                |
+    | redisbungee_command_plist     | bit(1)     | NO   |     | NULL    |                |
+    | bungeecord_command_server     | bit(1)     | NO   |     | NULL    |                |
+    | bungeecord_command_send       | bit(1)     | NO   |     | NULL    |                |
+    | bungeecord_command_end        | bit(1)     | NO   |     | NULL    |                |
+    | bungeecord_command_alert      | bit(1)     | NO   |     | NULL    |                |
     +-------------------------------+------------+------+-----+---------+----------------+
     */
 

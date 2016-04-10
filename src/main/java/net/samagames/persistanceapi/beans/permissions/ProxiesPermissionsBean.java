@@ -24,15 +24,15 @@ public class ProxiesPermissionsBean
     /* Database Structure
 
     Table : proxies_permissions
-    +--------------------+------------+------+-----+---------+----------------+
-    | Field              | Type       | Null | Key | Default | Extra          |
-    +--------------------+------------+------+-----+---------+----------------+
-    | groups_id          | bigint(20) | NO   | PRI | NULL    | auto_increment |
-    | proxies_dispatch   | tinyint(1) | NO   |     | NULL    |                |
-    | proxies_global     | tinyint(1) | NO   |     | NULL    |                |
-    | proxies_debug      | tinyint(1) | NO   |     | NULL    |                |
-    | proxies_set_option | tinyint(1) | NO   |     | NULL    |                |
-    +--------------------+------------+------+-----+---------+----------------+
+    +--------------------+------------+------+-----+---------+-------+
+    | Field              | Type       | Null | Key | Default | Extra |
+    +--------------------+------------+------+-----+---------+-------+
+    | groups_id          | tinyint(4) | NO   | PRI | NULL    |       |
+    | proxies_dispatch   | bit(1)     | NO   |     | NULL    |       |
+    | proxies_global     | bit(1)     | NO   |     | NULL    |       |
+    | proxies_debug      | bit(1)     | NO   |     | NULL    |       |
+    | proxies_set_option | bit(1)     | NO   |     | NULL    |       |
+    +--------------------+------------+------+-----+---------+-------+
     */
 
     // Defines

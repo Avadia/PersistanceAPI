@@ -15,7 +15,7 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.BungeeConfigBean;
+import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
 import javax.sql.DataSource;
 import java.sql.*;
 

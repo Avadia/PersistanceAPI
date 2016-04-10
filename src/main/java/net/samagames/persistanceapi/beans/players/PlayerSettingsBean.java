@@ -13,7 +13,7 @@
 ===============================================================
 */
 
-package net.samagames.persistanceapi.beans;
+package net.samagames.persistanceapi.beans.players;
 
 import java.util.UUID;
 
@@ -25,23 +25,23 @@ public class PlayerSettingsBean
     +---------------------------+------------+------+-----+---------+-------+
     | Field                     | Type       | Null | Key | Default | Extra |
     +---------------------------+------------+------+-----+---------+-------+
-    | player_uuid               | binary(16) | NO   | PRI | NULL    |       |
-    | jukebox_listen            | tinyint(1) | NO   |     | NULL    |       |
-    | group_demand_receive      | tinyint(1) | NO   |     | NULL    |       |
-    | friendship_demand_receive | tinyint(1) | NO   |     | NULL    |       |
-    | notification_receive      | tinyint(1) | NO   |     | NULL    |       |
-    | private_message_receive   | tinyint(1) | NO   |     | NULL    |       |
-    | chat_visible              | tinyint(1) | NO   |     | NULL    |       |
-    | player_visible            | tinyint(1) | NO   |     | NULL    |       |
-    | waiting_line_notification | tinyint(1) | NO   |     | NULL    |       |
-    | other_player_interaction  | tinyint(1) | NO   |     | NULL    |       |
-    | click_on_me_activation    | tinyint(1) | NO   |     | NULL    |       |
-    | allow_statistic_onclick   | tinyint(1) | NO   |     | NULL    |       |
-    | allow_coins_onclick       | tinyint(1) | NO   |     | NULL    |       |
-    | allow_stars_onclick       | tinyint(1) | NO   |     | NULL    |       |
-    | allow_click_on_other      | tinyint(1) | NO   |     | NULL    |       |
+    | uuid                      | binary(16) | NO   | PRI | NULL    |       |
+    | jukebox_listen            | bit(1)     | NO   |     | NULL    |       |
+    | group_demand_receive      | bit(1)     | NO   |     | NULL    |       |
+    | friendship_demand_receive | bit(1)     | NO   |     | NULL    |       |
+    | notification_receive      | bit(1)     | NO   |     | NULL    |       |
+    | private_message_receive   | bit(1)     | NO   |     | NULL    |       |
+    | chat_visible              | bit(1)     | NO   |     | NULL    |       |
+    | player_visible            | bit(1)     | NO   |     | NULL    |       |
+    | waiting_line_notification | bit(1)     | NO   |     | NULL    |       |
+    | other_player_interaction  | bit(1)     | NO   |     | NULL    |       |
+    | click_on_me_activation    | bit(1)     | NO   |     | NULL    |       |
+    | allow_statistic_onclick   | bit(1)     | NO   |     | NULL    |       |
+    | allow_coins_onclick       | bit(1)     | NO   |     | NULL    |       |
+    | allow_stars_onclick       | bit(1)     | NO   |     | NULL    |       |
+    | allow_click_on_other      | bit(1)     | NO   |     | NULL    |       |
     +---------------------------+------------+------+-----+---------+-------+
-     */
+    */
 
     // Defines attributes
     private UUID uuid;

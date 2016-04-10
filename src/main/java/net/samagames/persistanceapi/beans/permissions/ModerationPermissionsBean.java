@@ -27,14 +27,14 @@ public class ModerationPermissionsBean
     +-------------------+------------+------+-----+---------+----------------+
     | Field             | Type       | Null | Key | Default | Extra          |
     +-------------------+------------+------+-----+---------+----------------+
-    | groups_id         | bigint(20) | NO   | PRI | NULL    | auto_increment |
-    | mod_ban           | tinyint(1) | NO   |     | NULL    |                |
-    | mod_tp            | tinyint(1) | NO   |     | NULL    |                |
-    | mod_kick          | tinyint(1) | NO   |     | NULL    |                |
-    | mod_pardon        | tinyint(1) | NO   |     | NULL    |                |
-    | mod_mute_longtime | tinyint(1) | NO   |     | NULL    |                |
-    | mod_mute          | tinyint(1) | NO   |     | NULL    |                |
-    | mod_channel       | tinyint(1) | NO   |     | NULL    |                |
+    | groups_id         | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | mod_ban           | bit(1)     | NO   |     | NULL    |                |
+    | mod_tp            | bit(1)     | NO   |     | NULL    |                |
+    | mod_kick          | bit(1)     | NO   |     | NULL    |                |
+    | mod_pardon        | bit(1)     | NO   |     | NULL    |                |
+    | mod_mute_longtime | bit(1)     | NO   |     | NULL    |                |
+    | mod_mute          | bit(1)     | NO   |     | NULL    |                |
+    | mod_channel       | bit(1)     | NO   |     | NULL    |                |
     +-------------------+------------+------+-----+---------+----------------+
     */
 

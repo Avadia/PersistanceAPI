@@ -15,7 +15,7 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.PlayerBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
@@ -42,7 +42,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, name, coins, stars, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -53,6 +53,7 @@ public class PlayerManager
                 // There's a result
                 String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
                 String name = resultset.getString("name");
+                String nickName = resultset.getString("nickname");
                 int coins = resultset.getInt("coins");
                 int stars = resultset.getInt("stars");
                 Timestamp lastLogin = resultset.getTimestamp("last_login");
@@ -60,7 +61,7 @@ public class PlayerManager
                 String lastIP = resultset.getString("last_ip");
                 String toptpKey = resultset.getString("toptp_key");
                 long groupId = resultset.getLong("group_id");
-                player = new PlayerBean(UUID.fromString(playerUuid), name, coins, stars, lastLogin, firsLogin, lastIP, toptpKey, groupId);
+                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, lastLogin, firsLogin, lastIP, toptpKey, groupId);
                 return player;
             }
             else
@@ -150,6 +151,7 @@ public class PlayerManager
             sql += ", last_ip='" + player.getLastIP() +"'";
             sql += ", toptp_key='" + player.getToptpKey() +"'";
             sql += ", group_id=" + player.getGroupId();
+            sql += ", nickname='" + player.getNickName() +"'";
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
@@ -178,9 +180,10 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "insert into players (uuid, name, coins, stars, last_login, first_login, last_ip, toptp_key, group_id)";
+            sql += "insert into players (uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", '" + player.getName() + "'";
+            sql += ", '" + player.getNickName() + "'";
             sql += ", " + player.getCoins();
             sql += ", " + player.getStars();
             sql += ", now(), now()";
