@@ -15,8 +15,7 @@
 
 package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
-import net.samagames.persistanceapi.beans.PlayerBean;
-import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.UHCPermissionsBean;
 
 import javax.sql.DataSource;
