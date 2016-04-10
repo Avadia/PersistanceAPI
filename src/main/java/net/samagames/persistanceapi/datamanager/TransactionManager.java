@@ -15,7 +15,7 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-public class ShopManager
+public class TransactionManager
 {
 
 }
