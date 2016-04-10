@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 10 Avril 2016 à 21:29
+-- Généré le :  Dim 10 Avril 2016 à 22:31
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -348,18 +348,18 @@ INSERT INTO `hub_permissions` (`groups_id`, `hub_jukebox_lock`, `hub_jukebox_nex
 -- --------------------------------------------------------
 
 --
--- Structure de la table `item_desc`
+-- Structure de la table `item_description`
 --
 
-DROP TABLE IF EXISTS `item_desc`;
-CREATE TABLE `item_desc` (
+DROP TABLE IF EXISTS `item_description`;
+CREATE TABLE `item_description` (
   `item_id` int(11) NOT NULL,
   `item_name` tinytext,
   `item_desc` text,
   `price_coins` int(11) DEFAULT NULL,
   `price_stars` int(11) DEFAULT NULL,
   `game_category` tinyint(4) DEFAULT NULL,
-  `item_minecraft_id` varchar(45) DEFAULT NULL
+  `item_minecraft_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -640,14 +640,13 @@ INSERT INTO `staff_permissions` (`groups_id`, `staff_member`, `netjoin_closed`, 
 
 DROP TABLE IF EXISTS `transaction_shop`;
 CREATE TABLE `transaction_shop` (
-  `transaction_id` int(11) NOT NULL,
+  `transaction_id` bigint(20) NOT NULL,
   `item_id` int(11) DEFAULT NULL,
-  `price_coins` varchar(45) DEFAULT NULL,
-  `price_stars` varchar(45) DEFAULT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `price_coins` int(11) DEFAULT NULL,
+  `price_stars` int(11) DEFAULT NULL,
   `transaction_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `selected` bit(1) NOT NULL,
-  `players_uuid_buyer` binary(16) NOT NULL
+  `uuid_buyer` binary(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -773,9 +772,9 @@ ADD PRIMARY KEY (`groups_id`),
 ADD KEY `groups_id` (`groups_id`);
 
 --
--- Index pour la table `item_desc`
+-- Index pour la table `item_description`
 --
-ALTER TABLE `item_desc`
+ALTER TABLE `item_description`
 ADD PRIMARY KEY (`item_id`);
 
 --
@@ -929,6 +928,11 @@ MODIFY `sanction_id` bigint(20) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `staff_permissions`
 MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
+-- AUTO_INCREMENT pour la table `transaction_shop`
+--
+ALTER TABLE `transaction_shop`
+MODIFY `transaction_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `uhc_permissions`
 --
 ALTER TABLE `uhc_permissions`
@@ -941,4 +945,4 @@ MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 -- Contraintes pour la table `transaction_shop`
 --
 ALTER TABLE `transaction_shop`
-ADD CONSTRAINT `fk_shop_item_item_desc1` FOREIGN KEY (`item_id`) REFERENCES `item_desc` (`item_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_shop_item_item_desc1` FOREIGN KEY (`item_id`) REFERENCES `item_description` (`item_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
