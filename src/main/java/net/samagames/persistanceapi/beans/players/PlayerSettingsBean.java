@@ -15,6 +15,7 @@
 
 package net.samagames.persistanceapi.beans.players;
 
+import java.beans.ConstructorProperties;
 import java.util.UUID;
 
 public class PlayerSettingsBean
@@ -60,13 +61,10 @@ public class PlayerSettingsBean
     private boolean allowStarsOnclick;
     private boolean allowClickOnOther;
 
-    //Empty constructor for reflection
-    public PlayerSettingsBean()
-    {
-        super();
-    }
-
     // Constructor
+    @ConstructorProperties({"uuid", "jukeboxListen", "groupDemandReceive", "friendshipDemandReceive", "notificationReceive", "privateMessageReceive",
+    "chatVisible", "playerVisible", "waitingLineNotification", "otherPlayerInteraction", "clickOnMeActivation", "allowStatisticOnClick", "allowCoinsOnClick",
+    "allowStarsOnclick", "allowClickOnOther"})
     public PlayerSettingsBean(UUID uuid, boolean jukeboxListen, boolean groupDemandReceive, boolean friendshipDemandReceive, boolean notificationReceive, boolean privateMessageReceive,
                               boolean chatVisible, boolean playerVisible, boolean waitingLineNotification, boolean otherPlayerInteraction, boolean clickOnMeActivation,
                               boolean allowStatisticOnClick, boolean allowCoinsOnClick, boolean allowStarsOnclick, boolean allowClickOnOther)
