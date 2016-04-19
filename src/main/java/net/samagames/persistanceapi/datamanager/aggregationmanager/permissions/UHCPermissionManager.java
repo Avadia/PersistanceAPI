@@ -21,7 +21,6 @@ import net.samagames.persistanceapi.beans.permissions.UHCPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UHCPermissionManager
@@ -32,7 +31,7 @@ public class UHCPermissionManager
     ResultSet resultset = null;
     UHCPermissionsBean uhcPermissionsBean = null;
 
-    public UHCPermissionsBean getUHCPermission(PlayerBean player, DataSource dataSource)
+    public UHCPermissionsBean getUHCPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -63,9 +62,10 @@ public class UHCPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -76,7 +76,7 @@ public class UHCPermissionManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -100,6 +100,7 @@ public class UHCPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

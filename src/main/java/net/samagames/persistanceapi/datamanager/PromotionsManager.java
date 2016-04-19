@@ -30,7 +30,7 @@ public class PromotionsManager
     //List promotionList = Collections.synchronizedList(new ArrayList<PromotionsBean>);
 
     // Get all the promotions
-    public ArrayList<PromotionsBean> getAllActivePromotions(DataSource dataSource)
+    public ArrayList<PromotionsBean> getAllActivePromotions(DataSource dataSource) throws Exception
     {
         try
         {
@@ -61,20 +61,20 @@ public class PromotionsManager
             }
             return promotionList;
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return null;
     }
 
     // Get a special promotions
-    public ArrayList<PromotionsBean> getPromotion(DataSource dataSource, int typePromotion, int typeGame)
+    public ArrayList<PromotionsBean> getPromotion(DataSource dataSource, int typePromotion, int typeGame) throws Exception
     {
         try
         {
@@ -107,20 +107,21 @@ public class PromotionsManager
             }
             return promotionList;
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return null;
     }
 
     // Create a promotion
-    public void createPromotion(PromotionsBean promotionsBean, DataSource dataSource) {
+    public void createPromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception
+    {
         try {
             // Set connection
             connection = dataSource.getConnection();
@@ -139,9 +140,10 @@ public class PromotionsManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -152,7 +154,7 @@ public class PromotionsManager
 
 
     // Delete a promotion
-    public void deletePromotion(PromotionsBean promotionsBean, DataSource dataSource)
+    public void deletePromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception
     {
         try
         {
@@ -167,9 +169,10 @@ public class PromotionsManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -180,7 +183,7 @@ public class PromotionsManager
 
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -204,6 +207,7 @@ public class PromotionsManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

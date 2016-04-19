@@ -31,7 +31,7 @@ public class PlayerManager
     private ResultSet resultset = null;
 
     // Get player by UUID, create if unknown
-    public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource)
+    public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource) throws Exception
     {
         // Make the research of player by UUID
         try
@@ -74,20 +74,20 @@ public class PlayerManager
                 return newPlayer;
             }
          }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return player;
     }
 
     // Try to recover a suspect UUID by name
-    public UUID recoverSuspect(String suspectName, DataSource dataSource)
+    public UUID recoverSuspect(String suspectName, DataSource dataSource) throws Exception
     {
         // Defines
         PlayerBean player = null;
@@ -121,20 +121,20 @@ public class PlayerManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return suspectUUID;
     }
 
     // Update the player data
-    public void updatePlayer(PlayerBean player, DataSource dataSource)
+    public void updatePlayer(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Update the players data
         try
@@ -157,9 +157,10 @@ public class PlayerManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -169,7 +170,7 @@ public class PlayerManager
     }
 
     // Create the player
-    public void createPlayer(PlayerBean player, DataSource dataSource)
+    public void createPlayer(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Create the player
         try
@@ -194,9 +195,10 @@ public class PlayerManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -206,7 +208,7 @@ public class PlayerManager
     }
 
     // Close the connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -227,9 +229,10 @@ public class PlayerManager
                 connection.close();
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

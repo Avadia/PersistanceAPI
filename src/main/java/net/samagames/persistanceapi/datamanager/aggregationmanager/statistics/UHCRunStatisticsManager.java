@@ -35,7 +35,7 @@ public class UHCRunStatisticsManager
     UHCRunStatisticsBean uhcRunStats = null;
 
     // Get UHCRun player statistics
-    public UHCRunStatisticsBean getUHCRunStatistics(PlayerBean player, DataSource dataSource)
+    public UHCRunStatisticsBean getUHCRunStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -74,9 +74,10 @@ public class UHCRunStatisticsManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -87,7 +88,7 @@ public class UHCRunStatisticsManager
     }
 
     // Update UHCRun player statistics
-    public void updateUHCRunStatistics(PlayerBean player, UHCRunStatisticsBean dimensionStats, DataSource dataSource)
+    public void updateUHCRunStatistics(PlayerBean player, UHCRunStatisticsBean dimensionStats, DataSource dataSource) throws Exception
     {
         try
         {
@@ -134,9 +135,10 @@ public class UHCRunStatisticsManager
                 statement.executeUpdate(sql);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -146,7 +148,7 @@ public class UHCRunStatisticsManager
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource)
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
     {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try
@@ -168,9 +170,10 @@ public class UHCRunStatisticsManager
                 leaderBoard.add(bean);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -181,7 +184,7 @@ public class UHCRunStatisticsManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -205,6 +208,7 @@ public class UHCRunStatisticsManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

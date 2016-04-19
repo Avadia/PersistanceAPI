@@ -29,7 +29,7 @@ public class GroupsManager
     public GroupsBean groupsBean = null;
 
     // Get the permission group for a player
-    public GroupsBean getGroupPlayer(PlayerBean player, DataSource dataSource)
+    public GroupsBean getGroupPlayer(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -64,9 +64,10 @@ public class GroupsManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -77,7 +78,7 @@ public class GroupsManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -101,6 +102,7 @@ public class GroupsManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 

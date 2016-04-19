@@ -22,7 +22,6 @@ import net.samagames.persistanceapi.beans.permissions.BukkitPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BukkitPermissionManager
@@ -34,7 +33,7 @@ public class BukkitPermissionManager
     BukkitPermissionsBean bukkitPermissionsBean = null;
 
     // Get the permissions for Bukkit
-    public BukkitPermissionsBean getBukkitPermission(PlayerBean player, DataSource dataSource)
+    public BukkitPermissionsBean getBukkitPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -65,21 +64,21 @@ public class BukkitPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-
         return bukkitPermissionsBean;
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -103,6 +102,7 @@ public class BukkitPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

@@ -21,7 +21,6 @@ import net.samagames.persistanceapi.beans.permissions.HubPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class HubPermissionManager
@@ -33,7 +32,7 @@ public class HubPermissionManager
     HubPermissionsBean hubPermissionsBean = null;
 
     // Get the permissions for the hub
-    public HubPermissionsBean getHubPermission(PlayerBean player, DataSource dataSource)
+    public HubPermissionsBean getHubPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -83,9 +82,10 @@ public class HubPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -96,7 +96,7 @@ public class HubPermissionManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -120,6 +120,7 @@ public class HubPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

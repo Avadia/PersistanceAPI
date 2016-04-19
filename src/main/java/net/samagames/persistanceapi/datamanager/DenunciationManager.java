@@ -21,7 +21,6 @@ import net.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
@@ -33,7 +32,7 @@ public class DenunciationManager
     private ResultSet resultset = null;
 
     // Denunciation by a player
-    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource, PlayerManager playerManager)
+    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource, PlayerManager playerManager) throws Exception
     {
         // Create denunciation
         try
@@ -56,9 +55,10 @@ public class DenunciationManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -68,7 +68,7 @@ public class DenunciationManager
     }
 
     // Close the connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -89,9 +89,10 @@ public class DenunciationManager
                 connection.close();
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

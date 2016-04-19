@@ -28,7 +28,7 @@ public class ConfigurationManager
     private ResultSet resultset = null;
 
     // Get the bungee config
-    public BungeeConfigBean getConfig(DataSource dataSource)
+    public BungeeConfigBean getConfig(DataSource dataSource) throws Exception
     {
         // Make the research of player by UUID
         try
@@ -62,20 +62,20 @@ public class ConfigurationManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return null;
     }
 
     // Update the bungee config
-    public void updateConfig(BungeeConfigBean config, DataSource dataSource)
+    public void updateConfig(BungeeConfigBean config, DataSource dataSource) throws Exception
     {
         // Update the config
         try
@@ -95,9 +95,10 @@ public class ConfigurationManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -107,7 +108,7 @@ public class ConfigurationManager
     }
 
     // Close the connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -128,9 +129,10 @@ public class ConfigurationManager
                 connection.close();
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

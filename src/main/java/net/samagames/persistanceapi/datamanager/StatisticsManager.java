@@ -44,15 +44,31 @@ public class StatisticsManager
     }
 
     // Get all player statistics
-    public PlayerStatisticsBean getAllPlayerStatistics(PlayerBean player, DataSource dataSource)
+    public PlayerStatisticsBean getAllPlayerStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
+        // Declared bean
+        DimensionStatisticsBean dimensionStats;
+        HeroBattleStatisticsBean heroBattleStats;
+        JukeBoxStatisticsBean jukeBoxStats;
+        QuakeStatisticsBean quakeStats;
+        UHCRunStatisticsBean uhcRunStatcs;
+        UppervoidStatisticsBean upperVoidStats;
+
         // Get the different statistics bean
-        DimensionStatisticsBean dimensionStats = this.dimensionStatsManager.getDimensionStatistics(player, dataSource);
-        HeroBattleStatisticsBean heroBattleStats = this.heroBattleStatsManager.getHeroBattleStatistics(player, dataSource);
-        JukeBoxStatisticsBean jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
-        QuakeStatisticsBean quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
-        UHCRunStatisticsBean uhcRunStatcs = this.uhcRunStatsManager.getUHCRunStatistics(player, dataSource);
-        UppervoidStatisticsBean upperVoidStats = this.upperVoidStatsManager.getUpperVoidStatistics(player, dataSource);
+        try
+        {
+            dimensionStats = this.dimensionStatsManager.getDimensionStatistics(player, dataSource);
+            heroBattleStats = this.heroBattleStatsManager.getHeroBattleStatistics(player, dataSource);
+            jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
+            quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
+            uhcRunStatcs = this.uhcRunStatsManager.getUHCRunStatistics(player, dataSource);
+            upperVoidStats = this.upperVoidStatsManager.getUpperVoidStatistics(player, dataSource);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
 
         // Create the aggregation of different statistics bean
         PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcRunStatcs, upperVoidStats);
@@ -60,15 +76,24 @@ public class StatisticsManager
     }
 
     // Update all player statistics
-    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean datas, DataSource dataSource)
+    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean datas, DataSource dataSource) throws Exception
     {
         // Update the different statistics bean
-        this.dimensionStatsManager.updateDimensionStatistics(player, datas.getDimmensionStats(),dataSource);
-        this.heroBattleStatsManager.updateHeroBattleStatistics(player, datas.getHeroBatleStats(), dataSource);
-        this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
-        this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
-        this.uhcRunStatsManager.updateUHCRunStatistics(player, datas.getUhcRunStats(), dataSource);
-        this.upperVoidStatsManager.updateUpperVoidStatistics(player, datas.getUppervoidStats(), dataSource);
+        try
+        {
+            this.dimensionStatsManager.updateDimensionStatistics(player, datas.getDimmensionStats(),dataSource);
+            this.heroBattleStatsManager.updateHeroBattleStatistics(player, datas.getHeroBatleStats(), dataSource);
+            this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
+            this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
+            this.uhcRunStatsManager.updateUHCRunStatistics(player, datas.getUhcRunStats(), dataSource);
+            this.upperVoidStatsManager.updateUpperVoidStatistics(player, datas.getUppervoidStats(), dataSource);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+
     }
 
 }

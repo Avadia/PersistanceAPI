@@ -35,7 +35,7 @@ public class HeroBattleStatisticsManager
     HeroBattleStatisticsBean heroBattleStats = null;
 
     // Get HeroBattle player statistics
-    public HeroBattleStatisticsBean getHeroBattleStatistics(PlayerBean player, DataSource dataSource)
+    public HeroBattleStatisticsBean getHeroBattleStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -74,9 +74,10 @@ public class HeroBattleStatisticsManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -87,7 +88,7 @@ public class HeroBattleStatisticsManager
     }
 
     // Update Dimension player statistics
-    public void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean dimensionStats, DataSource dataSource)
+    public void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean dimensionStats, DataSource dataSource) throws Exception
     {
         try
         {
@@ -137,9 +138,10 @@ public class HeroBattleStatisticsManager
                 statement.executeUpdate(sql);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -149,7 +151,7 @@ public class HeroBattleStatisticsManager
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource)
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
     {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try
@@ -171,9 +173,10 @@ public class HeroBattleStatisticsManager
                 leaderBoard.add(bean);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -184,7 +187,7 @@ public class HeroBattleStatisticsManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -208,6 +211,7 @@ public class HeroBattleStatisticsManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

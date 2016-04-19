@@ -32,7 +32,7 @@ public class DimensionStatisticsManager
     DimensionStatisticsBean dimensionStats = null;
 
     // Get Dimension player statistics
-    public DimensionStatisticsBean getDimensionStatistics(PlayerBean player, DataSource dataSource)
+    public DimensionStatisticsBean getDimensionStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -69,9 +69,10 @@ public class DimensionStatisticsManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -82,7 +83,7 @@ public class DimensionStatisticsManager
     }
 
     // Update Dimension player statistics
-    public void updateDimensionStatistics(PlayerBean player, DimensionStatisticsBean dimensionStats, DataSource dataSource)
+    public void updateDimensionStatistics(PlayerBean player, DimensionStatisticsBean dimensionStats, DataSource dataSource) throws Exception
     {
         try
         {
@@ -129,9 +130,10 @@ public class DimensionStatisticsManager
 
             // Set flag for nested query
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -141,7 +143,7 @@ public class DimensionStatisticsManager
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource)
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
     {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try
@@ -163,9 +165,10 @@ public class DimensionStatisticsManager
                 leaderBoard.add(bean);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -176,7 +179,7 @@ public class DimensionStatisticsManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -200,6 +203,7 @@ public class DimensionStatisticsManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

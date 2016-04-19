@@ -20,7 +20,6 @@ import net.samagames.persistanceapi.beans.permissions.BungeeRedisPermissionsBean
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BungeeRedisPermissionManager
@@ -32,7 +31,7 @@ public class BungeeRedisPermissionManager
     BungeeRedisPermissionsBean bungeeRedisPermissionsBean = null;
 
     // Get the permissions for Bungee & Redis
-    public BungeeRedisPermissionsBean getBungeeRedisPemission(PlayerBean player, DataSource dataSource)
+    public BungeeRedisPermissionsBean getBungeeRedisPemission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -77,9 +76,10 @@ public class BungeeRedisPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -91,7 +91,7 @@ public class BungeeRedisPermissionManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -115,6 +115,7 @@ public class BungeeRedisPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

@@ -35,7 +35,7 @@ public class QuakeStatisticsManager
     QuakeStatisticsBean quakeStats = null;
 
     // Get Quake player statistics
-    public QuakeStatisticsBean getQuakeStatistics(PlayerBean player, DataSource dataSource)
+    public QuakeStatisticsBean getQuakeStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -72,9 +72,10 @@ public class QuakeStatisticsManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -85,7 +86,7 @@ public class QuakeStatisticsManager
     }
 
     // Update Quake player statistics
-    public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean quakeStats, DataSource dataSource)
+    public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean quakeStats, DataSource dataSource) throws Exception
     {
         try
         {
@@ -132,9 +133,10 @@ public class QuakeStatisticsManager
                 statement.executeUpdate(sql);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -144,7 +146,7 @@ public class QuakeStatisticsManager
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource)
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
     {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try
@@ -166,9 +168,10 @@ public class QuakeStatisticsManager
                 leaderBoard.add(bean);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -179,7 +182,7 @@ public class QuakeStatisticsManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -203,6 +206,7 @@ public class QuakeStatisticsManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

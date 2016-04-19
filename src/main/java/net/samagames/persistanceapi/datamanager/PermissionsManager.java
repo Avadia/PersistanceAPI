@@ -46,17 +46,35 @@ public class PermissionsManager
     }
 
     // Get all player permissions
-    public PlayerPermissionBean getAllPlayerPermission(PlayerBean player, DataSource dataSource)
+    public PlayerPermissionBean getAllPlayerPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
+        // Declared bean
+        APIPermissionsBean apiPermissions;
+        BukkitPermissionsBean bukkitPermissions;
+        BungeeRedisPermissionsBean bungeeRedisPermisions;
+        HubPermissionsBean hubPermissions;
+        ModerationPermissionsBean moderationPermissions;
+        ProxiesPermissionsBean proxiesPermissions;
+        StaffPermissionsBean staffPermissions;
+        UHCPermissionsBean uhcPermissions;
+
         // Get the different permissions bean
-        APIPermissionsBean apiPermissions = this.apiPermissionManager.getAPIPermission(player, dataSource);
-        BukkitPermissionsBean bukkitPermissions = this.bukkitPermissionManager.getBukkitPermission(player, dataSource);
-        BungeeRedisPermissionsBean bungeeRedisPermisions = this.bungeeRedisPermissionManager.getBungeeRedisPemission(player, dataSource);
-        HubPermissionsBean hubPermissions = this.hubPermissionManager.getHubPermission(player, dataSource);
-        ModerationPermissionsBean moderationPermissions = this.moderationPermissionManager.getModerationPermission(player, dataSource);
-        ProxiesPermissionsBean proxiesPermissions = this.proxiesPermissionManager.getProxiesPermission(player, dataSource);
-        StaffPermissionsBean staffPermissions = this.staffPermissionManager.getStaffPermission(player, dataSource);
-        UHCPermissionsBean uhcPermissions = this.uhcPermissionManager.getUHCPermission(player, dataSource);
+        try
+        {
+            apiPermissions = this.apiPermissionManager.getAPIPermission(player, dataSource);
+            bukkitPermissions = this.bukkitPermissionManager.getBukkitPermission(player, dataSource);
+            bungeeRedisPermisions = this.bungeeRedisPermissionManager.getBungeeRedisPemission(player, dataSource);
+            hubPermissions = this.hubPermissionManager.getHubPermission(player, dataSource);
+            moderationPermissions = this.moderationPermissionManager.getModerationPermission(player, dataSource);
+            proxiesPermissions = this.proxiesPermissionManager.getProxiesPermission(player, dataSource);
+            staffPermissions = this.staffPermissionManager.getStaffPermission(player, dataSource);
+            uhcPermissions = this.uhcPermissionManager.getUHCPermission(player, dataSource);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
 
         // Create the aggregation of different permissions bean
         PlayerPermissionBean playerPermissionBean = new PlayerPermissionBean(apiPermissions, bukkitPermissions, bungeeRedisPermisions, hubPermissions, moderationPermissions, proxiesPermissions,

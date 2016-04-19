@@ -31,7 +31,7 @@ public class PlayerSettingsManager
     private ResultSet resultset = null;
 
     // Get the player ingame settings
-    public PlayerSettingsBean getPlayerSettings(PlayerBean player, DataSource dataSource)
+    public PlayerSettingsBean getPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Defines
         PlayerSettingsBean playerSettingsBean = null;
@@ -86,20 +86,20 @@ public class PlayerSettingsManager
                 return settings;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return playerSettingsBean;
     }
 
     // Set player ingame settings
-    public void setPlayerSettings(PlayerBean player, PlayerSettingsBean settingsBeans, DataSource dataSource)
+    public void setPlayerSettings(PlayerBean player, PlayerSettingsBean settingsBeans, DataSource dataSource) throws Exception
     {
         // Update the players data
         try
@@ -129,9 +129,10 @@ public class PlayerSettingsManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -141,7 +142,7 @@ public class PlayerSettingsManager
     }
 
     // Create default player settings
-    public void createDefaultPlayerSettings(PlayerBean player, DataSource dataSource)
+    public void createDefaultPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -159,9 +160,10 @@ public class PlayerSettingsManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -171,7 +173,7 @@ public class PlayerSettingsManager
     }
 
     // Close the connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -192,9 +194,10 @@ public class PlayerSettingsManager
                 connection.close();
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

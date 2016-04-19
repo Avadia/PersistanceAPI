@@ -33,7 +33,7 @@ public class FriendshipManager
     //List friendshipList = Collections.synchronizedList(new ArrayList<FriendshipBean>);
 
     // Make a friendship demand
-    public void postFriendshipDemand(FriendshipBean friendship, DataSource dataSource)
+    public void postFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception
     {
         try
         {
@@ -51,9 +51,10 @@ public class FriendshipManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -63,7 +64,7 @@ public class FriendshipManager
     }
 
     // Accept a friendship demand
-    public void acceptFriendshipDemand(FriendshipBean friendship, DataSource dataSource)
+    public void acceptFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception
     {
         try
         {
@@ -79,9 +80,10 @@ public class FriendshipManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -91,7 +93,7 @@ public class FriendshipManager
     }
 
     // Refuse a firendship demand
-    public void refuseFriendshipDemand(FriendshipBean friendship, DataSource dataSource)
+    public void refuseFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception
     {
         try
         {
@@ -106,9 +108,10 @@ public class FriendshipManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -118,7 +121,7 @@ public class FriendshipManager
     }
 
     // Get friendship demand list
-    public ArrayList<FriendshipBean> getFriendshipDemandList(PlayerBean player, DataSource dataSource)
+    public ArrayList<FriendshipBean> getFriendshipDemandList(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -150,20 +153,20 @@ public class FriendshipManager
             }
             return friendshipList;
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return friendshipList;
     }
 
     // Get friendship list for a player
-    public ArrayList<FriendshipBean>  getFriendshipList(PlayerBean player, DataSource dataSource) // FIXME Make it bidirectionnal !
+    public ArrayList<FriendshipBean>  getFriendshipList(PlayerBean player, DataSource dataSource) throws Exception // FIXME Make it bidirectionnal !
     {
         try
         {
@@ -194,20 +197,20 @@ public class FriendshipManager
             }
             return friendshipList;
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return friendshipList;
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -231,6 +234,7 @@ public class FriendshipManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

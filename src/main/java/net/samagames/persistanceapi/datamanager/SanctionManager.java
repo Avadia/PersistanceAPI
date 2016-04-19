@@ -31,7 +31,7 @@ public class SanctionManager
     private ResultSet resultset = null;
 
     // Create a sanction
-    public void applySanction(int sanctionType, SanctionBean sanction, DataSource dataSource)
+    public void applySanction(int sanctionType, SanctionBean sanction, DataSource dataSource) throws Exception
     {
         // Create the sanction
         try
@@ -55,9 +55,10 @@ public class SanctionManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -67,7 +68,7 @@ public class SanctionManager
     }
 
     // Remove a sanction
-    public void removeSanction(int sanctionType, PlayerBean player, DataSource dataSource)
+    public void removeSanction(int sanctionType, PlayerBean player, DataSource dataSource) throws Exception
     {
         // Remove the last active sanction
         try
@@ -85,9 +86,10 @@ public class SanctionManager
             // Execute the query
             statement.executeUpdate(sql);
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -97,7 +99,7 @@ public class SanctionManager
     }
 
     // Check if a player is banned
-    public SanctionBean getPlayerBanned(PlayerBean player, DataSource dataSource)
+    public SanctionBean getPlayerBanned(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Defines
         SanctionBean sanction = null;
@@ -143,20 +145,20 @@ public class SanctionManager
                 return null;
             }
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return null;
     }
 
     // Check if a player is muted
-    public SanctionBean getPlayerMuted(PlayerBean player, DataSource dataSource)
+    public SanctionBean getPlayerMuted(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Defines
         SanctionBean sanction = null;
@@ -202,21 +204,21 @@ public class SanctionManager
                 return null;
             }
         }
-        catch (SQLException exception)
+        catch (Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
             // Close the query environment in order to prevent leaks
             close();
         }
-        return null;
     }
 
 
     // Close the connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -237,9 +239,10 @@ public class SanctionManager
                 connection.close();
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

@@ -21,7 +21,6 @@ import net.samagames.persistanceapi.beans.permissions.ModerationPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ModerationPermissionManager
@@ -33,7 +32,7 @@ public class ModerationPermissionManager
     ModerationPermissionsBean moderationPermissionsBean = null;
 
     // Get the permissions for moderation
-    public ModerationPermissionsBean getModerationPermission(PlayerBean player, DataSource dataSource)
+    public ModerationPermissionsBean getModerationPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -68,9 +67,10 @@ public class ModerationPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -81,7 +81,7 @@ public class ModerationPermissionManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -105,6 +105,7 @@ public class ModerationPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

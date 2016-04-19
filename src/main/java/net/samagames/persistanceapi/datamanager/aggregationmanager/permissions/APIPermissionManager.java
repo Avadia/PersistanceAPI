@@ -18,7 +18,6 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
-
 import javax.sql.DataSource;
 import java.sql.*;
 
@@ -31,7 +30,7 @@ public class APIPermissionManager
     APIPermissionsBean apiPermissionsBean = null;
 
     // Get the permissions for the API
-    public APIPermissionsBean getAPIPermission(PlayerBean player, DataSource dataSource)
+    public APIPermissionsBean getAPIPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -75,9 +74,10 @@ public class APIPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -88,7 +88,7 @@ public class APIPermissionManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -112,6 +112,7 @@ public class APIPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

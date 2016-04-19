@@ -15,7 +15,6 @@
 
 package net.samagames.persistanceapi.datamanager;
 
-import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -93,7 +92,7 @@ public class DatabaseManager
     }
 
     // Shutdown the data source
-    public void shutdownDataSource(DataSource dataSource) throws SQLException
+    public void shutdownDataSource(DataSource dataSource) throws Exception
     {
         BasicDataSource basicDataSource = (BasicDataSource) dataSource;
         basicDataSource.close();

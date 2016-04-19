@@ -21,7 +21,6 @@ import net.samagames.persistanceapi.beans.permissions.StaffPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class StaffPermissionManager
@@ -33,7 +32,7 @@ public class StaffPermissionManager
     StaffPermissionsBean staffPermissionsBean = null;
 
     // Get the permissions for staff
-    public StaffPermissionsBean getStaffPermission(PlayerBean player, DataSource dataSource)
+    public StaffPermissionsBean getStaffPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -66,9 +65,10 @@ public class StaffPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -79,7 +79,7 @@ public class StaffPermissionManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -103,6 +103,7 @@ public class StaffPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

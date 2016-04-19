@@ -35,7 +35,7 @@ public class JukeBoxStatisticsManager
     JukeBoxStatisticsBean jukeBoxStats = null;
 
     // Get JukeBox player statistics
-    public JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player, DataSource dataSource)
+    public JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -70,9 +70,10 @@ public class JukeBoxStatisticsManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -83,7 +84,7 @@ public class JukeBoxStatisticsManager
     }
 
     // Update JukeBox player statistics
-    public void updateJukeBoxStatistics(PlayerBean player, JukeBoxStatisticsBean jukeBoxStats, DataSource dataSource)
+    public void updateJukeBoxStatistics(PlayerBean player, JukeBoxStatisticsBean jukeBoxStats, DataSource dataSource) throws Exception
     {
         try
         {
@@ -125,9 +126,10 @@ public class JukeBoxStatisticsManager
                 statement.executeUpdate(sql);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -137,7 +139,7 @@ public class JukeBoxStatisticsManager
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource)
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
     {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try
@@ -159,9 +161,10 @@ public class JukeBoxStatisticsManager
                 leaderBoard.add(bean);
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -172,7 +175,7 @@ public class JukeBoxStatisticsManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -196,6 +199,7 @@ public class JukeBoxStatisticsManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }

@@ -21,7 +21,6 @@ import net.samagames.persistanceapi.beans.permissions.ProxiesPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ProxiesPermissionManager
@@ -33,7 +32,7 @@ public class ProxiesPermissionManager
     ProxiesPermissionsBean proxiesPermissionsBean = null;
 
     // Get the permissions for proxies
-    public ProxiesPermissionsBean getProxiesPermission(PlayerBean player, DataSource dataSource)
+    public ProxiesPermissionsBean getProxiesPermission(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -65,9 +64,10 @@ public class ProxiesPermissionManager
                 return null;
             }
         }
-        catch(SQLException exception)
+        catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
         finally
         {
@@ -78,7 +78,7 @@ public class ProxiesPermissionManager
     }
 
     // Close all connection
-    public void close()
+    public void close() throws Exception
     {
         // Close the query environment in order to prevent leaks
         try
@@ -102,6 +102,7 @@ public class ProxiesPermissionManager
         catch(Exception exception)
         {
             exception.printStackTrace();
+            throw exception;
         }
     }
 }
