@@ -36,9 +36,11 @@ public class Test
             */
 
             // Execution plateform
-            String cible = args[0];
-            if (cible == null) {
-                cible = "";
+            String cible;
+            cible = args[0];
+            if (cible == null)
+            {
+                    cible = "";
             }
 
             // Defines
@@ -478,6 +480,39 @@ public class Test
             startTime = System.currentTimeMillis();
             manager.setPlayerSettings(otherPlayer, settings);
             System.out.println("Update player settings process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create a default dimensions statistics test
+            PlayerBean player_4 = new PlayerBean(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), "player_4", "the 4", 0, 0, null, null, null, null, 1);
+            manager.getPlayer(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), player_4);
+            startTime = System.currentTimeMillis();
+            manager.getDimensionStatistics(player_4);
+            System.out.println("Create a default dimensions statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create a default herobattle statistics test
+            startTime = System.currentTimeMillis();
+            manager.getHeroBattleStatistics(player_4);
+            System.out.println("Create a default herobattle statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create a default jukebox statistics test
+            startTime = System.currentTimeMillis();
+            manager.getJukeBoxStatistics(player_4);
+            System.out.println("Create a default jukebox statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create a default jukebox statistics test
+            startTime = System.currentTimeMillis();
+            manager.getQuakeStatistics(player_4);
+            System.out.println("Create a default quake statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create a default uhcRun statistics test
+            startTime = System.currentTimeMillis();
+            manager.getUHCRunStatistics(player_4);
+            System.out.println("Create a default uhcRun statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create a default uppervoid statistics test
+            startTime = System.currentTimeMillis();
+            manager.getUpperVoidStatistics(player_4);
+            System.out.println("Create a default uppervoid statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
+
         }
         catch (Exception exception)
         {
