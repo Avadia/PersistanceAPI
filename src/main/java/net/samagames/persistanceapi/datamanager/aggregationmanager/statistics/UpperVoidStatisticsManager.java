@@ -70,8 +70,13 @@ public class UpperVoidStatisticsManager
             }
             else
             {
-                // If there no UpperVoid stats int the database
-                return null;
+                // If there no HeroBattle stats int the database create empty one
+                this.close();
+                this.createEmptyUpperVoidStatistics(player, dataSource);
+                this.close();
+                UppervoidStatisticsBean newUppervoidStats = this.getUpperVoidStatistics(player,dataSource);
+                this.close();
+                return newUppervoidStats;
             }
         }
         catch(Exception exception)
@@ -81,14 +86,47 @@ public class UpperVoidStatisticsManager
         }
         finally
         {
-            // If there no HeroBattle stats int the database create empty one
+            // Close the query environment in order to prevent leaks
             this.close();
+        }
+        return uppervoidStats;
+    }
+
+    // Create an empty upperVoid statistics
+    private void createEmptyUpperVoidStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    {
+        try
+        {
             UppervoidStatisticsBean uppervoidStats = new UppervoidStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-            this.updateUpperVoidStatistics(player,uppervoidStats,dataSource);
+
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction for create
+            String sql = "insert into uppervoid_stats (uuid, blocks, grenades, kills, played_games, tnt_launched, wins, creation_date, update_date, played_time)";
+            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+            sql += ", " + uppervoidStats.getBlocks();
+            sql += ", " + uppervoidStats.getGrenades();
+            sql += ", " + uppervoidStats.getKills();
+            sql += ", " + uppervoidStats.getPlayedGames();
+            sql += ", " + uppervoidStats.getTntLaunched();
+            sql += ", " + uppervoidStats.getWins();
+            sql += ", now(), now()";
+            sql += ", " + uppervoidStats.getPlayedTime() + ")";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
             this.close();
-            uppervoidStats = this.getUpperVoidStatistics(player,dataSource);
-            this.close();
-            return uppervoidStats;
         }
     }
 
@@ -100,24 +138,8 @@ public class UpperVoidStatisticsManager
             // Check if a record exists
             if (this.getUpperVoidStatistics(player, dataSource) == null)
             {
-                // Set connection
-                connection = dataSource.getConnection();
-                statement = connection.createStatement();
-
-                // Query construction for create
-                String sql = "insert into uppervoid_stats (uuid, blocks, grenades, kills, played_games, tnt_launched, wins, creation_date, update_date, played_time)";
-                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-                sql += ", " + uppervoidStats.getBlocks();
-                sql += ", " + uppervoidStats.getGrenades();
-                sql += ", " + uppervoidStats.getKills();
-                sql += ", " + uppervoidStats.getPlayedGames();
-                sql += ", " + uppervoidStats.getTntLaunched();
-                sql += ", " + uppervoidStats.getWins();
-                sql += ", now(), now()";
-                sql += ", " + uppervoidStats.getPlayedTime() + ")";
-
-                // Execute the query
-                statement.executeUpdate(sql);
+                // Create an empty uppervoid statistics
+                this.createEmptyUpperVoidStatistics(player, dataSource);
             }
             else
             {

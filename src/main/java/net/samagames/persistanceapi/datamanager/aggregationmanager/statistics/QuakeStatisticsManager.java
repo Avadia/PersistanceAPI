@@ -70,12 +70,11 @@ public class QuakeStatisticsManager
             {
                 // If there no HeroBattle stats int the database create empty one
                 this.close();
-                QuakeStatisticsBean quakeStats = new QuakeStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-                this.updateQuakeStatistics(player,quakeStats,dataSource);
+                this.createEmptyQuakeStatistics(player, dataSource);
                 this.close();
-                quakeStats = this.getQuakeStatistics(player,dataSource);
+                QuakeStatisticsBean newQuakeStats = this.getQuakeStatistics(player,dataSource);
                 this.close();
-                return quakeStats;
+                return newQuakeStats;
             }
         }
         catch(Exception exception)
@@ -86,9 +85,47 @@ public class QuakeStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return quakeStats;
+    }
+
+    // Create an empty quake statistics
+    private void createEmptyQuakeStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            quakeStats = new QuakeStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction for create
+            String sql = "";
+            sql += "insert into quake_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
+            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+            sql += ", " + quakeStats.getDeaths();
+            sql += ", " + quakeStats.getKills();
+            sql += ", " + quakeStats.getPlayedGames();
+            sql += ", " + quakeStats.getWins();
+            sql += ", now()";
+            sql += ", now()";
+            sql += ", " + quakeStats.getPlayedTime() +")";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
     }
 
     // Update Quake player statistics
@@ -99,24 +136,8 @@ public class QuakeStatisticsManager
             // Check if a record exists
             if (this.getQuakeStatistics(player, dataSource) == null)
             {
-                // Set connection
-                connection = dataSource.getConnection();
-                statement = connection.createStatement();
-
-                // Query construction for create
-                String sql = "";
-                sql += "insert into quake_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
-                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-                sql += ", " + quakeStats.getDeaths();
-                sql += ", " + quakeStats.getKills();
-                sql += ", " + quakeStats.getPlayedGames();
-                sql += ", " + quakeStats.getWins();
-                sql += ", now()";
-                sql += ", now()";
-                sql += ", " + quakeStats.getPlayedTime() +")";
-
-                // Execute the query
-                statement.executeUpdate(sql);
+                // Create an empty quake statistics
+                this.createEmptyQuakeStatistics(player, dataSource);
             }
             else
             {

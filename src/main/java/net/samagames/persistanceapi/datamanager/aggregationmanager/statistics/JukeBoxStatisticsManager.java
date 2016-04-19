@@ -68,12 +68,11 @@ public class JukeBoxStatisticsManager
             {
                 // If there no HeroBattle stats int the database create empty one
                 this.close();
-                JukeBoxStatisticsBean jukeBoxStats = new JukeBoxStatisticsBean(player.getUuid(), 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-                this.updateJukeBoxStatistics(player,jukeBoxStats,dataSource);
+                this.createEmptyJukeBoxStatistics(player, dataSource);
                 this.close();
-                jukeBoxStats = this.getJukeBoxStatistics(player,dataSource);
+                JukeBoxStatisticsBean newJukeBoxStats = this.getJukeBoxStatistics(player,dataSource);
                 this.close();
-                return jukeBoxStats;
+                return newJukeBoxStats;
             }
         }
         catch(Exception exception)
@@ -84,9 +83,44 @@ public class JukeBoxStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return jukeBoxStats;
+    }
+
+    // Create an empty jukebox statistics
+    private void createEmptyJukeBoxStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            JukeBoxStatisticsBean jukeBoxStats = new JukeBoxStatisticsBean(player.getUuid(), 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction for create
+            String sql = "";
+            sql += "insert into jukebox_stats (uuid, mehs, woots, creation_date, update_date, played_time)";
+            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+            sql += ", " + jukeBoxStats.getMehs();
+            sql += ", " + jukeBoxStats.getWoots();
+            sql += ", now()";
+            sql += ", now()";
+            sql += ", played_time=" + jukeBoxStats.getPlayedTime() + ")";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
     }
 
     // Update JukeBox player statistics
@@ -97,22 +131,8 @@ public class JukeBoxStatisticsManager
             // Check if a record exists
             if (this.getJukeBoxStatistics(player, dataSource) == null)
             {
-                // Set connection
-                connection = dataSource.getConnection();
-                statement = connection.createStatement();
-
-                // Query construction for create
-                String sql = "";
-                sql += "insert into jukebox_stats (uuid, mehs, woots, creation_date, update_date, played_time)";
-                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-                sql += ", " + jukeBoxStats.getMehs();
-                sql += ", " + jukeBoxStats.getWoots();
-                sql += ", now()";
-                sql += ", now()";
-                sql += ", played_time=" + jukeBoxStats.getPlayedTime() + ")";
-
-                // Execute the query
-                statement.executeUpdate(sql);
+                // Create an empty jukebox statistics
+                this.createEmptyJukeBoxStatistics(player, dataSource);
             }
             else
             {
@@ -140,7 +160,7 @@ public class JukeBoxStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -175,7 +195,7 @@ public class JukeBoxStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return leaderBoard;
     }

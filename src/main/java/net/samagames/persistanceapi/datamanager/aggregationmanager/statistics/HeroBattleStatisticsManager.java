@@ -72,12 +72,11 @@ public class HeroBattleStatisticsManager
             {
                 // If there no HeroBattle stats int the database create empty one
                 this.close();
-                HeroBattleStatisticsBean heroBattleStats = new HeroBattleStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-                this.updateHeroBattleStatistics(player,heroBattleStats,dataSource);
+                this.createEmptyHeroBattleStatistics(player, dataSource);
                 this.close();
-                heroBattleStats = this.getHeroBattleStatistics(player,dataSource);
+                HeroBattleStatisticsBean newHeroBattleStats = this.getHeroBattleStatistics(player,dataSource);
                 this.close();
-                return heroBattleStats;
+                return newHeroBattleStats;
             }
         }
         catch(Exception exception)
@@ -88,39 +87,60 @@ public class HeroBattleStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return heroBattleStats;
     }
 
+    // Create an empty herobattle statistics
+    private void createEmptyHeroBattleStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            HeroBattleStatisticsBean heroBattleStats = new HeroBattleStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction for create
+            String sql = "";
+            sql += "insert into herobattle_stats (uuid, deaths, elo, kills, played_games, powerup_taken, wins, creation_date, update_date, played_time)";
+            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+            sql += ", " + heroBattleStats.getDeaths();
+            sql += ", " + heroBattleStats.getElo();
+            sql += ", " + heroBattleStats.getKills();
+            sql += ", " + heroBattleStats.getPlayedGames();
+            sql += ", " + heroBattleStats.getPowerUpTaken();
+            sql += ", " + heroBattleStats.getWins();
+            sql += ", now()";
+            sql += ", now()";
+            sql += ", " + heroBattleStats.getPlayedGames() + ")";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
     // Update Dimension player statistics
-    public void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean dimensionStats, DataSource dataSource) throws Exception
+    public void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean heroBattleStats, DataSource dataSource) throws Exception
     {
         try
         {
             // Check if a record exists
             if (this.getHeroBattleStatistics(player, dataSource) == null)
             {
-                // Set connection
-                connection = dataSource.getConnection();
-                statement = connection.createStatement();
-
-                // Query construction for create
-                String sql = "";
-                sql += "insert into herobattle_stats (uuid, deaths, elo, kills, played_games, powerup_taken, wins, creation_date, update_date, played_time)";
-                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-                sql += ", " + dimensionStats.getDeaths();
-                sql += ", " + dimensionStats.getElo();
-                sql += ", " + dimensionStats.getKills();
-                sql += ", " + dimensionStats.getPlayedGames();
-                sql += ", " + dimensionStats.getPowerUpTaken();
-                sql += ", " + dimensionStats.getWins();
-                sql += ", now()";
-                sql += ", now()";
-                sql += ", " + dimensionStats.getPlayedGames() + ")";
-
-                // Execute the query
-                statement.executeUpdate(sql);
+                // Create an empty herobatle statistics
+                this.createEmptyHeroBattleStatistics(player, dataSource);
             }
             else
             {
@@ -130,14 +150,14 @@ public class HeroBattleStatisticsManager
 
                 // Query construction for update
                 String sql = "";
-                sql += "update herobattle_stats set deaths=" + dimensionStats.getDeaths();
-                sql += ", elo=" + dimensionStats.getElo();
-                sql += ", kills=" + dimensionStats.getKills();
-                sql += ", played_games=" + dimensionStats.getPlayedGames();
-                sql += ", powerup_taken=" + dimensionStats.getPowerUpTaken();
-                sql += ", wins=" + dimensionStats.getWins();
+                sql += "update herobattle_stats set deaths=" + heroBattleStats.getDeaths();
+                sql += ", elo=" + heroBattleStats.getElo();
+                sql += ", kills=" + heroBattleStats.getKills();
+                sql += ", played_games=" + heroBattleStats.getPlayedGames();
+                sql += ", powerup_taken=" + heroBattleStats.getPowerUpTaken();
+                sql += ", wins=" + heroBattleStats.getWins();
                 sql += ", update_date=now()";
-                sql += ", played_time=" + dimensionStats.getPlayedGames();
+                sql += ", played_time=" + heroBattleStats.getPlayedGames();
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
@@ -152,7 +172,7 @@ public class HeroBattleStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -187,7 +207,7 @@ public class HeroBattleStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return leaderBoard;
     }

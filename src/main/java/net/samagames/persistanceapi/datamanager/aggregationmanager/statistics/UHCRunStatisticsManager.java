@@ -72,12 +72,11 @@ public class UHCRunStatisticsManager
             {
                 // If there no HeroBattle stats int the database create empty one
                 this.close();
-                UHCRunStatisticsBean uhcRunStats = new UHCRunStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-                this.updateUHCRunStatistics(player,uhcRunStats,dataSource);
+                this.createEmptyUHCRunStatistics(player, dataSource);
                 this.close();
-                uhcRunStats = this.getUHCRunStatistics(player,dataSource);
+                UHCRunStatisticsBean newUhcRunStats = this.getUHCRunStatistics(player,dataSource);
                 this.close();
-                return uhcRunStats;
+                return newUhcRunStats;
             }
         }
         catch(Exception exception)
@@ -88,37 +87,58 @@ public class UHCRunStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return uhcRunStats;
     }
 
+    // Create an empty jukebox statistics
+    private void createEmptyUHCRunStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            UHCRunStatisticsBean uhcRunStats = new UHCRunStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction for create
+            String sql = "insert into uhcrun_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
+            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+            sql += ", " + uhcRunStats.getDamages();
+            sql += ", " + uhcRunStats.getDeaths();
+            sql += ", " + uhcRunStats.getKills();
+            sql += ", " + uhcRunStats.getMaxDamages();
+            sql += ", " + uhcRunStats.getPlayedGames();
+            sql += ", " + uhcRunStats.getWins();
+            sql += ", now(), now()";
+            sql += ", " + uhcRunStats.getPlayedTime() + ")";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
     // Update UHCRun player statistics
-    public void updateUHCRunStatistics(PlayerBean player, UHCRunStatisticsBean dimensionStats, DataSource dataSource) throws Exception
+    public void updateUHCRunStatistics(PlayerBean player, UHCRunStatisticsBean uhcRunStats, DataSource dataSource) throws Exception
     {
         try
         {
             // Check if a record exists
             if (this.getUHCRunStatistics(player, dataSource) == null)
             {
-                // Set connection
-                connection = dataSource.getConnection();
-                statement = connection.createStatement();
-
-                // Query construction for create
-                String sql = "insert into uhcrun_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
-                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-                sql += ", " + dimensionStats.getDamages();
-                sql += ", " + dimensionStats.getDeaths();
-                sql += ", " + dimensionStats.getKills();
-                sql += ", " + dimensionStats.getMaxDamages();
-                sql += ", " + dimensionStats.getPlayedGames();
-                sql += ", " + dimensionStats.getWins();
-                sql += ", now(), now()";
-                sql += ", " + dimensionStats.getPlayedTime() + ")";
-
-                // Execute the query
-                statement.executeUpdate(sql);
+                // Create an empty uhcRun statistics
+                this.createEmptyUHCRunStatistics(player, dataSource);
             }
             else
             {
@@ -127,14 +147,14 @@ public class UHCRunStatisticsManager
                 statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "update uhcrun_stats set damages=" + dimensionStats.getDamages();
-                sql += ", deaths=" + dimensionStats.getDeaths();
-                sql += ", kills=" + dimensionStats.getKills();
-                sql += ", max_damages=" + dimensionStats.getMaxDamages();
-                sql += ", played_games=" + dimensionStats.getPlayedGames();
-                sql += ", wins=" + dimensionStats.getWins();
+                String sql = "update uhcrun_stats set damages=" + uhcRunStats.getDamages();
+                sql += ", deaths=" + uhcRunStats.getDeaths();
+                sql += ", kills=" + uhcRunStats.getKills();
+                sql += ", max_damages=" + uhcRunStats.getMaxDamages();
+                sql += ", played_games=" + uhcRunStats.getPlayedGames();
+                sql += ", wins=" + uhcRunStats.getWins();
                 sql += ", update_date=now()";
-                sql += ", played_time=" + dimensionStats.getPlayedTime();
+                sql += ", played_time=" + uhcRunStats.getPlayedTime();
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
@@ -149,7 +169,7 @@ public class UHCRunStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -184,7 +204,7 @@ public class UHCRunStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return leaderBoard;
     }

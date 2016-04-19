@@ -67,12 +67,11 @@ public class DimensionStatisticsManager
             {
                 // If there no dimension stats int the database create empty one
                 this.close();
-                DimensionStatisticsBean dimensionStats = new DimensionStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-                this.updateDimensionStatistics(player,dimensionStats,dataSource);
+                this.createEmptyDimensionStatistics(player,dataSource);
                 this.close();
-                dimensionStats = this.getDimensionStatistics(player,dataSource);
+                DimensionStatisticsBean newDimensionStats = this.getDimensionStatistics(player,dataSource);
                 this.close();
-                return dimensionStats;
+                return newDimensionStats;
             }
         }
         catch(Exception exception)
@@ -83,10 +82,48 @@ public class DimensionStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return dimensionStats;
     }
+
+    // Create an empty dimensions statistics
+    private void createEmptyDimensionStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            DimensionStatisticsBean dimensionStats = new DimensionStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction for create
+            String sql = "";
+            sql += "insert into dimensions_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
+            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'), ";
+            sql += dimensionStats.getDeaths() + ", ";
+            sql += dimensionStats.getKills() + ", ";
+            sql += dimensionStats.getPlayedGames() + ", ";
+            sql += dimensionStats.getWins() + ", ";
+            sql += " now(), now(), ";
+            sql += player.getPlayedTime() +")";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+
+    }
+
 
     // Update Dimension player statistics
     public void updateDimensionStatistics(PlayerBean player, DimensionStatisticsBean dimensionStats, DataSource dataSource) throws Exception
@@ -96,23 +133,8 @@ public class DimensionStatisticsManager
             // Check if a record exists
             if (this.getDimensionStatistics(player, dataSource) == null)
             {
-                // Set connection
-                connection = dataSource.getConnection();
-                statement = connection.createStatement();
-
-                // Query construction for create
-                String sql = "";
-                sql += "insert into dimensions_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
-                sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'), ";
-                sql += dimensionStats.getDeaths() + ", ";
-                sql += dimensionStats.getKills() + ", ";
-                sql += dimensionStats.getPlayedGames() + ", ";
-                sql += dimensionStats.getWins() + ", ";
-                sql += " now(), now(), ";
-                sql += player.getPlayedTime() +")";
-
-                // Execute the query
-                statement.executeUpdate(sql);
+                // Create an empty dimension statistics
+                this.createEmptyDimensionStatistics(player, dataSource);
             }
             else
             {
@@ -133,8 +155,6 @@ public class DimensionStatisticsManager
                 // Execute the query
                 statement.executeUpdate(sql);
             }
-
-            // Set flag for nested query
         }
         catch(Exception exception)
         {
@@ -144,7 +164,7 @@ public class DimensionStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -179,7 +199,7 @@ public class DimensionStatisticsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
         return leaderBoard;
     }
