@@ -95,6 +95,7 @@ public class QuakeStatisticsManager
     {
         try
         {
+            // Create empty bean
             quakeStats = new QuakeStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection

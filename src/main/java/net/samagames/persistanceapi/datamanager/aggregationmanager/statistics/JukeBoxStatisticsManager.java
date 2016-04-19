@@ -93,7 +93,9 @@ public class JukeBoxStatisticsManager
     {
         try
         {
+            // Create an empty bean
             JukeBoxStatisticsBean jukeBoxStats = new JukeBoxStatisticsBean(player.getUuid(), 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();

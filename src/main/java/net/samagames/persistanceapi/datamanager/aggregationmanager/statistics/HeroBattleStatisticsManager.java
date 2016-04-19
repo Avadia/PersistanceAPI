@@ -97,7 +97,9 @@ public class HeroBattleStatisticsManager
     {
         try
         {
+            // Create an emptu bean
             HeroBattleStatisticsBean heroBattleStats = new HeroBattleStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
@@ -139,7 +141,7 @@ public class HeroBattleStatisticsManager
             // Check if a record exists
             if (this.getHeroBattleStatistics(player, dataSource) == null)
             {
-                // Create an empty herobatle statistics
+                // Create an empty herobattle statistics
                 this.createEmptyHeroBattleStatistics(player, dataSource);
             }
             else

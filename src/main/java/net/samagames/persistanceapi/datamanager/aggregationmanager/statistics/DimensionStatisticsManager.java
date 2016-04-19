@@ -92,7 +92,9 @@ public class DimensionStatisticsManager
     {
         try
         {
+            // Create an empty bean
             DimensionStatisticsBean dimensionStats = new DimensionStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();

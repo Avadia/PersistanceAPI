@@ -97,6 +97,7 @@ public class UpperVoidStatisticsManager
     {
         try
         {
+            // Create an empty bean
             UppervoidStatisticsBean uppervoidStats = new UppervoidStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
