@@ -66,8 +66,14 @@ public class JukeBoxStatisticsManager
             }
             else
             {
-                // If there no JukeBox stats int the database
-                return null;
+                // If there no HeroBattle stats int the database create empty one
+                this.close();
+                JukeBoxStatisticsBean jukeBoxStats = new JukeBoxStatisticsBean(player.getUuid(), 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+                this.updateJukeBoxStatistics(player,jukeBoxStats,dataSource);
+                this.close();
+                jukeBoxStats = this.getJukeBoxStatistics(player,dataSource);
+                this.close();
+                return jukeBoxStats;
             }
         }
         catch(Exception exception)

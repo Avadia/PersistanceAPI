@@ -70,8 +70,14 @@ public class UHCRunStatisticsManager
             }
             else
             {
-                // If there no UHCRun stats int the database
-                return null;
+                // If there no HeroBattle stats int the database create empty one
+                this.close();
+                UHCRunStatisticsBean uhcRunStats = new UHCRunStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+                this.updateUHCRunStatistics(player,uhcRunStats,dataSource);
+                this.close();
+                uhcRunStats = this.getUHCRunStatistics(player,dataSource);
+                this.close();
+                return uhcRunStats;
             }
         }
         catch(Exception exception)

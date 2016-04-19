@@ -70,8 +70,14 @@ public class HeroBattleStatisticsManager
             }
             else
             {
-                // If there no HeroBattle stats int the database
-                return null;
+                // If there no HeroBattle stats int the database create empty one
+                this.close();
+                HeroBattleStatisticsBean heroBattleStats = new HeroBattleStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+                this.updateHeroBattleStatistics(player,heroBattleStats,dataSource);
+                this.close();
+                heroBattleStats = this.getHeroBattleStatistics(player,dataSource);
+                this.close();
+                return heroBattleStats;
             }
         }
         catch(Exception exception)

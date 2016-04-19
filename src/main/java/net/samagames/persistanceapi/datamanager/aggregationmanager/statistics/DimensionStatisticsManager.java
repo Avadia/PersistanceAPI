@@ -65,8 +65,14 @@ public class DimensionStatisticsManager
             }
             else
             {
-                // If there no dimension stats int the database
-                return null;
+                // If there no dimension stats int the database create empty one
+                this.close();
+                DimensionStatisticsBean dimensionStats = new DimensionStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+                this.updateDimensionStatistics(player,dimensionStats,dataSource);
+                this.close();
+                dimensionStats = this.getDimensionStatistics(player,dataSource);
+                this.close();
+                return dimensionStats;
             }
         }
         catch(Exception exception)

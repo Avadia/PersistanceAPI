@@ -68,8 +68,14 @@ public class QuakeStatisticsManager
             }
             else
             {
-                // If there no Quake stats int the database
-                return null;
+                // If there no HeroBattle stats int the database create empty one
+                this.close();
+                QuakeStatisticsBean quakeStats = new QuakeStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+                this.updateQuakeStatistics(player,quakeStats,dataSource);
+                this.close();
+                quakeStats = this.getQuakeStatistics(player,dataSource);
+                this.close();
+                return quakeStats;
             }
         }
         catch(Exception exception)

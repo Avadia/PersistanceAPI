@@ -81,10 +81,15 @@ public class UpperVoidStatisticsManager
         }
         finally
         {
-            // Close the query environment in order to prevent leaks
-            close();
+            // If there no HeroBattle stats int the database create empty one
+            this.close();
+            UppervoidStatisticsBean uppervoidStats = new UppervoidStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            this.updateUpperVoidStatistics(player,uppervoidStats,dataSource);
+            this.close();
+            uppervoidStats = this.getUpperVoidStatistics(player,dataSource);
+            this.close();
+            return uppervoidStats;
         }
-        return uppervoidStats;
     }
 
     // Update UpperVoid player statistics
