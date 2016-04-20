@@ -107,13 +107,14 @@ public class PlayerBean
     public void setName(String name) {
         this.name = name;
     }
-    public void setNickNale(String nickName) { this.nickName = nickName; }
+    public void setNickName(String nickName) { this.nickName = nickName; }
     public void setCoins(int coins) {
         this.coins = coins;
     }
     public void setStars(int stars) {
         this.stars = stars;
     }
+
     public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
     }
