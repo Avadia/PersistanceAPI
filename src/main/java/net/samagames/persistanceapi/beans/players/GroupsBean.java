@@ -76,5 +76,6 @@ public class GroupsBean
     public void setPrefix(String prefix) { this.prefix = prefix; }
     public void setSuffix(String suffix) { this.suffix = suffix; }
     public void setMultiplier(int multiplier) { this.multiplier = multiplier; }
+    public void setGroupId(long groupId) { this.groupId = groupId; }
 
 }
