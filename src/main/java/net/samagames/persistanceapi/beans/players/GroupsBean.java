@@ -70,7 +70,7 @@ public class GroupsBean
     public int getMultiplier() { return this.multiplier; }
 
     // Setters
-    public void setName(String groupName) { this.groupName = groupName; }
+    public void setPgroupName(String groupName) { this.groupName = groupName; }
     public void setRank(int rank) { this.rank = rank; }
     public void setTag(String tag) { this.tag = tag; }
     public void setPrefix(String prefix) { this.prefix = prefix; }
