@@ -346,13 +346,6 @@ public class GameServiceManager
         return this.permissionsManager.staffPermissionManager.getStaffPermission(player, this.databaseManager.getDataSource());
     }
 
-    // Get UHC permissions
-    public synchronized UHCPermissionsBean getUHCPermission(PlayerBean player) throws Exception
-    {
-        // Get the permissions
-        return this.permissionsManager.uhcPermissionManager.getUHCPermission(player, this.databaseManager.getDataSource());
-    }
-
     // Get all player permissions
     public synchronized PlayerPermissionBean getAllPlayerPermission(PlayerBean player) throws Exception
     {

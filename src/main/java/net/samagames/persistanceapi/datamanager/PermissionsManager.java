@@ -30,7 +30,6 @@ public class PermissionsManager
     public ModerationPermissionManager moderationPermissionManager;
     public ProxiesPermissionManager proxiesPermissionManager;
     public StaffPermissionManager staffPermissionManager;
-    public UHCPermissionManager uhcPermissionManager;
 
     // Constructor
     public PermissionsManager()
@@ -42,7 +41,6 @@ public class PermissionsManager
         this.moderationPermissionManager = new ModerationPermissionManager();
         this.proxiesPermissionManager = new ProxiesPermissionManager();
         this.staffPermissionManager = new StaffPermissionManager();
-        this.uhcPermissionManager = new UHCPermissionManager();
     }
 
     // Get all player permissions
@@ -56,7 +54,6 @@ public class PermissionsManager
         ModerationPermissionsBean moderationPermissions;
         ProxiesPermissionsBean proxiesPermissions;
         StaffPermissionsBean staffPermissions;
-        UHCPermissionsBean uhcPermissions;
 
         // Get the different permissions bean
         try
@@ -68,7 +65,6 @@ public class PermissionsManager
             moderationPermissions = this.moderationPermissionManager.getModerationPermission(player, dataSource);
             proxiesPermissions = this.proxiesPermissionManager.getProxiesPermission(player, dataSource);
             staffPermissions = this.staffPermissionManager.getStaffPermission(player, dataSource);
-            uhcPermissions = this.uhcPermissionManager.getUHCPermission(player, dataSource);
         }
         catch (Exception exception)
         {
@@ -78,7 +74,7 @@ public class PermissionsManager
 
         // Create the aggregation of different permissions bean
         PlayerPermissionBean playerPermissionBean = new PlayerPermissionBean(apiPermissions, bukkitPermissions, bungeeRedisPermisions, hubPermissions, moderationPermissions, proxiesPermissions,
-                staffPermissions, uhcPermissions);
+                staffPermissions);
         return playerPermissionBean;
     }
 }
