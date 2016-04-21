@@ -46,6 +46,8 @@ public class HubPermissionsBean
     | hub_bypassmute             | bit(1)     | NO   |     | NULL    |                |
     | hub_fly                    | bit(1)     | NO   |     | NULL    |                |
     | hub_debug_sign             | bit(1)     | NO   |     | NULL    |                |
+    | hub_sign_selection         | bit(1)     | NO   |     | NULL    |                |
+    | hub_beta_vip               | bit(1)     | NO   |     | NULL    |                |
     +----------------------------+------------+------+-----+---------+----------------+
     */
 
@@ -87,11 +89,16 @@ public class HubPermissionsBean
     private boolean hubFly;
     @Perm("hub.debug.sign")
     private boolean hubDebugSign;
+    @Perm("hub.sign.selection")
+    private boolean hubSignSelection;
+    @Perm("hub.beta.vip")
+    private boolean hubBetaVIP;
 
     // Constructor
     public HubPermissionsBean(long groupsId, boolean hubJukeboxLock, boolean hubJukeboxNext, boolean hubJukeBoxClear, boolean hubModSlow, boolean hubModShutup, boolean hubAdminNpc,
                               boolean hubAdminSign, boolean hubAnguille, boolean hubJukeboxNbs, boolean hubAdminEvacuate, boolean hubAnnounce, boolean hubGadgetsCooldownbypass,
-                              boolean hubGadgetsNuke, boolean hubJukeboxLimitbypass, boolean hubJukeboxLimitstaff, boolean hubBypassmute, boolean hubFly, boolean hubDebugSign)
+                              boolean hubGadgetsNuke, boolean hubJukeboxLimitbypass, boolean hubJukeboxLimitstaff, boolean hubBypassmute, boolean hubFly, boolean hubDebugSign,
+                              boolean hubSignSelection, boolean hubBetaVIP)
     {
         this.groupsId = groupsId;
         this.hubJukeboxLock = hubJukeboxLock;
@@ -112,6 +119,8 @@ public class HubPermissionsBean
         this.hubBypassmute = hubBypassmute;
         this.hubFly = hubFly;
         this.hubDebugSign = hubDebugSign;
+        this.hubSignSelection = hubSignSelection;
+        this.hubBetaVIP = hubBetaVIP;
     }
 
     // Getters
@@ -134,6 +143,8 @@ public class HubPermissionsBean
     public boolean isHubBypassmute() { return this.hubBypassmute; }
     public boolean isHubFly() { return this. hubFly; }
     public boolean isHubDebugSign() { return this.hubDebugSign; }
+    public boolean isHubSignSelection() { return this.hubSignSelection; }
+    public boolean isHubBetaVIP() { return this.hubBetaVIP; }
 
     // Setters
     public void setHubJukeboxLock(boolean hubJukeboxLock) { this.hubJukeboxLock = hubJukeboxLock; }
@@ -154,6 +165,8 @@ public class HubPermissionsBean
     public void setHubBypassmute(boolean hubBypassmute) { this.hubBypassmute = hubBypassmute; }
     public void setHubFly(boolean hubFly) { this.hubFly = hubFly; }
     public void setHubDebugSign(boolean hubDebugSign) { this.hubDebugSign = hubDebugSign; }
+    public void setHubSignSelection(boolean hubSignSelection) { this.hubSignSelection = hubSignSelection; }
+    public void setHubBetaVIP(boolean hubBetaVIP) { this.hubBetaVIP = hubBetaVIP; }
 
     // Reverse the bean to HashMap
     public Map<String, Boolean> getHashMap()
