@@ -28,7 +28,6 @@ public class StaffPermissionsBean
     | Field           | Type       | Null | Key | Default | Extra          |
     +-----------------+------------+------+-----+---------+----------------+
     | groups_id       | tinyint(4) | NO   | PRI | NULL    | auto_increment |
-    | staff_member    | bit(1)     | NO   |     | NULL    |                |
     | netjoin_closed  | bit(1)     | NO   |     | NULL    |                |
     | netjoin_vip     | bit(1)     | NO   |     | NULL    |                |
     | netjoin_full    | bit(1)     | NO   |     | NULL    |                |
@@ -42,8 +41,6 @@ public class StaffPermissionsBean
 
     // Defines
     private long groupsId;
-    @Perm("staff.member")
-    private boolean staffMember;
     @Perm("netjoin.closed")
     private boolean netjoinClosed;
     @Perm("netjoin.vip")
@@ -63,12 +60,11 @@ public class StaffPermissionsBean
 
 
     // Constructor
-    public StaffPermissionsBean(long groupsId, boolean staffMember, boolean netjoinClosed, boolean netjoinVip,
+    public StaffPermissionsBean(long groupsId, boolean netjoinClosed, boolean netjoinVip,
                                 boolean netjoinFull, boolean trackerFamous, boolean networkVip, boolean networkVipplus,
                                 boolean networkStaff, boolean networkAdmin)
     {
         this.groupsId = groupsId;
-        this.staffMember = staffMember;
         this.netjoinClosed = netjoinClosed;
         this.netjoinVip = netjoinVip;
         this.netjoinFull = netjoinFull;
@@ -81,7 +77,6 @@ public class StaffPermissionsBean
 
     // Getters
     public long getGroupsId() { return this.groupsId; }
-    public boolean isStaffMember() { return this.staffMember; }
     public boolean isNetjoinClosed() { return this.netjoinClosed; }
     public boolean isNetjoinVip() { return this.netjoinVip; }
     public boolean isNetjoinFull() { return this.netjoinFull; }
@@ -92,7 +87,6 @@ public class StaffPermissionsBean
     public boolean isNetworkAdmin() { return networkAdmin; }
 
     // Setters
-    public void setStaffMember(boolean staffMember) { this.staffMember = staffMember; }
     public void setNetjoinClosed(boolean netjoinClosed) { this.netjoinClosed = netjoinClosed; }
     public void setNetjoinVip(boolean netjoinVip) { this.netjoinVip = netjoinVip; }
     public void setNetjoinFull(boolean netjoinFull) { this.netjoinFull = netjoinFull; }
