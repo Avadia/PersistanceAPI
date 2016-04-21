@@ -41,7 +41,8 @@ public class StaffPermissionManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select groups_id, staff_member, netjoin_closed, netjoin_vip, netjoin_full, tracker_famous";
+            String sql = "select groups_id, staff_member, netjoin_closed, netjoin_vip, netjoin_full, tracker_famous, network_vip, network_vipplus," +
+                    "network_staff, network_admin";
             sql += " from staff_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
@@ -57,7 +58,12 @@ public class StaffPermissionManager
                 boolean netjoinVip = resultset.getBoolean("netjoin_vip");
                 boolean netjoinFull = resultset.getBoolean("netjoin_full");
                 boolean trackerFamous = resultset.getBoolean("tracker_famous");
-                staffPermissionsBean = new StaffPermissionsBean(groupId, staffMember, netjoinClosed, netjoinVip, netjoinFull, trackerFamous);
+                boolean networkVip = resultset.getBoolean("network_vip");
+                boolean networkVipplus = resultset.getBoolean("network_vipplus");
+                boolean networkStaff = resultset.getBoolean("network_staff");
+                boolean networkAdmin = resultset.getBoolean("network_admin");
+                staffPermissionsBean = new StaffPermissionsBean(groupId, staffMember, netjoinClosed, netjoinVip, netjoinFull, trackerFamous,
+                        networkVip, networkVipplus, networkStaff, networkAdmin);
             }
             else
             {
