@@ -27,11 +27,10 @@ public class PlayerPermissionBean
     private ModerationPermissionsBean moderationPermissions;
     private ProxiesPermissionsBean proxiesPermissions;
     private StaffPermissionsBean staffPermissions;
-    private UHCPermissionsBean uhcPermissions;
 
     // Constructor
     public PlayerPermissionBean(APIPermissionsBean apiPermissions, BukkitPermissionsBean bukkitPermissions, BungeeRedisPermissionsBean bungeeRedisPermisions, HubPermissionsBean hubPermissions,
-                                ModerationPermissionsBean moderationPermissions, ProxiesPermissionsBean proxiesPermissions, StaffPermissionsBean staffPermissions, UHCPermissionsBean uhcPermissions)
+                                ModerationPermissionsBean moderationPermissions, ProxiesPermissionsBean proxiesPermissions, StaffPermissionsBean staffPermissions)
     {
         this.apiPermissions = apiPermissions;
         this.bukkitPermissions = bukkitPermissions;
@@ -40,7 +39,6 @@ public class PlayerPermissionBean
         this.moderationPermissions = moderationPermissions;
         this.proxiesPermissions = proxiesPermissions;
         this.staffPermissions = staffPermissions;
-        this.uhcPermissions = uhcPermissions;
     }
 
     // Getters
@@ -51,7 +49,6 @@ public class PlayerPermissionBean
     public ModerationPermissionsBean getModerationPermissions() { return moderationPermissions; }
     public ProxiesPermissionsBean getProxiesPermissions() { return proxiesPermissions; }
     public StaffPermissionsBean getStaffPermissions() { return staffPermissions; }
-    public UHCPermissionsBean getUhcPermissions() { return uhcPermissions; }
 
     // Setters
     public void setApiPermissions(APIPermissionsBean apiPermissions) { this.apiPermissions = apiPermissions; }
@@ -61,7 +58,6 @@ public class PlayerPermissionBean
     public void setModerationPermissions(ModerationPermissionsBean moderationPermissions) { this.moderationPermissions = moderationPermissions; }
     public void setProxiesPermissions(ProxiesPermissionsBean proxiesPermissions) { this.proxiesPermissions = proxiesPermissions; }
     public void setStaffPermissions(StaffPermissionsBean staffPermissions) { this.staffPermissions = staffPermissions; }
-    public void setUhcPermissions(UHCPermissionsBean uhcPermissions) { this.uhcPermissions = uhcPermissions; }
 
     // Reverse the bean to HashMap
     public HashMap<String, Boolean> getHashMap()
@@ -74,7 +70,6 @@ public class PlayerPermissionBean
         permissionHashMap.putAll(this.moderationPermissions.getHashMap());
         permissionHashMap.putAll(this.proxiesPermissions.getHashMap());
         permissionHashMap.putAll(this.staffPermissions.getHashMap());
-        permissionHashMap.putAll(this.uhcPermissions.getHashMap());
         return permissionHashMap;
     }
 }

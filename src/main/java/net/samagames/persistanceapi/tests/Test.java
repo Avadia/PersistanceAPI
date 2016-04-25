@@ -298,11 +298,6 @@ public class Test
             manager.getStaffPermission(otherPlayer);
             System.out.println("Get staff permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
-            // Get UHC permissions
-            startTime = System.currentTimeMillis();
-            manager.getUHCPermission(otherPlayer);
-            System.out.println("Get UHC permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
-
             // Get all permissions
             startTime = System.currentTimeMillis();
             manager.getAllPlayerPermission(otherPlayer);
