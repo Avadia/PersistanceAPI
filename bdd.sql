@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 21 Avril 2016 à 21:01
+-- Généré le :  Lun 25 Avril 2016 à 20:00
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -363,6 +363,13 @@ CREATE TABLE `item_description` (
   `game_category` tinyint(4) DEFAULT NULL,
   `item_minecraft_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `item_description`
+--
+
+INSERT INTO `item_description` (`item_id`, `item_name`, `item_desc`, `price_coins`, `price_stars`, `game_category`, `item_minecraft_id`) VALUES
+  (1, 'GoldenAxe', 'The ultimate axe made with gold', 200, 10, 1, '255');
 
 -- --------------------------------------------------------
 
@@ -850,7 +857,8 @@ ADD PRIMARY KEY (`groups_id`);
 --
 ALTER TABLE `transaction_shop`
 ADD PRIMARY KEY (`transaction_id`),
-ADD KEY `fk_shop_item_item_idx` (`item_id`);
+ADD KEY `fk_shop_item_item_idx` (`item_id`),
+ADD KEY `buyer` (`uuid_buyer`);
 
 --
 -- Index pour la table `uhcrun_stats`
