@@ -37,8 +37,6 @@ public class TimelineEventBean
     long prepartionEndTime;
     long pvpActivationTime;
     long endTime;
-    int teamCount;
-    int teamRatio;
     List eventsList;
 
     // Super constructor

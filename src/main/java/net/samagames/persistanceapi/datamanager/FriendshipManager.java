@@ -15,12 +15,14 @@
 
 package net.samagames.persistanceapi.datamanager;
 
+
 import net.samagames.persistanceapi.beans.players.FriendshipBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class FriendshipManager
@@ -29,8 +31,7 @@ public class FriendshipManager
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultset = null;
-    public ArrayList<FriendshipBean> friendshipList = new ArrayList<>(); // Fixme see for concurrency !
-    //List friendshipList = Collections.synchronizedList(new ArrayList<FriendshipBean>);
+    public List<FriendshipBean> friendshipList = new ArrayList<>(); // Fixme see for concurrency !
 
     // Make a friendship demand
     public void postFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception
@@ -121,7 +122,7 @@ public class FriendshipManager
     }
 
     // Get friendship demand list
-    public ArrayList<FriendshipBean> getFriendshipDemandList(PlayerBean player, DataSource dataSource) throws Exception
+    public List<FriendshipBean> getFriendshipDemandList(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -166,7 +167,7 @@ public class FriendshipManager
     }
 
     // Get friendship list for a player
-    public ArrayList<FriendshipBean>  getFriendshipList(PlayerBean player, DataSource dataSource) throws Exception // FIXME Make it bidirectionnal !
+    public List<FriendshipBean>  getFriendshipList(PlayerBean player, DataSource dataSource) throws Exception // FIXME Make it bidirectionnal !
     {
         try
         {

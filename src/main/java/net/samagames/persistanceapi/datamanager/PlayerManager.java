@@ -82,7 +82,7 @@ public class PlayerManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -129,7 +129,7 @@ public class PlayerManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -165,7 +165,7 @@ public class PlayerManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -203,7 +203,7 @@ public class PlayerManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 

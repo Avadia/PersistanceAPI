@@ -18,11 +18,11 @@ package net.samagames.persistanceapi;
 import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.players.*;
 import net.samagames.persistanceapi.beans.shop.PromotionsBean;
+import net.samagames.persistanceapi.beans.shop.TransactionBean;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
 import net.samagames.persistanceapi.datamanager.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -397,14 +397,14 @@ public class GameServiceManager
     }
 
     // Get the list of friendship demand
-    public synchronized ArrayList<FriendshipBean> getFriendshipDemandList(PlayerBean player)throws Exception
+    public synchronized List<FriendshipBean> getFriendshipDemandList(PlayerBean player)throws Exception
     {
         // Get the list
         return this.friendshipManager.getFriendshipDemandList(player, this.databaseManager.getDataSource());
     }
 
     // Get the list of friendship
-    public synchronized ArrayList<FriendshipBean> getFriendshipList(PlayerBean player)throws Exception
+    public synchronized List<FriendshipBean> getFriendshipList(PlayerBean player)throws Exception
     {
         // Get the list
         return this.friendshipManager.getFriendshipList(player, this.databaseManager.getDataSource());
@@ -415,14 +415,14 @@ public class GameServiceManager
     ============================================*/
 
     // Get all active promotions
-    public synchronized ArrayList<PromotionsBean> getAllActivePromotions()throws Exception
+    public synchronized List<PromotionsBean> getAllActivePromotions()throws Exception
     {
         // Get promotions list
         return this.promotionsManager.getAllActivePromotions(this.databaseManager.getDataSource());
     }
 
     // Get specific promotions
-    public synchronized ArrayList<PromotionsBean> getPromotion(int typePromotion, int typeGame)throws Exception
+    public synchronized List<PromotionsBean> getPromotion(int typePromotion, int typeGame)throws Exception
     {
         // Get promotions
         return this.promotionsManager.getPromotion(this.databaseManager.getDataSource(), typePromotion, typeGame);
@@ -473,4 +473,24 @@ public class GameServiceManager
       Part of transaction manager
     ============================================*/
 
+    // Get all the player transactions
+    public synchronized List<TransactionBean> getPlayerTransactions(PlayerBean player) throws Exception
+    {
+        // Get transactions
+        return this.transactionManager.getPlayerTransactions(player, this.databaseManager.getDataSource());
+    }
+
+    // Get all the player transactions with selected items
+    public synchronized List<TransactionBean> getPlayerSelectedTransactions(PlayerBean player) throws Exception
+    {
+        // Get transactions
+        return this.transactionManager.getPlayerSelectedTransactions(player, this.databaseManager.getDataSource());
+    }
+
+    // Get all the player transactions with selected items for a game
+    public synchronized List<TransactionBean> getPlayerGameSelectedTransactions(PlayerBean player, int selectedGame) throws Exception
+    {
+        // Get transactions
+        return this.transactionManager.getPlayerGameSelectedTransactions(player, this.databaseManager.getDataSource(), selectedGame);
+    }
 }

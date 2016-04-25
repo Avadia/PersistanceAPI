@@ -19,6 +19,7 @@ import net.samagames.persistanceapi.beans.shop.PromotionsBean;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PromotionsManager
 {
@@ -26,11 +27,10 @@ public class PromotionsManager
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultset = null;
-    public ArrayList<PromotionsBean> promotionList = new ArrayList<>(); // Fixme see for concurrency !
-    //List promotionList = Collections.synchronizedList(new ArrayList<PromotionsBean>);
+    public List<PromotionsBean> promotionList = new ArrayList<>();
 
     // Get all the promotions
-    public ArrayList<PromotionsBean> getAllActivePromotions(DataSource dataSource) throws Exception
+    public List<PromotionsBean> getAllActivePromotions(DataSource dataSource) throws Exception
     {
         try
         {
@@ -69,12 +69,12 @@ public class PromotionsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
     // Get a special promotions
-    public ArrayList<PromotionsBean> getPromotion(DataSource dataSource, int typePromotion, int typeGame) throws Exception
+    public List<PromotionsBean> getPromotion(DataSource dataSource, int typePromotion, int typeGame) throws Exception
     {
         try
         {
@@ -115,7 +115,7 @@ public class PromotionsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -148,7 +148,7 @@ public class PromotionsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 
@@ -177,7 +177,7 @@ public class PromotionsManager
         finally
         {
             // Close the query environment in order to prevent leaks
-            close();
+            this.close();
         }
     }
 

@@ -21,9 +21,8 @@ import net.samagames.persistanceapi.beans.players.*;
 import net.samagames.persistanceapi.beans.shop.PromotionsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
-
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Test
@@ -322,7 +321,7 @@ public class Test
 
             // Get friendship demand list
             startTime = System.currentTimeMillis();
-            ArrayList<FriendshipBean> friendshipList = manager.getFriendshipDemandList(player);
+            List<FriendshipBean> friendshipList = manager.getFriendshipDemandList(player);
             System.out.println("Friendhip get list process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Accept a friendship demand
