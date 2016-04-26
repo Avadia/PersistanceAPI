@@ -24,19 +24,19 @@ public class StaffPermissionsBean
     /* Database Structure
 
     Table : staff_permissions
-    +-----------------+------------+------+-----+---------+----------------+
-    | Field           | Type       | Null | Key | Default | Extra          |
-    +-----------------+------------+------+-----+---------+----------------+
-    | groups_id       | tinyint(4) | NO   | PRI | NULL    | auto_increment |
-    | netjoin_closed  | bit(1)     | NO   |     | NULL    |                |
-    | netjoin_vip     | bit(1)     | NO   |     | NULL    |                |
-    | netjoin_full    | bit(1)     | NO   |     | NULL    |                |
-    | tracker_famous  | bit(1)     | NO   |     | NULL    |                |
-    | network_vip     | bit(1)     | NO   |     | NULL    |                |
-    | network_vipplus | bit(1)     | NO   |     | NULL    |                |
-    | network_staff   | bit(1)     | NO   |     | NULL    |                |
-    | network_admin   | bit(1)     | NO   |     | NULL    |                |
-    +-----------------+------------+------+-----+---------+----------------+
+    +------------------+------------+------+-----+---------+----------------+
+    | Field            | Type       | Null | Key | Default | Extra          |
+    +------------------+------------+------+-----+---------+----------------+
+    | groups_id        | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | netjoin_closed   | bit(1)     | NO   |     | NULL    |                |
+    | netjoin_vip      | bit(1)     | NO   |     | NULL    |                |
+    | netjoin_full     | bit(1)     | NO   |     | NULL    |                |
+    | tracker_famous   | bit(1)     | NO   |     | NULL    |                |
+    | network_vip      | bit(1)     | NO   |     | NULL    |                |
+    | network_vip_plus | bit(1)     | NO   |     | NULL    |                |
+    | network_staff    | bit(1)     | NO   |     | NULL    |                |
+    | network_admin    | bit(1)     | NO   |     | NULL    |                |
+    +------------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
