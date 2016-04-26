@@ -47,7 +47,7 @@ public class TransactionManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select transaction_id, item_id, price_coins, price_stars, transaction_date, selected, uuid_buyer from transaction_shop";
+            String sql = "select transaction_id, item_id, price_coins, price_stars, transaction_date, selected, (HEX(uuid_buyer)) as buyer from transaction_shop";
             sql += " where uuid_buyer=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
@@ -63,9 +63,9 @@ public class TransactionManager
                 int priceStars = resultset.getInt("price_stars");
                 Timestamp transactionDate = resultset.getTimestamp("transaction_date");
                 boolean selected = resultset.getBoolean("selected");
-                String uuidBuyer = resultset.getString("uuid_buyer");
+                String uuidBuyer = resultset.getString("buyer");
                 UUID buyer = UUID.fromString(uuidBuyer);
-                TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
+                TransactionBean transaction = new TransactionBean(item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
             return transactionList;
@@ -93,7 +93,7 @@ public class TransactionManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select transaction_id, item_id, price_coins, price_stars, transaction_date, selected, uuid_buyer from transaction_shop";
+            String sql = "select transaction_id, item_id, price_coins, price_stars, transaction_date, selected, (HEX(uuid_buyer)) as buyer from transaction_shop";
             sql += " where uuid_buyer=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
             sql += " and selected=true";
 
@@ -110,9 +110,9 @@ public class TransactionManager
                 int priceStars = resultset.getInt("price_stars");
                 Timestamp transactionDate = resultset.getTimestamp("transaction_date");
                 boolean selected = resultset.getBoolean("selected");
-                String uuidBuyer = resultset.getString("uuid_buyer");
+                String uuidBuyer = resultset.getString("buyer");
                 UUID buyer = UUID.fromString(uuidBuyer);
-                TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
+                TransactionBean transaction = new TransactionBean(item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
             return transactionList;
@@ -140,10 +140,12 @@ public class TransactionManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select transaction_id, item_id, price_coins, price_stars, transaction_date, selected, uuid_buyer from transaction_shop, item_description";
+            String sql = "select transaction_id, transaction_shop.item_id, transaction_shop.price_coins, transaction_shop.price_stars, transaction_date, selected, (HEX(uuid_buyer)) as buyer";
+            sql += " from transaction_shop, item_description";
             sql += " where uuid_buyer=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
             sql += " and selected=true";
             sql += " and item_description.item_id=transaction_shop.item_id";
+            sql += " and item_description.game_category=" + selectedGame;
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -158,14 +160,48 @@ public class TransactionManager
                 int priceStars = resultset.getInt("price_stars");
                 Timestamp transactionDate = resultset.getTimestamp("transaction_date");
                 boolean selected = resultset.getBoolean("selected");
-                String uuidBuyer = resultset.getString("uuid_buyer");
+                String uuidBuyer = resultset.getString("buyer");
                 UUID buyer = UUID.fromString(uuidBuyer);
-                TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
+                TransactionBean transaction = new TransactionBean(item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
             return transactionList;
         }
         catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+    // Create transaction
+    public void createTransaction(PlayerBean player, DataSource dataSource, TransactionBean transaction) throws Exception
+    {
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "insert into transaction_shop (item_id, price_coins, price_stars, transaction_date, selected, uuid_buyer)";
+            sql += " values(" + transaction.getItem_id();
+            sql += ", " + transaction.getPriceCoins();
+            sql += ", " + transaction.getPriceStars();
+            sql += ", now()";
+            sql += ", " + transaction.isSelected();
+            sql += ", UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
         {
             exception.printStackTrace();
             throw exception;

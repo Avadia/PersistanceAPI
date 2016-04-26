@@ -486,4 +486,11 @@ public class GameServiceManager
         // Get transactions
         return this.transactionManager.getPlayerGameSelectedTransactions(player, this.databaseManager.getDataSource(), selectedGame);
     }
+
+    // Create a transaction shop for a player
+    public synchronized void createTransaction(PlayerBean player, TransactionBean transaction) throws Exception
+    {
+        // Write transaction
+        this.transactionManager.createTransaction(player, this.databaseManager.getDataSource(), transaction);
+    }
 }

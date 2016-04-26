@@ -46,9 +46,8 @@ public class TransactionBean
     private UUID uuidBuyer;
 
     // Constructor
-    public TransactionBean(long transactionID, int item_id, int priceCoins, int priceStars, Timestamp transactionDate, boolean selected, UUID uuidBuyer)
+    public TransactionBean(int item_id, int priceCoins, int priceStars, Timestamp transactionDate, boolean selected, UUID uuidBuyer)
     {
-        this.transactionId = transactionID;
         this.item_id = item_id;
         this.priceCoins = priceCoins;
         this.priceStars = priceStars;

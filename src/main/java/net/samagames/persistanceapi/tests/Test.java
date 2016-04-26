@@ -19,6 +19,7 @@ import net.samagames.persistanceapi.GameServiceManager;
 import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
 import net.samagames.persistanceapi.beans.players.*;
 import net.samagames.persistanceapi.beans.shop.PromotionsBean;
+import net.samagames.persistanceapi.beans.shop.TransactionBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
 import java.sql.Timestamp;
@@ -506,6 +507,29 @@ public class Test
             startTime = System.currentTimeMillis();
             manager.getUpperVoidStatistics(player_4);
             System.out.println("Create a default uppervoid statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create a transaction
+            TransactionBean transaction = new TransactionBean(1, 20, 30, new Timestamp(System.currentTimeMillis()), true, player.getUuid());
+            startTime = System.currentTimeMillis();
+            manager.createTransaction(player, transaction);
+            System.out.println("Create transaction time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get transaction for a player
+            transaction = new TransactionBean(1, 40, 50, new Timestamp(System.currentTimeMillis()), true, otherPlayer.getUuid());
+            manager.createTransaction(player_3, transaction);
+            startTime = System.currentTimeMillis();
+            manager.getPlayerTransactions(otherPlayer);
+            System.out.println("Get transaction for a player time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get all selected transactions for a player
+            startTime = System.currentTimeMillis();
+            manager.getPlayerSelectedTransactions(otherPlayer);
+            System.out.println("Get all selected transaction for a player time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get all selected transaction for a game and player
+            startTime = System.currentTimeMillis();
+            manager.getPlayerGameSelectedTransactions(otherPlayer, 1);
+            System.out.println("Get all selected transaction for a player time: " + (System.currentTimeMillis() - startTime) + " ms");
 
         }
         catch (Exception exception)
