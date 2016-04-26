@@ -72,8 +72,9 @@ public class PlayerSettingsManager
                 boolean allowCoinsOnClick = resultset.getBoolean("allow_coins_onclick");
                 boolean allowStarsOnclick = resultset.getBoolean("allow_stars_onclick");
                 boolean allowClickOnOther = resultset.getBoolean("allow_click_on_other");
+                boolean elytraActivated = resultset.getBoolean("elytra_activated");
                 playerSettingsBean = new PlayerSettingsBean(uuid, jukeboxListen, groupDemandReceive, friendshipDemandReceive, notificationReceive, privateMessageReceive, chatVisible,
-                        playerVisible, waitingLineNotification, otherPlayerInteraction, clickOnMeActivation, allowStatisticOnClick, allowCoinsOnClick, allowStarsOnclick, allowClickOnOther);
+                        playerVisible, waitingLineNotification, otherPlayerInteraction, clickOnMeActivation, allowStatisticOnClick, allowCoinsOnClick, allowStarsOnclick, allowClickOnOther, elytraActivated);
                 return playerSettingsBean;
             }
             else
@@ -124,6 +125,7 @@ public class PlayerSettingsManager
             sql += ", allow_coins_onclick=" + settingsBeans.isAllowCoinsOnClick();
             sql += ", allow_stars_onclick=" + settingsBeans.isAllowStarsOnclick();
             sql += ", allow_click_on_other=" + settingsBeans.isAllowClickOnOther();
+            sql += ", elytra_activated=" + settingsBeans.isElytraActivated();
              sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
@@ -153,9 +155,9 @@ public class PlayerSettingsManager
             // Query construction
             String sql = "insert into player_settings (uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive";
             sql += ", chat_visible, player_visible, waiting_line_notification, other_player_interaction, click_on_me_activation, allow_statistic_onclick, allow_coins_onclick";
-            sql += ", allow_stars_onclick, allow_click_on_other)";
+            sql += ", allow_stars_onclick, allow_click_on_other, elytra_activated)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-            sql += ", true, true, true, true, true, true, true, true, true, true, true, true, true, true)";
+            sql += ", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)";
 
             // Execute the query
             statement.executeUpdate(sql);

@@ -41,6 +41,7 @@ public class PlayerSettingsBean
     | allow_coins_onclick       | bit(1)     | NO   |     | NULL    |       |
     | allow_stars_onclick       | bit(1)     | NO   |     | NULL    |       |
     | allow_click_on_other      | bit(1)     | NO   |     | NULL    |       |
+    | elytra_activated          | bit(1)     | NO   |     | NULL    |       |
     +---------------------------+------------+------+-----+---------+-------+
     */
 
@@ -60,14 +61,15 @@ public class PlayerSettingsBean
     private boolean allowCoinsOnClick;
     private boolean allowStarsOnclick;
     private boolean allowClickOnOther;
+    private boolean elytraActivated;
 
     // Constructor
     @ConstructorProperties({"uuid", "jukeboxListen", "groupDemandReceive", "friendshipDemandReceive", "notificationReceive", "privateMessageReceive",
     "chatVisible", "playerVisible", "waitingLineNotification", "otherPlayerInteraction", "clickOnMeActivation", "allowStatisticOnClick", "allowCoinsOnClick",
-    "allowStarsOnclick", "allowClickOnOther"})
+    "allowStarsOnclick", "allowClickOnOther", "elytraActivated"})
     public PlayerSettingsBean(UUID uuid, boolean jukeboxListen, boolean groupDemandReceive, boolean friendshipDemandReceive, boolean notificationReceive, boolean privateMessageReceive,
                               boolean chatVisible, boolean playerVisible, boolean waitingLineNotification, boolean otherPlayerInteraction, boolean clickOnMeActivation,
-                              boolean allowStatisticOnClick, boolean allowCoinsOnClick, boolean allowStarsOnclick, boolean allowClickOnOther)
+                              boolean allowStatisticOnClick, boolean allowCoinsOnClick, boolean allowStarsOnclick, boolean allowClickOnOther, boolean elytraActivated)
     {
         this.uuid = uuid;
         this.jukeboxListen = jukeboxListen;
@@ -84,6 +86,7 @@ public class PlayerSettingsBean
         this.allowCoinsOnClick = allowCoinsOnClick;
         this.allowStarsOnclick = allowStarsOnclick;
         this.allowClickOnOther = allowClickOnOther;
+        this.elytraActivated = elytraActivated;
     }
 
     // Getters
@@ -102,8 +105,10 @@ public class PlayerSettingsBean
     public boolean isAllowCoinsOnClick() { return this.allowCoinsOnClick; }
     public boolean isAllowStarsOnclick() { return this.allowStarsOnclick; }
     public boolean isAllowClickOnOther() { return this.allowClickOnOther; }
+    public boolean isElytraActivated() { return elytraActivated; }
 
     // Setters
+    public void setUuid(UUID uuid){ this.uuid = uuid; }
     public void setJukeboxListen(boolean jukeboxListen) { this.jukeboxListen = jukeboxListen; }
     public void setGroupDemandReceive(boolean groupDemandReceive) { this.groupDemandReceive = groupDemandReceive; }
     public void setFriendshipDemandReceive(boolean friendshipDemandReceive) { this.friendshipDemandReceive = friendshipDemandReceive; }
@@ -118,4 +123,5 @@ public class PlayerSettingsBean
     public void setAllowCoinsOnClick(boolean allowCoinsOnClick) { this.allowCoinsOnClick = allowCoinsOnClick; }
     public void setAllowStarsOnclick(boolean allowStarsOnclick) { this.allowStarsOnclick = allowStarsOnclick; }
     public void setAllowClickOnOther(boolean allowClickOnOther) { this.allowClickOnOther = allowClickOnOther; }
+    public void setElytraActivated(boolean elytraActivated) { this.elytraActivated = elytraActivated; }
 }
