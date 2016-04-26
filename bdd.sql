@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 25 Avril 2016 à 20:00
+-- Généré le :  Mar 26 Avril 2016 à 20:56
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -13,6 +13,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `samagamesv3`
 --
+DROP DATABASE `samagamesv3`;
 CREATE DATABASE IF NOT EXISTS `samagamesv3` DEFAULT CHARACTER SET utf8 COLLATE utf8_roman_ci;
 USE `samagamesv3`;
 
@@ -429,26 +430,6 @@ INSERT INTO `moderation_permissions` (`groups_id`, `mod_ban`, `mod_tp`, `mod_kic
 -- --------------------------------------------------------
 
 --
--- Structure de la table `players`
---
-
-DROP TABLE IF EXISTS `players`;
-CREATE TABLE `players` (
-  `uuid` binary(16) NOT NULL,
-  `name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
-  `nickname` varchar(45) COLLATE utf8_roman_ci DEFAULT NULL,
-  `coins` int(11) DEFAULT NULL,
-  `stars` int(11) DEFAULT NULL,
-  `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `first_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_ip` varchar(15) COLLATE utf8_roman_ci DEFAULT NULL,
-  `toptp_key` varchar(32) COLLATE utf8_roman_ci DEFAULT NULL,
-  `group_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `player_settings`
 --
 
@@ -469,6 +450,26 @@ CREATE TABLE `player_settings` (
   `allow_coins_onclick` bit(1) NOT NULL,
   `allow_stars_onclick` bit(1) NOT NULL,
   `allow_click_on_other` bit(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `players`
+--
+
+DROP TABLE IF EXISTS `players`;
+CREATE TABLE `players` (
+  `uuid` binary(16) NOT NULL,
+  `name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
+  `nickname` varchar(45) COLLATE utf8_roman_ci DEFAULT NULL,
+  `coins` int(11) DEFAULT NULL,
+  `stars` int(11) DEFAULT NULL,
+  `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `first_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_ip` varchar(15) COLLATE utf8_roman_ci DEFAULT NULL,
+  `toptp_key` varchar(32) COLLATE utf8_roman_ci DEFAULT NULL,
+  `group_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
@@ -613,33 +614,36 @@ INSERT INTO `sanctions_ref` (`type_id`, `text`) VALUES
 DROP TABLE IF EXISTS `staff_permissions`;
 CREATE TABLE `staff_permissions` (
   `groups_id` tinyint(4) NOT NULL,
-  `staff_member` bit(1) NOT NULL,
   `netjoin_closed` bit(1) NOT NULL,
   `netjoin_vip` bit(1) NOT NULL,
   `netjoin_full` bit(1) NOT NULL,
-  `tracker_famous` bit(1) NOT NULL
+  `tracker_famous` bit(1) NOT NULL,
+  `network_vip` bit(1) NOT NULL,
+  `network_vip_plus` bit(1) NOT NULL,
+  `network_staff` bit(1) NOT NULL,
+  `network_admin` bit(1) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `staff_permissions`
 --
 
-INSERT INTO `staff_permissions` (`groups_id`, `staff_member`, `netjoin_closed`, `netjoin_vip`, `netjoin_full`, `tracker_famous`) VALUES
-  (1, b'0', b'0', b'0', b'0', b'0'),
-  (2, b'0', b'0', b'1', b'1', b'0'),
-  (3, b'0', b'0', b'0', b'0', b'0'),
-  (4, b'0', b'0', b'0', b'0', b'1'),
-  (5, b'1', b'0', b'0', b'0', b'0'),
-  (6, b'0', b'0', b'0', b'0', b'0'),
-  (7, b'0', b'0', b'0', b'0', b'0'),
-  (8, b'0', b'0', b'0', b'0', b'0'),
-  (9, b'0', b'0', b'0', b'0', b'0'),
-  (10, b'0', b'0', b'0', b'0', b'0'),
-  (11, b'0', b'0', b'0', b'0', b'0'),
-  (12, b'0', b'0', b'0', b'0', b'0'),
-  (13, b'0', b'0', b'0', b'0', b'0'),
-  (14, b'0', b'1', b'0', b'0', b'0'),
-  (15, b'0', b'0', b'0', b'0', b'0');
+INSERT INTO `staff_permissions` (`groups_id`, `netjoin_closed`, `netjoin_vip`, `netjoin_full`, `tracker_famous`, `network_vip`, `network_vip_plus`, `network_staff`, `network_admin`) VALUES
+  (1, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (2, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (3, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (4, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (5, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (6, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (7, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (8, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (9, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (10, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (11, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (12, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (13, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (14, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
+  (15, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -661,6 +665,20 @@ CREATE TABLE `transaction_shop` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `uhc_permissions`
+--
+
+DROP TABLE IF EXISTS `uhc_permissions`;
+CREATE TABLE `uhc_permissions` (
+  `groups_id` tinyint(4) NOT NULL,
+  `uhc_team_lock` bit(1) NOT NULL,
+  `uhc_team_name` bit(1) NOT NULL,
+  `uhc_team_invite` bit(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `uhcrun_stats`
 --
 
@@ -676,20 +694,6 @@ CREATE TABLE `uhcrun_stats` (
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `played_time` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `uhc_permissions`
---
-
-DROP TABLE IF EXISTS `uhc_permissions`;
-CREATE TABLE `uhc_permissions` (
-  `groups_id` tinyint(4) NOT NULL,
-  `uhc_team_lock` bit(1) NOT NULL,
-  `uhc_team_name` bit(1) NOT NULL,
-  `uhc_team_invite` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
@@ -799,15 +803,15 @@ ALTER TABLE `moderation_permissions`
 ADD PRIMARY KEY (`groups_id`);
 
 --
--- Index pour la table `players`
---
-ALTER TABLE `players`
-ADD PRIMARY KEY (`uuid`);
-
---
 -- Index pour la table `player_settings`
 --
 ALTER TABLE `player_settings`
+ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `players`
+--
+ALTER TABLE `players`
 ADD PRIMARY KEY (`uuid`);
 
 --
@@ -861,16 +865,16 @@ ADD KEY `fk_shop_item_item_idx` (`item_id`),
 ADD KEY `buyer` (`uuid_buyer`);
 
 --
--- Index pour la table `uhcrun_stats`
---
-ALTER TABLE `uhcrun_stats`
-ADD PRIMARY KEY (`uuid`);
-
---
 -- Index pour la table `uhc_permissions`
 --
 ALTER TABLE `uhc_permissions`
 ADD PRIMARY KEY (`groups_id`);
+
+--
+-- Index pour la table `uhcrun_stats`
+--
+ALTER TABLE `uhcrun_stats`
+ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `uppervoid_stats`

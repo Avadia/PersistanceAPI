@@ -17,6 +17,7 @@ package net.samagames.persistanceapi;
 
 import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.players.*;
+import net.samagames.persistanceapi.beans.shop.ItemDescriptionBean;
 import net.samagames.persistanceapi.beans.shop.PromotionsBean;
 import net.samagames.persistanceapi.beans.shop.TransactionBean;
 import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
@@ -41,6 +42,7 @@ public class GameServiceManager
     private PromotionsManager promotionsManager;
     private PlayerSettingsManager playerSettingsManager;
     private TransactionManager transactionManager;
+    private ItemManager itemManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -58,6 +60,7 @@ public class GameServiceManager
         this.promotionsManager = new PromotionsManager();
         this.playerSettingsManager = new PlayerSettingsManager();
         this.transactionManager = new TransactionManager();
+        this.itemManager = new ItemManager();
     }
 
 
@@ -492,5 +495,17 @@ public class GameServiceManager
     {
         // Write transaction
         this.transactionManager.createTransaction(player, this.databaseManager.getDataSource(), transaction);
+    }
+
+
+    /*============================================
+      Part of item manager
+    ============================================*/
+
+    // Get description of an item
+    public synchronized ItemDescriptionBean getItemDescription(int itemId) throws Exception
+    {
+        // Get description
+        return this.itemManager.getItemDescription(itemId, this.databaseManager.getDataSource());
     }
 }

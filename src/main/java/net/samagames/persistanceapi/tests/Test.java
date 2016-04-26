@@ -531,6 +531,11 @@ public class Test
             manager.getPlayerGameSelectedTransactions(otherPlayer, 1);
             System.out.println("Get all selected transaction for a player time: " + (System.currentTimeMillis() - startTime) + " ms");
 
+            // Get the description of a item
+            startTime = System.currentTimeMillis();
+            manager.getItemDescription(1);
+            System.out.println("Get item description time: " + (System.currentTimeMillis() - startTime) + " ms");
+
         }
         catch (Exception exception)
         {
