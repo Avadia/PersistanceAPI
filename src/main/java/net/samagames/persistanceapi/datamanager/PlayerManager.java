@@ -146,6 +146,7 @@ public class PlayerManager
             // Query construction
             String sql = "";
             sql += "update players set coins=" + player.getCoins();
+            sql += ", name='" + player.getName() + "'";
             sql += ", stars=" + player.getStars();
             sql += ", last_login='" + player.getLastLogin() +"'";
             sql += ", last_ip='" + player.getLastIP() +"'";
