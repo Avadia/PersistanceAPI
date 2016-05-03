@@ -21,6 +21,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemManager
 {
@@ -28,6 +30,7 @@ public class ItemManager
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultset = null;
+    public List<ItemDescriptionBean> itemList = new ArrayList<>();
 
     // Get the item by ID
     public ItemDescriptionBean getItemDescription(int intemId, DataSource dataSource) throws Exception
@@ -43,7 +46,7 @@ public class ItemManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id";
+            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rankAccessibility";
             sql += " from item_description where item_id=" + intemId;
 
             // Execute the query
@@ -60,10 +63,62 @@ public class ItemManager
                 int priceStars = resultset.getInt("price_stars");
                 int gameCategory = resultset.getInt("game_category");
                 String itemMinecraftId = resultset.getString("item_minecraft_id");
-                itemDescription = new ItemDescriptionBean(itemName, itemDesc, priceCoins, priceStars, gameCategory, itemMinecraftId);
+                String itemRarity = resultset.getString("item_rarity");
+                int rankAccessiblity = resultset.getInt("rankAccessibility");
+                itemDescription = new ItemDescriptionBean(itemId, itemName, itemDesc, priceCoins, priceStars, gameCategory, itemMinecraftId, itemRarity, rankAccessiblity);
 
             }
             return itemDescription;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+    // Get all the item description
+    public List<ItemDescriptionBean> getAllItemDescription(DataSource dataSource) throws Exception
+    {
+        // Get item
+        try
+        {
+            // Defines
+            ItemDescriptionBean itemDescription = null;
+
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rankAccessibility";
+            sql += " from item_description";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                int itemId = resultset.getInt("item_id");
+                String itemName = resultset.getString("item_name");
+                String itemDesc = resultset.getString("item_desc");
+                int priceCoins = resultset.getInt("price_coins");
+                int priceStars = resultset.getInt("price_stars");
+                int gameCategory = resultset.getInt("game_category");
+                String itemMinecraftId = resultset.getString("item_minecraft_id");
+                String itemRarity = resultset.getString("item_rarity");
+                int rankAccessiblity = resultset.getInt("rankAccessibility");
+                itemDescription = new ItemDescriptionBean(itemId, itemName, itemDesc, priceCoins, priceStars, gameCategory, itemMinecraftId, itemRarity, rankAccessiblity);
+                itemList.add(itemDescription);
+            }
+            return itemList;
         }
         catch(Exception exception)
         {
