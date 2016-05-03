@@ -19,17 +19,19 @@ public class ItemDescriptionBean
     /* Database structure
 
     Table : item_description
-    +-------------------+--------------+------+-----+---------+-------+
-    | Field             | Type         | Null | Key | Default | Extra |
-    +-------------------+--------------+------+-----+---------+-------+
-    | item_id           | int(11)      | NO   | PRI | NULL    |       |
-    | item_name         | tinytext     | YES  |     | NULL    |       |
-    | item_desc         | text         | YES  |     | NULL    |       |
-    | price_coins       | int(11)      | YES  |     | NULL    |       |
-    | price_stars       | int(11)      | YES  |     | NULL    |       |
-    | game_category     | tinyint(4)   | YES  |     | NULL    |       |
-    | item_minecraft_id | varchar(255) | YES  |     | NULL    |       |
-    +-------------------+--------------+------+-----+---------+-------+
+    +-------------------+--------------+------+-----+--------------+-------+
+    | Field             | Type         | Null | Key | Default      | Extra |
+    +-------------------+--------------+------+-----+--------------+-------+
+    | item_id           | int(11)      | NO   | PRI | NULL         |       |
+    | item_name         | varchar(45)  | NO   |     | Non définie  |       |
+    | item_desc         | varchar(255) | NO   |     | Non définie  |       |
+    | price_coins       | int(11)      | NO   |     | 42424242     |       |
+    | price_stars       | int(11)      | NO   |     | 42424242     |       |
+    | game_category     | tinyint(4)   | NO   |     | NULL         |       |
+    | item_minecraft_id | varchar(45)  | NO   |     | NULL         |       |
+    | item_rarity       | varchar(45)  | YES  |     | NULL         |       |
+    | rankAccessibility | tinyint(4)   | YES  |     | NULL         |       |
+    +-------------------+--------------+------+-----+--------------+-------+
     */
 
     // Defines
@@ -40,26 +42,33 @@ public class ItemDescriptionBean
     private int priceStars;
     private int gameCategory;
     private String itemMinecraftId;
+    private String itemRarity;
+    private int rankAccessibility;
 
     // Constructor
-    public ItemDescriptionBean(String itemName, String itemDesc, int priceCoins, int priceStars, int gameCategory, String itemMinecraftId)
+    public ItemDescriptionBean(int itemId, String itemName, String itemDesc, int priceCoins, int priceStars, int gameCategory, String itemMinecraftId, String itemRarity, int rankAccessibility)
     {
+        this.itemId = itemId;
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.priceCoins = priceCoins;
         this.priceStars = priceStars;
         this.gameCategory = gameCategory;
         this.itemMinecraftId = itemMinecraftId;
+        this.itemRarity = itemRarity;
+        this.rankAccessibility = rankAccessibility;
     }
 
     // Getters
     public int getItemId() { return this.itemId; }
     public String getItemName() { return this.itemName; }
     public String getItemDesc() { return this.itemDesc; }
-    public int getPriceCoins() { return priceCoins; }
-    public int getPriceStars() { return priceStars; }
-    public int getGameCategory() { return gameCategory; }
-    public String getItemMinecraftId() { return itemMinecraftId; }
+    public int getPriceCoins() { return this.priceCoins; }
+    public int getPriceStars() { return this.priceStars; }
+    public int getGameCategory() { return this.gameCategory; }
+    public String getItemMinecraftId() { return this.itemMinecraftId; }
+    public String getItemRarity() { return this.itemRarity; }
+    public int getRankAccessibility() { return this.rankAccessibility; }
 
     // Setters
     public void setItemName(String itemName) { this.itemName = itemName; }
@@ -68,4 +77,6 @@ public class ItemDescriptionBean
     public void setPriceStars(int priceStars) { this.priceStars = priceStars; }
     public void setGameCategory(int gameCategory) { this.gameCategory = gameCategory; }
     public void setItemMinecraftId(String itemMinecraftId) { this.itemMinecraftId = itemMinecraftId; }
+    public void setItemRarity(String itemRarity) { this.itemRarity = itemRarity; }
+    public void setRankAccessibility(int rankAccessibility) { this.rankAccessibility = rankAccessibility; }
 }
