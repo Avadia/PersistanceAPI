@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 26 Avril 2016 à 20:56
+-- Généré le :  Mar 03 Mai 2016 à 19:19
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -13,7 +13,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `samagamesv3`
 --
-DROP DATABASE `samagamesv3`;
 CREATE DATABASE IF NOT EXISTS `samagamesv3` DEFAULT CHARACTER SET utf8 COLLATE utf8_roman_ci;
 USE `samagamesv3`;
 
@@ -348,6 +347,7 @@ INSERT INTO `hub_permissions` (`groups_id`, `hub_jukebox_lock`, `hub_jukebox_nex
   (14, b'1', b'1', b'1', b'0', b'0', b'1', b'1', b'1', b'1', b'1', b'0', b'0', b'1', b'0', b'0', b'0', b'0', b'1', b'0', b'0'),
   (15, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0');
 
+
 -- --------------------------------------------------------
 
 --
@@ -362,7 +362,9 @@ CREATE TABLE `item_description` (
   `price_coins` int(11) DEFAULT NULL,
   `price_stars` int(11) DEFAULT NULL,
   `game_category` tinyint(4) DEFAULT NULL,
-  `item_minecraft_id` varchar(255) DEFAULT NULL
+  `item_minecraft_id` varchar(255) DEFAULT NULL,
+  `item_rarity` varchar(45) DEFAULT NULL,
+  `rankAccessibility` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -430,6 +432,26 @@ INSERT INTO `moderation_permissions` (`groups_id`, `mod_ban`, `mod_tp`, `mod_kic
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `players`
+--
+
+DROP TABLE IF EXISTS `players`;
+CREATE TABLE `players` (
+  `uuid` binary(16) NOT NULL,
+  `name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
+  `nickname` varchar(45) COLLATE utf8_roman_ci DEFAULT NULL,
+  `coins` int(11) DEFAULT NULL,
+  `stars` int(11) DEFAULT NULL,
+  `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `first_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_ip` varchar(15) COLLATE utf8_roman_ci DEFAULT NULL,
+  `toptp_key` varchar(32) COLLATE utf8_roman_ci DEFAULT NULL,
+  `group_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `player_settings`
 --
 
@@ -449,27 +471,8 @@ CREATE TABLE `player_settings` (
   `allow_statistic_onclick` bit(1) NOT NULL,
   `allow_coins_onclick` bit(1) NOT NULL,
   `allow_stars_onclick` bit(1) NOT NULL,
-  `allow_click_on_other` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `players`
---
-
-DROP TABLE IF EXISTS `players`;
-CREATE TABLE `players` (
-  `uuid` binary(16) NOT NULL,
-  `name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
-  `nickname` varchar(45) COLLATE utf8_roman_ci DEFAULT NULL,
-  `coins` int(11) DEFAULT NULL,
-  `stars` int(11) DEFAULT NULL,
-  `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `first_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_ip` varchar(15) COLLATE utf8_roman_ci DEFAULT NULL,
-  `toptp_key` varchar(32) COLLATE utf8_roman_ci DEFAULT NULL,
-  `group_id` bigint(20) NOT NULL
+  `allow_click_on_other` bit(1) NOT NULL,
+  `elytra_activated` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
@@ -665,20 +668,6 @@ CREATE TABLE `transaction_shop` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `uhc_permissions`
---
-
-DROP TABLE IF EXISTS `uhc_permissions`;
-CREATE TABLE `uhc_permissions` (
-  `groups_id` tinyint(4) NOT NULL,
-  `uhc_team_lock` bit(1) NOT NULL,
-  `uhc_team_name` bit(1) NOT NULL,
-  `uhc_team_invite` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `uhcrun_stats`
 --
 
@@ -694,6 +683,20 @@ CREATE TABLE `uhcrun_stats` (
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `uhc_permissions`
+--
+
+DROP TABLE IF EXISTS `uhc_permissions`;
+CREATE TABLE `uhc_permissions` (
+  `groups_id` tinyint(4) NOT NULL,
+  `uhc_team_lock` bit(1) NOT NULL,
+  `uhc_team_name` bit(1) NOT NULL,
+  `uhc_team_invite` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
@@ -803,15 +806,15 @@ ALTER TABLE `moderation_permissions`
 ADD PRIMARY KEY (`groups_id`);
 
 --
--- Index pour la table `player_settings`
---
-ALTER TABLE `player_settings`
-ADD PRIMARY KEY (`uuid`);
-
---
 -- Index pour la table `players`
 --
 ALTER TABLE `players`
+ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `player_settings`
+--
+ALTER TABLE `player_settings`
 ADD PRIMARY KEY (`uuid`);
 
 --
@@ -865,16 +868,16 @@ ADD KEY `fk_shop_item_item_idx` (`item_id`),
 ADD KEY `buyer` (`uuid_buyer`);
 
 --
--- Index pour la table `uhc_permissions`
---
-ALTER TABLE `uhc_permissions`
-ADD PRIMARY KEY (`groups_id`);
-
---
 -- Index pour la table `uhcrun_stats`
 --
 ALTER TABLE `uhcrun_stats`
 ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `uhc_permissions`
+--
+ALTER TABLE `uhc_permissions`
+ADD PRIMARY KEY (`groups_id`);
 
 --
 -- Index pour la table `uppervoid_stats`
@@ -951,12 +954,4 @@ MODIFY `transaction_id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `uhc_permissions`
 MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
---
--- Contraintes pour les tables exportées
---
 
---
--- Contraintes pour la table `transaction_shop`
---
-ALTER TABLE `transaction_shop`
-ADD CONSTRAINT `fk_shop_item_item_desc1` FOREIGN KEY (`item_id`) REFERENCES `item_description` (`item_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
