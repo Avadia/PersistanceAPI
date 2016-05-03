@@ -536,6 +536,11 @@ public class Test
             manager.getItemDescription(1);
             System.out.println("Get item description time: " + (System.currentTimeMillis() - startTime) + " ms");
 
+            // Get all the desctiption items
+            startTime = System.currentTimeMillis();
+            manager.getAllItemDescription();
+            System.out.println("Get item description time: " + (System.currentTimeMillis() - startTime) + " ms");
+
         }
         catch (Exception exception)
         {
