@@ -508,4 +508,11 @@ public class GameServiceManager
         // Get description
         return this.itemManager.getItemDescription(itemId, this.databaseManager.getDataSource());
     }
+
+    // Get all the items
+    public synchronized List<ItemDescriptionBean> getAllItemDescription() throws Exception
+    {
+        // Get items
+        return this.itemManager.getAllItemDescription(this.databaseManager.getDataSource());
+    }
 }
