@@ -497,6 +497,12 @@ public class GameServiceManager
         this.transactionManager.createTransaction(player, this.databaseManager.getDataSource(), transaction);
     }
 
+    // Update a specified transaction
+    public void updateTransaction(TransactionBean transaction) throws Exception
+    {
+        // Do the update
+        this.transactionManager.updateTransaction(transaction, this.databaseManager.getDataSource());
+    }
 
     /*============================================
       Part of item manager

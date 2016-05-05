@@ -509,13 +509,13 @@ public class Test
             System.out.println("Create a default uppervoid statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create a transaction
-            TransactionBean transaction = new TransactionBean(1, 20, 30, new Timestamp(System.currentTimeMillis()), true, player.getUuid());
+            TransactionBean transaction = new TransactionBean(1, 1, 20, 30, new Timestamp(System.currentTimeMillis()), true, player.getUuid());
             startTime = System.currentTimeMillis();
             manager.createTransaction(player, transaction);
             System.out.println("Create transaction time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get transaction for a player
-            transaction = new TransactionBean(1, 40, 50, new Timestamp(System.currentTimeMillis()), true, otherPlayer.getUuid());
+            transaction = new TransactionBean(2, 1, 40, 50, new Timestamp(System.currentTimeMillis()), true, otherPlayer.getUuid());
             manager.createTransaction(player_3, transaction);
             startTime = System.currentTimeMillis();
             manager.getPlayerTransactions(otherPlayer);
@@ -540,6 +540,12 @@ public class Test
             startTime = System.currentTimeMillis();
             manager.getAllItemDescription();
             System.out.println("Get item description time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update a transaction
+            startTime = System.currentTimeMillis();
+            transaction.setSelected(false);
+            manager.updateTransaction(transaction);
+            System.out.println("Update transaction time: " + (System.currentTimeMillis() - startTime) + " ms");
 
         }
         catch (Exception exception)

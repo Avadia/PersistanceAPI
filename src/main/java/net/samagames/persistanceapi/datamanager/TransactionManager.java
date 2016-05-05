@@ -65,7 +65,7 @@ public class TransactionManager
                 boolean selected = resultset.getBoolean("selected");
                 String uuidBuyer = resultset.getString("buyer");
                 UUID buyer = UUID.fromString(uuidBuyer);
-                TransactionBean transaction = new TransactionBean(item_id, priceCoins, priceStars, transactionDate, selected, buyer);
+                TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
             return transactionList;
@@ -112,7 +112,7 @@ public class TransactionManager
                 boolean selected = resultset.getBoolean("selected");
                 String uuidBuyer = resultset.getString("buyer");
                 UUID buyer = UUID.fromString(uuidBuyer);
-                TransactionBean transaction = new TransactionBean(item_id, priceCoins, priceStars, transactionDate, selected, buyer);
+                TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
             return transactionList;
@@ -162,7 +162,7 @@ public class TransactionManager
                 boolean selected = resultset.getBoolean("selected");
                 String uuidBuyer = resultset.getString("buyer");
                 UUID buyer = UUID.fromString(uuidBuyer);
-                TransactionBean transaction = new TransactionBean(item_id, priceCoins, priceStars, transactionDate, selected, buyer);
+                TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
             return transactionList;
@@ -197,6 +197,40 @@ public class TransactionManager
             sql += ", now()";
             sql += ", " + transaction.isSelected();
             sql += ", UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+    // Update a transaction
+    public void updateTransaction(TransactionBean transaction, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "update transaction_shop set";
+            sql += " price_coins=" + transaction.getPriceCoins();
+            sql += ", price_stars=" + transaction.getPriceStars();
+            sql += ", transaction_date='" + transaction.getTransactionDate()+"'";
+            sql += ", selected=" + transaction.isSelected();
+            sql += ", uuid_buyer=UNHEX('"+ Transcoder.Encode(transaction.getUuidBuyer().toString())+"')";
+            sql += " where transaction_id=" + transaction.getTransactionId();
 
             // Execute the query
             statement.executeUpdate(sql);
