@@ -191,7 +191,7 @@ public class TransactionManager
             // Query construction
             String sql = "";
             sql += "insert into transaction_shop (item_id, price_coins, price_stars, transaction_date, selected, uuid_buyer)";
-            sql += " values(" + transaction.getItem_id();
+            sql += " values(" + transaction.getItemId();
             sql += ", " + transaction.getPriceCoins();
             sql += ", " + transaction.getPriceStars();
             sql += ", now()";

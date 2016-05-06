@@ -14,6 +14,8 @@
 */
 package net.samagames.persistanceapi.beans.shop;
 
+import java.beans.ConstructorProperties;
+
 public class ItemDescriptionBean
 {
     /* Database structure
@@ -46,6 +48,7 @@ public class ItemDescriptionBean
     private int rankAccessibility;
 
     // Constructor
+    @ConstructorProperties({"itemId", "itemName", "itemDesc", "priceCoins", "priceStars", "gameCategory", "itemMinecraftId", "itemRarity", "rankAccessibility"})
     public ItemDescriptionBean(int itemId, String itemName, String itemDesc, int priceCoins, int priceStars, int gameCategory, String itemMinecraftId, String itemRarity, int rankAccessibility)
     {
         this.itemId = itemId;
@@ -71,6 +74,10 @@ public class ItemDescriptionBean
     public int getRankAccessibility() { return this.rankAccessibility; }
 
     // Setters
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
     public void setItemName(String itemName) { this.itemName = itemName; }
     public void setItemDesc(String itemDesc) { this.itemDesc = itemDesc; }
     public void setPriceCoins(int priceCoins) { this.priceCoins = priceCoins; }

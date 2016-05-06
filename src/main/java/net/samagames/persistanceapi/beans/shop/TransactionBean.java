@@ -15,6 +15,7 @@
 
 package net.samagames.persistanceapi.beans.shop;
 
+import java.beans.ConstructorProperties;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -27,7 +28,7 @@ public class TransactionBean
     | Field            | Type       | Null | Key | Default             | Extra          |
     +------------------+------------+------+-----+---------------------+----------------+
     | transaction_id   | bigint(20) | NO   | PRI | NULL                | auto_increment |
-    | item_id          | int(11)    | YES  | MUL | NULL                |                |
+    | itemId          | int(11)    | YES  | MUL | NULL                |                |
     | price_coins      | int(11)    | YES  |     | NULL                |                |
     | price_stars      | int(11)    | YES  |     | NULL                |                |
     | transaction_date | timestamp  | NO   |     | 0000-00-00 00:00:00 |                |
@@ -38,7 +39,7 @@ public class TransactionBean
 
     // Defines
     private long transactionId;
-    private int item_id;
+    private int itemId;
     private int priceCoins;
     private int priceStars;
     private Timestamp transactionDate;
@@ -46,10 +47,11 @@ public class TransactionBean
     private UUID uuidBuyer;
 
     // Constructor
-    public TransactionBean(long transactionId, int item_id, int priceCoins, int priceStars, Timestamp transactionDate, boolean selected, UUID uuidBuyer)
+    @ConstructorProperties({"transactionId", "itemId", "priceCoins", "priceStars", "transactionDate", "selected", "uuidBuyer"})
+    public TransactionBean(long transactionId, int itemId, int priceCoins, int priceStars, Timestamp transactionDate, boolean selected, UUID uuidBuyer)
     {
         this.transactionId = transactionId;
-        this.item_id = item_id;
+        this.itemId = itemId;
         this.priceCoins = priceCoins;
         this.priceStars = priceStars;
         this.transactionDate = transactionDate;
@@ -59,7 +61,7 @@ public class TransactionBean
 
     // Getters
     public long getTransactionId() { return this.transactionId; }
-    public int getItem_id() { return this.item_id; }
+    public int getItemId() { return this.itemId; }
     public int getPriceCoins() { return this.priceCoins; }
     public int getPriceStars() { return this.priceStars; }
     public Timestamp getTransactionDate() { return this.transactionDate; }
@@ -67,7 +69,11 @@ public class TransactionBean
     public UUID getUuidBuyer() { return this.uuidBuyer; }
 
     // Setters
-    public void setItem_id(int item_id) { this.item_id = item_id; }
+
+    public void setTransactionId(long transactionId) {
+        this.transactionId = transactionId;
+    }
+    public void setItemId(int itemId) { this.itemId = itemId; }
     public void setPriceCoins(int priceCoins) { this.priceCoins = priceCoins; }
     public void setPriceStars(int priceStars) { this.priceStars = priceStars; }
     public void setTransactionDate(Timestamp transactionDate) { this.transactionDate = transactionDate; }
