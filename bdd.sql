@@ -73,29 +73,31 @@ CREATE TABLE `bukkit_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `minecraft_command_op` bit(1) NOT NULL,
   `bukkit_command_op_give` bit(1) NOT NULL,
-  `bukkit_command_plugins` bit(1) NOT NULL
+  `bukkit_command_effect` bit(1) NOT NULL,
+  `bukkit_command_gamemode` bit(1) NOT NULL,
+  `bukkit_command_teleport` bit(1) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `bukkit_permissions`
 --
 
-INSERT INTO `bukkit_permissions` (`groups_id`, `minecraft_command_op`, `bukkit_command_op_give`, `bukkit_command_plugins`) VALUES
-  (1, b'0', b'0', b'0'),
-  (2, b'0', b'0', b'0'),
-  (3, b'0', b'0', b'0'),
-  (4, b'0', b'0', b'0'),
-  (5, b'0', b'0', b'0'),
-  (6, b'0', b'0', b'0'),
-  (7, b'0', b'0', b'0'),
-  (8, b'0', b'0', b'0'),
-  (9, b'0', b'0', b'0'),
-  (10, b'0', b'0', b'0'),
-  (11, b'0', b'0', b'0'),
-  (12, b'0', b'0', b'0'),
-  (13, b'0', b'0', b'0'),
-  (14, b'1', b'1', b'1'),
-  (15, b'0', b'0', b'0');
+INSERT INTO `bukkit_permissions` (`groups_id`, `minecraft_command_op`, `bukkit_command_op_give`, `bukkit_command_effect`, `bukkit_command_gamemode`, `bukkit_command_teleport`) VALUES
+  (2, b'0', b'0', b'0', b'0', b'0'),
+  (3, b'0', b'0', b'0', b'0', b'0'),
+  (4, b'0', b'0', b'0', b'0', b'0'),
+  (5, b'0', b'0', b'0', b'0', b'0'),
+  (6, b'0', b'0', b'0', b'0', b'0'),
+  (1, b'0', b'0', b'0', b'0', b'0'),
+  (7, b'0', b'0', b'0', b'0', b'0'),
+  (8, b'0', b'0', b'0', b'0', b'0'),
+  (9, b'0', b'0', b'0', b'0', b'0'),
+  (10, b'0', b'0', b'0', b'0', b'0'),
+  (11, b'0', b'0', b'0', b'0', b'0'),
+  (12, b'0', b'0', b'0', b'0', b'0'),
+  (13, b'0', b'0', b'0', b'0', b'0'),
+  (14, b'1', b'1', b'1', b'0', b'0'),
+  (15, b'0', b'0', b'0', b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -524,29 +526,30 @@ CREATE TABLE `proxies_permissions` (
   `proxies_dispatch` bit(1) NOT NULL,
   `proxies_global` bit(1) NOT NULL,
   `proxies_debug` bit(1) NOT NULL,
-  `proxies_set_option` bit(1) NOT NULL
+  `proxies_set_option` bit(1) NOT NULL,
+  `proxies_hydro` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `proxies_permissions`
 --
 
-INSERT INTO `proxies_permissions` (`groups_id`, `proxies_dispatch`, `proxies_global`, `proxies_debug`, `proxies_set_option`) VALUES
-  (1, b'0', b'0', b'0', b'0'),
-  (2, b'0', b'0', b'0', b'0'),
-  (3, b'0', b'0', b'0', b'0'),
-  (4, b'0', b'0', b'0', b'0'),
-  (5, b'0', b'0', b'0', b'0'),
-  (6, b'0', b'0', b'0', b'0'),
-  (7, b'0', b'0', b'0', b'0'),
-  (8, b'0', b'0', b'0', b'0'),
-  (9, b'0', b'0', b'0', b'0'),
-  (10, b'0', b'0', b'0', b'0'),
-  (11, b'0', b'0', b'0', b'0'),
-  (12, b'0', b'0', b'0', b'0'),
-  (13, b'0', b'0', b'0', b'0'),
-  (14, b'1', b'1', b'1', b'1'),
-  (15, b'0', b'0', b'0', b'0');
+INSERT INTO `proxies_permissions` (`groups_id`, `proxies_dispatch`, `proxies_global`, `proxies_debug`, `proxies_set_option`, `proxies_hydro`) VALUES
+  (1, b'0', b'0', b'0', b'0', b'0'),
+  (2, b'0', b'0', b'0', b'0', b'0'),
+  (3, b'0', b'0', b'0', b'0', b'0'),
+  (4, b'0', b'0', b'0', b'0', b'0'),
+  (5, b'0', b'0', b'0', b'0', b'0'),
+  (6, b'0', b'0', b'0', b'0', b'0'),
+  (7, b'0', b'0', b'0', b'0', b'0'),
+  (8, b'0', b'0', b'0', b'0', b'0'),
+  (9, b'0', b'0', b'0', b'0', b'0'),
+  (10, b'0', b'0', b'0', b'0', b'0'),
+  (11, b'0', b'0', b'0', b'0', b'0'),
+  (12, b'0', b'0', b'0', b'0', b'0'),
+  (13, b'0', b'0', b'0', b'0', b'0'),
+  (14, b'1', b'1', b'1', b'1', b'1'),
+  (15, b'0', b'0', b'0', b'0', b'0');
 
 -- --------------------------------------------------------
 

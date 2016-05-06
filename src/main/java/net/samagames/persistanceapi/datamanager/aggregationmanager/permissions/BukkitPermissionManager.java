@@ -42,7 +42,8 @@ public class BukkitPermissionManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select groups_id, minecraft_command_op, bukkit_command_op_give, bukkit_command_plugins";
+            String sql = "select groups_id, minecraft_command_op, bukkit_command_op_give, bukkit_command_effect," +
+                    "bukkit_command_gamemode, bukkit_command_teleport";
             sql += " from bukkit_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
@@ -55,8 +56,12 @@ public class BukkitPermissionManager
                 long groupId = resultset.getLong("groups_id");
                 boolean minecraftCommandOp = resultset.getBoolean("minecraft_command_op");
                 boolean bukkitCommandOpGive = resultset.getBoolean("bukkit_command_op_give");
-                boolean bukkitCommandPlugins = resultset.getBoolean("bukkit_command_plugins");
-                bukkitPermissionsBean = new BukkitPermissionsBean(groupId, minecraftCommandOp, bukkitCommandOpGive, bukkitCommandPlugins);
+                boolean bukkitCommandEffect = resultset.getBoolean("bukkit_command_effect");
+                boolean bukkitCommandGamemode = resultset.getBoolean("bukkit_command_gamemode");
+                boolean bukkitCommandTeleport = resultset.getBoolean("bukkit_command_teleport");
+                bukkitPermissionsBean = new BukkitPermissionsBean(groupId,
+                        minecraftCommandOp, bukkitCommandOpGive, bukkitCommandEffect, bukkitCommandGamemode,
+                        bukkitCommandTeleport);
             }
             else
             {

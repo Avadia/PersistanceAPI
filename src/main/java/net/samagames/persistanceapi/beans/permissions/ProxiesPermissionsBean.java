@@ -32,6 +32,7 @@ public class ProxiesPermissionsBean
     | proxies_global     | bit(1)     | NO   |     | NULL    |       |
     | proxies_debug      | bit(1)     | NO   |     | NULL    |       |
     | proxies_set_option | bit(1)     | NO   |     | NULL    |       |
+    | proxies_hydro      | bit(1)     | NO   |     | NULL    |       |
     +--------------------+------------+------+-----+---------+-------+
     */
 
@@ -45,15 +46,19 @@ public class ProxiesPermissionsBean
     private boolean proxiesDebug;
     @Perm("proxies.setoption")
     private boolean proxiesSetOption;
+    @Perm("proxies.hydro")
+    private boolean proxiesHydro;
 
     // Constructor
-    public ProxiesPermissionsBean(long groupsId, boolean proxiesDispatch, boolean proxiesGlobal, boolean proxiesDebug, boolean proxiesSetOption)
+    public ProxiesPermissionsBean(long groupsId, boolean proxiesDispatch, boolean proxiesGlobal,
+                                  boolean proxiesDebug, boolean proxiesSetOption, boolean proxiesHydro)
     {
         this.groupsId = groupsId;
         this.proxiesDispatch = proxiesDispatch;
         this.proxiesGlobal = proxiesGlobal;
         this.proxiesDebug = proxiesDebug;
         this.proxiesSetOption = proxiesSetOption;
+        this.proxiesHydro = proxiesHydro;
     }
 
     // Getters
@@ -62,12 +67,18 @@ public class ProxiesPermissionsBean
     public boolean isProxiesGlobal() { return this.proxiesGlobal; }
     public boolean isProxiesDebug() { return this.proxiesDebug; }
     public boolean isProxiesSetOption() { return this.proxiesSetOption; }
+    public boolean isProxiesHydro() {
+        return proxiesHydro;
+    }
 
     // Setters
     public void setProxiesDispatch(boolean proxiesDispatch) { this.proxiesDispatch = proxiesDispatch; }
     public void setProxiesGlobal(boolean proxiesGlobal) { this.proxiesGlobal = proxiesGlobal; }
     public void setProxiesDebug(boolean proxiesDebug) { this.proxiesDebug = proxiesDebug; }
     public void setProxiesSetOption(boolean proxiesSetOption) { this.proxiesSetOption = proxiesSetOption; }
+    public void setProxiesHydro(boolean proxiesHydro) {
+        this.proxiesHydro = proxiesHydro;
+    }
 
     // Reverse the bean to HashMap
     public Map<String, Boolean> getHashMap()
@@ -80,4 +91,6 @@ public class ProxiesPermissionsBean
     {
         Transcoder.setAnnotationValue(this, key, value);
     }
+
+
 }

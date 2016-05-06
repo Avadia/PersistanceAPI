@@ -41,7 +41,7 @@ public class ProxiesPermissionManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select groups_id, proxies_dispatch, proxies_global, proxies_debug, proxies_set_option";
+            String sql = "select groups_id, proxies_dispatch, proxies_global, proxies_debug, proxies_set_option, proxies_hydro";
             sql += " from proxies_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
@@ -56,7 +56,10 @@ public class ProxiesPermissionManager
                 boolean proxiesGlobal = resultset.getBoolean("proxies_global");
                 boolean proxiesDebug = resultset.getBoolean("proxies_debug");
                 boolean proxiesSetOption = resultset.getBoolean("proxies_set_option");
-                proxiesPermissionsBean = new ProxiesPermissionsBean(groupId, proxiesDispatch, proxiesGlobal, proxiesDebug, proxiesSetOption);
+                boolean proxiesHydro = resultset.getBoolean("proxies_hydro");
+                proxiesPermissionsBean = new ProxiesPermissionsBean(groupId,
+                        proxiesDispatch, proxiesGlobal, proxiesDebug,
+                        proxiesSetOption, proxiesHydro);
             }
             else
             {
