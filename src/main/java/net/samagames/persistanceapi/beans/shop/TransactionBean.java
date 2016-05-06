@@ -28,7 +28,7 @@ public class TransactionBean
     | Field            | Type       | Null | Key | Default             | Extra          |
     +------------------+------------+------+-----+---------------------+----------------+
     | transaction_id   | bigint(20) | NO   | PRI | NULL                | auto_increment |
-    | itemId          | int(11)    | YES  | MUL | NULL                |                |
+    | item_id          | int(11)    | YES  | MUL | NULL                |                |
     | price_coins      | int(11)    | YES  |     | NULL                |                |
     | price_stars      | int(11)    | YES  |     | NULL                |                |
     | transaction_date | timestamp  | NO   |     | 0000-00-00 00:00:00 |                |
