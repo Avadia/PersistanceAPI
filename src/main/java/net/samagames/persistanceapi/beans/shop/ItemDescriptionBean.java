@@ -31,8 +31,8 @@ public class ItemDescriptionBean
     | price_stars       | int(11)      | NO   |     | 42424242     |       |
     | game_category     | tinyint(4)   | NO   |     | NULL         |       |
     | item_minecraft_id | varchar(45)  | NO   |     | NULL         |       |
-    | item_rarity       | tinyint(4)   | YES  |     | NULL         |       |
-    | rankAccessibility | varchar(45)  | YES  |     | NULL         |       |
+    | item_rarity       | varchar(45)  | YES  |     | NULL         |       |
+    | rank_accessibility| varchar(45)  | YES  |     | NULL         |       |
     +-------------------+--------------+------+-----+--------------+-------+
     */
 
@@ -44,12 +44,12 @@ public class ItemDescriptionBean
     private int priceStars;
     private int gameCategory;
     private String itemMinecraftId;
-    private int itemRarity;
+    private String itemRarity;
     private String rankAccessibility;
 
     // Constructor
     @ConstructorProperties({"itemId", "itemName", "itemDesc", "priceCoins", "priceStars", "gameCategory", "itemMinecraftId", "itemRarity", "rankAccessibility"})
-    public ItemDescriptionBean(int itemId, String itemName, String itemDesc, int priceCoins, int priceStars, int gameCategory, String itemMinecraftId, int itemRarity, String rankAccessibility)
+    public ItemDescriptionBean(int itemId, String itemName, String itemDesc, int priceCoins, int priceStars, int gameCategory, String itemMinecraftId, String itemRarity, String rankAccessibility)
     {
         this.itemId = itemId;
         this.itemName = itemName;
@@ -70,7 +70,7 @@ public class ItemDescriptionBean
     public int getPriceStars() { return this.priceStars; }
     public int getGameCategory() { return this.gameCategory; }
     public String getItemMinecraftId() { return this.itemMinecraftId; }
-    public int getItemRarity() { return this.itemRarity; }
+    public String getItemRarity() { return this.itemRarity; }
     public String getRankAccessibility() { return this.rankAccessibility; }
 
     // Setters
@@ -84,6 +84,6 @@ public class ItemDescriptionBean
     public void setPriceStars(int priceStars) { this.priceStars = priceStars; }
     public void setGameCategory(int gameCategory) { this.gameCategory = gameCategory; }
     public void setItemMinecraftId(String itemMinecraftId) { this.itemMinecraftId = itemMinecraftId; }
-    public void setItemRarity(int itemRarity) { this.itemRarity = itemRarity; }
+    public void setItemRarity(String itemRarity) { this.itemRarity = itemRarity; }
     public void setRankAccessibility(String rankAccessibility) { this.rankAccessibility = rankAccessibility; }
 }

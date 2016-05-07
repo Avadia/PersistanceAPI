@@ -366,7 +366,7 @@ CREATE TABLE `item_description` (
   `game_category` tinyint(4) DEFAULT NULL,
   `item_minecraft_id` varchar(255) DEFAULT NULL,
   `item_rarity` varchar(45) DEFAULT NULL,
-  `rankAccessibility` tinyint(4) DEFAULT NULL
+  `rank_accessibility` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

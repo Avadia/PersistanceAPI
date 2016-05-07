@@ -63,8 +63,8 @@ public class ItemManager
                 int priceStars = resultset.getInt("price_stars");
                 int gameCategory = resultset.getInt("game_category");
                 String itemMinecraftId = resultset.getString("item_minecraft_id");
-                int itemRarity = resultset.getInt("item_rarity");
-                String rankAccessiblity = resultset.getString("rankAccessibility");
+                String itemRarity = resultset.getInt("item_rarity");
+                String rankAccessiblity = resultset.getString("rank_accessibility");
                 itemDescription = new ItemDescriptionBean(itemId, itemName, itemDesc, priceCoins, priceStars, gameCategory, itemMinecraftId, itemRarity, rankAccessiblity);
 
             }
@@ -113,8 +113,8 @@ public class ItemManager
                 int priceStars = resultset.getInt("price_stars");
                 int gameCategory = resultset.getInt("game_category");
                 String itemMinecraftId = resultset.getString("item_minecraft_id");
-                int itemRarity = resultset.getInt("item_rarity");
-                String rankAccessiblity = resultset.getString("rankAccessibility");
+                String itemRarity = resultset.getInt("item_rarity");
+                String rankAccessiblity = resultset.getString("rank_accessibility");
                 itemDescription = new ItemDescriptionBean(itemId, itemName, itemDesc, priceCoins, priceStars, gameCategory, itemMinecraftId, itemRarity, rankAccessiblity);
                 itemList.add(itemDescription);
             }
