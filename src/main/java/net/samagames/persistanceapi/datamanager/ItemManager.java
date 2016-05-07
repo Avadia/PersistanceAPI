@@ -46,7 +46,7 @@ public class ItemManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rankAccessibility";
+            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rank_accessibility";
             sql += " from item_description where item_id=" + intemId;
 
             // Execute the query
@@ -63,7 +63,7 @@ public class ItemManager
                 int priceStars = resultset.getInt("price_stars");
                 int gameCategory = resultset.getInt("game_category");
                 String itemMinecraftId = resultset.getString("item_minecraft_id");
-                String itemRarity = resultset.getInt("item_rarity");
+                String itemRarity = resultset.getString("item_rarity");
                 String rankAccessiblity = resultset.getString("rank_accessibility");
                 itemDescription = new ItemDescriptionBean(itemId, itemName, itemDesc, priceCoins, priceStars, gameCategory, itemMinecraftId, itemRarity, rankAccessiblity);
 
@@ -96,7 +96,7 @@ public class ItemManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rankAccessibility";
+            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rank_accessibility";
             sql += " from item_description";
 
             // Execute the query
@@ -113,7 +113,7 @@ public class ItemManager
                 int priceStars = resultset.getInt("price_stars");
                 int gameCategory = resultset.getInt("game_category");
                 String itemMinecraftId = resultset.getString("item_minecraft_id");
-                String itemRarity = resultset.getInt("item_rarity");
+                String itemRarity = resultset.getString("item_rarity");
                 String rankAccessiblity = resultset.getString("rank_accessibility");
                 itemDescription = new ItemDescriptionBean(itemId, itemName, itemDesc, priceCoins, priceStars, gameCategory, itemMinecraftId, itemRarity, rankAccessiblity);
                 itemList.add(itemDescription);
