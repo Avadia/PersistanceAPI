@@ -358,7 +358,7 @@ INSERT INTO `hub_permissions` (`groups_id`, `hub_jukebox_lock`, `hub_jukebox_nex
 
 DROP TABLE IF EXISTS `item_description`;
 CREATE TABLE `item_description` (
-  `itemId` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
   `item_name` tinytext,
   `item_desc` text,
   `price_coins` int(11) DEFAULT NULL,
@@ -366,14 +366,14 @@ CREATE TABLE `item_description` (
   `game_category` tinyint(4) DEFAULT NULL,
   `item_minecraft_id` varchar(255) DEFAULT NULL,
   `item_rarity` varchar(45) DEFAULT NULL,
-  `rankAccessibility` tinyint(4) DEFAULT NULL
+  `rank_accessibility` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `item_description`
 --
 
-INSERT INTO `item_description` (`itemId`, `item_name`, `item_desc`, `price_coins`, `price_stars`, `game_category`, `item_minecraft_id`) VALUES
+INSERT INTO `item_description` (`item_id`, `item_name`, `item_desc`, `price_coins`, `price_stars`, `game_category`, `item_minecraft_id`) VALUES
   (1, 'GoldenAxe', 'The ultimate axe made with gold', 200, 10, 1, '255');
 
 -- --------------------------------------------------------
@@ -660,7 +660,7 @@ INSERT INTO `staff_permissions` (`groups_id`, `netjoin_closed`, `netjoin_vip`, `
 DROP TABLE IF EXISTS `transaction_shop`;
 CREATE TABLE `transaction_shop` (
   `transaction_id` bigint(20) NOT NULL,
-  `itemId` int(11) DEFAULT NULL,
+  `item_id` int(11) DEFAULT NULL,
   `price_coins` int(11) DEFAULT NULL,
   `price_stars` int(11) DEFAULT NULL,
   `transaction_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -794,7 +794,7 @@ ADD KEY `groups_id` (`groups_id`);
 -- Index pour la table `item_description`
 --
 ALTER TABLE `item_description`
-ADD PRIMARY KEY (`itemId`);
+ADD PRIMARY KEY (`item_id`);
 
 --
 -- Index pour la table `jukebox_stats`
@@ -867,7 +867,7 @@ ADD PRIMARY KEY (`groups_id`);
 --
 ALTER TABLE `transaction_shop`
 ADD PRIMARY KEY (`transaction_id`),
-ADD KEY `fk_shop_item_item_idx` (`itemId`),
+ADD KEY `fk_shop_item_item_idx` (`item_id`),
 ADD KEY `buyer` (`uuid_buyer`);
 
 --
