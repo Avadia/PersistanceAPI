@@ -34,7 +34,6 @@ public class TransactionManager
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultset = null;
-    public List<TransactionBean> transactionList = new ArrayList<>();
 
     // Get all the player transactions
     public List<TransactionBean> getPlayerTransactions(PlayerBean player, DataSource dataSource) throws Exception
@@ -53,6 +52,7 @@ public class TransactionManager
             // Execute the query
             resultset = statement.executeQuery(sql);
 
+            List<TransactionBean> transactionList = new ArrayList<>();
             // Manage the result in a bean
             while (resultset.next())
             {
@@ -99,6 +99,8 @@ public class TransactionManager
 
             // Execute the query
             resultset = statement.executeQuery(sql);
+
+            List<TransactionBean> transactionList = new ArrayList<>();
 
             // Manage the result in a bean
             while (resultset.next())
@@ -149,6 +151,8 @@ public class TransactionManager
 
             // Execute the query
             resultset = statement.executeQuery(sql);
+
+            List<TransactionBean> transactionList = new ArrayList<>();
 
             // Manage the result in a bean
             while (resultset.next())
