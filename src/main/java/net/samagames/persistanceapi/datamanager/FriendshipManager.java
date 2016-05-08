@@ -211,6 +211,51 @@ public class FriendshipManager
         }
     }
 
+    // Get friendship demand list
+    public FriendshipBean getFriendshipNamedList(PlayerBean requester, PlayerBean recipient, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            FriendshipBean friendshipBean = null;
+
+            // Query construction
+            String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";
+            sql += " from friendship where recipient_uuid=(UNHEX('" + Transcoder.Encode(recipient.getUuid().toString()) + "'))";
+            sql += " and requester_uuid=(UNHEX('" + Transcoder.Encode(requester.getUuid().toString()) + "'))";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a list of bean
+            if(resultset.next())
+            {
+                long friendshipId = resultset.getLong("friendship_id");
+                String requesterName = Transcoder.Decode(resultset.getString("requester"));
+                UUID requesterUuid = UUID.fromString(requesterName);
+                String recipientName = Transcoder.Decode(resultset.getString("recipient"));
+                UUID recipientUuid = UUID.fromString(recipientName);
+                Timestamp demandDate = resultset.getTimestamp("demand_date");
+                Timestamp acceptationDate = resultset.getTimestamp("acceptation_date");
+                boolean activeStatus = resultset.getBoolean("active_status");
+                friendshipBean = new FriendshipBean(friendshipId, requesterUuid, recipientUuid, demandDate, acceptationDate, activeStatus);
+            }
+            return friendshipBean;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            close();
+        }
+    }
+
     // Close all connection
     public void close() throws Exception
     {

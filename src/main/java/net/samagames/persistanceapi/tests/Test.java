@@ -336,6 +336,11 @@ public class Test
             manager.refuseFriendshipDemand(friendshipList.get(0));
             System.out.println("Friendhip refuse demand process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
+            // Get all the friendship for both player
+            startTime = System.currentTimeMillis();
+            manager.getFriendshipNamedList(otherPlayer, player);
+            System.out.println("Friendhip between player list process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
             // Create a promotion
             startTime = System.currentTimeMillis();
             long time = System.currentTimeMillis();

@@ -406,6 +406,13 @@ public class GameServiceManager
         return this.friendshipManager.getFriendshipList(player, this.databaseManager.getDataSource());
     }
 
+    // Get the list of friendship with both requester/recipient
+    public synchronized FriendshipBean getFriendshipNamedList(PlayerBean requester, PlayerBean recipient) throws Exception
+    {
+        // Get the list
+        return this.friendshipManager.getFriendshipNamedList(requester, recipient, this.databaseManager.getDataSource());
+    }
+
     /*============================================
       Part of promotions manager
     ============================================*/
