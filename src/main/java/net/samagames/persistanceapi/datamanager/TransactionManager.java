@@ -181,6 +181,58 @@ public class TransactionManager
         }
     }
 
+
+    // Get all the player transactions for a selected game
+    public List<TransactionBean> getPlayerGameTransactions(PlayerBean player, DataSource dataSource, int selectedGame) throws Exception
+    {
+        // Get all selected transactions for a game
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            List<TransactionBean> transactionList = new ArrayList<>();
+
+            // Query construction
+            String sql = "select transaction_id, transaction_shop.item_id, transaction_shop.price_coins, transaction_shop.price_stars, transaction_date, selected, (HEX(uuid_buyer)) as buyer";
+            sql += " from transaction_shop, item_description";
+            sql += " where uuid_buyer=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            sql += " and item_description.item_id=transaction_shop.item_id";
+            sql += " and item_description.game_category=" + selectedGame;
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                long transactionId = resultset.getLong("transaction_id");
+                int item_id = resultset.getInt("item_id");
+                int priceCoins = resultset.getInt("price_coins");
+                int priceStars = resultset.getInt("price_stars");
+                Timestamp transactionDate = resultset.getTimestamp("transaction_date");
+                boolean selected = resultset.getBoolean("selected");
+                String uuidBuyer = resultset.getString("buyer");
+                UUID buyer = UUID.fromString(Transcoder.Decode(uuidBuyer));
+                TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
+                transactionList.add(transaction);
+            }
+            return transactionList;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+
     // Create transaction
     public void createTransaction(PlayerBean player, DataSource dataSource, TransactionBean transaction) throws Exception
     {

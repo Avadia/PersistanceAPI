@@ -490,6 +490,13 @@ public class GameServiceManager
         return this.transactionManager.getPlayerGameSelectedTransactions(player, this.databaseManager.getDataSource(), selectedGame);
     }
 
+    // Get all the player transactions for a selected game
+    public synchronized List<TransactionBean> getPlayerGameTransactions(PlayerBean player, int selectedGame) throws Exception
+    {
+        // Get transactions
+        return this.transactionManager.getPlayerGameTransactions(player, this.databaseManager.getDataSource(), selectedGame);
+    }
+
     // Create a transaction shop for a player
     public synchronized void createTransaction(PlayerBean player, TransactionBean transaction) throws Exception
     {

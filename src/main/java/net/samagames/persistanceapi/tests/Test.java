@@ -547,6 +547,12 @@ public class Test
             manager.updateTransaction(transaction);
             System.out.println("Update transaction time: " + (System.currentTimeMillis() - startTime) + " ms");
 
+            // Get all transaction for a game and player
+            startTime = System.currentTimeMillis();
+            transaction.setSelected(false);
+            manager.getPlayerGameTransactions(otherPlayer, 1);
+            System.out.println("Update transaction time: " + (System.currentTimeMillis() - startTime) + " ms");
+
         }
         catch (Exception exception)
         {
