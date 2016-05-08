@@ -64,7 +64,7 @@ public class TransactionManager
                 Timestamp transactionDate = resultset.getTimestamp("transaction_date");
                 boolean selected = resultset.getBoolean("selected");
                 String uuidBuyer = resultset.getString("buyer");
-                UUID buyer = UUID.fromString(uuidBuyer);
+                UUID buyer = UUID.fromString(Transcoder.Decode(uuidBuyer));
                 TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
@@ -111,7 +111,7 @@ public class TransactionManager
                 Timestamp transactionDate = resultset.getTimestamp("transaction_date");
                 boolean selected = resultset.getBoolean("selected");
                 String uuidBuyer = resultset.getString("buyer");
-                UUID buyer = UUID.fromString(uuidBuyer);
+                UUID buyer = UUID.fromString(Transcoder.Decode(uuidBuyer));
                 TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
@@ -161,7 +161,7 @@ public class TransactionManager
                 Timestamp transactionDate = resultset.getTimestamp("transaction_date");
                 boolean selected = resultset.getBoolean("selected");
                 String uuidBuyer = resultset.getString("buyer");
-                UUID buyer = UUID.fromString(uuidBuyer);
+                UUID buyer = UUID.fromString(Transcoder.Decode(uuidBuyer));
                 TransactionBean transaction = new TransactionBean(transactionId, item_id, priceCoins, priceStars, transactionDate, selected, buyer);
                 transactionList.add(transaction);
             }
