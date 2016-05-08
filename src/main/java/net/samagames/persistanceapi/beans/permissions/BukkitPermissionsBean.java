@@ -45,7 +45,7 @@ public class BukkitPermissionsBean
     private boolean bukkitCommandOpGive;
     @Perm("bukkit.command.effect")
     private boolean bukkitCommandEffect;
-    @Perm("bukkit.command.gamemode")
+    @Perm("minecraft.command.gamemode")
     private boolean bukkitCommandGamemode;
     @Perm("bukkit.command.teleport")
     private boolean bukkitCommandTeleport;
