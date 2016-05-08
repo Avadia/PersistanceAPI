@@ -31,7 +31,6 @@ public class FriendshipManager
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultset = null;
-    public List<FriendshipBean> friendshipList = new ArrayList<>(); // Fixme see for concurrency !
 
     // Make a friendship demand
     public void postFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception
@@ -129,6 +128,7 @@ public class FriendshipManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<FriendshipBean> friendshipList = new ArrayList<>();
 
             // Query construction
             String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";
@@ -174,6 +174,7 @@ public class FriendshipManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<FriendshipBean> friendshipList = new ArrayList<>();
 
             // Query construction
             String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";

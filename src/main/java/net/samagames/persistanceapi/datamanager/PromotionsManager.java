@@ -27,7 +27,6 @@ public class PromotionsManager
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultset = null;
-    public List<PromotionsBean> promotionList = new ArrayList<>();
 
     // Get all the promotions
     public List<PromotionsBean> getAllActivePromotions(DataSource dataSource) throws Exception
@@ -37,6 +36,7 @@ public class PromotionsManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<PromotionsBean> promotionList = new ArrayList<>();
 
             // Query construction
             String sql = "";
@@ -81,6 +81,7 @@ public class PromotionsManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<PromotionsBean> promotionList = new ArrayList<>();
 
             // Query construction
             String sql = "";

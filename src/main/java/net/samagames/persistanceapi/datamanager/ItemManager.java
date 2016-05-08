@@ -30,7 +30,6 @@ public class ItemManager
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultset = null;
-    public List<ItemDescriptionBean> itemList = new ArrayList<>();
 
     // Get the item by ID
     public ItemDescriptionBean getItemDescription(int intemId, DataSource dataSource) throws Exception
@@ -94,6 +93,7 @@ public class ItemManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<ItemDescriptionBean> itemList = new ArrayList<>();
 
             // Query construction
             String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rank_accessibility";

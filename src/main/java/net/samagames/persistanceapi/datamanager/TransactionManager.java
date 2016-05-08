@@ -44,6 +44,7 @@ public class TransactionManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<TransactionBean> transactionList = new ArrayList<>();
 
             // Query construction
             String sql = "select transaction_id, item_id, price_coins, price_stars, transaction_date, selected, (HEX(uuid_buyer)) as buyer from transaction_shop";
@@ -52,7 +53,6 @@ public class TransactionManager
             // Execute the query
             resultset = statement.executeQuery(sql);
 
-            List<TransactionBean> transactionList = new ArrayList<>();
             // Manage the result in a bean
             while (resultset.next())
             {
@@ -91,6 +91,7 @@ public class TransactionManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<TransactionBean> transactionList = new ArrayList<>();
 
             // Query construction
             String sql = "select transaction_id, item_id, price_coins, price_stars, transaction_date, selected, (HEX(uuid_buyer)) as buyer from transaction_shop";
@@ -99,8 +100,6 @@ public class TransactionManager
 
             // Execute the query
             resultset = statement.executeQuery(sql);
-
-            List<TransactionBean> transactionList = new ArrayList<>();
 
             // Manage the result in a bean
             while (resultset.next())
@@ -140,6 +139,7 @@ public class TransactionManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            List<TransactionBean> transactionList = new ArrayList<>();
 
             // Query construction
             String sql = "select transaction_id, transaction_shop.item_id, transaction_shop.price_coins, transaction_shop.price_stars, transaction_date, selected, (HEX(uuid_buyer)) as buyer";
@@ -151,8 +151,6 @@ public class TransactionManager
 
             // Execute the query
             resultset = statement.executeQuery(sql);
-
-            List<TransactionBean> transactionList = new ArrayList<>();
 
             // Manage the result in a bean
             while (resultset.next())
