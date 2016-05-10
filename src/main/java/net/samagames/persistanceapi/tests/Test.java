@@ -558,6 +558,21 @@ public class Test
             manager.getPlayerGameTransactions(otherPlayer, 1);
             System.out.println("Update transaction time: " + (System.currentTimeMillis() - startTime) + " ms");
 
+            // Get a random nickname
+            startTime = System.currentTimeMillis();
+            NicknameBean nicknameBean = manager.getRandomNickname();
+            System.out.println("Get a random nickname time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Check if the nickname is blacklisted
+            startTime = System.currentTimeMillis();
+            manager.isNicknameBlacklisted(nicknameBean.getNickname());
+            System.out.println("Reserve nickname time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Free a nickname
+            startTime = System.currentTimeMillis();
+            manager.freeNickname(nicknameBean.getNickname());
+            System.out.println("Free nickname time: " + (System.currentTimeMillis() - startTime) + " ms");
+
         }
         catch (Exception exception)
         {
