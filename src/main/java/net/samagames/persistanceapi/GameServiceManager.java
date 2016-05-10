@@ -43,6 +43,7 @@ public class GameServiceManager
     private PlayerSettingsManager playerSettingsManager;
     private TransactionManager transactionManager;
     private ItemManager itemManager;
+    private NicknameManager nicknameManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -61,6 +62,7 @@ public class GameServiceManager
         this.playerSettingsManager = new PlayerSettingsManager();
         this.transactionManager = new TransactionManager();
         this.itemManager = new ItemManager();
+        this.nicknameManager = new NicknameManager();
     }
 
 
@@ -518,6 +520,7 @@ public class GameServiceManager
         this.transactionManager.updateTransaction(transaction, this.databaseManager.getDataSource());
     }
 
+
     /*============================================
       Part of item manager
     ============================================*/
@@ -535,4 +538,32 @@ public class GameServiceManager
         // Get items
         return this.itemManager.getAllItemDescription(this.databaseManager.getDataSource());
     }
+
+
+    /*============================================
+      Part of item manager
+    ============================================*/
+
+    // Get a random nickname
+    public NicknameBean getRandomNickname() throws Exception
+    {
+        // Get the nickname
+        return this.nicknameManager.getRandomNickname(this.databaseManager.getDataSource());
+    }
+
+    // Check if a nickname is blacklisted
+    public boolean isNicknameBlacklisted(String nickname) throws Exception
+    {
+        // Check the blacklist
+        return this.nicknameManager.isNicknameBlacklisted(nickname, this.databaseManager.getDataSource());
+    }
+
+    // Free a nickname
+    public void freeNickname(String nickname) throws Exception
+    {
+        // Free
+        this.nicknameManager.freeNickname(nickname, this.databaseManager.getDataSource());
+    }
+
+
 }
