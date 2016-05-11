@@ -41,7 +41,7 @@ public class ModerationPermissionManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select groups_id, mod_ban, mod_tp, mod_kick, mod_pardon, mod_mute_longtime, mod_mute, mod_channel";
+            String sql = "select groups_id, mod_ban, mod_tp, mod_kick, mod_pardon, mod_mute_longtime, mod_mute, mod_channel, mod_channel_report";
             sql += " from moderation_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
@@ -59,7 +59,8 @@ public class ModerationPermissionManager
                 boolean modMuteLongtime = resultset.getBoolean("mod_mute_longtime");
                 boolean modMute = resultset.getBoolean("mod_mute");
                 boolean modChannel = resultset.getBoolean("mod_channel");
-                moderationPermissionsBean = new ModerationPermissionsBean(groupId, modBan, modTp, modKick, modPardon, modMuteLongtime, modMute, modChannel);
+                boolean modChannelReport = resultset.getBoolean("mod_channel_report");
+                moderationPermissionsBean = new ModerationPermissionsBean(groupId, modBan, modTp, modKick, modPardon, modMuteLongtime, modMute, modChannel,modChannelReport);
             }
             else
             {

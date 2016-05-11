@@ -24,18 +24,19 @@ public class ModerationPermissionsBean
     /* Database Structure
 
     Table : moderation_permissions
-    +-------------------+------------+------+-----+---------+----------------+
-    | Field             | Type       | Null | Key | Default | Extra          |
-    +-------------------+------------+------+-----+---------+----------------+
-    | groups_id         | tinyint(4) | NO   | PRI | NULL    | auto_increment |
-    | mod_ban           | bit(1)     | NO   |     | NULL    |                |
-    | mod_tp            | bit(1)     | NO   |     | NULL    |                |
-    | mod_kick          | bit(1)     | NO   |     | NULL    |                |
-    | mod_pardon        | bit(1)     | NO   |     | NULL    |                |
-    | mod_mute_longtime | bit(1)     | NO   |     | NULL    |                |
-    | mod_mute          | bit(1)     | NO   |     | NULL    |                |
-    | mod_channel       | bit(1)     | NO   |     | NULL    |                |
-    +-------------------+------------+------+-----+---------+----------------+
+    +--------------------+------------+------+-----+---------+----------------+
+    | Field              | Type       | Null | Key | Default | Extra          |
+    +--------------------+------------+------+-----+---------+----------------+
+    | groups_id          | tinyint(4) | NO   | PRI | NULL    | auto_increment |
+    | mod_ban            | bit(1)     | NO   |     | NULL    |                |
+    | mod_tp             | bit(1)     | NO   |     | NULL    |                |
+    | mod_kick           | bit(1)     | NO   |     | NULL    |                |
+    | mod_pardon         | bit(1)     | NO   |     | NULL    |                |
+    | mod_mute_longtime  | bit(1)     | NO   |     | NULL    |                |
+    | mod_mute           | bit(1)     | NO   |     | NULL    |                |
+    | mod_channel        | bit(1)     | NO   |     | NULL    |                |
+    | mod_channel_report | bit(1)     | NO   |     | NULL    |                |
+    +--------------------+------------+------+-----+---------+----------------+
     */
 
     // Defines
@@ -54,9 +55,11 @@ public class ModerationPermissionsBean
     private boolean modMute;
     @Perm("mod.channel")
     private boolean modChannel;
+    @Perm("mod.channel.report")
+    private boolean modChannelReport;
 
     // Constructor
-    public ModerationPermissionsBean(long groupsId, boolean modBan, boolean modTp, boolean modKick, boolean modPardon, boolean modMuteLongtime, boolean modMute, boolean modChannel)
+    public ModerationPermissionsBean(long groupsId, boolean modBan, boolean modTp, boolean modKick, boolean modPardon, boolean modMuteLongtime, boolean modMute, boolean modChannel, boolean modChannelReport)
     {
         this.groupsId = groupsId;
         this.modBan = modBan;
@@ -66,6 +69,7 @@ public class ModerationPermissionsBean
         this.modMuteLongtime = modMuteLongtime;
         this.modMute = modMute;
         this.modChannel = modChannel;
+        this.modChannelReport = modChannelReport;
     }
 
     // Getters
@@ -77,6 +81,9 @@ public class ModerationPermissionsBean
     public boolean isModMuteLongtime() { return this.modMuteLongtime; }
     public boolean isModMute() { return this.modMute; }
     public boolean isModChannel() { return this.modChannel; }
+    public boolean isModChannelReport() {
+        return modChannelReport;
+    }
 
     // Setters
     public void setModBan(boolean modBan) { this.modBan = modBan; }
@@ -86,6 +93,9 @@ public class ModerationPermissionsBean
     public void setModMuteLongtime(boolean modMuteLongtime) { this.modMuteLongtime = modMuteLongtime; }
     public void setModMute(boolean modMute) { this.modMute = modMute; }
     public void setModChannel(boolean modChannel) { this.modChannel = modChannel; }
+    public void setModChannelReport(boolean modChannelReport) {
+        this.modChannelReport = modChannelReport;
+    }
 
     // Reverse the bean to HashMap
     public Map<String, Boolean> getHashMap()
@@ -98,4 +108,5 @@ public class ModerationPermissionsBean
     {
         Transcoder.setAnnotationValue(this, key, value);
     }
+
 }
