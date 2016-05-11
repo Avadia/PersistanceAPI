@@ -514,7 +514,7 @@ public class GameServiceManager
     }
 
     // Update a specified transaction
-    public void updateTransaction(TransactionBean transaction) throws Exception
+    public synchronized void updateTransaction(TransactionBean transaction) throws Exception
     {
         // Do the update
         this.transactionManager.updateTransaction(transaction, this.databaseManager.getDataSource());
