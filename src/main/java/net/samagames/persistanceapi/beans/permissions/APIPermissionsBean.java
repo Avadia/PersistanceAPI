@@ -43,6 +43,7 @@ public class APIPermissionsBean
     | api_stars_credit        | bit(1)     | NO   |     | NULL    |                |
     | api_stars_withdraw      | bit(1)     | NO   |     | NULL    |                |
     | api_game_start          | bit(1)     | NO   |     | NULL    |                |
+    | api_chat_bypass         | bit(1)     | NO   |     | NULL    |                |
     +-------------------------+------------+------+-----+---------+----------------+
     */
 
@@ -76,11 +77,13 @@ public class APIPermissionsBean
     private boolean apiStarsWithdraw;
     @Perm("api.game.start")
     private boolean apiGameStart;
+    @Perm("api.chat.bypass")
+    private boolean apiChatBypass;
 
     // Constructor
     public APIPermissionsBean(long groupsId, boolean apiServersDebug, boolean apiPermissionsRefresh, boolean apiCoinsGetOther, boolean apiCoinsCredit, boolean apiCoinsWithdraw,
                               boolean apiInventoryShow, boolean apiPlayerDataShow, boolean apiPlayerdataSet, boolean apiPlayerdataDel, boolean apiModoSpeakup, boolean apiStarsGetother,
-                              boolean apiStarsCredit, boolean apiStarsWithdraw, boolean apiGameStart)
+                              boolean apiStarsCredit, boolean apiStarsWithdraw, boolean apiGameStart, boolean apiChatBypass)
     {
         this.apiServersDebug = apiServersDebug;
         this.apiPermissionsRefresh = apiPermissionsRefresh;
@@ -96,6 +99,7 @@ public class APIPermissionsBean
         this.apiStarsCredit = apiStarsCredit;
         this.apiStarsWithdraw = apiStarsWithdraw;
         this.apiGameStart =apiGameStart;
+        this.apiChatBypass = apiChatBypass;
     }
 
     // Getters
@@ -114,6 +118,9 @@ public class APIPermissionsBean
     public boolean isApiStarsCredit() { return this.apiStarsCredit; }
     public boolean isApiStarsWithdraw() { return this.apiStarsWithdraw; }
     public boolean isApiGameStart() { return this.apiGameStart; }
+    public boolean isApiChatBypass() {
+        return apiChatBypass;
+    }
 
     // Setters
     public void setApiServersDebug(boolean apiServersDebug) { this.apiServersDebug = apiServersDebug; }
@@ -130,6 +137,9 @@ public class APIPermissionsBean
     public void setApiStarsCredit(boolean apiStarsCredit) { this.apiStarsCredit = apiStarsCredit; }
     public void setApiStarsWithdraw(boolean apiStarsWithdraw) { this.apiStarsWithdraw = apiStarsWithdraw; }
     public void setApiGameStart(boolean apiGameStart) { this.apiGameStart = apiGameStart; }
+    public void setApiChatBypass(boolean apiChatBypass) {
+        this.apiChatBypass = apiChatBypass;
+    }
 
     // Reverse the bean to HashMap
     public Map<String, Boolean> getHashMap()
@@ -142,4 +152,5 @@ public class APIPermissionsBean
     {
         Transcoder.setAnnotationValue(this, key, value);
     }
+
 }
