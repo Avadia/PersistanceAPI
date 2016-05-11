@@ -429,19 +429,14 @@ CREATE TABLE IF NOT EXISTS `moderation_permissions` (
   `mod_mute_longtime` bit(1) NOT NULL,
   `mod_mute` bit(1) NOT NULL,
   `mod_channel` bit(1) NOT NULL,
-<<<<<<< HEAD
   `mod_channel_report` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
-=======
   PRIMARY KEY (`groups_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci AUTO_INCREMENT=16 ;
->>>>>>> 76360487ed6533786168a939b31a47cb7d4a978d
 
 --
 -- Contenu de la table `moderation_permissions`
 --
 
-<<<<<<< HEAD
 INSERT INTO `moderation_permissions` (`groups_id`, `mod_ban`, `mod_tp`, `mod_kick`, `mod_pardon`, `mod_mute_longtime`, `mod_mute`, `mod_channel`, `mod_channel_report`) VALUES
   (1, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
   (2, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
@@ -458,23 +453,6 @@ INSERT INTO `moderation_permissions` (`groups_id`, `mod_ban`, `mod_tp`, `mod_kic
   (13, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
   (14, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
   (15, b'0', b'0', b'0', b'0', b'0', b'0', b'0', b'0');
-=======
-INSERT INTO `moderation_permissions` (`groups_id`, `mod_ban`, `mod_tp`, `mod_kick`, `mod_pardon`, `mod_mute_longtime`, `mod_mute`, `mod_channel`) VALUES
-(1, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(2, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(3, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(4, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(5, b'0', b'0', b'0', b'0', b'0', b'1', b'1'),
-(6, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(7, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(8, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(9, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(10, b'1', b'1', b'1', b'1', b'1', b'0', b'0'),
-(11, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(12, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(13, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(14, b'0', b'0', b'0', b'0', b'0', b'0', b'0'),
-(15, b'0', b'0', b'0', b'0', b'0', b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -1338,7 +1316,6 @@ INSERT INTO `nickname` (`nick_id`, `nickname`, `blacklisted`, `used`) VALUES
 (840, 'Renakael', b'0', b'0'),
 (841, 'Melemiah', b'0', b'0'),
 (842, 'Ahuael', b'0', b'0');
->>>>>>> 76360487ed6533786168a939b31a47cb7d4a978d
 
 -- --------------------------------------------------------
 
