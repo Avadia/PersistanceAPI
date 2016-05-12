@@ -1,6 +1,7 @@
 libs/*
 out/
-snap.txt
 .idea/
 *.iml
 bdd.txt
+
+
