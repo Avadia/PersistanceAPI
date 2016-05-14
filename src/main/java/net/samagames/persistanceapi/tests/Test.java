@@ -367,7 +367,7 @@ public class Test
 
             // Permission to hashmap test
             startTime = System.currentTimeMillis();
-            APIPermissionsBean bean = new APIPermissionsBean(1, true, false, true, false, true, false, true, false, true, false, true, false, true, false);
+            APIPermissionsBean bean = new APIPermissionsBean(1, true, false, true, false, true, false, true, false, true, false, true, false, true, false, false);
             bean.getHashMap();
             System.out.println("Permission to hashmap process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
