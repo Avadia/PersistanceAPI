@@ -110,13 +110,14 @@ public class SanctionManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            Timestamp expirationTime = null;
 
             // Query construction
             String sql = "";
             sql += "select sanction_id, (HEX(player_uuid)) as uuid , type_id, reason, (HEX(punisher_uuid)) as punisher, expiration_date, is_deleted, creation_date, update_date from sanctions";
             sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
             sql += " and type_id=" + SanctionBean.BAN;
-            sql += " and expiration_date>now()";
+            sql += " and (expiration_date>now() or expiration_date='0000-00-00 00:00:00')";
             sql += " and is_deleted=false";
 
             // Execute the query
@@ -128,14 +129,21 @@ public class SanctionManager
                 // The player is banned
                 String banPlayer = Transcoder.Decode(resultset.getString("uuid"));
                 UUID playerUuid = UUID.fromString(banPlayer);
-                int typeId = resultset.getInt("");
-                String reason = resultset.getString("");
+                int typeId = resultset.getInt("type_id");
+                String reason = resultset.getString("reason");
                 String punisher = Transcoder.Decode(resultset.getString("punisher"));
                 UUID punisherUuid = UUID.fromString(punisher);
-                Timestamp expirationTime = resultset.getTimestamp("");
-                boolean isDeleted = resultset.getBoolean("");
-                Timestamp creationDate = resultset.getTimestamp("");
-                Timestamp updateDate = resultset.getTimestamp("");
+                try
+                {
+                    expirationTime = resultset.getTimestamp("expiration_date");
+                }
+                catch (Exception dateException)
+                {
+                    expirationTime = null;
+                }
+                boolean isDeleted = resultset.getBoolean("is_deleted");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
                 sanction = new SanctionBean(playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
                 return sanction;
             }
