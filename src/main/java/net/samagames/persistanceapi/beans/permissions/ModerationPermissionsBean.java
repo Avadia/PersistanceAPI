@@ -36,6 +36,7 @@ public class ModerationPermissionsBean
     | mod_mute           | bit(1)     | NO   |     | NULL    |                |
     | mod_channel        | bit(1)     | NO   |     | NULL    |                |
     | mod_channel_report | bit(1)     | NO   |     | NULL    |                |
+    | mod_quiet          | bit(1)     | NO   |     | NULL    |                |
     +--------------------+------------+------+-----+---------+----------------+
     */
 
@@ -57,9 +58,11 @@ public class ModerationPermissionsBean
     private boolean modChannel;
     @Perm("mod.channel.report")
     private boolean modChannelReport;
+    @Perm("mod.quiet")
+    private boolean modQuiet;
 
     // Constructor
-    public ModerationPermissionsBean(long groupsId, boolean modBan, boolean modTp, boolean modKick, boolean modPardon, boolean modMuteLongtime, boolean modMute, boolean modChannel, boolean modChannelReport)
+    public ModerationPermissionsBean(long groupsId, boolean modBan, boolean modTp, boolean modKick, boolean modPardon, boolean modMuteLongtime, boolean modMute, boolean modChannel, boolean modChannelReport, boolean modQuiet)
     {
         this.groupsId = groupsId;
         this.modBan = modBan;
@@ -70,6 +73,7 @@ public class ModerationPermissionsBean
         this.modMute = modMute;
         this.modChannel = modChannel;
         this.modChannelReport = modChannelReport;
+        this.modQuiet = modQuiet;
     }
 
     // Getters
@@ -84,6 +88,9 @@ public class ModerationPermissionsBean
     public boolean isModChannelReport() {
         return modChannelReport;
     }
+    public boolean isModQuiet() {
+        return modQuiet;
+    }
 
     // Setters
     public void setModBan(boolean modBan) { this.modBan = modBan; }
@@ -95,6 +102,9 @@ public class ModerationPermissionsBean
     public void setModChannel(boolean modChannel) { this.modChannel = modChannel; }
     public void setModChannelReport(boolean modChannelReport) {
         this.modChannelReport = modChannelReport;
+    }
+    public void setModQuiet(boolean modQuiet) {
+        this.modQuiet = modQuiet;
     }
 
     // Reverse the bean to HashMap
