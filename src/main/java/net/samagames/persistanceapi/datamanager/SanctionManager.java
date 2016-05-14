@@ -40,6 +40,13 @@ public class SanctionManager
             connection = dataSource.getConnection();
             statement = connection.createStatement();
 
+            Timestamp expirationTime = sanction.getExpirationTime();
+            String expirationData = "0000-00-00 00:00:00";
+            if(expirationTime != null)
+            {
+                expirationData = expirationTime.toString();
+            }
+
             // Query construction
             String sql = "";
             sql += "insert into sanctions (player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date) values (";
@@ -47,7 +54,7 @@ public class SanctionManager
             sql += ", " + sanctionType;
             sql += ", '" + sanction.getReason() + "'";
             sql += ", UNHEX('" + Transcoder.Encode(sanction.getPunisherUuid().toString()) +"')";
-            sql += ", '" + sanction.getExpirationTime() + "'";
+            sql += ", '" + expirationData + "'";
             sql += ", false";
             sql += ", now()";
             sql += ", now())";
