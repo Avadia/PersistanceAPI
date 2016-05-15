@@ -21,6 +21,8 @@ import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class SanctionManager
@@ -134,6 +136,7 @@ public class SanctionManager
             if (resultset.next())
             {
                 // The player is banned
+                long sanctionId =  resultset.getLong("sanction_id");
                 String banPlayer = Transcoder.Decode(resultset.getString("uuid"));
                 UUID playerUuid = UUID.fromString(banPlayer);
                 int typeId = resultset.getInt("type_id");
@@ -151,7 +154,7 @@ public class SanctionManager
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
-                sanction = new SanctionBean(playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
+                sanction = new SanctionBean(sanctionId, playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
                 return sanction;
             }
             else
@@ -200,6 +203,7 @@ public class SanctionManager
             if (resultset.next())
             {
                 // The player is muted
+                long sanctionId = resultset.getLong("sanction_id");
                 String mutePlayer = Transcoder.Decode(resultset.getString("uuid"));
                 UUID playerUuid = UUID.fromString(mutePlayer);
                 int typeId = resultset.getInt("type_id");
@@ -210,7 +214,7 @@ public class SanctionManager
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
-                sanction = new SanctionBean(playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
+                sanction = new SanctionBean(sanctionId, playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
                 return sanction;
             }
             else
@@ -231,6 +235,187 @@ public class SanctionManager
         }
     }
 
+    // Get all actives sanctions by type
+    public List<SanctionBean> getAllSanction(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
+    {
+        // Get all sanctions
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            List<SanctionBean> sanctionList = new ArrayList<>();
+
+            // Query construction
+            String sql = "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += " and type_id=" + sanctionType;
+            sql += " order by creation_date desc";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                long sanctionId = resultset.getLong("sanction_id");
+                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                int typeId = resultset.getInt("type_id");
+                String reason = resultset.getString("reason");
+                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                boolean isDeleted = resultset.getBoolean("is_deleted");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                SanctionBean sanction = new SanctionBean(sanctionId, UUID.fromString(playerUuid), typeId, reason, UUID.fromString(punisherUUID), expirationTime, isDeleted, creationDate, updateDate);
+                sanctionList.add(sanction);
+            }
+            return sanctionList;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+    // Get all non actives sanctions by type
+    public List<SanctionBean> getAllActiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
+    {
+        // Get all sanctions
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            List<SanctionBean> sanctionList = new ArrayList<>();
+
+            // Query construction
+            String sql = "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += " and type_id=" + sanctionType;
+            sql += " and is_deleted=0";
+            sql += " order by creation_date desc";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                long sanctionId = resultset.getLong("sanction_id");
+                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                int typeId = resultset.getInt("type_id");
+                String reason = resultset.getString("reason");
+                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                boolean isDeleted = resultset.getBoolean("is_deleted");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                SanctionBean sanction = new SanctionBean(sanctionId, UUID.fromString(playerUuid), typeId, reason, UUID.fromString(punisherUUID), expirationTime, isDeleted, creationDate, updateDate);
+                sanctionList.add(sanction);
+            }
+            return sanctionList;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+    // Get all sanctions by type
+    // Get all non actives sanctions by type
+    public List<SanctionBean> getAllPassiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
+    {
+        // Get all sanctions
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            List<SanctionBean> sanctionList = new ArrayList<>();
+
+            // Query construction
+            String sql = "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += " and type_id=" + sanctionType;
+            sql += " and is_deleted=1";
+            sql += " order by creation_date desc";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                long sanctionId = resultset.getLong("sanction_id");
+                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                int typeId = resultset.getInt("type_id");
+                String reason = resultset.getString("reason");
+                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                boolean isDeleted = resultset.getBoolean("is_deleted");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                SanctionBean sanction = new SanctionBean(sanctionId, UUID.fromString(playerUuid), typeId, reason, UUID.fromString(punisherUUID), expirationTime, isDeleted, creationDate, updateDate);
+                sanctionList.add(sanction);
+            }
+            return sanctionList;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+    // Update a sanction status
+    public void updateSanctionStatus(long sanctionId, boolean status, DataSource dataSource) throws Exception
+    {
+        // Update the sanction status
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "update sanctions set is_deleted=" + status +" where sanction_id=" + sanctionId;
+
+            // Execute the query
+            statement.executeUpdate(sql);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            close();
+        }
+    }
 
     // Close the connection
     public void close() throws Exception
