@@ -57,6 +57,19 @@ public class SanctionBean
     private Timestamp updateDate;
 
     // Constructor
+    public SanctionBean(long sanctionId, UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate)
+    {
+        this.sanctionId = sanctionId;
+        this.playerUuid = playerUuid;
+        this.typeId = typeId;
+        this.reason = reason;
+        this.punisherUuid = punisherUuid;
+        this.expirationTime = expirationTime;
+        this.isDeleted = isDeleted;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
+
     public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate)
     {
         this.playerUuid = playerUuid;
@@ -127,5 +140,13 @@ public class SanctionBean
     }
     public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public long getSanctionId() {
+        return sanctionId;
+    }
+
+    public void setSanctionId(long sanctionId) {
+        this.sanctionId = sanctionId;
     }
 }
