@@ -40,7 +40,7 @@ CREATE TABLE `api_permissions` (
   `api_stars_withdraw` bit(1) NOT NULL,
   `api_game_start` bit(1) NOT NULL,
   `api_chat_bypass` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `api_permissions`
@@ -81,7 +81,7 @@ CREATE TABLE `bukkit_permissions` (
   `bukkit_command_effect` bit(1) NOT NULL,
   `bukkit_command_gamemode` bit(1) NOT NULL,
   `bukkit_command_teleport` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `bukkit_permissions`
@@ -129,7 +129,7 @@ CREATE TABLE `bungee_redis_permissions` (
   `bungeecord_command_send` bit(1) NOT NULL,
   `bungeecord_command_end` bit(1) NOT NULL,
   `bungeecord_command_alert` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `bungee_redis_permissions`
@@ -221,7 +221,7 @@ CREATE TABLE `friendship` (
   `demand_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `acceptation_date` timestamp NULL DEFAULT NULL,
   `active_status` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=477791 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
 
@@ -260,7 +260,7 @@ CREATE TABLE `groups` (
   `prefix` varchar(255) COLLATE utf8_roman_ci NOT NULL,
   `suffix` varchar(255) COLLATE utf8_roman_ci NOT NULL,
   `multiplier` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `groups`
@@ -334,7 +334,7 @@ CREATE TABLE `hub_permissions` (
   `hub_debug_sign` bit(1) NOT NULL,
   `hub_sign_selection` bit(1) NOT NULL,
   `hub_beta_vip` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `hub_permissions`
@@ -411,7 +411,7 @@ CREATE TABLE `moderation_permissions` (
   `mod_channel` bit(1) NOT NULL,
   `mod_channel_report` bit(1) NOT NULL,
   `mod_quiet` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `moderation_permissions`
@@ -449,7 +449,7 @@ CREATE TABLE `nickname` (
   `nickname` varchar(16) CHARACTER SET utf8 COLLATE utf8_roman_ci NOT NULL,
   `blacklisted` bit(1) NOT NULL,
   `used` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=843 DEFAULT CHARSET=utf32 COLLATE=utf32_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_roman_ci;
 
 --
 -- Contenu de la table `nickname`
@@ -1451,7 +1451,7 @@ CREATE TABLE `sanctions` (
   `is_deleted` bit(1) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=58641 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
 
@@ -1491,7 +1491,7 @@ CREATE TABLE `staff_permissions` (
   `network_vip_plus` bit(1) NOT NULL,
   `network_staff` bit(1) NOT NULL,
   `network_admin` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `staff_permissions`
@@ -1532,7 +1532,7 @@ CREATE TABLE `transaction_shop` (
   `transaction_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `selected` bit(1) NOT NULL,
   `uuid_buyer` binary(16) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23931 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1745,17 +1745,17 @@ ADD PRIMARY KEY (`uuid`);
 -- AUTO_INCREMENT pour la table `api_permissions`
 --
 ALTER TABLE `api_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `bukkit_permissions`
 --
 ALTER TABLE `bukkit_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `bungee_redis_permissions`
 --
 ALTER TABLE `bungee_redis_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `denunciations`
 --
@@ -1765,27 +1765,27 @@ MODIFY `denouncement_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `friendship`
 --
 ALTER TABLE `friendship`
-MODIFY `friendship_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=477791;
+MODIFY `friendship_id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `groups`
 --
 ALTER TABLE `groups`
-MODIFY `group_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `group_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `hub_permissions`
 --
 ALTER TABLE `hub_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `moderation_permissions`
 --
 ALTER TABLE `moderation_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `nickname`
 --
 ALTER TABLE `nickname`
-MODIFY `nick_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=843;
+MODIFY `nick_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `promotions`
 --
@@ -1795,17 +1795,17 @@ MODIFY `promotion_id` bigint(20) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `sanctions`
 --
 ALTER TABLE `sanctions`
-MODIFY `sanction_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58641;
+MODIFY `sanction_id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `staff_permissions`
 --
 ALTER TABLE `staff_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `transaction_shop`
 --
 ALTER TABLE `transaction_shop`
-MODIFY `transaction_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23931;
+MODIFY `transaction_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 
 
