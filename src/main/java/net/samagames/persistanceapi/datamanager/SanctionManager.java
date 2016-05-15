@@ -247,7 +247,7 @@ public class SanctionManager
             List<SanctionBean> sanctionList = new ArrayList<>();
 
             // Query construction
-            String sql = "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
             sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
             sql += " and type_id=" + sanctionType;
             sql += " order by creation_date desc";
@@ -297,7 +297,7 @@ public class SanctionManager
             List<SanctionBean> sanctionList = new ArrayList<>();
 
             // Query construction
-            String sql = "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
             sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
             sql += " and type_id=" + sanctionType;
             sql += " and is_deleted=0";
@@ -349,7 +349,7 @@ public class SanctionManager
             List<SanctionBean> sanctionList = new ArrayList<>();
 
             // Query construction
-            String sql = "select sanction_id, player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
             sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
             sql += " and type_id=" + sanctionType;
             sql += " and is_deleted=1";
