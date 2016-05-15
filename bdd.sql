@@ -1806,12 +1806,6 @@ MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 ALTER TABLE `transaction_shop`
 MODIFY `transaction_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23931;
---
--- Contraintes pour les tables exportées
---
 
---
--- Contraintes pour la table `transaction_shop`
---
-ALTER TABLE `transaction_shop`
-ADD CONSTRAINT `fk_shop_item_item_desc1` FOREIGN KEY (`item_id`) REFERENCES `item_description` (`item_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
