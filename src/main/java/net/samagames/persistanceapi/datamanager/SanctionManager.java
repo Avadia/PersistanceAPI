@@ -187,6 +187,7 @@ public class SanctionManager
             // Set connection
             connection = dataSource.getConnection();
             statement = connection.createStatement();
+            Timestamp expirationTime = null;
 
             // Query construction
             String sql = "";
@@ -210,7 +211,14 @@ public class SanctionManager
                 String reason = resultset.getString("reason");
                 String punisher = Transcoder.Decode(resultset.getString("punisher"));
                 UUID punisherUuid = UUID.fromString(punisher);
-                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                try
+                {
+                    expirationTime = resultset.getTimestamp("expiration_date");
+                }
+                catch (Exception dateException)
+                {
+                    expirationTime = null;
+                }
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -245,6 +253,7 @@ public class SanctionManager
             connection = dataSource.getConnection();
             statement = connection.createStatement();
             List<SanctionBean> sanctionList = new ArrayList<>();
+            Timestamp expirationTime = null;
 
             // Query construction
             String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
@@ -264,7 +273,14 @@ public class SanctionManager
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
                 String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
-                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                try
+                {
+                    expirationTime = resultset.getTimestamp("expiration_date");
+                }
+                catch (Exception dateException)
+                {
+                    expirationTime = null;
+                }
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -295,6 +311,7 @@ public class SanctionManager
             connection = dataSource.getConnection();
             statement = connection.createStatement();
             List<SanctionBean> sanctionList = new ArrayList<>();
+            Timestamp expirationTime = null;
 
             // Query construction
             String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
@@ -315,7 +332,14 @@ public class SanctionManager
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
                 String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
-                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                try
+                {
+                    expirationTime = resultset.getTimestamp("expiration_date");
+                }
+                catch (Exception dateException)
+                {
+                    expirationTime = null;
+                }
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -347,6 +371,7 @@ public class SanctionManager
             connection = dataSource.getConnection();
             statement = connection.createStatement();
             List<SanctionBean> sanctionList = new ArrayList<>();
+            Timestamp expirationTime = null;
 
             // Query construction
             String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
@@ -367,7 +392,14 @@ public class SanctionManager
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
                 String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
-                Timestamp expirationTime = resultset.getTimestamp("expiration_date");
+                try
+                {
+                    expirationTime = resultset.getTimestamp("expiration_date");
+                }
+                catch (Exception dateException)
+                {
+                    expirationTime = null;
+                }
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
