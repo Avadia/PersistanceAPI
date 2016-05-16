@@ -71,6 +71,16 @@ public class SanctionBean
     }
 
     // Constructor without date
+    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted)
+    {
+        this.playerUuid = playerUuid;
+        this.typeId = typeId;
+        this.reason = reason;
+        this.punisherUuid = punisherUuid;
+        this.expirationTime = expirationTime;
+        this.isDeleted = isDeleted;
+    }
+
     public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, boolean isDeleted)
     {
         this.playerUuid = playerUuid;
