@@ -274,10 +274,15 @@ public class Test
             manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
             System.out.println("Check get all actives sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
-            // Get all passives sanctons test
+            // Get all passives sanctions test
             startTime = System.currentTimeMillis();
             manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
             System.out.println("Check get all passives sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get all sanctions by uuid test
+            startTime = System.currentTimeMillis();
+            manager.getAllModoSanctions(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"));
+            System.out.println("Check get all sanctions for uuid process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get API permissions
             startTime = System.currentTimeMillis();

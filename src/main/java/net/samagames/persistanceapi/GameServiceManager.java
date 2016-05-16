@@ -173,6 +173,13 @@ public class GameServiceManager
         return this.sanctionManager.getAllPassiveSanctions(uuid, sanctionType, this.databaseManager.getDataSource());
     }
 
+    // Get all sanctions by a modo
+    public synchronized List<SanctionBean> getAllModoSanctions(UUID uuid) throws Exception
+    {
+        // Get sanctions
+        return this.sanctionManager.getAllModoSanctions(uuid, this.databaseManager.getDataSource());
+    }
+
 
     /*============================================
       Part of statistics manager

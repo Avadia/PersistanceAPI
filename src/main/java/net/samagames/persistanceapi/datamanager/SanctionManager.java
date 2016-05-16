@@ -449,6 +449,63 @@ public class SanctionManager
         }
     }
 
+    // Get sanctions by UUID
+    public List<SanctionBean> getAllModoSanctions(UUID uuid, DataSource dataSource) throws Exception
+    {
+        // Get all sanctions
+        try
+        {
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            List<SanctionBean> sanctionList = new ArrayList<>();
+            Timestamp expirationTime = null;
+
+            // Query construction
+            String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where punisher_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += " order by creation_date desc";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                long sanctionId = resultset.getLong("sanction_id");
+                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                int typeId = resultset.getInt("type_id");
+                String reason = resultset.getString("reason");
+                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                try
+                {
+                    expirationTime = resultset.getTimestamp("expiration_date");
+                }
+                catch (Exception dateException)
+                {
+                    expirationTime = null;
+                }
+                boolean isDeleted = resultset.getBoolean("is_deleted");
+                Timestamp creationDate = resultset.getTimestamp("creation_date");
+                Timestamp updateDate = resultset.getTimestamp("update_date");
+                SanctionBean sanction = new SanctionBean(sanctionId, UUID.fromString(playerUuid), typeId, reason, UUID.fromString(punisherUUID), expirationTime, isDeleted, creationDate, updateDate);
+                sanctionList.add(sanction);
+            }
+            return sanctionList;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
     // Close the connection
     public void close() throws Exception
     {
