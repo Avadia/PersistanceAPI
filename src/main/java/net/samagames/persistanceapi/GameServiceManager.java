@@ -152,6 +152,34 @@ public class GameServiceManager
         return this.sanctionManager.getPlayerMuted(player, this.databaseManager.getDataSource());
     }
 
+    // Get all sanctions for a player and type
+    public synchronized List<SanctionBean> getAllSanction(UUID uuid, int sanctionType) throws Exception
+    {
+        // Get sanctions
+        return this.sanctionManager.getAllSanction(uuid, sanctionType, this.databaseManager.getDataSource());
+    }
+
+    // Get all actives sanctions for a player and type
+    public synchronized List<SanctionBean> getAllActiveSanction(UUID uuid, int sanctionType) throws Exception
+    {
+        // Get sanctions
+        return this.sanctionManager.getAllActiveSanctions(uuid, sanctionType, this.databaseManager.getDataSource());
+    }
+
+    // Get all passives sanctions for a player and type
+    public synchronized List<SanctionBean> getAllPassiveSanctions(UUID uuid, int sanctionType) throws Exception
+    {
+        // Get sanctions
+        return this.sanctionManager.getAllPassiveSanctions(uuid, sanctionType, this.databaseManager.getDataSource());
+    }
+
+    // Get all sanctions by a modo
+    public synchronized List<SanctionBean> getAllModoSanctions(UUID uuid) throws Exception
+    {
+        // Get sanctions
+        return this.sanctionManager.getAllModoSanctions(uuid, this.databaseManager.getDataSource());
+    }
+
 
     /*============================================
       Part of statistics manager
@@ -541,7 +569,7 @@ public class GameServiceManager
 
 
     /*============================================
-      Part of item manager
+      Part of nickname manager
     ============================================*/
 
     // Get a random nickname

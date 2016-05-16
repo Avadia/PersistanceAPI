@@ -237,14 +237,14 @@ public class Test
 
             // Create a ban sanction test
             startTime = System.currentTimeMillis();
-            SanctionBean sanction = new SanctionBean(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), SanctionBean.BAN, "fly", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"),
+            SanctionBean sanction = new SanctionBean(1, UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), SanctionBean.BAN, "fly", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"),
                     new Timestamp(System.currentTimeMillis()), false, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
             manager.applySanction(SanctionBean.BAN, sanction);
             System.out.println("Create sanction ban process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create a mute sanction test
             startTime = System.currentTimeMillis();
-            sanction = new SanctionBean(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), SanctionBean.MUTE, "trololol", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"),
+            sanction = new SanctionBean(2, UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), SanctionBean.MUTE, "trololol", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"),
                     new Timestamp(System.currentTimeMillis() + 800000), false, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
             manager.applySanction(SanctionBean.MUTE, sanction);
             System.out.println("Create sanction mute process time: " + (System.currentTimeMillis() - startTime) + " ms");
@@ -263,6 +263,26 @@ public class Test
             startTime = System.currentTimeMillis();
             manager.getPlayerMuted(otherPlayer);
             System.out.println("Check isMute process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get all sanctions test
+            startTime = System.currentTimeMillis();
+            manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
+            System.out.println("Check get all sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get all actives sanctions test
+            startTime = System.currentTimeMillis();
+            manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
+            System.out.println("Check get all actives sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get all passives sanctions test
+            startTime = System.currentTimeMillis();
+            manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
+            System.out.println("Check get all passives sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get all sanctions by uuid test
+            startTime = System.currentTimeMillis();
+            manager.getAllModoSanctions(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"));
+            System.out.println("Check get all sanctions for uuid process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get API permissions
             startTime = System.currentTimeMillis();

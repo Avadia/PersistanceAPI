@@ -57,8 +57,9 @@ public class SanctionBean
     private Timestamp updateDate;
 
     // Constructor
-    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate)
+    public SanctionBean(long sanctionId, UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate)
     {
+        this.sanctionId = sanctionId;
         this.playerUuid = playerUuid;
         this.typeId = typeId;
         this.reason = reason;
@@ -80,52 +81,22 @@ public class SanctionBean
     }
 
     // Getters
-    public UUID getPlayerUuid() {
-        return this.playerUuid;
-    }
-    public int getTypeId() {
-        return this.typeId;
-    }
-    public String getReason() {
-        return this.reason;
-    }
+    public UUID getPlayerUuid() { return this.playerUuid; }
+    public int getTypeId() { return this.typeId; }
+    public String getReason() { return this.reason; }
     public UUID getPunisherUuid() { return this.punisherUuid; }
-    public Timestamp getExpirationTime() {
-        return this.expirationTime;
-    }
-    public boolean isDeleted() {
-        return this.isDeleted;
-    }
-    public Timestamp getCreationDate() {
-        return this.creationDate;
-    }
-    public Timestamp getUpdateDate() {
-        return this.updateDate;
-    }
+    public Timestamp getExpirationTime() { return this.expirationTime; }
+    public boolean isDeleted() { return this.isDeleted; }
+    public Timestamp getCreationDate() { return this.creationDate; }
+    public Timestamp getUpdateDate() { return this.updateDate; }
 
     // Setters
-    public void setPlayerUuid(UUID playerUuid) {
-        this.playerUuid = playerUuid;
-    }
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-    public void setPunisherUuid(UUID punisherUuid) {
-        this.punisherUuid = punisherUuid;
-    }
-    public void setExpirationTime(Timestamp expirationTime) {
-        this.expirationTime = expirationTime;
-    }
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
-    }
+    public void setPlayerUuid(UUID playerUuid) { this.playerUuid = playerUuid; }
+    public void setTypeId(int typeId) { this.typeId = typeId; }
+    public void setReason(String reason) { this.reason = reason; }
+    public void setPunisherUuid(UUID punisherUuid) { this.punisherUuid = punisherUuid; }
+    public void setExpirationTime(Timestamp expirationTime) { this.expirationTime = expirationTime; }
+    public void setDeleted(boolean deleted) { isDeleted = deleted; }
+    public void setCreationDate(Timestamp creationDate) { this.creationDate = creationDate; }
+    public void setUpdateDate(Timestamp updateDate) { this.updateDate = updateDate; }
 }
