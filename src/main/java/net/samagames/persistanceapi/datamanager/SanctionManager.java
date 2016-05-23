@@ -90,7 +90,7 @@ public class SanctionManager
             String sql = "";
             sql += "update sanctions set is_deleted=true where type_id=";
             sql += sanctionType + " and player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
-            sql += " order by creation_date desc limit 1";
+            sql += " where is_deleted=false order by creation_date desc limit 1";
 
             // Execute the query
             statement.executeUpdate(sql);
