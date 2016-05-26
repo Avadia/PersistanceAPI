@@ -88,9 +88,9 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "update sanctions set is_deleted=1 where type_id=";
+            sql += "update sanctions set is_deleted=1, update_date = now() where type_id=";
             sql += sanctionType + " and player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
-            sql += " where is_deleted=0 order by creation_date desc limit 1";
+            sql += " and is_deleted=0 order by creation_date desc limit 1";
 
             // Execute the query
             statement.executeUpdate(sql);
@@ -432,7 +432,7 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "update sanctions set is_deleted=" + ((status)?"1":"0") +" where sanction_id=" + sanctionId;
+            sql += "update sanctions set is_deleted=" + ((status)?"1":"0") +", update_date = now() where sanction_id=" + sanctionId;
 
             // Execute the query
             statement.executeUpdate(sql);
