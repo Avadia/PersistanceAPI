@@ -88,9 +88,9 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "update sanctions set is_deleted=true where type_id=";
+            sql += "update sanctions set is_deleted=1 where type_id=";
             sql += sanctionType + " and player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
-            sql += " where is_deleted=false order by creation_date desc limit 1";
+            sql += " where is_deleted=0 order by creation_date desc limit 1";
 
             // Execute the query
             statement.executeUpdate(sql);
@@ -127,7 +127,7 @@ public class SanctionManager
             sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
             sql += " and type_id=" + SanctionBean.BAN;
             sql += " and (expiration_date>now() or expiration_date='0000-00-00 00:00:00')";
-            sql += " and is_deleted=false";
+            sql += " and is_deleted=0";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -195,7 +195,7 @@ public class SanctionManager
             sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
             sql += " and type_id=" + SanctionBean.MUTE;
             sql += " and expiration_date>now()";
-            sql += " and is_deleted=false";
+            sql += " and is_deleted=0";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -432,7 +432,7 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "update sanctions set is_deleted=" + status +" where sanction_id=" + sanctionId;
+            sql += "update sanctions set is_deleted=" + ((status)?"1":"0") +" where sanction_id=" + sanctionId;
 
             // Execute the query
             statement.executeUpdate(sql);
