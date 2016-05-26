@@ -88,9 +88,9 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "update sanctions set is_deleted=1 where type_id=";
+            sql += "update sanctions set is_deleted=1, update_date = now() where type_id=";
             sql += sanctionType + " and player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
-            sql += " where is_deleted=0 order by creation_date desc limit 1";
+            sql += " and is_deleted=0 order by creation_date desc limit 1";
 
             // Execute the query
             statement.executeUpdate(sql);
