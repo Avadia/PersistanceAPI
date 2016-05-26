@@ -432,7 +432,7 @@ public class SanctionManager
 
             // Query construction
             String sql = "";
-            sql += "update sanctions set is_deleted=" + ((status)?"1":"0") +" where sanction_id=" + sanctionId;
+            sql += "update sanctions set is_deleted=" + ((status)?"1":"0") +", update_date = now() where sanction_id=" + sanctionId;
 
             // Execute the query
             statement.executeUpdate(sql);
