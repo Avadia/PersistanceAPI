@@ -57,7 +57,7 @@ public class SanctionManager
             sql += ", '" + sanction.getReason() + "'";
             sql += ", UNHEX('" + Transcoder.Encode(sanction.getPunisherUuid().toString()) +"')";
             sql += ", '" + expirationData + "'";
-            sql += ", false";
+            sql += ", 0";
             sql += ", now()";
             sql += ", now())";
 
