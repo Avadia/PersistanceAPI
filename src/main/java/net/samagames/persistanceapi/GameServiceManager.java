@@ -573,21 +573,21 @@ public class GameServiceManager
     ============================================*/
 
     // Get a random nickname
-    public NicknameBean getRandomNickname() throws Exception
+    public synchronized NicknameBean getRandomNickname() throws Exception
     {
         // Get the nickname
         return this.nicknameManager.getRandomNickname(this.databaseManager.getDataSource());
     }
 
     // Check if a nickname is blacklisted
-    public boolean isNicknameBlacklisted(String nickname) throws Exception
+    public synchronized boolean isNicknameBlacklisted(String nickname) throws Exception
     {
         // Check the blacklist
         return this.nicknameManager.isNicknameBlacklisted(nickname, this.databaseManager.getDataSource());
     }
 
     // Free a nickname
-    public void freeNickname(String nickname) throws Exception
+    public synchronized void freeNickname(String nickname) throws Exception
     {
         // Free
         this.nicknameManager.freeNickname(nickname, this.databaseManager.getDataSource());
