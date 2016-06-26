@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 15 Mai 2016 à 00:41
+-- Généré le :  Dim 26 Juin 2016 à 19:05
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -11,11 +11,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Base de données :  `samagamesv3`
+-- Base de données :  `samagamesV3`
 --
-
-CREATE DATABASE samagamesV3;
-USE samagamesV3;
+CREATE DATABASE IF NOT EXISTS `samagamesV3` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `samagamesV3`;
 
 -- --------------------------------------------------------
 
@@ -23,6 +22,7 @@ USE samagamesV3;
 -- Structure de la table `api_permissions`
 --
 
+DROP TABLE IF EXISTS `api_permissions`;
 CREATE TABLE `api_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `api_servers_debug` bit(1) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `api_permissions` (
   `api_stars_withdraw` bit(1) NOT NULL,
   `api_game_start` bit(1) NOT NULL,
   `api_chat_bypass` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `api_permissions`
@@ -73,6 +73,7 @@ INSERT INTO `api_permissions` (`groups_id`, `api_servers_debug`, `api_permission
 -- Structure de la table `bukkit_permissions`
 --
 
+DROP TABLE IF EXISTS `bukkit_permissions`;
 CREATE TABLE `bukkit_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `minecraft_command_op` bit(1) NOT NULL,
@@ -81,7 +82,7 @@ CREATE TABLE `bukkit_permissions` (
   `bukkit_command_effect` bit(1) NOT NULL,
   `bukkit_command_gamemode` bit(1) NOT NULL,
   `bukkit_command_teleport` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `bukkit_permissions`
@@ -114,6 +115,7 @@ INSERT INTO `bukkit_permissions` (`groups_id`, `minecraft_command_op`, `bukkit_c
 -- Structure de la table `bungee_redis_permissions`
 --
 
+DROP TABLE IF EXISTS `bungee_redis_permissions`;
 CREATE TABLE `bungee_redis_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `bungeecord_command_list` bit(1) NOT NULL,
@@ -129,7 +131,7 @@ CREATE TABLE `bungee_redis_permissions` (
   `bungeecord_command_send` bit(1) NOT NULL,
   `bungeecord_command_end` bit(1) NOT NULL,
   `bungeecord_command_alert` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `bungee_redis_permissions`
@@ -162,6 +164,7 @@ INSERT INTO `bungee_redis_permissions` (`groups_id`, `bungeecord_command_list`, 
 -- Structure de la table `configuration`
 --
 
+DROP TABLE IF EXISTS `configuration`;
 CREATE TABLE `configuration` (
   `slots` int(11) NOT NULL,
   `motd` varchar(255) COLLATE utf8_roman_ci NOT NULL,
@@ -183,6 +186,7 @@ INSERT INTO `configuration` (`slots`, `motd`, `close_type`, `server_line`, `max_
 -- Structure de la table `denunciations`
 --
 
+DROP TABLE IF EXISTS `denunciations`;
 CREATE TABLE `denunciations` (
   `denouncement_id` int(11) NOT NULL,
   `denouncer` binary(16) NOT NULL,
@@ -197,6 +201,7 @@ CREATE TABLE `denunciations` (
 -- Structure de la table `dimensions_stats`
 --
 
+DROP TABLE IF EXISTS `dimensions_stats`;
 CREATE TABLE `dimensions_stats` (
   `uuid` binary(16) NOT NULL,
   `deaths` int(11) NOT NULL,
@@ -214,6 +219,7 @@ CREATE TABLE `dimensions_stats` (
 -- Structure de la table `friendship`
 --
 
+DROP TABLE IF EXISTS `friendship`;
 CREATE TABLE `friendship` (
   `friendship_id` bigint(20) NOT NULL,
   `requester_uuid` binary(16) NOT NULL,
@@ -229,6 +235,7 @@ CREATE TABLE `friendship` (
 -- Structure de la table `game_category`
 --
 
+DROP TABLE IF EXISTS `game_category`;
 CREATE TABLE `game_category` (
   `category_id` tinyint(4) NOT NULL,
   `name` tinytext
@@ -252,6 +259,7 @@ INSERT INTO `game_category` (`category_id`, `name`) VALUES
 -- Structure de la table `groups`
 --
 
+DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
   `group_id` tinyint(4) NOT NULL,
   `group_name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
@@ -260,7 +268,7 @@ CREATE TABLE `groups` (
   `prefix` varchar(255) COLLATE utf8_roman_ci NOT NULL,
   `suffix` varchar(255) COLLATE utf8_roman_ci NOT NULL,
   `multiplier` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `groups`
@@ -293,6 +301,7 @@ INSERT INTO `groups` (`group_id`, `group_name`, `rank`, `tag`, `prefix`, `suffix
 -- Structure de la table `herobattle_stats`
 --
 
+DROP TABLE IF EXISTS `herobattle_stats`;
 CREATE TABLE `herobattle_stats` (
   `uuid` binary(16) NOT NULL,
   `deaths` int(11) NOT NULL,
@@ -309,9 +318,25 @@ CREATE TABLE `herobattle_stats` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `host_stats`
+--
+
+DROP TABLE IF EXISTS `host_stats`;
+CREATE TABLE `host_stats` (
+  `id` double NOT NULL,
+  `host_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_roman_ci NOT NULL,
+  `ip_address` varchar(15) CHARACTER SET utf8 COLLATE utf8_roman_ci NOT NULL,
+  `player_uuid` binary(16) NOT NULL,
+  `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `hub_permissions`
 --
 
+DROP TABLE IF EXISTS `hub_permissions`;
 CREATE TABLE `hub_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `hub_jukebox_lock` bit(1) NOT NULL,
@@ -334,7 +359,7 @@ CREATE TABLE `hub_permissions` (
   `hub_debug_sign` bit(1) NOT NULL,
   `hub_sign_selection` bit(1) NOT NULL,
   `hub_beta_vip` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `hub_permissions`
@@ -367,6 +392,7 @@ INSERT INTO `hub_permissions` (`groups_id`, `hub_jukebox_lock`, `hub_jukebox_nex
 -- Structure de la table `item_description`
 --
 
+DROP TABLE IF EXISTS `item_description`;
 CREATE TABLE `item_description` (
   `item_id` int(11) NOT NULL,
   `item_name` tinytext,
@@ -385,6 +411,7 @@ CREATE TABLE `item_description` (
 -- Structure de la table `jukebox_stats`
 --
 
+DROP TABLE IF EXISTS `jukebox_stats`;
 CREATE TABLE `jukebox_stats` (
   `uuid` binary(16) NOT NULL,
   `mehs` int(11) NOT NULL,
@@ -400,6 +427,7 @@ CREATE TABLE `jukebox_stats` (
 -- Structure de la table `moderation_permissions`
 --
 
+DROP TABLE IF EXISTS `moderation_permissions`;
 CREATE TABLE `moderation_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `mod_ban` bit(1) NOT NULL,
@@ -411,7 +439,7 @@ CREATE TABLE `moderation_permissions` (
   `mod_channel` bit(1) NOT NULL,
   `mod_channel_report` bit(1) NOT NULL,
   `mod_quiet` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `moderation_permissions`
@@ -444,12 +472,13 @@ INSERT INTO `moderation_permissions` (`groups_id`, `mod_ban`, `mod_tp`, `mod_kic
 -- Structure de la table `nickname`
 --
 
+DROP TABLE IF EXISTS `nickname`;
 CREATE TABLE `nickname` (
   `nick_id` int(11) NOT NULL,
   `nickname` varchar(16) CHARACTER SET utf8 COLLATE utf8_roman_ci NOT NULL,
   `blacklisted` bit(1) NOT NULL,
   `used` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=843 DEFAULT CHARSET=utf32 COLLATE=utf32_roman_ci;
 
 --
 -- Contenu de la table `nickname`
@@ -1305,6 +1334,7 @@ INSERT INTO `nickname` (`nick_id`, `nickname`, `blacklisted`, `used`) VALUES
 -- Structure de la table `players`
 --
 
+DROP TABLE IF EXISTS `players`;
 CREATE TABLE `players` (
   `uuid` binary(16) NOT NULL,
   `name` varchar(255) COLLATE utf8_roman_ci NOT NULL,
@@ -1324,6 +1354,7 @@ CREATE TABLE `players` (
 -- Structure de la table `player_settings`
 --
 
+DROP TABLE IF EXISTS `player_settings`;
 CREATE TABLE `player_settings` (
   `uuid` binary(16) NOT NULL,
   `jukebox_listen` bit(1) NOT NULL,
@@ -1349,6 +1380,7 @@ CREATE TABLE `player_settings` (
 -- Structure de la table `promotions`
 --
 
+DROP TABLE IF EXISTS `promotions`;
 CREATE TABLE `promotions` (
   `promotion_id` bigint(20) NOT NULL,
   `type_id` tinyint(4) NOT NULL,
@@ -1365,6 +1397,7 @@ CREATE TABLE `promotions` (
 -- Structure de la table `promotions_ref`
 --
 
+DROP TABLE IF EXISTS `promotions_ref`;
 CREATE TABLE `promotions_ref` (
   `type_id` tinyint(4) NOT NULL,
   `text` varchar(255) COLLATE utf8_roman_ci NOT NULL
@@ -1384,6 +1417,7 @@ INSERT INTO `promotions_ref` (`type_id`, `text`) VALUES
 -- Structure de la table `proxies_permissions`
 --
 
+DROP TABLE IF EXISTS `proxies_permissions`;
 CREATE TABLE `proxies_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `proxies_dispatch` bit(1) NOT NULL,
@@ -1424,6 +1458,7 @@ INSERT INTO `proxies_permissions` (`groups_id`, `proxies_dispatch`, `proxies_glo
 -- Structure de la table `quake_stats`
 --
 
+DROP TABLE IF EXISTS `quake_stats`;
 CREATE TABLE `quake_stats` (
   `uuid` binary(16) NOT NULL,
   `deaths` int(11) NOT NULL,
@@ -1441,6 +1476,7 @@ CREATE TABLE `quake_stats` (
 -- Structure de la table `sanctions`
 --
 
+DROP TABLE IF EXISTS `sanctions`;
 CREATE TABLE `sanctions` (
   `sanction_id` bigint(20) NOT NULL,
   `player_uuid` binary(16) NOT NULL,
@@ -1459,6 +1495,7 @@ CREATE TABLE `sanctions` (
 -- Structure de la table `sanctions_ref`
 --
 
+DROP TABLE IF EXISTS `sanctions_ref`;
 CREATE TABLE `sanctions_ref` (
   `type_id` tinyint(4) NOT NULL,
   `text` varchar(255) COLLATE utf8_roman_ci NOT NULL
@@ -1481,6 +1518,7 @@ INSERT INTO `sanctions_ref` (`type_id`, `text`) VALUES
 -- Structure de la table `staff_permissions`
 --
 
+DROP TABLE IF EXISTS `staff_permissions`;
 CREATE TABLE `staff_permissions` (
   `groups_id` tinyint(4) NOT NULL,
   `netjoin_closed` bit(1) NOT NULL,
@@ -1491,7 +1529,7 @@ CREATE TABLE `staff_permissions` (
   `network_vip_plus` bit(1) NOT NULL,
   `network_staff` bit(1) NOT NULL,
   `network_admin` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
 -- Contenu de la table `staff_permissions`
@@ -1524,6 +1562,7 @@ INSERT INTO `staff_permissions` (`groups_id`, `netjoin_closed`, `netjoin_vip`, `
 -- Structure de la table `transaction_shop`
 --
 
+DROP TABLE IF EXISTS `transaction_shop`;
 CREATE TABLE `transaction_shop` (
   `transaction_id` bigint(20) NOT NULL,
   `item_id` int(11) DEFAULT NULL,
@@ -1540,6 +1579,7 @@ CREATE TABLE `transaction_shop` (
 -- Structure de la table `uhcrun_stats`
 --
 
+DROP TABLE IF EXISTS `uhcrun_stats`;
 CREATE TABLE `uhcrun_stats` (
   `uuid` binary(16) NOT NULL,
   `damages` int(11) NOT NULL,
@@ -1559,6 +1599,7 @@ CREATE TABLE `uhcrun_stats` (
 -- Structure de la table `uppervoid_stats`
 --
 
+DROP TABLE IF EXISTS `uppervoid_stats`;
 CREATE TABLE `uppervoid_stats` (
   `uuid` binary(16) NOT NULL,
   `blocks` int(11) NOT NULL,
@@ -1632,6 +1673,14 @@ ADD PRIMARY KEY (`group_id`);
 --
 ALTER TABLE `herobattle_stats`
 ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `host_stats`
+--
+ALTER TABLE `host_stats`
+ADD PRIMARY KEY (`id`),
+ADD KEY `Player_Uuid` (`player_uuid`),
+ADD KEY `Ip_Adress` (`ip_address`);
 
 --
 -- Index pour la table `hub_permissions`
@@ -1745,17 +1794,17 @@ ADD PRIMARY KEY (`uuid`);
 -- AUTO_INCREMENT pour la table `api_permissions`
 --
 ALTER TABLE `api_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `bukkit_permissions`
 --
 ALTER TABLE `bukkit_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `bungee_redis_permissions`
 --
 ALTER TABLE `bungee_redis_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `denunciations`
 --
@@ -1770,22 +1819,27 @@ MODIFY `friendship_id` bigint(20) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `groups`
 --
 ALTER TABLE `groups`
-MODIFY `group_id` tinyint(4) NOT NULL AUTO_INCREMENT;
+MODIFY `group_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT pour la table `host_stats`
+--
+ALTER TABLE `host_stats`
+MODIFY `id` double NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `hub_permissions`
 --
 ALTER TABLE `hub_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `moderation_permissions`
 --
 ALTER TABLE `moderation_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `nickname`
 --
 ALTER TABLE `nickname`
-MODIFY `nick_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `nick_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=843;
 --
 -- AUTO_INCREMENT pour la table `promotions`
 --
@@ -1800,12 +1854,9 @@ MODIFY `sanction_id` bigint(20) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `staff_permissions`
 --
 ALTER TABLE `staff_permissions`
-MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT;
+MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `transaction_shop`
 --
 ALTER TABLE `transaction_shop`
 MODIFY `transaction_id` bigint(20) NOT NULL AUTO_INCREMENT;
-
-
-
