@@ -44,6 +44,7 @@ public class GameServiceManager
     private TransactionManager transactionManager;
     private ItemManager itemManager;
     private NicknameManager nicknameManager;
+    private HostManager hostManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -63,6 +64,7 @@ public class GameServiceManager
         this.transactionManager = new TransactionManager();
         this.itemManager = new ItemManager();
         this.nicknameManager = new NicknameManager();
+        this.hostManager = new HostManager();
     }
 
 
@@ -594,4 +596,14 @@ public class GameServiceManager
     }
 
 
+    /*============================================
+      Part of host statistic manager
+    ============================================*/
+
+    // Creat a statistic host record
+    public synchronized void CreateHostRecord(HostStatisticsBean hostStatisticsBean) throws Exception
+    {
+        // Create record
+        this.hostManager.CreateHostRecord(hostStatisticsBean, this.databaseManager.getDataSource());
+    }
 }
