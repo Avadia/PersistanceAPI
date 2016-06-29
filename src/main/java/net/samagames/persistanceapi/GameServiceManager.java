@@ -226,7 +226,7 @@ public class GameServiceManager
     public synchronized UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
-        return this.statisticsManager.upperVoidStatsManager.getUpperVoidStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.upperVoidStatsManager.getUppervoidStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get all player statistics
@@ -282,7 +282,7 @@ public class GameServiceManager
     public synchronized void updateUpperVoidStatistics(PlayerBean player, UppervoidStatisticsBean upperVoidStats) throws Exception
     {
         // Update statistics
-        this.statisticsManager.upperVoidStatsManager.updateUpperVoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
+        this.statisticsManager.upperVoidStatsManager.updateUppervoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
     }
 
     // Get the dimensions leaderboard

@@ -35,7 +35,7 @@ public class UpperVoidStatisticsManager
     UppervoidStatisticsBean uppervoidStats = null;
 
     // Get UpperVoid player statistics
-    public UppervoidStatisticsBean getUpperVoidStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    public UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -72,9 +72,9 @@ public class UpperVoidStatisticsManager
             {
                 // If there no HeroBattle stats int the database create empty one
                 this.close();
-                this.createEmptyUpperVoidStatistics(player, dataSource);
+                this.createEmptyUppervoidStatistics(player, dataSource);
                 this.close();
-                UppervoidStatisticsBean newUppervoidStats = this.getUpperVoidStatistics(player,dataSource);
+                UppervoidStatisticsBean newUppervoidStats = this.getUppervoidStatistics(player,dataSource);
                 this.close();
                 return newUppervoidStats;
             }
@@ -93,7 +93,7 @@ public class UpperVoidStatisticsManager
     }
 
     // Create an empty upperVoid statistics
-    private void createEmptyUpperVoidStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    private void createEmptyUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -132,15 +132,15 @@ public class UpperVoidStatisticsManager
     }
 
     // Update UpperVoid player statistics
-    public void updateUpperVoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats, DataSource dataSource) throws Exception
+    public void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats, DataSource dataSource) throws Exception
     {
         try
         {
             // Check if a record exists
-            if (this.getUpperVoidStatistics(player, dataSource) == null)
+            if (this.getUppervoidStatistics(player, dataSource) == null)
             {
                 // Create an empty uppervoid statistics
-                this.createEmptyUpperVoidStatistics(player, dataSource);
+                this.createEmptyUppervoidStatistics(player, dataSource);
             }
             else
             {

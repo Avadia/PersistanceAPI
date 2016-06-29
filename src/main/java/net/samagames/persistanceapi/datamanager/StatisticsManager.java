@@ -62,7 +62,7 @@ public class StatisticsManager
             jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
             quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
             uhcRunStatcs = this.uhcRunStatsManager.getUHCRunStatistics(player, dataSource);
-            upperVoidStats = this.upperVoidStatsManager.getUpperVoidStatistics(player, dataSource);
+            upperVoidStats = this.upperVoidStatsManager.getUppervoidStatistics(player, dataSource);
         }
         catch (Exception exception)
         {
@@ -86,7 +86,7 @@ public class StatisticsManager
             this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
             this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
             this.uhcRunStatsManager.updateUHCRunStatistics(player, datas.getUhcRunStats(), dataSource);
-            this.upperVoidStatsManager.updateUpperVoidStatistics(player, datas.getUppervoidStats(), dataSource);
+            this.upperVoidStatsManager.updateUppervoidStatistics(player, datas.getUppervoidStats(), dataSource);
         }
         catch (Exception exception)
         {
