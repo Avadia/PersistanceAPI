@@ -227,7 +227,7 @@ public class Test
 
             // Read UpperVoid statistics test
             startTime = System.currentTimeMillis();
-            manager.getUpperVoidStatistics(otherPlayer);
+            manager.getUppervoidStatistics(otherPlayer);
             System.out.println("Read UpperVoid statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // All statistics read for player test
@@ -530,7 +530,7 @@ public class Test
 
             // Create a default uppervoid statistics test
             startTime = System.currentTimeMillis();
-            manager.getUpperVoidStatistics(player_4);
+            manager.getUppervoidStatistics(player_4);
             System.out.println("Create a default uppervoid statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create a transaction

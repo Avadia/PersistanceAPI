@@ -223,7 +223,7 @@ public class GameServiceManager
     }
 
     // Get UpperVoid player statistics
-    public synchronized UppervoidStatisticsBean getUpperVoidStatistics(PlayerBean player) throws Exception
+    public synchronized UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
         return this.statisticsManager.upperVoidStatsManager.getUpperVoidStatistics(player, this.databaseManager.getDataSource());
