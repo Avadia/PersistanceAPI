@@ -279,7 +279,7 @@ public class GameServiceManager
     }
 
     // Update UpperVoid statistics
-    public synchronized void updateUpperVoidStatistics(PlayerBean player, UppervoidStatisticsBean upperVoidStats) throws Exception
+    public synchronized void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean upperVoidStats) throws Exception
     {
         // Update statistics
         this.statisticsManager.upperVoidStatsManager.updateUppervoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());

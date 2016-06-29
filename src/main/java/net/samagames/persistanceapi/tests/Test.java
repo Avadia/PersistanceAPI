@@ -216,7 +216,7 @@ public class Test
             // Create UpperVoid statistics test
             upperVoidStats = new UppervoidStatisticsBean(uuid, 40, 60, 5, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6000);
             startTime = System.currentTimeMillis();
-            manager.updateUpperVoidStatistics(otherPlayer, upperVoidStats);
+            manager.updateUppervoidStatistics(otherPlayer, upperVoidStats);
             System.out.println("Create UpperVoid statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Update UpperVoid statistics test
@@ -473,13 +473,13 @@ public class Test
             // Get uppervoid leaderboard
             uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
             upperVoidStats = new UppervoidStatisticsBean(uuid, 40, 60, 5, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6000);
-            manager.updateUpperVoidStatistics(player_2, upperVoidStats);
+            manager.updateUppervoidStatistics(player_2, upperVoidStats);
             uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
             upperVoidStats = new UppervoidStatisticsBean(uuid, 40, 60, 6, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6000);
-            manager.updateUpperVoidStatistics(player_3, upperVoidStats);
+            manager.updateUppervoidStatistics(player_3, upperVoidStats);
             uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
             upperVoidStats = new UppervoidStatisticsBean(uuid, 50, 60, 4, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6000);
-            manager.updateUpperVoidStatistics(player, upperVoidStats);
+            manager.updateUppervoidStatistics(player, upperVoidStats);
             startTime = System.currentTimeMillis();
             manager.getUpperVoidLeaderBoard("kills");
             System.out.println("Get uppervoid leaderboard process time: " + (System.currentTimeMillis() - startTime) + " ms");
