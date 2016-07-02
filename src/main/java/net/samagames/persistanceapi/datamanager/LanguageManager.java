@@ -139,7 +139,7 @@ public class LanguageManager
 
             // Query construction
             String sql = "";
-            sql += "select sentence_id, language_id, game_category, sentence_text";
+            sql += "select sentence_id, language_id, project_id, sentence_text";
             sql += " from languages_sentences";
 
             // Execute the query
@@ -151,10 +151,10 @@ public class LanguageManager
                 // There's a result
                 int sentenceId = resultset.getInt("sentence_id");
                 int languageId = resultset.getInt("language_id");
-                int gameCategory = resultset.getInt("game_category");
+                int projectId = resultset.getInt("project_id");
                 String sentenceText = resultset.getString("sentence_text");
 
-                sentenceBeens.add(new SentenceBean(sentenceId, languageId, gameCategory, sentenceText));
+                sentenceBeens.add(new SentenceBean(sentenceId, languageId, projectId, sentenceText));
             }
 
             return sentenceBeens;
@@ -185,7 +185,7 @@ public class LanguageManager
 
             // Query construction
             String sql = "";
-            sql += "select sentence_id, game_category, sentence_text";
+            sql += "select sentence_id, project_id, sentence_text";
             sql += " from languages_sentences where language_id = " + languageBean.getLanguageId();
 
             // Execute the query
@@ -196,10 +196,10 @@ public class LanguageManager
             {
                 // There's a result
                 int sentenceId = resultset.getInt("sentence_id");
-                int gameCategory = resultset.getInt("game_category");
+                int projectId = resultset.getInt("project_id");
                 String sentenceText = resultset.getString("sentence_text");
 
-                sentenceBeens.add(new SentenceBean(sentenceId, languageBean.getLanguageId(), gameCategory, sentenceText));
+                sentenceBeens.add(new SentenceBean(sentenceId, languageBean.getLanguageId(), projectId, sentenceText));
             }
 
             return sentenceBeens;
@@ -217,7 +217,7 @@ public class LanguageManager
     }
 
     // Get the sentences available for the internationalization of the provided game
-    public List<SentenceBean> getGameSentences(int gameCategory, DataSource dataSource) throws Exception
+    public List<SentenceBean> getGameSentences(int projectId, DataSource dataSource) throws Exception
     {
         // Defines
         List<SentenceBean> sentenceBeens = new ArrayList<>();
@@ -231,7 +231,7 @@ public class LanguageManager
             // Query construction
             String sql = "";
             sql += "select sentence_id, language_id, sentence_text";
-            sql += " from languages_sentences where game_category = " + gameCategory;
+            sql += " from languages_sentences where project_id = " + projectId;
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -244,7 +244,7 @@ public class LanguageManager
                 int languageId = resultset.getInt("language_id");
                 String sentenceText = resultset.getString("sentence_text");
 
-                sentenceBeens.add(new SentenceBean(sentenceId, languageId, gameCategory, sentenceText));
+                sentenceBeens.add(new SentenceBean(sentenceId, languageId, projectId, sentenceText));
             }
 
             return sentenceBeens;

@@ -27,7 +27,7 @@ public class SentenceBean
     +-------------------+--------------+------+-----+--------------+-------+
     | sentence_id       | int(11)      | NO   | PRI | NULL         |       |
     | language_id       | int(11)      | NO   |     | NULL         |       |
-    | game_category     | tinyint(4)   | NO   |     | NULL         |       |
+    | project_id        | tinyint(4)   | NO   |     | NULL         |       |
     | sentence_text     | varchar(255) | NO   |     | Non définie  |       |
     +-------------------+--------------+------+-----+--------------+-------+
     */
@@ -35,23 +35,23 @@ public class SentenceBean
     // Defines
     private int sentenceId;
     private int languageId;
-    private int gameCategory;
+    private int projectId;
     private String sentenceText;
 
     // Constructor
-    @ConstructorProperties({"sentenceId", "languageId", "gameCategory", "sentenceText"})
-    public SentenceBean(int sentenceId, int languageId, int gameCategory, String sentenceText)
+    @ConstructorProperties({"sentenceId", "languageId", "projectId", "sentenceText"})
+    public SentenceBean(int sentenceId, int languageId, int projectId, String sentenceText)
     {
         this.sentenceId = sentenceId;
         this.languageId = languageId;
-        this.gameCategory = gameCategory;
+        this.projectId = projectId;
         this.sentenceText = sentenceText;
     }
 
     // Getters
     public int getSentenceId() { return this.sentenceId; }
     public int getLanguageId() { return this.languageId; }
-    public int getGameCategory() { return this.gameCategory; }
+    public int getProjectId() { return this.projectId; }
     public String getSentenceText() { return this.sentenceText; }
 
     // Setters
@@ -60,6 +60,6 @@ public class SentenceBean
         this.sentenceId = sentenceId;
     }
     public void setLanguageId(int languageId) { this.languageId = languageId; }
-    public void setGameCategory(int gameCategory) { this.gameCategory = gameCategory; }
+    public void setProjectId(int projectId) { this.projectId = projectId; }
     public void setSentenceText(String sentenceText) { this.sentenceText = sentenceText; }
 }

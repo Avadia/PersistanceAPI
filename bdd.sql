@@ -1644,7 +1644,7 @@ DROP TABLE IF EXISTS `languages_sentences`;
 CREATE TABLE `languages_sentences` (
   `sentence_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `game_category` tinyint(4) NOT NULL,
+  `project_id` tinyint(4) NOT NULL,
   `sentence_text` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
