@@ -36,6 +36,7 @@ public class PlayerBean
     | last_ip     | varchar(15)  | YES  |     | NULL                |       |
     | toptp_key   | varchar(32)  | YES  |     | NULL                |       |
     | group_id    | bigint(20)   | NO   |     | NULL                |       |
+    | language_id | int(11)      | NO   |     | 0                   |       |
     +-------------+--------------+------+-----+---------------------+-------+
     */
 
@@ -50,6 +51,7 @@ public class PlayerBean
     private String lastIP;
     private String toptpKey;
     private long groupId;
+    private int languageId;
     // Non persistent attributes
     private long startTime;
     private long stopTime;
@@ -61,7 +63,7 @@ public class PlayerBean
     }
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
+    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId, int languageId)
     {
         this.uuid = uuid;
         this.name = name;
@@ -73,6 +75,7 @@ public class PlayerBean
         this.lastIP = lastIP;
         this.toptpKey = toptpKey;
         this.groupId = groupId;
+        this.languageId = languageId;
     }
 
     // Getters
@@ -98,6 +101,7 @@ public class PlayerBean
     public String getLastIP() { return this.lastIP; }
     public String getToptpKey() { return this.toptpKey; }
     public long getGroupId() { return this.groupId; }
+    public int getLanguageId() { return this.languageId; }
 
     // Setters
     public void setUuid(UUID uuid)
@@ -128,6 +132,7 @@ public class PlayerBean
     public void setLastIP(String lastIP) { this.lastIP = lastIP; }
     public void setToptpKey(String toptpKey) { this.toptpKey = toptpKey; }
     public void setGroupId(long groupId) { this.groupId = groupId; }
+    public void setLanguageId(int languageId) { this.languageId = languageId; }
 
     // Get played time
     public long getPlayedTime()
