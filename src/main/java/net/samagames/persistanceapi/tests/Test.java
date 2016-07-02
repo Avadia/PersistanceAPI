@@ -85,7 +85,7 @@ public class Test
             // Create the player
             startTime = System.currentTimeMillis();
             player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", "the boss", 0, 0, new Timestamp(System.currentTimeMillis()),
-                    new Timestamp(System.currentTimeMillis()), "125.125.125.125", "TheUltimateKey", 1);
+                    new Timestamp(System.currentTimeMillis()), "125.125.125.125", "TheUltimateKey", 1, 1);
             manager.createPlayer(player);
             System.out.println("Create player process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -96,7 +96,7 @@ public class Test
 
             // Find player test and self create one
             startTime = System.currentTimeMillis();
-            PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), "player_1", "the looser", 0, 0, null, null, null, null, 1);
+            PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), "player_1", "the looser", 0, 0, null, null, null, null, 1, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), selfPlayer);
             System.out.println("Find and self create player process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -123,7 +123,7 @@ public class Test
 
             // Create dimensions statistics test
             uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
-            otherPlayer = new PlayerBean(uuid, "thegreatancien", "the killer", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "50.50.50.50", "AnotherKey", 1);
+            otherPlayer = new PlayerBean(uuid, "thegreatancien", "the killer", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "50.50.50.50", "AnotherKey", 1, 1);
             dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
             startTime = System.currentTimeMillis();
             manager.updateDimensionStatistics(otherPlayer, dimensionStats);
@@ -397,9 +397,9 @@ public class Test
             System.out.println("HashMap permissions setup process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get dimensions leaderboard
-            PlayerBean player_2 = new PlayerBean(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"), "player_2", "the 2", 0, 0, null, null, null, null, 1);
+            PlayerBean player_2 = new PlayerBean(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"), "player_2", "the 2", 0, 0, null, null, null, null, 1, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"), player_2);
-            PlayerBean player_3 = new PlayerBean(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), "player_3", "the 3", 0, 0, null, null, null, null, 1);
+            PlayerBean player_3 = new PlayerBean(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), "player_3", "the 3", 0, 0, null, null, null, null, 1, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), player_3);
             uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
             dimensionStats = new DimensionStatisticsBean(uuid, 10, 20, 30, 40, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
@@ -502,7 +502,7 @@ public class Test
             System.out.println("Update player settings process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create a default dimensions statistics test
-            PlayerBean player_4 = new PlayerBean(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), "player_4", "the 4", 0, 0, null, null, null, null, 1);
+            PlayerBean player_4 = new PlayerBean(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), "player_4", "the 4", 0, 0, null, null, null, null, 1, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), player_4);
             startTime = System.currentTimeMillis();
             manager.getDimensionStatistics(player_4);
