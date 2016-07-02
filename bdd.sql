@@ -1345,7 +1345,8 @@ CREATE TABLE `players` (
   `first_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_ip` varchar(15) COLLATE utf8_roman_ci DEFAULT NULL,
   `toptp_key` varchar(32) COLLATE utf8_roman_ci DEFAULT NULL,
-  `group_id` bigint(20) NOT NULL
+  `group_id` bigint(20) NOT NULL,
+  `language_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 -- --------------------------------------------------------
@@ -1822,6 +1823,19 @@ ADD PRIMARY KEY (`uuid`);
 --
 ALTER TABLE `uppervoid_stats`
 ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `groups`
+--
+ALTER TABLE `languages`
+ADD PRIMARY KEY (`language_id`);
+
+--
+-- Index pour la table `groups`
+--
+ALTER TABLE `languages_sentences`
+ADD PRIMARY KEY (`sentence_id`);
+
 
 --
 -- AUTO_INCREMENT pour les tables exportées
