@@ -1825,16 +1825,16 @@ ALTER TABLE `uppervoid_stats`
 ADD PRIMARY KEY (`uuid`);
 
 --
--- Index pour la table `groups`
+-- Index pour la table `languages`
 --
 ALTER TABLE `languages`
 ADD PRIMARY KEY (`language_id`);
 
 --
--- Index pour la table `groups`
+-- Index pour la table `languages_sentences`
 --
 ALTER TABLE `languages_sentences`
-ADD PRIMARY KEY (`sentence_id`);
+ADD PRIMARY KEY (`sentence_text`);
 
 
 --

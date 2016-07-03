@@ -25,10 +25,10 @@ public class SentenceBean
     +-------------------+--------------+------+-----+--------------+-------+
     | Field             | Type         | Null | Key | Default      | Extra |
     +-------------------+--------------+------+-----+--------------+-------+
-    | sentence_id       | int(11)      | NO   | PRI | NULL         |       |
+    | sentence_id       | int(11)      | NO   |     | NULL         |       |
     | language_id       | int(11)      | NO   |     | NULL         |       |
     | project_id        | tinyint(4)   | NO   |     | NULL         |       |
-    | sentence_text     | varchar(255) | NO   |     | Non définie  |       |
+    | sentence_text     | varchar(255) | NO   | PRI | Non définie  |       |
     +-------------------+--------------+------+-----+--------------+-------+
     */
 
