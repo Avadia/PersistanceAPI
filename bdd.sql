@@ -1624,7 +1624,7 @@ DROP TABLE IF EXISTS `languages`;
 CREATE TABLE `languages` (
   `language_id` int(11) NOT NULL,
   `language_code` varchar(16) NOT NULL,
-  `language_name` varchar(255) NOT NULL
+  `languace_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
 --
