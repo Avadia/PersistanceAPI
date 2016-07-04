@@ -15,8 +15,6 @@
 
 package net.samagames.persistanceapi;
 
-import net.samagames.persistanceapi.beans.internationalization.LanguageBean;
-import net.samagames.persistanceapi.beans.internationalization.SentenceBean;
 import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.players.*;
 import net.samagames.persistanceapi.beans.shop.ItemDescriptionBean;
@@ -47,7 +45,6 @@ public class GameServiceManager
     private ItemManager itemManager;
     private NicknameManager nicknameManager;
     private HostManager hostManager;
-    private LanguageManager languageManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -68,7 +65,6 @@ public class GameServiceManager
         this.itemManager = new ItemManager();
         this.nicknameManager = new NicknameManager();
         this.hostManager = new HostManager();
-        this.languageManager = new LanguageManager();
     }
 
 
@@ -604,50 +600,10 @@ public class GameServiceManager
       Part of host statistic manager
     ============================================*/
 
-    // Create a statistic host record
-    public synchronized void createHostRecord(HostStatisticsBean hostStatisticsBean) throws Exception
+    // Creat a statistic host record
+    public synchronized void CreateHostRecord(HostStatisticsBean hostStatisticsBean) throws Exception
     {
         // Create record
         this.hostManager.CreateHostRecord(hostStatisticsBean, this.databaseManager.getDataSource());
-    }
-
-
-    /*============================================
-      Part of language manager
-    ============================================*/
-
-    // Get languages
-    public synchronized List<LanguageBean> getAllLanguages() throws Exception
-    {
-        // Get the languages
-        return this.languageManager.getAllLanguages(this.databaseManager.getDataSource());
-    }
-
-    // Get language by id
-    public synchronized LanguageBean getLanguage(int languageId) throws Exception
-    {
-        // Get the language
-        return this.languageManager.getLanguage(languageId, this.databaseManager.getDataSource());
-    }
-
-    // Get sentences
-    public synchronized List<SentenceBean> getAllSentences() throws Exception
-    {
-        // Get the sentences
-        return this.languageManager.getAllSentences(this.databaseManager.getDataSource());
-    }
-
-    // Get language sentences
-    public synchronized List<SentenceBean> getLanguageSentences(LanguageBean languageBean) throws Exception
-    {
-        // Get the sentences
-        return this.languageManager.getLanguageSentences(languageBean, this.databaseManager.getDataSource());
-    }
-
-    // Get game sentences
-    public synchronized List<SentenceBean> getGameSentences(int gameCategory) throws Exception
-    {
-        // Get the sentences
-        return this.languageManager.getGameSentences(gameCategory, this.databaseManager.getDataSource());
     }
 }

@@ -596,18 +596,8 @@ public class Test
             // Insert a host statistic
             HostStatisticsBean hostStatisticsBean = new HostStatisticsBean("the host", "127.0.0.1", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), 3500);
             startTime = System.currentTimeMillis();
-            manager.createHostRecord(hostStatisticsBean);
+            manager.CreateHostRecord(hostStatisticsBean);
             System.out.println("Host stat time: " + (System.currentTimeMillis() - startTime) + " ms");
-
-            // Get all languages
-            startTime = System.currentTimeMillis();
-            manager.getAllLanguages();
-            System.out.println("Get languages time: " + (System.currentTimeMillis() - startTime) + " ms");
-
-            // Get all sentences
-            startTime = System.currentTimeMillis();
-            manager.getAllSentences();
-            System.out.println("Get sentences time: " + (System.currentTimeMillis() - startTime) + " ms");
 
         }
         catch (Exception exception)
