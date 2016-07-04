@@ -42,7 +42,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id, language_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -61,8 +61,7 @@ public class PlayerManager
                 String lastIP = resultset.getString("last_ip");
                 String toptpKey = resultset.getString("toptp_key");
                 long groupId = resultset.getLong("group_id");
-                int languageId = resultset.getInt("language_id");
-                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, lastLogin, firsLogin, lastIP, toptpKey, groupId, languageId);
+                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, lastLogin, firsLogin, lastIP, toptpKey, groupId);
                 return player;
             }
             else
@@ -153,7 +152,6 @@ public class PlayerManager
             sql += ", last_ip='" + player.getLastIP() +"'";
             sql += ", toptp_key='" + player.getToptpKey() +"'";
             sql += ", group_id=" + player.getGroupId();
-            sql += ", language_id=" + player.getLanguageId();
             sql += ", nickname='" + player.getNickName() +"'";
             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
