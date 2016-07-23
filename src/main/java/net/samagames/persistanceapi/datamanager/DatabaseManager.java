@@ -78,7 +78,7 @@ public class DatabaseManager
     public DataSource getDataSource()
     {
         // Return the datasource
-        this.getSourcesStats(this.dataSource); // Fixme remove this trace
+        //this.getSourcesStats(this.dataSource); // Fixme remove this trace
         return this.dataSource;
     }
 
