@@ -111,21 +111,21 @@ public class PlayerSettingsManager
 
             // Query construction
             String sql = "";
-            sql += "update player_settings set jukebox_listen=" + settingsBeans.isJukeboxListen();
-            sql += ", group_demand_receive=" +  settingsBeans.isGroupDemandReceive();
-            sql += ", friendship_demand_receive=" + settingsBeans.isFriendshipDemandReceive();
-            sql += ", notification_receive=" + settingsBeans.isNotificationReceive();
-            sql += ", private_message_receive=" + settingsBeans.isPrivateMessageReceive();
-            sql += ", private_message_receive=" + settingsBeans.isChatVisible();
-            sql += ", chat_visible=" + settingsBeans.isPlayerVisible();
-            sql += ", player_visible=" + settingsBeans.isWaitingLineNotification();
-            sql += ", other_player_interaction=" + settingsBeans.isOtherPlayerInteraction();
-            sql += ", click_on_me_activation=" + settingsBeans.isClickOnMeActivation();
-            sql += ", allow_statistic_onclick=" + settingsBeans.isAllowStatisticOnClick();
-            sql += ", allow_coins_onclick=" + settingsBeans.isAllowCoinsOnClick();
-            sql += ", allow_stars_onclick=" + settingsBeans.isAllowStarsOnclick();
-            sql += ", allow_click_on_other=" + settingsBeans.isAllowClickOnOther();
-            sql += ", elytra_activated=" + settingsBeans.isElytraActivated();
+            sql += "update player_settings set jukebox_listen=0x" + settingsBeans.isJukeboxListen();
+            sql += ", group_demand_receive=0x" +  settingsBeans.isGroupDemandReceive();
+            sql += ", friendship_demand_receive=0x" + settingsBeans.isFriendshipDemandReceive();
+            sql += ", notification_receive=0x" + settingsBeans.isNotificationReceive();
+            sql += ", private_message_receive=0x" + settingsBeans.isPrivateMessageReceive();
+            sql += ", private_message_receive=0x" + settingsBeans.isChatVisible();
+            sql += ", chat_visible=0x" + settingsBeans.isPlayerVisible();
+            sql += ", player_visible=0x" + settingsBeans.isWaitingLineNotification();
+            sql += ", other_player_interaction=0x" + settingsBeans.isOtherPlayerInteraction();
+            sql += ", click_on_me_activation=0x" + settingsBeans.isClickOnMeActivation();
+            sql += ", allow_statistic_onclick=0x" + settingsBeans.isAllowStatisticOnClick();
+            sql += ", allow_coins_onclick=0x" + settingsBeans.isAllowCoinsOnClick();
+            sql += ", allow_stars_onclick=0x" + settingsBeans.isAllowStarsOnclick();
+            sql += ", allow_click_on_other=0x" + settingsBeans.isAllowClickOnOther();
+            sql += ", elytra_activated=0x" + settingsBeans.isElytraActivated();
              sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
 
             // Execute the query
