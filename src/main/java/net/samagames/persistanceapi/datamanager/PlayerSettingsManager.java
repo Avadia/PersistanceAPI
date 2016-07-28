@@ -116,9 +116,9 @@ public class PlayerSettingsManager
             sql += ", friendship_demand_receive=" + settingsBeans.isFriendshipDemandReceive();
             sql += ", notification_receive=" + settingsBeans.isNotificationReceive();
             sql += ", private_message_receive=" + settingsBeans.isPrivateMessageReceive();
-            sql += ", private_message_receive=" + settingsBeans.isChatVisible();
-            sql += ", chat_visible=" + settingsBeans.isPlayerVisible();
-            sql += ", player_visible=" + settingsBeans.isWaitingLineNotification();
+            sql += ", chat_visible=" + settingsBeans.isChatVisible();
+            sql += ", player_visible=" + settingsBeans.isPlayerVisible();
+            sql += ", waiting_line_notification=" + settingsBeans.isWaitingLineNotification();
             sql += ", other_player_interaction=" + settingsBeans.isOtherPlayerInteraction();
             sql += ", click_on_me_activation=" + settingsBeans.isClickOnMeActivation();
             sql += ", allow_statistic_onclick=" + settingsBeans.isAllowStatisticOnClick();
