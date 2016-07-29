@@ -1576,6 +1576,25 @@ CREATE TABLE `transaction_shop` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `uhc_stats`
+--
+
+CREATE TABLE `uhc_stats` (
+  `uuid` binary(16) NOT NULL,
+  `damages` int(11) NOT NULL,
+  `deaths` int(11) NOT NULL,
+  `kills` int(11) NOT NULL,
+  `max_damages` int(11) NOT NULL,
+  `played_games` int(11) NOT NULL,
+  `wins` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `uhcrun_stats`
 --
 
@@ -1588,6 +1607,84 @@ CREATE TABLE `uhcrun_stats` (
   `max_damages` int(11) NOT NULL,
   `played_games` int(11) NOT NULL,
   `wins` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `doublerunner_stats`
+--
+
+CREATE TABLE `doublerunner_stats` (
+  `uuid` binary(16) NOT NULL,
+  `damages` int(11) NOT NULL,
+  `deaths` int(11) NOT NULL,
+  `kills` int(11) NOT NULL,
+  `max_damages` int(11) NOT NULL,
+  `played_games` int(11) NOT NULL,
+  `wins` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `uhcrandom_stats`
+--
+
+CREATE TABLE `uhcrandom_stats` (
+  `uuid` binary(16) NOT NULL,
+  `damages` int(11) NOT NULL,
+  `deaths` int(11) NOT NULL,
+  `kills` int(11) NOT NULL,
+  `max_damages` int(11) NOT NULL,
+  `played_games` int(11) NOT NULL,
+  `wins` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `randomrun_stats`
+--
+
+CREATE TABLE `randomrun_stats` (
+  `uuid` binary(16) NOT NULL,
+  `damages` int(11) NOT NULL,
+  `deaths` int(11) NOT NULL,
+  `kills` int(11) NOT NULL,
+  `max_damages` int(11) NOT NULL,
+  `played_games` int(11) NOT NULL,
+  `wins` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ultraflagkeeper_stats`
+--
+
+CREATE TABLE `ultraflagkeeper_stats` (
+  `uuid` binary(16) NOT NULL,
+  `damages` int(11) NOT NULL,
+  `deaths` int(11) NOT NULL,
+  `kills` int(11) NOT NULL,
+  `max_damages` int(11) NOT NULL,
+  `played_games` int(11) NOT NULL,
+  `wins` int(11) NOT NULL,
+  `flags_captured` int(11) NOT NULL,
+  `flags_returned` int(11) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `played_time` bigint(20) NOT NULL
@@ -1775,10 +1872,40 @@ ADD PRIMARY KEY (`transaction_id`),
 ADD KEY `fk_shop_item_item_idx` (`item_id`);
 
 --
+-- Index pour la table `uhc_stats`
+--
+ALTER TABLE `uhc_stats`
+ADD PRIMARY KEY (`uuid`);
+
+--
 -- Index pour la table `uhcrun_stats`
 --
 ALTER TABLE `uhcrun_stats`
-ADD PRIMARY KEY (`uuid`);
+  ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `doublerunner_stats`
+--
+ALTER TABLE `doublerunner_stats`
+  ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `uhcrandom_stats`
+--
+ALTER TABLE `uhcrandom_stats`
+  ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `randomrun_stats`
+--
+ALTER TABLE `randomrun_stats`
+  ADD PRIMARY KEY (`uuid`);
+
+--
+-- Index pour la table `ultraflagkeeper_stats`
+--
+ALTER TABLE `ultraflagkeeper_stats`
+  ADD PRIMARY KEY (`uuid`);
 
 --
 -- Index pour la table `uppervoid_stats`

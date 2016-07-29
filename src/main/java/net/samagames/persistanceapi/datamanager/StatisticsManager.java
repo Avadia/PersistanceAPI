@@ -29,7 +29,12 @@ public class StatisticsManager
     public HeroBattleStatisticsManager heroBattleStatsManager;
     public JukeBoxStatisticsManager jukeBoxStatsManager;
     public QuakeStatisticsManager quakeStatsManager;
+    public UHCStatisticsManager uhcStatsManager;
     public UHCRunStatisticsManager uhcRunStatsManager;
+    public DoubleRunnerStatisticsManager doubleRunnerStatsManager;
+    public UHCRandomStatisticsManager uhcRandomStatsManager;
+    public RandomRunStatisticsManager randomRunStatsManager;
+    public UltraFlagKeeperStatisticsManager ultraFlagKeeperStatsManager;
     public UpperVoidStatisticsManager upperVoidStatsManager;
 
     // Constructor
@@ -39,7 +44,12 @@ public class StatisticsManager
         this.heroBattleStatsManager = new HeroBattleStatisticsManager();
         this.jukeBoxStatsManager = new JukeBoxStatisticsManager();
         this.quakeStatsManager = new QuakeStatisticsManager();
+        this.uhcStatsManager = new UHCStatisticsManager();
         this.uhcRunStatsManager = new UHCRunStatisticsManager();
+        this.doubleRunnerStatsManager = new DoubleRunnerStatisticsManager();
+        this.uhcRandomStatsManager = new UHCRandomStatisticsManager();
+        this.randomRunStatsManager = new RandomRunStatisticsManager();
+        this.ultraFlagKeeperStatsManager = new UltraFlagKeeperStatisticsManager();
         this.upperVoidStatsManager = new UpperVoidStatisticsManager();
     }
 
@@ -51,7 +61,12 @@ public class StatisticsManager
         HeroBattleStatisticsBean heroBattleStats;
         JukeBoxStatisticsBean jukeBoxStats;
         QuakeStatisticsBean quakeStats;
-        UHCRunStatisticsBean uhcRunStatcs;
+        UHCStatisticsBean uhcStats;
+        UHCRunStatisticsBean uhcRunStats;
+        DoubleRunnerStatisticsBean doubleRunnerStats;
+        UHCRandomStatisticsBean uhcRandomStats;
+        RandomRunStatisticsBean randomRunStats;
+        UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
         UppervoidStatisticsBean upperVoidStats;
 
         // Get the different statistics bean
@@ -61,7 +76,12 @@ public class StatisticsManager
             heroBattleStats = this.heroBattleStatsManager.getHeroBattleStatistics(player, dataSource);
             jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
             quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
-            uhcRunStatcs = this.uhcRunStatsManager.getUHCRunStatistics(player, dataSource);
+            uhcStats = this.uhcStatsManager.getUHCStatistics(player, dataSource);
+            uhcRunStats = this.uhcRunStatsManager.getUHCRunStatistics(player, dataSource);
+            doubleRunnerStats = this.doubleRunnerStatsManager.getDoubleRunnerStatistics(player, dataSource);
+            uhcRandomStats = this.uhcRandomStatsManager.getUHCRandomStatistics(player, dataSource);
+            randomRunStats = this.randomRunStatsManager.getRandomRunStatistics(player, dataSource);
+            ultraFlagKeeperStats = this.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, dataSource);
             upperVoidStats = this.upperVoidStatsManager.getUppervoidStatistics(player, dataSource);
         }
         catch (Exception exception)
@@ -71,7 +91,7 @@ public class StatisticsManager
         }
 
         // Create the aggregation of different statistics bean
-        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcRunStatcs, upperVoidStats);
+        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats);
         return playerStatisticsBean;
     }
 
@@ -81,11 +101,16 @@ public class StatisticsManager
         // Update the different statistics bean
         try
         {
-            this.dimensionStatsManager.updateDimensionStatistics(player, datas.getDimmensionStats(),dataSource);
+            this.dimensionStatsManager.updateDimensionStatistics(player, datas.getDimensionStats(),dataSource);
             this.heroBattleStatsManager.updateHeroBattleStatistics(player, datas.getHeroBatleStats(), dataSource);
             this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
             this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
-            this.uhcRunStatsManager.updateUHCRunStatistics(player, datas.getUhcRunStats(), dataSource);
+            this.uhcStatsManager.updateUHCStatistics(player, datas.getUHCStats(), dataSource);
+            this.uhcRunStatsManager.updateUHCRunStatistics(player, datas.getUHCRunStats(), dataSource);
+            this.doubleRunnerStatsManager.updateDoubleRunnerStatistics(player, datas.getDoubleRunnerStats(), dataSource);
+            this.uhcRandomStatsManager.updateUHCRandomStatistics(player, datas.getUHCRandomStats(), dataSource);
+            this.randomRunStatsManager.updateRandomRunStatistics(player, datas.getRandomRunStats(), dataSource);
+            this.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, datas.getUltraFlagKeeperStats(), dataSource);
             this.upperVoidStatsManager.updateUppervoidStatistics(player, datas.getUppervoidStats(), dataSource);
         }
         catch (Exception exception)

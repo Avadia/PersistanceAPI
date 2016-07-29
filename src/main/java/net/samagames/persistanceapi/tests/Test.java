@@ -40,7 +40,7 @@ public class Test
             cible = args[0];
             if (cible == null)
             {
-                    cible = "";
+                cible = "";
             }
 
             // Defines
@@ -53,7 +53,12 @@ public class Test
             HeroBattleStatisticsBean heroBattleStats;
             JukeBoxStatisticsBean jukeBoxStats;
             QuakeStatisticsBean quakeStats;
+            UHCStatisticsBean uhcStats;
             UHCRunStatisticsBean uhcRunStats;
+            DoubleRunnerStatisticsBean doubleRunnerStats;
+            UHCRandomStatisticsBean uhcRandomStats;
+            RandomRunStatisticsBean randomRunStats;
+            UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
             UppervoidStatisticsBean upperVoidStats;
             GameServiceManager manager;
 
@@ -195,6 +200,24 @@ public class Test
             manager.getQuakeStatistics(otherPlayer);
             System.out.println("Read quake statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
+            // Create UHC statistics test
+            uhcStats = new UHCStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
+            startTime = System.currentTimeMillis();
+            manager.updateUHCStatistics(otherPlayer, uhcStats);
+            System.out.println("Create UHC statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update UHC statistics test
+            uhcStats.setKills(1000);
+            uhcStats.setPlayedGames(42);
+            startTime = System.currentTimeMillis();
+            manager.updateUHCStatistics(otherPlayer, uhcStats);
+            System.out.println("Update UHC statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Read UHC statistics test
+            startTime = System.currentTimeMillis();
+            manager.getUHCStatistics(otherPlayer);
+            System.out.println("Read UHC statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
             // Create UHCRun statistics test
             uhcRunStats = new UHCRunStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
             startTime = System.currentTimeMillis();
@@ -212,6 +235,80 @@ public class Test
             startTime = System.currentTimeMillis();
             manager.getUHCRunStatistics(otherPlayer);
             System.out.println("Read UHCRun statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create DoubleRunner statistics test
+            doubleRunnerStats = new DoubleRunnerStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
+            startTime = System.currentTimeMillis();
+            manager.updateDoubleRunnerStatistics(otherPlayer, doubleRunnerStats);
+            System.out.println("Create DoubleRunner statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update DoubleRunner statistics test
+            doubleRunnerStats.setKills(1000);
+            doubleRunnerStats.setPlayedGames(42);
+            startTime = System.currentTimeMillis();
+            manager.updateDoubleRunnerStatistics(otherPlayer, doubleRunnerStats);
+            System.out.println("Update DoubleRunner statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Read DoubleRunner statistics test
+            startTime = System.currentTimeMillis();
+            manager.getDoubleRunnerStatistics(otherPlayer);
+            System.out.println("Read DoubleRunner statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create UHCRandom statistics test
+            uhcRandomStats = new UHCRandomStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
+            startTime = System.currentTimeMillis();
+            manager.updateUHCRandomStatistics(otherPlayer, uhcRandomStats);
+            System.out.println("Create UHCRandom statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update UHCRandom statistics test
+            uhcRandomStats.setKills(1000);
+            uhcRandomStats.setPlayedGames(42);
+            startTime = System.currentTimeMillis();
+            manager.updateUHCRandomStatistics(otherPlayer, uhcRandomStats);
+            System.out.println("Update UHCRandom statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Read UHCRandom statistics test
+            startTime = System.currentTimeMillis();
+            manager.getUHCRandomStatistics(otherPlayer);
+            System.out.println("Read UHCRandom statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create RandomRun statistics test
+            randomRunStats = new RandomRunStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
+            startTime = System.currentTimeMillis();
+            manager.updateRandomRunStatistics(otherPlayer, randomRunStats);
+            System.out.println("Create RandomRun statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update RandomRun statistics test
+            randomRunStats.setKills(1000);
+            randomRunStats.setPlayedGames(42);
+            startTime = System.currentTimeMillis();
+            manager.updateRandomRunStatistics(otherPlayer, randomRunStats);
+            System.out.println("Update RandomRun statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Read RandomRun statistics test
+            startTime = System.currentTimeMillis();
+            manager.getRandomRunStatistics(otherPlayer);
+            System.out.println("Read RandomRun statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create UltraFlagKeeper statistics test
+            ultraFlagKeeperStats = new UltraFlagKeeperStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, 5, 39, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
+            startTime = System.currentTimeMillis();
+            manager.updateUltraFlagKeeperStatistics(otherPlayer, ultraFlagKeeperStats);
+            System.out.println("Create UltraFlagKeeper statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update UltraFlagKeeper statistics test
+            ultraFlagKeeperStats.setKills(1000);
+            ultraFlagKeeperStats.setPlayedGames(42);
+            ultraFlagKeeperStats.setFlagsCaptured(10);
+            ultraFlagKeeperStats.setFlagsReturned(64);
+            startTime = System.currentTimeMillis();
+            manager.updateUltraFlagKeeperStatistics(otherPlayer, ultraFlagKeeperStats);
+            System.out.println("Update UltraFlagKeeper statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Read UltraFlagKeeper statistics test
+            startTime = System.currentTimeMillis();
+            manager.getUltraFlagKeeperStatistics(otherPlayer);
+            System.out.println("Read UltraFlagKeeper statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create UpperVoid statistics test
             upperVoidStats = new UppervoidStatisticsBean(uuid, 40, 60, 5, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6000);

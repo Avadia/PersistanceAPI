@@ -3,5 +3,4 @@ out/
 .idea/
 *.iml
 bdd.txt
-
-
+target/

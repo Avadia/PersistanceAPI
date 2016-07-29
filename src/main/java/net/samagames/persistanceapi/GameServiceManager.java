@@ -215,11 +215,46 @@ public class GameServiceManager
         return this.statisticsManager.quakeStatsManager.getQuakeStatistics(player, this.databaseManager.getDataSource());
     }
 
-    // Get UHCRun player statistics
+    // Get uhc player statistics
+    public synchronized UHCStatisticsBean getUHCStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.uhcStatsManager.getUHCStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get uhcrun player statistics
     public synchronized UHCRunStatisticsBean getUHCRunStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
         return this.statisticsManager.uhcRunStatsManager.getUHCRunStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get doublerunner player statistics
+    public synchronized DoubleRunnerStatisticsBean getDoubleRunnerStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.doubleRunnerStatsManager.getDoubleRunnerStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get uhcrandom player statistics
+    public synchronized UHCRandomStatisticsBean getUHCRandomStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.uhcRandomStatsManager.getUHCRandomStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get randomrun player statistics
+    public synchronized RandomRunStatisticsBean getRandomRunStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.randomRunStatsManager.getRandomRunStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get ultraflagkeeper player statistics
+    public synchronized UltraFlagKeeperStatisticsBean getUltraFlagKeeperStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get UpperVoid player statistics
@@ -271,11 +306,46 @@ public class GameServiceManager
         this.statisticsManager.quakeStatsManager.updateQuakeStatistics(player, quakeStats, this.databaseManager.getDataSource());
     }
 
-    // Update UHCRun statistics
+    // Update uhc statistics
+    public synchronized void updateUHCStatistics(PlayerBean player, UHCStatisticsBean uhcStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.uhcStatsManager.updateUHCStatistics(player, uhcStats, this.databaseManager.getDataSource());
+    }
+
+    // Update uhcrun statistics
     public synchronized void updateUHCRunStatistics(PlayerBean player, UHCRunStatisticsBean uhcRunStats) throws Exception
     {
         // Update statistics
-        this.statisticsManager.uhcRunStatsManager.updateUHCRunStatistics(player, uhcRunStats,this.databaseManager.getDataSource());
+        this.statisticsManager.uhcRunStatsManager.updateUHCRunStatistics(player, uhcRunStats, this.databaseManager.getDataSource());
+    }
+
+    // Update doublerunner statistics
+    public synchronized void updateDoubleRunnerStatistics(PlayerBean player, DoubleRunnerStatisticsBean doubleRunnerStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.doubleRunnerStatsManager.updateDoubleRunnerStatistics(player, doubleRunnerStats, this.databaseManager.getDataSource());
+    }
+
+    // Update uhcrandom statistics
+    public synchronized void updateUHCRandomStatistics(PlayerBean player, UHCRandomStatisticsBean uhcRandomStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.uhcRandomStatsManager.updateUHCRandomStatistics(player, uhcRandomStats, this.databaseManager.getDataSource());
+    }
+
+    // Update randomrun statistics
+    public synchronized void updateRandomRunStatistics(PlayerBean player, RandomRunStatisticsBean randomRunStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.randomRunStatsManager.updateRandomRunStatistics(player, randomRunStats, this.databaseManager.getDataSource());
+    }
+
+    // Update ultraflagkeeper statistics
+    public synchronized void updateUltraFlagKeeperStatistics(PlayerBean player, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, ultraFlagKeeperStats, this.databaseManager.getDataSource());
     }
 
     // Update UpperVoid statistics
