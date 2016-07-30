@@ -384,10 +384,45 @@ public class GameServiceManager
     }
 
     // Get the uhcrun leaderboard
-    public synchronized List<LeaderboardBean> getUhcLeaderBoard(String category) throws Exception
+    public synchronized List<LeaderboardBean> getUHCLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.uhcStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the uhcrun leaderboard
+    public synchronized List<LeaderboardBean> getUHCRunLeaderBoard(String category) throws Exception
     {
         // Get the leaderboard
         return this.statisticsManager.uhcRunStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the doublerunner leaderboard
+    public synchronized List<LeaderboardBean> getDoubleRunnerLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.doubleRunnerStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the uhcrandom leaderboard
+    public synchronized List<LeaderboardBean> getUHCRandomLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.uhcRandomStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the randomrun leaderboard
+    public synchronized List<LeaderboardBean> getRandomRunLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.randomRunStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the ultraflagkeeper leaderboard
+    public synchronized List<LeaderboardBean> getUltraFlagKeeperLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.ultraFlagKeeperStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
     // Get the uppervoid leaderboard
