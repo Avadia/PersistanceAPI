@@ -17,11 +17,10 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
-import net.samagames.persistanceapi.beans.statistics.UHCStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.UHCOriginalStatisticsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -30,16 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UHCStatisticsManager
+public class UHCOriginalStatisticsManager
 {
     // Defines
     Connection connection = null;
     Statement statement = null;
     ResultSet resultset = null;
-    UHCStatisticsBean uhcStats = null;
+    UHCOriginalStatisticsBean uhcStats = null;
 
     // Get UHC player statistics
-    public UHCStatisticsBean getUHCStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    public UHCOriginalStatisticsBean getUHCOriginalStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
@@ -70,15 +69,15 @@ public class UHCStatisticsManager
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 long playedTime = resultset.getLong("played_time");
-                uhcStats = new UHCStatisticsBean(uuid, damages, deaths, kills, maxDamages, playedGames, wins, creationDate, updateDate, playedTime);
+                uhcStats = new UHCOriginalStatisticsBean(uuid, damages, deaths, kills, maxDamages, playedGames, wins, creationDate, updateDate, playedTime);
             }
             else
             {
                 // If there no UHC stats in the database create empty one
                 this.close();
-                this.createEmptyUHCStatistics(player, dataSource);
+                this.createEmptyUHCOriginalStatistics(player, dataSource);
                 this.close();
-                UHCStatisticsBean newUHCStats = this.getUHCStatistics(player,dataSource);
+                UHCOriginalStatisticsBean newUHCStats = this.getUHCOriginalStatistics(player,dataSource);
                 this.close();
                 return newUHCStats;
             }
@@ -97,12 +96,12 @@ public class UHCStatisticsManager
     }
 
     // Create an empty jukebox statistics
-    private void createEmptyUHCStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    private void createEmptyUHCOriginalStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
             // Create an empty bean
-            UHCStatisticsBean uhcStats = new UHCStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            UHCOriginalStatisticsBean uhcStats = new UHCOriginalStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
             connection = dataSource.getConnection();
@@ -135,16 +134,16 @@ public class UHCStatisticsManager
         }
     }
 
-    // Update UHC player statistics
-    public void updateUHCStatistics(PlayerBean player, UHCStatisticsBean uhcStats, DataSource dataSource) throws Exception
+    // Update UHCOriginal player statistics
+    public void updateUHCOriginalStatistics(PlayerBean player, UHCOriginalStatisticsBean uhcStats, DataSource dataSource) throws Exception
     {
         try
         {
             // Check if a record exists
-            if (this.getUHCStatistics(player, dataSource) == null)
+            if (this.getUHCOriginalStatistics(player, dataSource) == null)
             {
-                // Create an empty uHC statistics
-                this.createEmptyUHCStatistics(player, dataSource);
+                // Create an empty uhcoriginal statistics
+                this.createEmptyUHCOriginalStatistics(player, dataSource);
             }
             else
             {

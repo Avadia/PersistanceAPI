@@ -19,11 +19,11 @@ import java.beans.ConstructorProperties;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class UHCStatisticsBean
+public class UHCOriginalStatisticsBean
 {
     /* Database Structure
 
-    Table: uhc_stats
+    Table: uhcoriginal_stats
     +---------------+------------+------+-----+---------------------+-------+
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+
@@ -54,7 +54,7 @@ public class UHCStatisticsBean
 
     // Constructor
     @ConstructorProperties({"uuid", "damages", "deaths", "kills", "maxDamages", "playedGames", "wins", "creationDate", "updateDate", "playedTime"})
-    public UHCStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
+    public UHCOriginalStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
         this.damages = damages;

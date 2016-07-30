@@ -53,7 +53,7 @@ public class Test
             HeroBattleStatisticsBean heroBattleStats;
             JukeBoxStatisticsBean jukeBoxStats;
             QuakeStatisticsBean quakeStats;
-            UHCStatisticsBean uhcStats;
+            UHCOriginalStatisticsBean uhcOriginalStats;
             UHCRunStatisticsBean uhcRunStats;
             DoubleRunnerStatisticsBean doubleRunnerStats;
             UHCRandomStatisticsBean uhcRandomStats;
@@ -200,23 +200,23 @@ public class Test
             manager.getQuakeStatistics(otherPlayer);
             System.out.println("Read quake statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
-            // Create UHC statistics test
-            uhcStats = new UHCStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
+            // Create UHCOriginal statistics test
+            uhcOriginalStats = new UHCOriginalStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
             startTime = System.currentTimeMillis();
-            manager.updateUHCStatistics(otherPlayer, uhcStats);
-            System.out.println("Create UHC statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+            manager.updateUHCOriginalStatistics(otherPlayer, uhcOriginalStats);
+            System.out.println("Create UHCOriginal statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
-            // Update UHC statistics test
-            uhcStats.setKills(1000);
-            uhcStats.setPlayedGames(42);
+            // Update UHCOriginal statistics test
+            uhcOriginalStats.setKills(1000);
+            uhcOriginalStats.setPlayedGames(42);
             startTime = System.currentTimeMillis();
-            manager.updateUHCStatistics(otherPlayer, uhcStats);
-            System.out.println("Update UHC statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+            manager.updateUHCOriginalStatistics(otherPlayer, uhcOriginalStats);
+            System.out.println("Update UHCOriginal statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
-            // Read UHC statistics test
+            // Read UHCOriginal statistics test
             startTime = System.currentTimeMillis();
-            manager.getUHCStatistics(otherPlayer);
-            System.out.println("Read UHC statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+            manager.getUHCOriginalStatistics(otherPlayer);
+            System.out.println("Read UHCOriginal statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create UHCRun statistics test
             uhcRunStats = new UHCRunStatisticsBean(uuid, 10, 20, 30, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
@@ -564,7 +564,7 @@ public class Test
             uhcRunStats = new UHCRunStatisticsBean(uuid, 10, 20, 10, 50, 3, 1, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 8000);
             manager.updateUHCRunStatistics(player, uhcRunStats);
             startTime = System.currentTimeMillis();
-            manager.getUhcLeaderBoard("kills");
+            manager.getUHCOriginalLeaderBoard("kills");
             System.out.println("Get uhcrun leaderboard process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get uppervoid leaderboard

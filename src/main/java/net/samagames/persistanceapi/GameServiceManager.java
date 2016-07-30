@@ -215,11 +215,11 @@ public class GameServiceManager
         return this.statisticsManager.quakeStatsManager.getQuakeStatistics(player, this.databaseManager.getDataSource());
     }
 
-    // Get uhc player statistics
-    public synchronized UHCStatisticsBean getUHCStatistics(PlayerBean player) throws Exception
+    // Get uhcoriginal player statistics
+    public synchronized UHCOriginalStatisticsBean getUHCOriginalStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
-        return this.statisticsManager.uhcStatsManager.getUHCStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.uhcOriginalStatsManager.getUHCOriginalStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get uhcrun player statistics
@@ -306,11 +306,11 @@ public class GameServiceManager
         this.statisticsManager.quakeStatsManager.updateQuakeStatistics(player, quakeStats, this.databaseManager.getDataSource());
     }
 
-    // Update uhc statistics
-    public synchronized void updateUHCStatistics(PlayerBean player, UHCStatisticsBean uhcStats) throws Exception
+    // Update uhcoriginal statistics
+    public synchronized void updateUHCOriginalStatistics(PlayerBean player, UHCOriginalStatisticsBean uhcStats) throws Exception
     {
         // Update statistics
-        this.statisticsManager.uhcStatsManager.updateUHCStatistics(player, uhcStats, this.databaseManager.getDataSource());
+        this.statisticsManager.uhcOriginalStatsManager.updateUHCOriginalStatistics(player, uhcStats, this.databaseManager.getDataSource());
     }
 
     // Update uhcrun statistics
@@ -383,11 +383,11 @@ public class GameServiceManager
         return this.statisticsManager.quakeStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
-    // Get the uhcrun leaderboard
-    public synchronized List<LeaderboardBean> getUHCLeaderBoard(String category) throws Exception
+    // Get the uhcoriginal leaderboard
+    public synchronized List<LeaderboardBean> getUHCOriginalLeaderBoard(String category) throws Exception
     {
         // Get the leaderboard
-        return this.statisticsManager.uhcStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+        return this.statisticsManager.uhcOriginalStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
     // Get the uhcrun leaderboard

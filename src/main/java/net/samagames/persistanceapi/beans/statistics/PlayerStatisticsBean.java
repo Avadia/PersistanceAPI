@@ -22,7 +22,7 @@ public class PlayerStatisticsBean
     private HeroBattleStatisticsBean heroBattleStats;
     private JukeBoxStatisticsBean jukeBoxStats;
     private QuakeStatisticsBean quakeStats;
-    private UHCStatisticsBean uhcStats;
+    private UHCOriginalStatisticsBean uhcOriginalStats;
     private UHCRunStatisticsBean uhcRunStats;
     private DoubleRunnerStatisticsBean doubleRunnerStats;
     private UHCRandomStatisticsBean uhcRandomStats;
@@ -37,13 +37,13 @@ public class PlayerStatisticsBean
     }
 
     // Constructor
-    public PlayerStatisticsBean(DimensionStatisticsBean dimensionStats, HeroBattleStatisticsBean heroBattleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCStatisticsBean uhcStats, UHCRunStatisticsBean uhcRunStats, DoubleRunnerStatisticsBean doubleRunnerStats, UHCRandomStatisticsBean uhcRandomStats, RandomRunStatisticsBean randomRunStats, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats, UppervoidStatisticsBean uppervoidStatisticsBean)
+    public PlayerStatisticsBean(DimensionStatisticsBean dimensionStats, HeroBattleStatisticsBean heroBattleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCOriginalStatisticsBean uhcOriginalStats, UHCRunStatisticsBean uhcRunStats, DoubleRunnerStatisticsBean doubleRunnerStats, UHCRandomStatisticsBean uhcRandomStats, RandomRunStatisticsBean randomRunStats, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats, UppervoidStatisticsBean uppervoidStatisticsBean)
     {
         this.dimensionStats = dimensionStats;
         this.heroBattleStats = heroBattleStats;
         this.jukeBoxStats = jukeBoxStats;
         this.quakeStats = quakeStats;
-        this.uhcStats = uhcStats;
+        this.uhcOriginalStats = uhcOriginalStats;
         this.uhcRunStats = uhcRunStats;
         this.doubleRunnerStats = doubleRunnerStats;
         this.uhcRandomStats = uhcRandomStats;
@@ -65,8 +65,8 @@ public class PlayerStatisticsBean
     public QuakeStatisticsBean getQuakeStats() {
         return quakeStats;
     }
-    public UHCStatisticsBean getUHCStats() {
-        return uhcStats;
+    public UHCOriginalStatisticsBean getUHCOriginalStats() {
+        return uhcOriginalStats;
     }
     public UHCRunStatisticsBean getUHCRunStats() {
         return uhcRunStats;
@@ -100,8 +100,8 @@ public class PlayerStatisticsBean
     public void setQuakeStats(QuakeStatisticsBean quakeStats) {
         this.quakeStats = quakeStats;
     }
-    public void setUHCStats(UHCStatisticsBean uhcStats) {
-        this.uhcStats = uhcStats;
+    public void setUHCOriginalStats(UHCOriginalStatisticsBean uhcOriginalStats) {
+        this.uhcOriginalStats = uhcOriginalStats;
     }
     public void setUHCRunStats(UHCRunStatisticsBean uhcRunStats) {
         this.uhcRunStats = uhcRunStats;
