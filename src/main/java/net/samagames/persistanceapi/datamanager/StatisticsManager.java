@@ -102,7 +102,7 @@ public class StatisticsManager
         try
         {
             this.dimensionStatsManager.updateDimensionStatistics(player, datas.getDimensionStats(),dataSource);
-            this.heroBattleStatsManager.updateHeroBattleStatistics(player, datas.getHeroBatleStats(), dataSource);
+            this.heroBattleStatsManager.updateHeroBattleStatistics(player, datas.getHeroBattleStats(), dataSource);
             this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
             this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
             this.uhcStatsManager.updateUHCStatistics(player, datas.getUHCStats(), dataSource);

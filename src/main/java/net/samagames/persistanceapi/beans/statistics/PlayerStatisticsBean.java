@@ -19,7 +19,7 @@ public class PlayerStatisticsBean
 {
     // Defines aggregation of statistics
     private DimensionStatisticsBean dimensionStats;
-    private HeroBattleStatisticsBean heroBatleStats;
+    private HeroBattleStatisticsBean heroBattleStats;
     private JukeBoxStatisticsBean jukeBoxStats;
     private QuakeStatisticsBean quakeStats;
     private UHCStatisticsBean uhcStats;
@@ -37,10 +37,10 @@ public class PlayerStatisticsBean
     }
 
     // Constructor
-    public PlayerStatisticsBean(DimensionStatisticsBean dimensionStats, HeroBattleStatisticsBean heroBatleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCStatisticsBean uhcStats, UHCRunStatisticsBean uhcRunStats, DoubleRunnerStatisticsBean doubleRunnerStats, UHCRandomStatisticsBean uhcRandomStats, RandomRunStatisticsBean randomRunStats, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats, UppervoidStatisticsBean uppervoidStatisticsBean)
+    public PlayerStatisticsBean(DimensionStatisticsBean dimensionStats, HeroBattleStatisticsBean heroBattleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCStatisticsBean uhcStats, UHCRunStatisticsBean uhcRunStats, DoubleRunnerStatisticsBean doubleRunnerStats, UHCRandomStatisticsBean uhcRandomStats, RandomRunStatisticsBean randomRunStats, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats, UppervoidStatisticsBean uppervoidStatisticsBean)
     {
         this.dimensionStats = dimensionStats;
-        this.heroBatleStats = heroBatleStats;
+        this.heroBattleStats = heroBattleStats;
         this.jukeBoxStats = jukeBoxStats;
         this.quakeStats = quakeStats;
         this.uhcStats = uhcStats;
@@ -56,8 +56,8 @@ public class PlayerStatisticsBean
     public DimensionStatisticsBean getDimensionStats() {
         return dimensionStats;
     }
-    public HeroBattleStatisticsBean getHeroBatleStats() {
-        return heroBatleStats;
+    public HeroBattleStatisticsBean getHeroBattleStats() {
+        return heroBattleStats;
     }
     public JukeBoxStatisticsBean getJukeBoxStats() {
         return jukeBoxStats;
@@ -91,8 +91,8 @@ public class PlayerStatisticsBean
     public void setDimmensionStats(DimensionStatisticsBean dimensionStats) {
         this.dimensionStats = dimensionStats;
     }
-    public void setHeroBatleStats(HeroBattleStatisticsBean heroBatleStats) {
-        this.heroBatleStats = heroBatleStats;
+    public void setHeroBattleStats(HeroBattleStatisticsBean heroBattleStats) {
+        this.heroBattleStats = heroBattleStats;
     }
     public void setJukeBoxStats(JukeBoxStatisticsBean jukeBoxStats) {
         this.jukeBoxStats = jukeBoxStats;
