@@ -251,7 +251,13 @@ INSERT INTO `game_category` (`category_id`, `name`) VALUES
   (3, 'quake'),
   (4, 'uhcrun'),
   (5, 'uppervoid'),
-  (6, 'dimensions');
+  (6, 'dimensions'),
+  (7, 'bowling'),
+  (8, 'uhcoriginal'),
+  (9, 'doublerunner'),
+  (10, 'uhcrandom'),
+  (11, 'randomrun'),
+  (12, 'ultraflagkeeper');
 
 -- --------------------------------------------------------
 
@@ -1576,10 +1582,10 @@ CREATE TABLE `transaction_shop` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `uhc_stats`
+-- Structure de la table `uhcoriginal_stats`
 --
 
-CREATE TABLE `uhc_stats` (
+CREATE TABLE `uhcoriginal_stats` (
   `uuid` binary(16) NOT NULL,
   `damages` int(11) NOT NULL,
   `deaths` int(11) NOT NULL,
@@ -1872,9 +1878,9 @@ ADD PRIMARY KEY (`transaction_id`),
 ADD KEY `fk_shop_item_item_idx` (`item_id`);
 
 --
--- Index pour la table `uhc_stats`
+-- Index pour la table `uhcoriginal_stats`
 --
-ALTER TABLE `uhc_stats`
+ALTER TABLE `uhcoriginal_stats`
 ADD PRIMARY KEY (`uuid`);
 
 --
