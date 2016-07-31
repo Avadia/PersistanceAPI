@@ -30,6 +30,7 @@ public class JukeBoxStatisticsBean
     | uuid          | binary(16) | NO   | PRI | NULL                |       |
     | mehs          | int(11)    | NO   |     | NULL                |       |
     | woots         | int(11)    | NO   |     | NULL                |       |
+    | woots_given   | int(11)    | NO   |     | NULL                |       |
     | creation_date | timestamp  | NO   |     | 0000-00-00 00:00:00 |       |
     | update_date   | timestamp  | NO   |     | 0000-00-00 00:00:00 |       |
     | played_time   | bigint(20) | NO   |     | NULL                |       |
@@ -40,16 +41,18 @@ public class JukeBoxStatisticsBean
     private UUID uuid;
     private int mehs;
     private int woots;
+    private int wootsGiven;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private long playedTime;
 
     // Constructor
-    @ConstructorProperties({"uuid", "mehs", "woots", "creationDate", "updateDate", "playedTime"})
-    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, Timestamp creationDate, Timestamp updateDate, long playedTime)
+    @ConstructorProperties({"uuid", "mehs", "woots", "wootsGiven", "creationDate", "updateDate", "playedTime"})
+    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, int wootsGiven, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
         this.uuid = uuid;
         this.mehs = mehs;
+        this.wootsGiven = wootsGiven;
         this.woots = woots;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
@@ -64,6 +67,9 @@ public class JukeBoxStatisticsBean
     public int getWoots()
     {
         return this.woots;
+    }
+    public int getWootsGiven() {
+        return this.wootsGiven;
     }
     public Timestamp getCreationDate()
     {
@@ -83,6 +89,9 @@ public class JukeBoxStatisticsBean
     public void setWoots(int woots)
     {
         this.woots = woots;
+    }
+    public void setWootsGiven(int wootsGiven) {
+        this.wootsGiven = wootsGiven;
     }
     public void setCreationDate(Timestamp creationDate)
     {

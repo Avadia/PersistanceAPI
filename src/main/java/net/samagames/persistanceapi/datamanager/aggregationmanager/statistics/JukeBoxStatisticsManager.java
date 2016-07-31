@@ -45,7 +45,7 @@ public class JukeBoxStatisticsManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, mehs, woots, creation_date, update_date, played_time from jukebox_stats";
+            sql += "select (HEX(uuid)) as uuid, mehs, woots, woots_given, creation_date, update_date, played_time from jukebox_stats";
             sql +=" where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
@@ -59,10 +59,11 @@ public class JukeBoxStatisticsManager
                 UUID uuid = UUID.fromString(playerUuid);
                 int mehs = resultset.getInt("mehs");
                 int woots = resultset.getInt("woots");
+                int wootsGiven = resultset.getInt("woots_given");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 long playedTime = resultset.getLong("played_time");
-                jukeBoxStats = new JukeBoxStatisticsBean(uuid, mehs, woots, creationDate, updateDate, playedTime);
+                jukeBoxStats = new JukeBoxStatisticsBean(uuid, mehs, woots, wootsGiven, creationDate, updateDate, playedTime);
             }
             else
             {
@@ -94,7 +95,7 @@ public class JukeBoxStatisticsManager
         try
         {
             // Create an empty bean
-            JukeBoxStatisticsBean jukeBoxStats = new JukeBoxStatisticsBean(player.getUuid(), 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            JukeBoxStatisticsBean jukeBoxStats = new JukeBoxStatisticsBean(player.getUuid(), 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
             connection = dataSource.getConnection();
@@ -102,10 +103,11 @@ public class JukeBoxStatisticsManager
 
             // Query construction for create
             String sql = "";
-            sql += "insert into jukebox_stats (uuid, mehs, woots, creation_date, update_date, played_time)";
+            sql += "insert into jukebox_stats (uuid, mehs, woots, woots_given, creation_date, update_date, played_time)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", " + jukeBoxStats.getMehs();
             sql += ", " + jukeBoxStats.getWoots();
+            sql += ", " + jukeBoxStats.getWootsGiven();
             sql += ", now()";
             sql += ", now()";
             sql += ", played_time=" + jukeBoxStats.getPlayedTime() + ")";
@@ -146,6 +148,7 @@ public class JukeBoxStatisticsManager
                 String sql = "";
                 sql += "update jukebox_stats set mehs=" + jukeBoxStats.getMehs();
                 sql += ", woots=" + jukeBoxStats.getWoots();
+                sql += ", woots_given=" + jukeBoxStats.getWootsGiven();
                 sql += ", update_date=now()";
                 sql += ", played_time=" + jukeBoxStats.getPlayedTime();
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";

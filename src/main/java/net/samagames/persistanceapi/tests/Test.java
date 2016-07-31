@@ -165,7 +165,7 @@ public class Test
             System.out.println("Read herobattle statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create jukebox statistics test
-            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 10, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 10, 20, 30, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
             startTime = System.currentTimeMillis();
             manager.updateJukeBoxStatistics(otherPlayer, jukeBoxStats);
             System.out.println("Create jukebox statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
@@ -527,13 +527,13 @@ public class Test
 
             // Get jukebox leaderboard
             uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
-            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 10, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 10, 20, 30, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
             manager.updateJukeBoxStatistics(player_2, jukeBoxStats);
             uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
-            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 5, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 5, 20, 40, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
             manager.updateJukeBoxStatistics(player_3, jukeBoxStats);
             uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
-            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 15, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+            jukeBoxStats = new JukeBoxStatisticsBean(uuid, 15, 20, 20, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
             manager.updateJukeBoxStatistics(player, jukeBoxStats);
             startTime = System.currentTimeMillis();
             manager.getJukeBoxLeaderBoard("mehs");

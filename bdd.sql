@@ -422,6 +422,7 @@ CREATE TABLE `jukebox_stats` (
   `uuid` binary(16) NOT NULL,
   `mehs` int(11) NOT NULL,
   `woots` int(11) NOT NULL,
+  `woots_given` int(11) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `played_time` bigint(20) NOT NULL
