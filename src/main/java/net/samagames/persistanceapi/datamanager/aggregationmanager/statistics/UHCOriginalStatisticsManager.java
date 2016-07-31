@@ -48,7 +48,7 @@ public class UHCOriginalStatisticsManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time from uhc_stats";
+            sql += "select (HEX(uuid)) as uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time from uhcoriginal_stats";
             sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
@@ -108,7 +108,7 @@ public class UHCOriginalStatisticsManager
             statement = connection.createStatement();
 
             // Query construction for create
-            String sql = "insert into uhc_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
+            String sql = "insert into uhcoriginal_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", " + uhcStats.getDamages();
             sql += ", " + uhcStats.getDeaths();
@@ -152,7 +152,7 @@ public class UHCOriginalStatisticsManager
                 statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "update uhc_stats set damages=" + uhcStats.getDamages();
+                String sql = "update uhcoriginal_stats set damages=" + uhcStats.getDamages();
                 sql += ", deaths=" + uhcStats.getDeaths();
                 sql += ", kills=" + uhcStats.getKills();
                 sql += ", max_damages=" + uhcStats.getMaxDamages();
@@ -189,7 +189,7 @@ public class UHCOriginalStatisticsManager
             statement = connection.createStatement();
 
             // Query construction
-            String sql = "select p.name as name, d." + category + " as score from players as p, uhc_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
+            String sql = "select p.name as name, d." + category + " as score from players as p, uhcoriginal_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
