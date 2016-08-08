@@ -36,29 +36,33 @@ public class HostStatisticsBean
     // Defines
     private long id;
     private String hostId;
-    private String IpAddress;
+    private String ipAddress;
     private UUID playerUuid;
+    private long startedTime;
     private long playedTime;
 
     // Cosntructor
-    public HostStatisticsBean(String hostId, String ipAddress, UUID playerUuid, long playedTime)
+    public HostStatisticsBean(String hostId, String ipAddress, UUID playerUuid, long startedTime, long playedTime)
     {
         this.hostId = hostId;
-        IpAddress = ipAddress;
+        this.ipAddress = ipAddress;
         this.playerUuid = playerUuid;
+        this.startedTime = startedTime;
         this.playedTime = playedTime;
     }
 
     // Getter
     public long getId() { return id; }
     public String getHostId() { return hostId; }
-    public String getIpAddress() { return IpAddress; }
+    public String getIpAddress() { return ipAddress; }
     public UUID getPlayerUuid() { return playerUuid; }
     public long getPlayedTime() { return playedTime; }
+    public long getStartedTime() { return startedTime; }
 
     // Setter
     public void setHostId(String hostId) { this.hostId = hostId; }
-    public void setIpAddress(String ipAddress) { IpAddress = ipAddress; }
+    public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
     public void setPlayerUuid(UUID playerUuid) { this.playerUuid = playerUuid; }
     public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
+    public void setStartedTime(long startedTime) { this.startedTime = startedTime; }
 }

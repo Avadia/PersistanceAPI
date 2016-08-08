@@ -42,10 +42,11 @@ public class HostManager
 
             // Query construction
             String sql = "";
-            sql += "insert into host_stats (host_id, ip_address, player_uuid, played_time)";
+            sql += "insert into host_stats (host_id, ip_address, player_uuid, started_time, played_time)";
             sql += " values ('" + hostStatisticsBean.getHostId() + "'";
             sql += ", '" + hostStatisticsBean.getIpAddress() + "'";
             sql += ", UNHEX('"+ Transcoder.Encode(hostStatisticsBean.getPlayerUuid().toString())+"')";
+            sql += ", " + hostStatisticsBean.getStartedTime();
             sql += ", " + hostStatisticsBean.getPlayedTime() + ")";
 
             // Execute the query

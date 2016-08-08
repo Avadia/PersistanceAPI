@@ -108,7 +108,7 @@ public class DimensionStatisticsManager
             sql += dimensionStats.getPlayedGames() + ", ";
             sql += dimensionStats.getWins() + ", ";
             sql += " now(), now(), ";
-            sql += player.getPlayedTime() +")";
+            sql += dimensionStats.getPlayedTime() +")";
 
             // Execute the query
             statement.executeUpdate(sql);

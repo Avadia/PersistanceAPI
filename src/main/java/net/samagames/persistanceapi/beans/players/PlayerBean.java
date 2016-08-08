@@ -50,6 +50,8 @@ public class PlayerBean
     private String lastIP;
     private String toptpKey;
     private long groupId;
+
+    private long playedTime;
     // Non persistent attributes
     private long startTime;
     private long stopTime;
@@ -61,7 +63,7 @@ public class PlayerBean
     }
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
+    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, long playedTime, String lastIP, String toptpKey, long groupId)
     {
         this.uuid = uuid;
         this.name = name;
@@ -70,6 +72,7 @@ public class PlayerBean
         this.stars = stars;
         this.lastLogin = lastLogin;
         this.firstLogin = firstLogin;
+        this.playedTime = playedTime;
         this.lastIP = lastIP;
         this.toptpKey = toptpKey;
         this.groupId = groupId;
@@ -98,6 +101,7 @@ public class PlayerBean
     public String getLastIP() { return this.lastIP; }
     public String getToptpKey() { return this.toptpKey; }
     public long getGroupId() { return this.groupId; }
+    public long getPlayedTime() { return playedTime; }
 
     // Setters
     public void setUuid(UUID uuid)
@@ -128,10 +132,7 @@ public class PlayerBean
     public void setLastIP(String lastIP) { this.lastIP = lastIP; }
     public void setToptpKey(String toptpKey) { this.toptpKey = toptpKey; }
     public void setGroupId(long groupId) { this.groupId = groupId; }
+    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
 
-    // Get played time
-    public long getPlayedTime()
-    {
-        return (this.getStopTime() - this.getStartTime());
-    }
+
 }
