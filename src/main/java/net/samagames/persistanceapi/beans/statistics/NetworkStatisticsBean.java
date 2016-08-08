@@ -1,5 +1,6 @@
 package net.samagames.persistanceapi.beans.statistics;
 
+import java.beans.ConstructorProperties;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -37,6 +38,7 @@ public class NetworkStatisticsBean {
     private Timestamp creationDate;
     private Timestamp updateDate;
 
+    @ConstructorProperties({"uuid", "creationDate", "updateDate", "playedTime"})
     public NetworkStatisticsBean(UUID uuid, Timestamp creationDate, Timestamp updateDate, long playedTime)
     {
 
