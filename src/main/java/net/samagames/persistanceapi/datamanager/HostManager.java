@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 public class HostManager
 {
@@ -47,7 +48,7 @@ public class HostManager
             sql += ", '" + hostStatisticsBean.getHostId() + "'";
             sql += ", '" + hostStatisticsBean.getIpAddress() + "'";
             sql += ", UNHEX('"+ Transcoder.Encode(hostStatisticsBean.getPlayerUuid().toString())+"')";
-            sql += ", " + hostStatisticsBean.getStartedTime();
+            sql += ", " + new Timestamp(hostStatisticsBean.getStartedTime());
             sql += ", " + hostStatisticsBean.getPlayedTime() + ")";
 
             // Execute the query
