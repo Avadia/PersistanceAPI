@@ -101,7 +101,7 @@ public class NetworkStatisticsManager {
 
             // Query construction for create
             String sql = "";
-            sql += "insert into jukebox_stats (uuid, creation_date, update_date, played_time)";
+            sql += "insert into network_stats (uuid, creation_date, update_date, played_time)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", now()";
             sql += ", now()";
@@ -130,7 +130,7 @@ public class NetworkStatisticsManager {
             // Check if a record exists
             if (this.getNetworkStatistics(player, dataSource) == null)
             {
-                // Create an empty jukebox statistics
+                // Create an empty network statistics
                 this.createEmptyNetworkStatistics(player, dataSource);
             }
             else

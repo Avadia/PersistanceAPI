@@ -22,16 +22,17 @@ public class HostStatisticsBean
     /* Database Structure
 
     Table : host_stats
-    +-------------+--------------+------+-----+---------+----------------+
-    | Field       | Type         | Null | Key | Default | Extra          |
-    +-------------+--------------+------+-----+---------+----------------+
-    | id          | double       | NO   | PRI | NULL    | auto_increment |
-    | host_id     | varchar(255) | NO   |     | NULL    |                |
-    | ip_address  | varchar(15)  | NO   | MUL | NULL    |                |
-    | player_uuid | binary(16)   | NO   | MUL | NULL    |                |
-    | startedTime | timestamp    | NO   | MUL | NULL    |                |
-    | played_time | bigint(20)   | NO   |     | NULL    |                |
-    +-------------+--------------+------+-----+---------+----------------+
+    +--------------+--------------+------+-----+---------+----------------+
+    | Field        | Type         | Null | Key | Default | Extra          |
+    +--------------+--------------+------+-----+---------+----------------+
+    | id           | double       | NO   | PRI | NULL    | auto_increment |
+    | template_id  | varchar(255) | NO   |     | NULL    |                |
+    | host_id      | varchar(255) | NO   |     | NULL    |                |
+    | ip_address   | varchar(15)  | NO   | MUL | NULL    |                |
+    | player_uuid  | binary(16)   | NO   | MUL | NULL    |                |
+    | started_time | timestamp    | NO   | MUL | NULL    |                |
+    | played_time  | bigint(20)   | NO   |     | NULL    |                |
+    +--------------+--------------+------+-----+---------+----------------+
 
     */
 
