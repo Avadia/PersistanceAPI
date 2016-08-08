@@ -202,10 +202,17 @@ public class GameServiceManager
     }
 
     // Get JukeBox player statistics
-    public synchronized  JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player) throws Exception
+    public synchronized JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
         return this.statisticsManager.jukeBoxStatsManager.getJukeBoxStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get Network player statistics
+    public synchronized NetworkStatisticsBean getNetworkStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.networkStatisticsManager.getNetworkStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get Quake player statistics
@@ -297,6 +304,13 @@ public class GameServiceManager
     {
         // Update statistics
         this.statisticsManager.jukeBoxStatsManager.updateJukeBoxStatistics(player, jukeBoxStats, this.databaseManager.getDataSource());
+    }
+
+    // Update network statistics
+    public synchronized void updateNetworkStatistics(PlayerBean player, NetworkStatisticsBean networkStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.networkStatisticsManager.updateNetworkStatistics(player, networkStats, this.databaseManager.getDataSource());
     }
 
     // Update Quake statistics
@@ -706,9 +720,9 @@ public class GameServiceManager
     ============================================*/
 
     // Creat a statistic host record
-    public synchronized void CreateHostRecord(HostStatisticsBean hostStatisticsBean) throws Exception
+    public synchronized void createHostRecord(HostStatisticsBean hostStatisticsBean) throws Exception
     {
         // Create record
-        this.hostManager.CreateHostRecord(hostStatisticsBean, this.databaseManager.getDataSource());
+        this.hostManager.createHostRecord(hostStatisticsBean, this.databaseManager.getDataSource());
     }
 }

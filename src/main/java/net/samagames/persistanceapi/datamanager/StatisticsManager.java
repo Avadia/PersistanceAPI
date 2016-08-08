@@ -36,6 +36,7 @@ public class StatisticsManager
     public RandomRunStatisticsManager randomRunStatsManager;
     public UltraFlagKeeperStatisticsManager ultraFlagKeeperStatsManager;
     public UpperVoidStatisticsManager upperVoidStatsManager;
+    public NetworkStatisticsManager networkStatisticsManager;
 
     // Constructor
     public StatisticsManager()
@@ -51,6 +52,7 @@ public class StatisticsManager
         this.randomRunStatsManager = new RandomRunStatisticsManager();
         this.ultraFlagKeeperStatsManager = new UltraFlagKeeperStatisticsManager();
         this.upperVoidStatsManager = new UpperVoidStatisticsManager();
+        this.networkStatisticsManager = new NetworkStatisticsManager();
     }
 
     // Get all player statistics
@@ -68,6 +70,7 @@ public class StatisticsManager
         RandomRunStatisticsBean randomRunStats;
         UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
         UppervoidStatisticsBean upperVoidStats;
+        NetworkStatisticsBean networkStats;
 
         // Get the different statistics bean
         try
@@ -83,6 +86,7 @@ public class StatisticsManager
             randomRunStats = this.randomRunStatsManager.getRandomRunStatistics(player, dataSource);
             ultraFlagKeeperStats = this.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, dataSource);
             upperVoidStats = this.upperVoidStatsManager.getUppervoidStatistics(player, dataSource);
+            networkStats = this.networkStatisticsManager.getNetworkStatistics(player, dataSource);
         }
         catch (Exception exception)
         {
@@ -91,7 +95,7 @@ public class StatisticsManager
         }
 
         // Create the aggregation of different statistics bean
-        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats);
+        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats, networkStats);
         return playerStatisticsBean;
     }
 

@@ -42,7 +42,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, last_login, first_login, played_time, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -58,11 +58,10 @@ public class PlayerManager
                 int stars = resultset.getInt("stars");
                 Timestamp lastLogin = resultset.getTimestamp("last_login");
                 Timestamp firsLogin = resultset.getTimestamp("first_login");
-                long playedTime = resultset.getLong("played_time");
                 String lastIP = resultset.getString("last_ip");
                 String toptpKey = resultset.getString("toptp_key");
                 long groupId = resultset.getLong("group_id");
-                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, lastLogin, firsLogin, playedTime, lastIP, toptpKey, groupId);
+                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, lastLogin, firsLogin, lastIP, toptpKey, groupId);
                 return player;
             }
             else
@@ -150,7 +149,6 @@ public class PlayerManager
             sql += ", name='" + player.getName() + "'";
             sql += ", stars=" + player.getStars();
             sql += ", last_login='" + player.getLastLogin() +"'";
-            sql += ", played_time='" + player.getPlayedTime() +"'";
             sql += ", last_ip='" + player.getLastIP() +"'";
             sql += ", toptp_key='" + player.getToptpKey() +"'";
             sql += ", group_id=" + player.getGroupId();
@@ -184,14 +182,13 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "insert into players (uuid, name, nickname, coins, stars, last_login, first_login, played_time, last_ip, toptp_key, group_id)";
+            sql += "insert into players (uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", '" + player.getName() + "'";
             sql += ", '" + player.getNickName() + "'";
             sql += ", " + player.getCoins();
             sql += ", " + player.getStars();
             sql += ", now(), now()";
-            sql += ", " + player.getPlayedTime();
             sql += ", '" + player.getLastIP() + "'";
             sql +=", '" + player.getToptpKey() + "'";
             sql +=", " + player.getGroupId() + ")";

@@ -31,7 +31,7 @@ public class HostManager
     private ResultSet resultset = null;
 
     // Create a record of host statistic
-    public void CreateHostRecord(HostStatisticsBean hostStatisticsBean, DataSource dataSource) throws Exception
+    public void createHostRecord(HostStatisticsBean hostStatisticsBean, DataSource dataSource) throws Exception
     {
         // Create the player
         try
@@ -42,8 +42,9 @@ public class HostManager
 
             // Query construction
             String sql = "";
-            sql += "insert into host_stats (host_id, ip_address, player_uuid, started_time, played_time)";
-            sql += " values ('" + hostStatisticsBean.getHostId() + "'";
+            sql += "insert into host_stats (template_id, host_id, ip_address, player_uuid, started_time, played_time)";
+            sql += " values ('" + hostStatisticsBean.getTemplateId() + "'";
+            sql += ", '" + hostStatisticsBean.getHostId() + "'";
             sql += ", '" + hostStatisticsBean.getIpAddress() + "'";
             sql += ", UNHEX('"+ Transcoder.Encode(hostStatisticsBean.getPlayerUuid().toString())+"')";
             sql += ", " + hostStatisticsBean.getStartedTime();

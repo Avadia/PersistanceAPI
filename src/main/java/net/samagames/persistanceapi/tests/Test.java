@@ -52,6 +52,7 @@ public class Test
             DimensionStatisticsBean dimensionStats;
             HeroBattleStatisticsBean heroBattleStats;
             JukeBoxStatisticsBean jukeBoxStats;
+            NetworkStatisticsBean networkStats;
             QuakeStatisticsBean quakeStats;
             UHCOriginalStatisticsBean uhcOriginalStats;
             UHCRunStatisticsBean uhcRunStats;
@@ -90,7 +91,7 @@ public class Test
             // Create the player
             startTime = System.currentTimeMillis();
             player = new PlayerBean(UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), "mistersatch", "the boss", 0, 0, new Timestamp(System.currentTimeMillis()),
-                    new Timestamp(System.currentTimeMillis()), 0, "125.125.125.125", "TheUltimateKey", 1);
+                    new Timestamp(System.currentTimeMillis()), "125.125.125.125", "TheUltimateKey", 1);
             manager.createPlayer(player);
             System.out.println("Create player process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -101,7 +102,7 @@ public class Test
 
             // Find player test and self create one
             startTime = System.currentTimeMillis();
-            PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), "player_1", "the looser", 0, 0, null, null, 0, null, null, 1);
+            PlayerBean selfPlayer = new PlayerBean(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), "player_1", "the looser", 0, 0, null, null, null, null, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeeeee"), selfPlayer);
             System.out.println("Find and self create player process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -128,7 +129,7 @@ public class Test
 
             // Create dimensions statistics test
             uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
-            otherPlayer = new PlayerBean(uuid, "thegreatancien", "the killer", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0, "50.50.50.50", "AnotherKey", 1);
+            otherPlayer = new PlayerBean(uuid, "thegreatancien", "the killer", 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "50.50.50.50", "AnotherKey", 1);
             dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
             startTime = System.currentTimeMillis();
             manager.updateDimensionStatistics(otherPlayer, dimensionStats);
@@ -181,6 +182,23 @@ public class Test
             startTime = System.currentTimeMillis();
             manager.getJukeBoxStatistics(otherPlayer);
             System.out.println("Read jukebox statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create network statistics test
+            networkStats = new NetworkStatisticsBean(uuid, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
+            startTime = System.currentTimeMillis();
+            manager.updateNetworkStatistics(otherPlayer, networkStats);
+            System.out.println("Create network statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update network statistics test
+            networkStats.setPlayedTime(1042);
+            startTime = System.currentTimeMillis();
+            manager.updateNetworkStatistics(otherPlayer, networkStats);
+            System.out.println("Update network statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Read network statistics test
+            startTime = System.currentTimeMillis();
+            manager.getNetworkStatistics(otherPlayer);
+            System.out.println("Read network statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create quake statistics test
             quakeStats = new QuakeStatisticsBean(uuid, 10, 20, 30, 5, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
@@ -494,9 +512,9 @@ public class Test
             System.out.println("HashMap permissions setup process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get dimensions leaderboard
-            PlayerBean player_2 = new PlayerBean(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"), "player_2", "the 2", 0, 0, null, null, 0, null, null, 1);
+            PlayerBean player_2 = new PlayerBean(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"), "player_2", "the 2", 0, 0, null, null, null, null, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee"), player_2);
-            PlayerBean player_3 = new PlayerBean(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), "player_3", "the 3", 0, 0, null, null, 0, null, null, 1);
+            PlayerBean player_3 = new PlayerBean(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), "player_3", "the 3", 0, 0, null, null, null, null, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), player_3);
             uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
             dimensionStats = new DimensionStatisticsBean(uuid, 10, 20, 30, 40, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
@@ -599,7 +617,7 @@ public class Test
             System.out.println("Update player settings process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create a default dimensions statistics test
-            PlayerBean player_4 = new PlayerBean(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), "player_4", "the 4", 0, 0, null, null, 0, null, null, 1);
+            PlayerBean player_4 = new PlayerBean(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), "player_4", "the 4", 0, 0, null, null, null, null, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), player_4);
             startTime = System.currentTimeMillis();
             manager.getDimensionStatistics(player_4);
@@ -691,9 +709,9 @@ public class Test
             System.out.println("Free nickname time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Insert a host statistic
-            HostStatisticsBean hostStatisticsBean = new HostStatisticsBean("the host", "127.0.0.1", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), System.currentTimeMillis(), 3500);
+            HostStatisticsBean hostStatisticsBean = new HostStatisticsBean("thtemplate", "the host", "127.0.0.1", UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d"), System.currentTimeMillis(), 3500);
             startTime = System.currentTimeMillis();
-            manager.CreateHostRecord(hostStatisticsBean);
+            manager.createHostRecord(hostStatisticsBean);
             System.out.println("Host stat time: " + (System.currentTimeMillis() - startTime) + " ms");
 
         }

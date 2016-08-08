@@ -330,9 +330,11 @@ CREATE TABLE `herobattle_stats` (
 DROP TABLE IF EXISTS `host_stats`;
 CREATE TABLE `host_stats` (
   `id` double NOT NULL,
+  `template_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_roman_ci NOT NULL,
   `host_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_roman_ci NOT NULL,
   `ip_address` varchar(15) CHARACTER SET utf8 COLLATE utf8_roman_ci NOT NULL,
   `player_uuid` binary(16) NOT NULL,
+  `started_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `played_time` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -423,6 +425,21 @@ CREATE TABLE `jukebox_stats` (
   `mehs` int(11) NOT NULL,
   `woots` int(11) NOT NULL,
   `woots_given` int(11) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `played_time` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `network_stats`
+--
+
+DROP TABLE IF EXISTS `network_stats`;
+CREATE TABLE `network_stats` (
+  `uuid` binary(16) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `played_time` bigint(20) NOT NULL

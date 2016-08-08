@@ -29,6 +29,7 @@ public class PlayerStatisticsBean
     private RandomRunStatisticsBean randomRunStats;
     private UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
     private UppervoidStatisticsBean uppervoidStats;
+    private NetworkStatisticsBean networkStats;
 
     // Empty constructor for reflection creation
     public PlayerStatisticsBean()
@@ -37,7 +38,18 @@ public class PlayerStatisticsBean
     }
 
     // Constructor
-    public PlayerStatisticsBean(DimensionStatisticsBean dimensionStats, HeroBattleStatisticsBean heroBattleStats, JukeBoxStatisticsBean jukeBoxStats, QuakeStatisticsBean quakeStats, UHCOriginalStatisticsBean uhcOriginalStats, UHCRunStatisticsBean uhcRunStats, DoubleRunnerStatisticsBean doubleRunnerStats, UHCRandomStatisticsBean uhcRandomStats, RandomRunStatisticsBean randomRunStats, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats, UppervoidStatisticsBean uppervoidStatisticsBean)
+    public PlayerStatisticsBean(DimensionStatisticsBean dimensionStats,
+                                HeroBattleStatisticsBean heroBattleStats,
+                                JukeBoxStatisticsBean jukeBoxStats,
+                                QuakeStatisticsBean quakeStats,
+                                UHCOriginalStatisticsBean uhcOriginalStats,
+                                UHCRunStatisticsBean uhcRunStats,
+                                DoubleRunnerStatisticsBean doubleRunnerStats,
+                                UHCRandomStatisticsBean uhcRandomStats,
+                                RandomRunStatisticsBean randomRunStats,
+                                UltraFlagKeeperStatisticsBean ultraFlagKeeperStats,
+                                UppervoidStatisticsBean uppervoidStatisticsBean,
+                                NetworkStatisticsBean networkStats)
     {
         this.dimensionStats = dimensionStats;
         this.heroBattleStats = heroBattleStats;
@@ -50,6 +62,7 @@ public class PlayerStatisticsBean
         this.randomRunStats = randomRunStats;
         this.ultraFlagKeeperStats = ultraFlagKeeperStats;
         this.uppervoidStats = uppervoidStatisticsBean;
+        this.networkStats = networkStats;
     }
 
     // Getters
@@ -86,6 +99,9 @@ public class PlayerStatisticsBean
     public UppervoidStatisticsBean getUppervoidStats() {
         return uppervoidStats;
     }
+    public NetworkStatisticsBean getNetworkStats() {
+        return networkStats;
+    }
 
     // Setters
     public void setDimmensionStats(DimensionStatisticsBean dimensionStats) {
@@ -121,5 +137,7 @@ public class PlayerStatisticsBean
     public void setUppervoidStats(UppervoidStatisticsBean uppervoidStats) {
         this.uppervoidStats = uppervoidStats;
     }
-
+    public void setNetworkStats(NetworkStatisticsBean networkStats) {
+        this.networkStats = networkStats;
+    }
 }

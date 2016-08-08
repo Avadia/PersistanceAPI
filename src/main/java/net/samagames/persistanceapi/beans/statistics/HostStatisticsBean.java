@@ -29,12 +29,15 @@ public class HostStatisticsBean
     | host_id     | varchar(255) | NO   |     | NULL    |                |
     | ip_address  | varchar(15)  | NO   | MUL | NULL    |                |
     | player_uuid | binary(16)   | NO   | MUL | NULL    |                |
+    | startedTime | timestamp    | NO   | MUL | NULL    |                |
     | played_time | bigint(20)   | NO   |     | NULL    |                |
     +-------------+--------------+------+-----+---------+----------------+
+
     */
 
     // Defines
     private long id;
+    private String templateId;
     private String hostId;
     private String ipAddress;
     private UUID playerUuid;
@@ -42,8 +45,9 @@ public class HostStatisticsBean
     private long playedTime;
 
     // Cosntructor
-    public HostStatisticsBean(String hostId, String ipAddress, UUID playerUuid, long startedTime, long playedTime)
+    public HostStatisticsBean(String templateId, String hostId, String ipAddress, UUID playerUuid, long startedTime, long playedTime)
     {
+        this.templateId = templateId;
         this.hostId = hostId;
         this.ipAddress = ipAddress;
         this.playerUuid = playerUuid;
@@ -58,6 +62,7 @@ public class HostStatisticsBean
     public UUID getPlayerUuid() { return playerUuid; }
     public long getPlayedTime() { return playedTime; }
     public long getStartedTime() { return startedTime; }
+    public String getTemplateId() { return templateId; }
 
     // Setter
     public void setHostId(String hostId) { this.hostId = hostId; }
@@ -65,4 +70,5 @@ public class HostStatisticsBean
     public void setPlayerUuid(UUID playerUuid) { this.playerUuid = playerUuid; }
     public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
     public void setStartedTime(long startedTime) { this.startedTime = startedTime; }
+    public void setTemplateId(String templateId) { this.templateId = templateId; }
 }
