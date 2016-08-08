@@ -105,7 +105,7 @@ public class NetworkStatisticsManager {
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", now()";
             sql += ", now()";
-            sql += ", played_time=" + networkStats.getPlayedTime() + ")";
+            sql += ", played_time='" + networkStats.getPlayedTime() + "')";
 
             // Execute the query
             statement.executeUpdate(sql);
@@ -141,9 +141,8 @@ public class NetworkStatisticsManager {
 
                 // Query construction for update
                 String sql = "";
-                sql += "update network_stats set";
-                sql += "update_date=now()";
-                sql += ", played_time=" + networkStats.getPlayedTime();
+                sql += "update network_stats set update_date=now()";
+                sql += ", played_time='" + networkStats.getPlayedTime() + "'";
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
