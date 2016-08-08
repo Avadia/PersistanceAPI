@@ -48,7 +48,7 @@ public class HostManager
             sql += ", '" + hostStatisticsBean.getHostId() + "'";
             sql += ", '" + hostStatisticsBean.getIpAddress() + "'";
             sql += ", UNHEX('"+ Transcoder.Encode(hostStatisticsBean.getPlayerUuid().toString())+"')";
-            sql += ", " + new Timestamp(hostStatisticsBean.getStartedTime());
+            sql += ", '" + new Timestamp(hostStatisticsBean.getStartedTime()) + "'";
             sql += ", " + hostStatisticsBean.getPlayedTime() + ")";
 
             // Execute the query
