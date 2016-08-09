@@ -70,7 +70,6 @@ public class StatisticsManager
         RandomRunStatisticsBean randomRunStats;
         UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
         UppervoidStatisticsBean upperVoidStats;
-        NetworkStatisticsBean networkStats;
 
         // Get the different statistics bean
         try
@@ -86,7 +85,6 @@ public class StatisticsManager
             randomRunStats = this.randomRunStatsManager.getRandomRunStatistics(player, dataSource);
             ultraFlagKeeperStats = this.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, dataSource);
             upperVoidStats = this.upperVoidStatsManager.getUppervoidStatistics(player, dataSource);
-            networkStats = this.networkStatisticsManager.getNetworkStatistics(player, dataSource);
         }
         catch (Exception exception)
         {
@@ -95,7 +93,7 @@ public class StatisticsManager
         }
 
         // Create the aggregation of different statistics bean
-        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats, networkStats);
+        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats);
         return playerStatisticsBean;
     }
 
