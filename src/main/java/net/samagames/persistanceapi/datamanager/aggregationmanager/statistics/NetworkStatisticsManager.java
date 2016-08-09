@@ -142,7 +142,7 @@ public class NetworkStatisticsManager {
                 // Query construction for update
                 String sql = "";
                 sql += "update network_stats set update_date=now()";
-                sql += ", played_time='" + networkStats.getPlayedTime() + "'";
+                sql += ", played_time=" + networkStats.getPlayedTime();
                 sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
                 // Execute the query
