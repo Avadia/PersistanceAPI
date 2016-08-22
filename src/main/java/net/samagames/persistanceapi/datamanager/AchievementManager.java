@@ -172,6 +172,51 @@ public class AchievementManager
         }
     }
 
+    // Get the achievements
+    public List<AchievementBean> getAchievements(DataSource dataSource) throws Exception
+    {
+        try
+        {
+            // Defines
+            List<AchievementBean> achievements = new ArrayList<>();
+
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "select achievement_id, achievement_name, achievement_description, progress_target, category_id from achievement_categories";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                int achievementId = resultset.getInt("achievement_id");
+                String achievementName = resultset.getString("achievement_name");
+                String achievementDescription = resultset.getString("achievement_description");
+                int progressTarget = resultset.getInt("progress_target");
+                int categoryId = resultset.getInt("category_id");
+                achievements.add(new AchievementBean(achievementId, achievementName, achievementDescription, progressTarget, categoryId));
+            }
+
+            return achievements;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
     // Get achievement progress by UUID and achievement id
     public AchievementProgressBean getAchievementProgress(PlayerBean player, int achievementId, DataSource dataSource) throws Exception
     {
@@ -238,7 +283,8 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress";
+            sql += " where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);

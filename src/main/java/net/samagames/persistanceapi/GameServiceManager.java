@@ -754,6 +754,12 @@ public class GameServiceManager
         return this.achievementManager.getAchievement(achievementId, this.databaseManager.getDataSource());
     }
 
+    // Get all achievements
+    public synchronized List<AchievementBean> getAchievements() throws Exception
+    {
+        return this.achievementManager.getAchievements(this.databaseManager.getDataSource());
+    }
+
     // Create a achievement progress
     public synchronized void createAchievementProgress(PlayerBean player, int achievementId) throws Exception
     {
