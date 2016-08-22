@@ -16,6 +16,9 @@
 package net.samagames.persistanceapi.tests;
 
 import net.samagames.persistanceapi.GameServiceManager;
+import net.samagames.persistanceapi.beans.achievements.AchievementBean;
+import net.samagames.persistanceapi.beans.achievements.AchievementCategoryBean;
+import net.samagames.persistanceapi.beans.achievements.AchievementProgressBean;
 import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
 import net.samagames.persistanceapi.beans.players.*;
 import net.samagames.persistanceapi.beans.shop.PromotionsBean;
@@ -713,6 +716,26 @@ public class Test
             startTime = System.currentTimeMillis();
             manager.createHostRecord(hostStatisticsBean);
             System.out.println("Host stat time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            AchievementBean achievementBean = new AchievementBean(0, "Title", "Description", 1, 0);
+
+            // Create a achievement progress
+            AchievementProgressBean achievementProgressBean = new AchievementProgressBean(0, 0, 0, null, null, player.getUuid());
+            startTime = System.currentTimeMillis();
+            manager.getAchievementProgress(player, achievementBean);
+            System.out.println("Achievement progress creation time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update a achievement progress
+            achievementProgressBean.setProgress(3);
+            achievementProgressBean.setUnlockDate(new Timestamp(System.currentTimeMillis()));
+            startTime = System.currentTimeMillis();
+            manager.updateAchievementProgress(achievementProgressBean);
+            System.out.println("Achievement progress update time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Get a achievement progress
+            startTime = System.currentTimeMillis();
+            manager.getAchievementProgress(player, achievementBean);
+            System.out.println("Achievement progress get time: " + (System.currentTimeMillis() - startTime) + " ms");
 
         }
         catch (Exception exception)

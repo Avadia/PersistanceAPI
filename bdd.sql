@@ -1734,6 +1734,52 @@ CREATE TABLE `uppervoid_stats` (
   `played_time` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `achievements_category`
+--
+
+DROP TABLE IF EXISTS `achievements_category`;
+CREATE TABLE `achievements_category` (
+  `category_id` int(11) NOT NULL,
+  `category_name` varchar(45) NOT NULL,
+  `category_description` varchar(255) NOT NULL,
+  `item_minecraft_id` varchar(45) NOT NULL,
+  `parent_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `achievements`
+--
+
+DROP TABLE IF EXISTS `achievements`;
+CREATE TABLE `achievements` (
+  `achievement_id` int(11) NOT NULL,
+  `achievement_name` varchar(45) NOT NULL,
+  `achievement_description` varchar(255) NOT NULL,
+  `progress_target` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `uppervoid_stats`
+--
+
+DROP TABLE IF EXISTS `achievements_progress`;
+CREATE TABLE `achievements` (
+  `progress_id` bigint(20) NOT NULL,
+  `achievement_id` int(11) NOT NULL,
+  `progress` int(11) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `unlock_date` timestamp DEFAULT NULL,
+  `uuid_player` binary(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_roman_ci;
+
 --
 -- Index pour les tables exportées
 --
@@ -1938,6 +1984,24 @@ ALTER TABLE `uppervoid_stats`
 ADD PRIMARY KEY (`uuid`);
 
 --
+-- Index pour la table `achievements_category`
+--
+ALTER TABLE `achievements_category`
+ADD PRIMARY KEY (`category_id`);
+
+--
+-- Index pour la table `achievements`
+--
+ALTER TABLE `achievements`
+ADD PRIMARY KEY (`achievement_id`);
+
+--
+-- Index pour la table `achievements_progress`
+--
+ALTER TABLE `achievements_progress`
+ADD PRIMARY KEY (`progress_id`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -2011,3 +2075,18 @@ MODIFY `groups_id` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 ALTER TABLE `transaction_shop`
 MODIFY `transaction_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `achievements_category`
+--
+ALTER TABLE `achievements_category`
+MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `achievements`
+--
+ALTER TABLE `achievements`
+MODIFY `achievement_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `achievements_progress`
+--
+ALTER TABLE `achievements_progress`
+MODIFY `progress_id` bigint(20) NOT NULL AUTO_INCREMENT;

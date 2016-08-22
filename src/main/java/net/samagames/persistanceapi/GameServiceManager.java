@@ -15,6 +15,9 @@
 
 package net.samagames.persistanceapi;
 
+import net.samagames.persistanceapi.beans.achievements.AchievementBean;
+import net.samagames.persistanceapi.beans.achievements.AchievementCategoryBean;
+import net.samagames.persistanceapi.beans.achievements.AchievementProgressBean;
 import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.players.*;
 import net.samagames.persistanceapi.beans.shop.ItemDescriptionBean;
@@ -45,6 +48,7 @@ public class GameServiceManager
     private ItemManager itemManager;
     private NicknameManager nicknameManager;
     private HostManager hostManager;
+    private AchievementManager achievementManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -65,6 +69,7 @@ public class GameServiceManager
         this.itemManager = new ItemManager();
         this.nicknameManager = new NicknameManager();
         this.hostManager = new HostManager();
+        this.achievementManager = new AchievementManager();
     }
 
 
@@ -724,5 +729,46 @@ public class GameServiceManager
     {
         // Create record
         this.hostManager.createHostRecord(hostStatisticsBean, this.databaseManager.getDataSource());
+    }
+
+
+    /*============================================
+      Part of permissions manager
+    ============================================*/
+
+    // Get a achievement category by id
+    public synchronized AchievementCategoryBean getAchievementCategory(int categoryId) throws Exception
+    {
+        return this.achievementManager.getAchievementCategory(categoryId, this.databaseManager.getDataSource());
+    }
+
+    // Get all achievement categories
+    public synchronized List<AchievementCategoryBean> getAchievementCategories() throws Exception
+    {
+        return this.achievementManager.getAchievementCategories(this.databaseManager.getDataSource());
+    }
+
+    // Get a achievement by id
+    public synchronized AchievementBean getAchievement(int achievementId) throws Exception
+    {
+        return this.achievementManager.getAchievement(achievementId, this.databaseManager.getDataSource());
+    }
+
+    // Create a achievement progress
+    public synchronized AchievementProgressBean getAchievementProgress(PlayerBean player, AchievementBean achievementBean) throws Exception
+    {
+        return this.achievementManager.getAchievementProgress(player, achievementBean, this.databaseManager.getDataSource());
+    }
+
+    // Get a achievement progress
+    public synchronized List<AchievementProgressBean> getAchievementProgresses(PlayerBean player) throws Exception
+    {
+        return this.achievementManager.getAchievementProgresses(player, this.databaseManager.getDataSource());
+    }
+
+    // Update a achievement progress
+    public synchronized void updateAchievementProgress(AchievementProgressBean progress) throws Exception
+    {
+        this.achievementManager.updateAchievementProgress(progress, this.databaseManager.getDataSource());
     }
 }
