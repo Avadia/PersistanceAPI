@@ -1767,11 +1767,11 @@ CREATE TABLE `achievements` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `uppervoid_stats`
+-- Structure de la table `achievements_progress`
 --
 
 DROP TABLE IF EXISTS `achievements_progress`;
-CREATE TABLE `achievements` (
+CREATE TABLE `achievements_progress` (
   `progress_id` bigint(20) NOT NULL,
   `achievement_id` int(11) NOT NULL,
   `progress` int(11) NOT NULL,
