@@ -173,7 +173,7 @@ public class AchievementManager
     }
 
     // Get achievement progress by UUID and achievement id
-    public AchievementProgressBean getAchievementProgress(PlayerBean player, AchievementBean achievement, DataSource dataSource) throws Exception
+    public AchievementProgressBean getAchievementProgress(PlayerBean player, int achievementId, DataSource dataSource) throws Exception
     {
         // Make the research of player by UUID
         try
@@ -184,7 +184,7 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')) and achievement_id=" + achievement.getAchievementId();
+            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')) and achievement_id=" + achievementId;
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -195,18 +195,18 @@ public class AchievementManager
                 // There's a result
                 String playerUuid = Transcoder.Decode(resultset.getString("uuid_player"));
                 long progressId = resultset.getLong("progress_id");
-                int achievementId = resultset.getInt("achievement_id");
+                int achievementId2 = resultset.getInt("achievement_id");
                 int achievementProgress = resultset.getInt("progress");
                 Timestamp startDate = resultset.getTimestamp("start_date");
                 Timestamp unlockDate = resultset.getTimestamp("unlock_date");
-                return new AchievementProgressBean(progressId, achievementId, achievementProgress, startDate, unlockDate, UUID.fromString(playerUuid));
+                return new AchievementProgressBean(progressId, achievementId2, achievementProgress, startDate, unlockDate, UUID.fromString(playerUuid));
             }
             else
             {
                 // If there no player for the uuid in database create a new player
                 this.close();
-                this.createAchievementProgress(player, achievement, dataSource);
-                AchievementProgressBean achievementProgressBean = this.getAchievementProgress(player, achievement, dataSource);
+                this.createAchievementProgress(player, achievementId, dataSource);
+                AchievementProgressBean achievementProgressBean = this.getAchievementProgress(player, achievementId, dataSource);
                 this.close();
                 return achievementProgressBean;
             }
@@ -303,7 +303,7 @@ public class AchievementManager
     }
 
     // Create the achievement progress
-    public void createAchievementProgress(PlayerBean player, AchievementBean achievement, DataSource dataSource) throws Exception
+    public void createAchievementProgress(PlayerBean player, int achievementId, DataSource dataSource) throws Exception
     {
         // Create the player
         try
@@ -315,7 +315,7 @@ public class AchievementManager
             // Query construction
             String sql = "";
             sql += "insert into achievements_progress (achievement_id, progress, start_date, unlock_date, uuid_player)";
-            sql += "values '" + achievement.getAchievementId() + "'";
+            sql += "values '" + achievementId + "'";
             sql += ", '0'";
             sql += ", now()";
             sql +=", NULL";

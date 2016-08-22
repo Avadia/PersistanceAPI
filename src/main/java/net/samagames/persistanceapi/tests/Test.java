@@ -717,12 +717,10 @@ public class Test
             manager.createHostRecord(hostStatisticsBean);
             System.out.println("Host stat time: " + (System.currentTimeMillis() - startTime) + " ms");
 
-            AchievementBean achievementBean = new AchievementBean(0, "Title", "Description", 1, 0);
-
             // Create a achievement progress
             AchievementProgressBean achievementProgressBean = new AchievementProgressBean(0, 0, 0, null, null, player.getUuid());
             startTime = System.currentTimeMillis();
-            manager.getAchievementProgress(player, achievementBean);
+            manager.getAchievementProgress(player, 0);
             System.out.println("Achievement progress creation time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Update a achievement progress
@@ -734,7 +732,7 @@ public class Test
 
             // Get a achievement progress
             startTime = System.currentTimeMillis();
-            manager.getAchievementProgress(player, achievementBean);
+            manager.getAchievementProgress(player, 0);
             System.out.println("Achievement progress get time: " + (System.currentTimeMillis() - startTime) + " ms");
 
         }
