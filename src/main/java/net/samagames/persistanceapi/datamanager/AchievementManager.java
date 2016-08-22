@@ -229,7 +229,8 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')) and achievement_id=" + achievementId;
+            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses";
+            sql += " where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')) and achievement_id=" + achievementId;
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -283,7 +284,7 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress";
+            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses";
             sql += " where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
 
             // Execute the query
@@ -328,7 +329,7 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "update achievements_progress set progress=" + progress.getProgress();
+            sql += "update achievement_progresses set progress=" + progress.getProgress();
             sql += ", start_date='" + progress.getStartDate() + "'";
             sql += ", unlock_date=" + progress.getUnlockDate();
             sql += " where progress_id=" + progress.getProgressId();
@@ -360,7 +361,7 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "insert into achievements_progress (achievement_id, progress, start_date, unlock_date, uuid_player)";
+            sql += "insert into achievement_progresses (achievement_id, progress, start_date, unlock_date, uuid_player)";
             sql += "values '" + achievementId + "'";
             sql += ", '0'";
             sql += ", now()";

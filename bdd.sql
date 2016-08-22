@@ -1737,11 +1737,11 @@ CREATE TABLE `uppervoid_stats` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `achievements_category`
+-- Structure de la table `achievement_categories`
 --
 
-DROP TABLE IF EXISTS `achievements_category`;
-CREATE TABLE `achievements_category` (
+DROP TABLE IF EXISTS `achievement_categories`;
+CREATE TABLE `achievement_categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(45) NOT NULL,
   `category_description` varchar(255) NOT NULL,
@@ -1767,11 +1767,11 @@ CREATE TABLE `achievements` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `achievements_progress`
+-- Structure de la table `achievement_progresses`
 --
 
-DROP TABLE IF EXISTS `achievements_progress`;
-CREATE TABLE `achievements_progress` (
+DROP TABLE IF EXISTS `achievement_progresses`;
+CREATE TABLE `achievement_progresses` (
   `progress_id` bigint(20) NOT NULL,
   `achievement_id` int(11) NOT NULL,
   `progress` int(11) NOT NULL,
