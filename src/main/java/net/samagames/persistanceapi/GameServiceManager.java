@@ -635,10 +635,16 @@ public class GameServiceManager
         return this.achievementManager.getAchievement(achievementId, this.databaseManager.getDataSource());
     }
 
-    // Get a achievement progress
-    public synchronized AchievementProgressBean getAchievementProgress(AchievementProgressBean progress) throws Exception
+    // Create a achievement progress
+    public synchronized AchievementProgressBean getAchievementProgress(PlayerBean player, AchievementBean achievementBean) throws Exception
     {
-        return this.achievementManager.getAchievementProgress(progress, this.databaseManager.getDataSource());
+        return this.achievementManager.getAchievementProgress(player, achievementBean, this.databaseManager.getDataSource());
+    }
+
+    // Get a achievement progress
+    public synchronized List<AchievementProgressBean> getAchievementProgresses(PlayerBean player) throws Exception
+    {
+        return this.achievementManager.getAchievementProgresses(player, this.databaseManager.getDataSource());
     }
 
     // Update a achievement progress

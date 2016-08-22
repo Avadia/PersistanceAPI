@@ -18,6 +18,7 @@ package net.samagames.persistanceapi.datamanager;
 import net.samagames.persistanceapi.beans.achievements.AchievementBean;
 import net.samagames.persistanceapi.beans.achievements.AchievementCategoryBean;
 import net.samagames.persistanceapi.beans.achievements.AchievementProgressBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
@@ -171,8 +172,8 @@ public class AchievementManager
         }
     }
 
-    // Get achievement progress by UUID, create if unknown
-    public AchievementProgressBean getAchievementProgress(AchievementProgressBean progress, DataSource dataSource) throws Exception
+    // Get achievement progress by UUID and achievement id
+    public AchievementProgressBean getAchievementProgress(PlayerBean player, AchievementBean achievement, DataSource dataSource) throws Exception
     {
         // Make the research of player by UUID
         try
@@ -183,7 +184,7 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress where uuid_player=(UNHEX('"+ Transcoder.Encode(progress.getUuidPlayer().toString())+"'))";
+            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')) and achievement_id=" + achievement.getAchievementId();
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -198,18 +199,64 @@ public class AchievementManager
                 int achievementProgress = resultset.getInt("progress");
                 Timestamp startDate = resultset.getTimestamp("start_date");
                 Timestamp unlockDate = resultset.getTimestamp("unlock_date");
-                progress = new AchievementProgressBean(progressId, achievementId, achievementProgress, startDate, unlockDate, UUID.fromString(playerUuid));
-                return progress;
+                return new AchievementProgressBean(progressId, achievementId, achievementProgress, startDate, unlockDate, UUID.fromString(playerUuid));
             }
             else
             {
-                // If there no achievement progress for the uuid in database create a new achievement progress
+                // If there no player for the uuid in database create a new player
                 this.close();
-                this.createAchievementProgress(progress, dataSource);
-                AchievementProgressBean newAchievementProgress = this.getAchievementProgress(progress, dataSource);
+                this.createAchievementProgress(player, achievement, dataSource);
+                AchievementProgressBean achievementProgressBean = this.getAchievementProgress(player, achievement, dataSource);
                 this.close();
-                return newAchievementProgress;
+                return achievementProgressBean;
             }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
+    // Get achievement progresses by UUID
+    public List<AchievementProgressBean> getAchievementProgresses(PlayerBean player, DataSource dataSource) throws Exception
+    {
+        // Make the research of player by UUID
+        try
+        {
+            // Defines
+            List<AchievementProgressBean> achievementProgresses = new ArrayList<>();
+
+            // Set connection
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+
+            // Query construction
+            String sql = "";
+            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievements_progress where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+
+            // Execute the query
+            resultset = statement.executeQuery(sql);
+
+            // Manage the result in a bean
+            while (resultset.next())
+            {
+                // There's a result
+                String playerUuid = Transcoder.Decode(resultset.getString("uuid_player"));
+                long progressId = resultset.getLong("progress_id");
+                int achievementId = resultset.getInt("achievement_id");
+                int achievementProgress = resultset.getInt("progress");
+                Timestamp startDate = resultset.getTimestamp("start_date");
+                Timestamp unlockDate = resultset.getTimestamp("unlock_date");
+                achievementProgresses.add(new AchievementProgressBean(progressId, achievementId, achievementProgress, startDate, unlockDate, UUID.fromString(playerUuid)));
+            }
+
+            return achievementProgresses;
         }
         catch(Exception exception)
         {
@@ -256,7 +303,7 @@ public class AchievementManager
     }
 
     // Create the achievement progress
-    public void createAchievementProgress(AchievementProgressBean progress, DataSource dataSource) throws Exception
+    public void createAchievementProgress(PlayerBean player, AchievementBean achievement, DataSource dataSource) throws Exception
     {
         // Create the player
         try
@@ -268,11 +315,11 @@ public class AchievementManager
             // Query construction
             String sql = "";
             sql += "insert into achievements_progress (achievement_id, progress, start_date, unlock_date, uuid_player)";
-            sql += "values '" + progress.getAchievementId() + "'";
+            sql += "values '" + achievement.getAchievementId() + "'";
             sql += ", '0'";
             sql += ", now()";
             sql +=", NULL";
-            sql +=", (UNHEX('"+ Transcoder.Encode(progress.getUuidPlayer().toString())+"')";
+            sql +=", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
 
             // Execute the query
             statement.executeUpdate(sql);
