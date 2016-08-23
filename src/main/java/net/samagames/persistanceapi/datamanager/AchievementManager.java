@@ -96,7 +96,7 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "select category_name, category_description, item_minecraft_id, parent_id from achievement_categories";
+            sql += "select category_id, category_name, category_description, item_minecraft_id, parent_id from achievement_categories";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
