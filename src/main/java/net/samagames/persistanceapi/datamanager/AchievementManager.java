@@ -186,7 +186,7 @@ public class AchievementManager
 
             // Query construction
             String sql = "";
-            sql += "select achievement_id, achievement_name, achievement_description, progress_target, category_id from achievement_categories";
+            sql += "select achievement_id, achievement_name, achievement_description, progress_target, category_id from achievements";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
