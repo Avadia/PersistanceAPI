@@ -366,7 +366,7 @@ public class AchievementManager
             sql += ", '0'";
             sql += ", now()";
             sql += ", NULL";
-            sql += ", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            sql += ", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')))";
 
             // Execute the query
             statement.executeUpdate(sql);
