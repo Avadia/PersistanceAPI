@@ -332,7 +332,7 @@ public class AchievementManager
             String sql = "";
             sql += "update achievement_progresses set progress=" + progress.getProgress();
             sql += ", start_date='" + progress.getStartDate() + "'";
-            sql += ", unlock_date=" + progress.getUnlockDate();
+            sql += ", unlock_date='" + progress.getUnlockDate() + "'";
             sql += " where progress_id=" + progress.getProgressId();
 
             // Execute the query
