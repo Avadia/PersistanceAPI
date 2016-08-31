@@ -311,7 +311,18 @@ public class AchievementManager
                 int achievementId = resultset.getInt("achievement_id");
                 int achievementProgress = resultset.getInt("progress");
                 Timestamp startDate = resultset.getTimestamp("start_date");
-                Timestamp unlockDate = resultset.getTimestamp("unlock_date");
+
+                Timestamp unlockDate;
+
+                try
+                {
+                    unlockDate = resultset.getTimestamp("unlock_date");
+                }
+                catch (Exception dateException)
+                {
+                    unlockDate = null;
+                }
+
                 achievementProgresses.add(new AchievementProgressBean(progressId, achievementId, achievementProgress, startDate, unlockDate, UUID.fromString(playerUuid)));
             }
 
@@ -379,13 +390,21 @@ public class AchievementManager
             connection = dataSource.getConnection();
             statement = connection.createStatement();
 
+            Timestamp unlockDate = progress.getUnlockDate();
+            String unlockDateString = "0000-00-00 00:00:00";
+
+            if(unlockDate != null)
+            {
+                unlockDateString = unlockDate.toString();
+            }
+
             // Query construction
             String sql = "";
             sql += "insert into achievement_progresses (achievement_id, progress, start_date, unlock_date, uuid_player)";
             sql += " values ('" + progress.getAchievementId() + "'";
             sql += ", '" + progress.getProgress() + "'";
             sql += ", now()";
-            sql += ", NULL";
+            sql += ", " + unlockDateString;
             sql += ", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')))";
 
             // Execute the query
