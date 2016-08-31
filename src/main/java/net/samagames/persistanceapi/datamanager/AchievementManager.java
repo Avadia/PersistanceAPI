@@ -404,7 +404,7 @@ public class AchievementManager
             sql += " values ('" + progress.getAchievementId() + "'";
             sql += ", '" + progress.getProgress() + "'";
             sql += ", now()";
-            sql += ", " + unlockDateString;
+            sql += ", '" + unlockDateString + "'";
             sql += ", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')))";
 
             // Execute the query
