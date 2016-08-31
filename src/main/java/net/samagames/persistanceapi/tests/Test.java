@@ -720,7 +720,7 @@ public class Test
             // Create a achievement progress
             AchievementProgressBean achievementProgressBean = new AchievementProgressBean(0, 0, 0, null, null, player.getUuid());
             startTime = System.currentTimeMillis();
-            manager.getAchievementProgress(player, 0);
+            manager.createAchievementProgress(player, achievementProgressBean);
             System.out.println("Achievement progress creation time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Update a achievement progress

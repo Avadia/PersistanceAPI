@@ -251,8 +251,9 @@ public class AchievementManager
             {
                 // If there no player for the uuid in database create a new player
                 this.close();
-                this.createAchievementProgress(player, achievementId, dataSource);
-                AchievementProgressBean achievementProgressBean = this.getAchievementProgress(player, achievementId, dataSource);
+                AchievementProgressBean achievementProgressBean = new AchievementProgressBean(0, 0, achievementId, null, null, null);
+                this.createAchievementProgress(player, achievementProgressBean, dataSource);
+                achievementProgressBean = this.getAchievementProgress(player, achievementId, dataSource);
                 this.close();
                 return achievementProgressBean;
             }
@@ -350,7 +351,7 @@ public class AchievementManager
     }
 
     // Create the achievement progress
-    public void createAchievementProgress(PlayerBean player, int achievementId, DataSource dataSource) throws Exception
+    public void createAchievementProgress(PlayerBean player, AchievementProgressBean progress, DataSource dataSource) throws Exception
     {
         // Create the player
         try
@@ -362,8 +363,8 @@ public class AchievementManager
             // Query construction
             String sql = "";
             sql += "insert into achievement_progresses (achievement_id, progress, start_date, unlock_date, uuid_player)";
-            sql += " values ('" + achievementId + "'";
-            sql += ", '0'";
+            sql += " values ('" + progress.getAchievementId() + "'";
+            sql += ", '" + progress.getProgress() + "'";
             sql += ", now()";
             sql += ", NULL";
             sql += ", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')))";
