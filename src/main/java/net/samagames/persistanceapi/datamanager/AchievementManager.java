@@ -362,11 +362,11 @@ public class AchievementManager
             // Query construction
             String sql = "";
             sql += "insert into achievement_progresses (achievement_id, progress, start_date, unlock_date, uuid_player)";
-            sql += "values '" + achievementId + "'";
+            sql += " values '" + achievementId + "'";
             sql += ", '0'";
             sql += ", now()";
-            sql +=", NULL";
-            sql +=", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
+            sql += ", NULL";
+            sql += ", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
 
             // Execute the query
             statement.executeUpdate(sql);
