@@ -31,6 +31,7 @@ public class PlayerBean
     | nickname    | varchar(45)  | YES  |     | NULL                |       |
     | coins       | int(11)      | YES  |     | NULL                |       |
     | stars       | int(11)      | YES  |     | NULL                |       |
+    | powders     | int(11)      | YES  |     | NULL                |       |
     | last_login  | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
     | first_login | timestamp    | NO   |     | 0000-00-00 00:00:00 |       |
     | last_ip     | varchar(15)  | YES  |     | NULL                |       |
@@ -45,6 +46,7 @@ public class PlayerBean
     private String nickName;
     private int coins;
     private int stars;
+    private int powders;
     private Timestamp lastLogin;
     private Timestamp firstLogin;
     private String lastIP;
@@ -58,13 +60,14 @@ public class PlayerBean
     }
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
+    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, int powders, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
     {
         this.uuid = uuid;
         this.name = name;
         this.nickName = nickName;
         this.coins = coins;
         this.stars = stars;
+        this.powders = powders;
         this.lastLogin = lastLogin;
         this.firstLogin = firstLogin;
         this.lastIP = lastIP;
@@ -85,6 +88,9 @@ public class PlayerBean
     }
     public int getStars() {
         return this.stars;
+    }
+    public int getPowders() {
+        return this.powders;
     }
     public Timestamp getLastLogin() {
         return this.lastLogin;
@@ -111,7 +117,9 @@ public class PlayerBean
     public void setStars(int stars) {
         this.stars = stars;
     }
-
+    public void setPowders(int powders) {
+        this.powders = powders;
+    }
     public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
     }

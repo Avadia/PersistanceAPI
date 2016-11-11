@@ -42,7 +42,7 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
 
             // Execute the query
             resultset = statement.executeQuery(sql);
@@ -56,12 +56,13 @@ public class PlayerManager
                 String nickName = resultset.getString("nickname");
                 int coins = resultset.getInt("coins");
                 int stars = resultset.getInt("stars");
+                int powders = resultset.getInt("powders");
                 Timestamp lastLogin = resultset.getTimestamp("last_login");
                 Timestamp firsLogin = resultset.getTimestamp("first_login");
                 String lastIP = resultset.getString("last_ip");
                 String toptpKey = resultset.getString("toptp_key");
                 long groupId = resultset.getLong("group_id");
-                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, lastLogin, firsLogin, lastIP, toptpKey, groupId);
+                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, powders, lastLogin, firsLogin, lastIP, toptpKey, groupId);
                 return player;
             }
             else
@@ -148,6 +149,7 @@ public class PlayerManager
             sql += "update players set coins=" + player.getCoins();
             sql += ", name='" + player.getName() + "'";
             sql += ", stars=" + player.getStars();
+            sql += ", powders=" + player.getPowders();
             sql += ", last_login='" + player.getLastLogin() +"'";
             sql += ", last_ip='" + player.getLastIP() +"'";
             sql += ", toptp_key='" + player.getToptpKey() +"'";
@@ -182,12 +184,13 @@ public class PlayerManager
 
             // Query construction
             String sql = "";
-            sql += "insert into players (uuid, name, nickname, coins, stars, last_login, first_login, last_ip, toptp_key, group_id)";
+            sql += "insert into players (uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id)";
             sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
             sql += ", '" + player.getName() + "'";
             sql += ", '" + player.getNickName() + "'";
             sql += ", " + player.getCoins();
             sql += ", " + player.getStars();
+            sql += ", " + player.getPowders();
             sql += ", now(), now()";
             sql += ", '" + player.getLastIP() + "'";
             sql +=", '" + player.getToptpKey() + "'";
