@@ -276,6 +276,13 @@ public class GameServiceManager
         return this.statisticsManager.upperVoidStatsManager.getUppervoidStatistics(player, this.databaseManager.getDataSource());
     }
 
+    // Get ChunkWars player statistics
+    public synchronized ChunkWarsStatisticsBean getChunkWarsStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.chunkWarsStatisticsManager.getChunkWarsStatistics(player, this.databaseManager.getDataSource());
+    }
+
     // Get all player statistics
     public synchronized PlayerStatisticsBean getAllStatistics(PlayerBean player) throws Exception
     {
@@ -374,6 +381,13 @@ public class GameServiceManager
         this.statisticsManager.upperVoidStatsManager.updateUppervoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
     }
 
+    // Update ChunkWars statistics
+    public synchronized void updateChunkWarsStatistics(PlayerBean player, ChunkWarsStatisticsBean chunkWarsStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, chunkWarsStats,this.databaseManager.getDataSource());
+    }
+
     // Get the dimensions leaderboard
     public synchronized List<LeaderboardBean> getDimmensionLeaderBoard(String category) throws Exception
     {
@@ -449,6 +463,13 @@ public class GameServiceManager
     {
         // Get the leaderboard
         return this.statisticsManager.upperVoidStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the chunkwars leaderboard
+    public synchronized List<LeaderboardBean> getChunkWarsLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.chunkWarsStatisticsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
 

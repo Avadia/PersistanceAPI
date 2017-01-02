@@ -64,6 +64,7 @@ public class Test
             RandomRunStatisticsBean randomRunStats;
             UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
             UppervoidStatisticsBean upperVoidStats;
+            ChunkWarsStatisticsBean chunkWarsStats;
             GameServiceManager manager;
 
             // Initialize the manager
@@ -340,13 +341,30 @@ public class Test
             // Update UpperVoid statistics test
             upperVoidStats.setPlayedGames(555);
             startTime = System.currentTimeMillis();
-            manager.updateUHCRunStatistics(otherPlayer, uhcRunStats);
+            manager.updateUppervoidStatistics(otherPlayer, upperVoidStats);
             System.out.println("Update UpperVoid statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Read UpperVoid statistics test
             startTime = System.currentTimeMillis();
             manager.getUppervoidStatistics(otherPlayer);
             System.out.println("Read UpperVoid statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Create ChunkWars statistics test
+            chunkWarsStats = new ChunkWarsStatisticsBean(uuid, 40, 60, 5, 120, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6000);
+            startTime = System.currentTimeMillis();
+            manager.updateChunkWarsStatistics(otherPlayer, chunkWarsStats);
+            System.out.println("Create ChunkWars statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Update UpperVoid statistics test
+            chunkWarsStats.setPlayedGames(555);
+            startTime = System.currentTimeMillis();
+            manager.updateChunkWarsStatistics(otherPlayer, chunkWarsStats);
+            System.out.println("Update ChunkWars statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
+
+            // Read UpperVoid statistics test
+            startTime = System.currentTimeMillis();
+            manager.getChunkWarsStatistics(otherPlayer);
+            System.out.println("Read ChunkWars statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // All statistics read for player test
             startTime = System.currentTimeMillis();

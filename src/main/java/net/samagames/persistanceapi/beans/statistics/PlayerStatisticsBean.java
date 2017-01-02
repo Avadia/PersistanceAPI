@@ -29,6 +29,7 @@ public class PlayerStatisticsBean
     private RandomRunStatisticsBean randomRunStats;
     private UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
     private UppervoidStatisticsBean uppervoidStats;
+    private ChunkWarsStatisticsBean chunkWarsStats;
 
     // Empty constructor for reflection creation
     public PlayerStatisticsBean()
@@ -47,7 +48,8 @@ public class PlayerStatisticsBean
                                 UHCRandomStatisticsBean uhcRandomStats,
                                 RandomRunStatisticsBean randomRunStats,
                                 UltraFlagKeeperStatisticsBean ultraFlagKeeperStats,
-                                UppervoidStatisticsBean uppervoidStatisticsBean)
+                                UppervoidStatisticsBean uppervoidStatisticsBean,
+                                ChunkWarsStatisticsBean chunkWarsStatisticsBean)
     {
         this.dimensionStats = dimensionStats;
         this.heroBattleStats = heroBattleStats;
@@ -60,6 +62,7 @@ public class PlayerStatisticsBean
         this.randomRunStats = randomRunStats;
         this.ultraFlagKeeperStats = ultraFlagKeeperStats;
         this.uppervoidStats = uppervoidStatisticsBean;
+        this.chunkWarsStats = chunkWarsStatisticsBean;
     }
 
     // Getters
@@ -96,6 +99,9 @@ public class PlayerStatisticsBean
     public UppervoidStatisticsBean getUppervoidStats() {
         return uppervoidStats;
     }
+    public ChunkWarsStatisticsBean getChunkWarsStats() {
+        return chunkWarsStats;
+    }
 
     // Setters
     public void setDimmensionStats(DimensionStatisticsBean dimensionStats) {
@@ -130,5 +136,8 @@ public class PlayerStatisticsBean
     }
     public void setUppervoidStats(UppervoidStatisticsBean uppervoidStats) {
         this.uppervoidStats = uppervoidStats;
+    }
+    public void setChunkWarsStats(ChunkWarsStatisticsBean chunkWarsStats) {
+        this.chunkWarsStats = chunkWarsStats;
     }
 }
