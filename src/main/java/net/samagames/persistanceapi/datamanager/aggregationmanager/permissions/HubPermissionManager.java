@@ -43,7 +43,7 @@ public class HubPermissionManager
             // Query construction
             String sql = "select groups_id, hub_jukebox_lock, hub_jukebox_next, hub_jukebox_clear, hub_mod_slow, hub_mod_shutup, hub_admin_npc, hub_admin_sign, hub_anguille,";
             sql += " hub_jukebox_nbs, hub_admin_evacuate, hub_announce, hub_gadgets_cooldownbypass, hub_gadgets_nuke, hub_jukebox_limitbypass, hub_jukebox_limitstaff,";
-            sql += " hub_bypassmute, hub_fly, hub_debug_sign, hub_sign_selection, hub_beta_vip, hub_admin_pearl";
+            sql += " hub_bypassmute, hub_fly, hub_debug_sign, hub_sign_selection, hub_beta_vip, hub_admin_pearl, hub_animating_event";
             sql += " from hub_permissions where groups_id=" + player.getGroupId();
 
             // Execute the query
@@ -75,9 +75,10 @@ public class HubPermissionManager
                 boolean hubSignSelection = resultset.getBoolean("hub_sign_selection");
                 boolean hubBetaVIP = resultset.getBoolean("hub_beta_vip");
                 boolean hubAdminPearl = resultset.getBoolean("hub_admin_pearl");
+                boolean hubAnimatingEvent = resultset.getBoolean("hub_animating_event");
                 hubPermissionsBean = new HubPermissionsBean(groupId, hubJukeboxLock, hubJukeboxNext, hubJukeBoxClear, hubModSlow, hubModShutup, hubAdminNpc, hubAdminSign, hubAnguille,
                         hubJukeboxNbs, hubAdminEvacuate, hubAnnounce, hubGadgetsCooldownbypass, hubGadgetsNuke, hubJukeboxLimitbypass, hubJukeboxLimitstaff, hubBypassmute, hubFly,
-                        hubDebugSign, hubSignSelection, hubBetaVIP, hubAdminPearl);
+                        hubDebugSign, hubSignSelection, hubBetaVIP, hubAdminPearl, hubAnimatingEvent);
             }
             else
             {
