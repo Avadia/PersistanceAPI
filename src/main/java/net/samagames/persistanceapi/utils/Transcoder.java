@@ -63,11 +63,6 @@ public class Transcoder
         return result;
     }
 
-    public static String toUTF8(String text)
-    {
-        return new String(text.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-    }
-
     // Set the annotations values
     public static void setAnnotationValue(Object permissions, String key, Boolean value)
     {

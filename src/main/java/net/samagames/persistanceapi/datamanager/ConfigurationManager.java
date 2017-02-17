@@ -90,9 +90,9 @@ public class ConfigurationManager
 
             statement = connection.prepareStatement(sql);
             statement.setInt(1, config.getSlots());
-            statement.setString(2, Transcoder.toUTF8(config.getMotd()));
+            statement.setString(2, config.getMotd());
             statement.setString(3, config.getCloseType());
-            statement.setString(4, Transcoder.toUTF8(config.getServerLine()));
+            statement.setString(4, config.getServerLine());
             statement.setInt(5, config.getMaxPlayers());
 
             // Execute the query
