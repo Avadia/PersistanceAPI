@@ -82,6 +82,53 @@ public class EventManager
         }
     }
 
+    // Get the event by date
+    public EventBean getEvent(Timestamp eventDate, DataSource dataSource) throws Exception
+    {
+        try
+        {
+            // Defines
+            EventBean eventBean = null;
+
+            // Set connection
+            connection = dataSource.getConnection();
+
+            // Query construction
+            String sql = "select event_id, event_organizer, event_template, reward_coins, reward_pearls from events where event_date = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, eventDate.toString());
+
+            // Execute the query
+            resultset = statement.executeQuery();
+
+            // Manage the result in a bean
+            if(resultset.next())
+            {
+                // There's a result
+                long eventId = resultset.getLong("event_id");
+                UUID eventOrganizer = UUID.fromString(Transcoder.decode(resultset.getString("event_organizer")));
+                String eventTemplate = resultset.getString("event_template");
+                int rewardCoins = resultset.getInt("reward_coins");
+                int rewardPearls = resultset.getInt("reward_pearls");
+
+                eventBean = new EventBean(eventId, eventOrganizer, eventTemplate, rewardCoins, rewardPearls, eventDate);
+            }
+
+            return eventBean;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+            throw exception;
+        }
+        finally
+        {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
     // Get the winners of an event
     public List<EventWinnerBean> getEventWinners(long eventId, DataSource dataSource) throws Exception
     {
