@@ -802,6 +802,12 @@ public class GameServiceManager
         return this.eventManager.getEvent(eventId, this.databaseManager.getDataSource());
     }
 
+    // Get the events
+    public synchronized List<EventBean> getEvents() throws Exception
+    {
+        return this.eventManager.getEvents(this.databaseManager.getDataSource());
+    }
+
     // Get the winners of a event
     public synchronized List<EventWinnerBean> getEventWinners(long eventId) throws Exception
     {
@@ -841,6 +847,12 @@ public class GameServiceManager
     public synchronized ScheduledMessageBean getScheduledMessage(int messageId) throws Exception
     {
         return this.messageManager.getScheduledMessage(messageId, this.databaseManager.getDataSource());
+    }
+
+    // Get the scheduled messages
+    public synchronized List<ScheduledMessageBean> getScheduledMessages() throws Exception
+    {
+        return this.messageManager.getScheduledMessages(this.databaseManager.getDataSource());
     }
 
     // Create a scheduled message
