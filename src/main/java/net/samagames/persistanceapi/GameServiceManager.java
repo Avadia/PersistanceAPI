@@ -18,6 +18,9 @@ package net.samagames.persistanceapi;
 import net.samagames.persistanceapi.beans.achievements.AchievementBean;
 import net.samagames.persistanceapi.beans.achievements.AchievementCategoryBean;
 import net.samagames.persistanceapi.beans.achievements.AchievementProgressBean;
+import net.samagames.persistanceapi.beans.events.EventBean;
+import net.samagames.persistanceapi.beans.events.EventWinnerBean;
+import net.samagames.persistanceapi.beans.messages.ScheduledMessageBean;
 import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.players.*;
 import net.samagames.persistanceapi.beans.shop.ItemDescriptionBean;
@@ -49,6 +52,8 @@ public class GameServiceManager
     private NicknameManager nicknameManager;
     private HostManager hostManager;
     private AchievementManager achievementManager;
+    private EventManager eventManager;
+    private MessageManager messageManager;
 
     // Super constructor
     public GameServiceManager(String url, String name, String password, int minPoolSize, int maxPoolSize)
@@ -70,6 +75,8 @@ public class GameServiceManager
         this.nicknameManager = new NicknameManager();
         this.hostManager = new HostManager();
         this.achievementManager = new AchievementManager();
+        this.eventManager = new EventManager();
+        this.messageManager = new MessageManager();
     }
 
 
@@ -733,7 +740,7 @@ public class GameServiceManager
 
 
     /*============================================
-      Part of permissions manager
+      Part of achievement manager
     ============================================*/
 
     // Get a achievement category by id
@@ -782,5 +789,69 @@ public class GameServiceManager
     public synchronized void updateAchievementProgress(AchievementProgressBean progress) throws Exception
     {
         this.achievementManager.updateAchievementProgress(progress, this.databaseManager.getDataSource());
+    }
+
+
+    /*============================================
+      Part of event manager
+    ============================================*/
+
+    // Get a event
+    public synchronized EventBean getEvent(long eventId) throws Exception
+    {
+        return this.eventManager.getEvent(eventId, this.databaseManager.getDataSource());
+    }
+
+    // Get the winners of a event
+    public synchronized List<EventWinnerBean> getEventWinners(long eventId) throws Exception
+    {
+        return this.eventManager.getEventWinners(eventId, this.databaseManager.getDataSource());
+    }
+
+    // Create an event
+    public synchronized void createEvent(EventBean event) throws Exception
+    {
+        this.eventManager.createEvent(event, this.databaseManager.getDataSource());
+    }
+
+    // Create a winner entry for an event
+    public synchronized void createEventWinner(EventWinnerBean eventWinner) throws Exception
+    {
+        this.eventManager.createWinnerEvent(eventWinner, this.databaseManager.getDataSource());
+    }
+
+    // Update an event
+    public synchronized void updateEvent(EventBean event) throws Exception
+    {
+        this.eventManager.updateEvent(event, this.databaseManager.getDataSource());
+    }
+
+    // Update the winner entry of an event
+    public synchronized void updateEventWinner(EventWinnerBean eventWinner) throws Exception
+    {
+        this.eventManager.updateEventWinner(eventWinner, this.databaseManager.getDataSource());
+    }
+
+
+    /*============================================
+      Part of message manager
+    ============================================*/
+
+    // Get a scheduled message
+    public synchronized ScheduledMessageBean getScheduledMessage(int messageId) throws Exception
+    {
+        return this.messageManager.getScheduledMessage(messageId, this.databaseManager.getDataSource());
+    }
+
+    // Create a scheduled message
+    public synchronized void createScheduledMessage(ScheduledMessageBean message) throws Exception
+    {
+        this.messageManager.updateScheduledMessage(message, this.databaseManager.getDataSource());
+    }
+
+    // Update a scheduled message
+    public synchronized void updateScheduledMessage(ScheduledMessageBean message) throws Exception
+    {
+        this.messageManager.updateScheduledMessage(message, this.databaseManager.getDataSource());
     }
 }

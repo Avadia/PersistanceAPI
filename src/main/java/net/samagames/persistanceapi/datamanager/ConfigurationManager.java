@@ -39,7 +39,7 @@ public class ConfigurationManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = "select slots, motd, close_type, server_line, max_players from configuration";
+            String sql = "select slots, motd, close_type, server_line, max_players, priority_title, welcome_message from configuration";
 
             statement = connection.prepareStatement(sql);
 
@@ -55,7 +55,10 @@ public class ConfigurationManager
                 String closeType = resultset.getString("close_type");
                 String serverLine = resultset.getString("server_line");
                 int maxPlayers = resultset.getInt("max_players");
-                BungeeConfigBean config = new BungeeConfigBean(slots, motd, closeType, serverLine, maxPlayers);
+                String priorityTitle = resultset.getString("priority_title");
+                String welcomeMessage = resultset.getString("welcome_message");
+
+                BungeeConfigBean config = new BungeeConfigBean(slots, motd, closeType, serverLine, maxPlayers, priorityTitle, welcomeMessage);
                 return config;
             }
             else
@@ -86,7 +89,7 @@ public class ConfigurationManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = "update configuration set slots = ?, motd = ?, close_type = ?, server_line = ?, max_players = ?";
+            String sql = "update configuration set slots = ?, motd = ?, close_type = ?, server_line = ?, max_players = ?, priority_title = ?, welcome_message = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setInt(1, config.getSlots());
@@ -94,6 +97,8 @@ public class ConfigurationManager
             statement.setString(3, config.getCloseType());
             statement.setString(4, config.getServerLine());
             statement.setInt(5, config.getMaxPlayers());
+            statement.setString(6, config.getPriorityTitle());
+            statement.setString(7, config.getWelcomeMessage());
 
             // Execute the query
             statement.executeUpdate();
