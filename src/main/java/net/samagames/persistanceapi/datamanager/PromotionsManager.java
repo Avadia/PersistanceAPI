@@ -25,7 +25,7 @@ public class PromotionsManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get all the promotions
@@ -35,15 +35,15 @@ public class PromotionsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<PromotionsBean> promotionList = new ArrayList<>();
 
             // Query construction
-            String sql = "";
-            sql += "select promotion_id, type_id, game, multiplier, message, start_date, end_date from promotions where end_date>now()";
+            String sql = "select promotion_id, type_id, game, multiplier, message, start_date, end_date from promotions where end_date > now()";
+
+            statement = connection.prepareStatement(sql);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while(resultset.next())
@@ -74,36 +74,35 @@ public class PromotionsManager
     }
 
     // Get a special promotions
-    public List<PromotionsBean> getPromotion(DataSource dataSource, int typePromotion, int typeGame) throws Exception
+    public List<PromotionsBean> getPromotion(DataSource dataSource, int typeId, int game) throws Exception
     {
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<PromotionsBean> promotionList = new ArrayList<>();
 
             // Query construction
-            String sql = "";
-            sql += "select promotion_id, type_id, game, multiplier, message, start_date, end_date from promotions where end_date>now()";
-            sql += " and type_id=" + typePromotion;
-            sql += " and game=" + typeGame;
+            String sql = "select promotion_id, type_id, game, multiplier, message, start_date, end_date from promotions where end_date > now()";
+            sql += " and type_id = ? and game = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, typeId);
+            statement.setInt(2, game);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while(resultset.next())
             {
                 // Manage the result in a list of bean
                 long promotionId = resultset.getLong("promotion_id");
-                int type = resultset.getInt("type_id");
-                int game = resultset.getInt("game");
                 int multiplier = resultset.getInt("multiplier");
                 String message = resultset.getString("message");
                 Timestamp startDate = resultset.getTimestamp("start_date");
                 Timestamp endDate = resultset.getTimestamp("end_date");
-                PromotionsBean promotionsBean = new PromotionsBean(promotionId, type, game, multiplier, message, startDate, endDate);
+                PromotionsBean promotionsBean = new PromotionsBean(promotionId, typeId, game, multiplier, message, startDate, endDate);
                 promotionList.add(promotionsBean);
             }
             return promotionList;
@@ -126,20 +125,20 @@ public class PromotionsManager
         try {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "insert into promotions(type_id, game, multiplier, message, start_date, end_date)";
-            sql += " values (" + promotionsBean.getTypePromotion();
-            sql += ", " + promotionsBean.getGame() + "";
-            sql += ", " + promotionsBean.getMultiplier();
-            sql += ", '" + promotionsBean.getMessage() + "'";
-            sql += ", '" + promotionsBean.getStartDate() + "'";
-            sql += ", '" + promotionsBean.getEndDate() + "')";
+            String sql = "insert into promotions (type_id, game, multiplier, message, start_date, end_date) values (?, ?, ?, ?, ?, ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, promotionsBean.getPromotionType());
+            statement.setInt(2, promotionsBean.getGame());
+            statement.setInt(3, promotionsBean.getMultiplier());
+            statement.setString(4, promotionsBean.getMessage());
+            statement.setString(5, promotionsBean.getStartDate().toString());
+            statement.setString(6, promotionsBean.getEndDate().toString());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -161,11 +160,12 @@ public class PromotionsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "delete from promotions where promotion_id=" + promotionsBean.getPromotionId();
+            String sql = "delete from promotions where promotion_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, promotionsBean.getPromotionId());
 
             // Execute the query
             statement.executeUpdate(sql);

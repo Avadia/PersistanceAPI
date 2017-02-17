@@ -24,26 +24,26 @@ public class GroupsManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
-    public GroupsBean groupsBean = null;
+    private GroupsBean groupsBean = null;
 
     // Get the permission group for a player
-    public GroupsBean getGroupPlayer(PlayerBean player, DataSource dataSource) throws Exception
+    public GroupsBean getPlayerGroup(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select group_id, group_name, rank, tag, prefix, suffix, multiplier from groups";
-            sql += " where group_id=" + player.getGroupId();
+            String sql = "select group_id, group_name, rank, tag, prefix, suffix, multiplier from groups where group_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, player.getGroupId());
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if(resultset.next())

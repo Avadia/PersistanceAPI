@@ -29,7 +29,7 @@ public class SanctionManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Create a sanction
@@ -40,29 +40,26 @@ public class SanctionManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             Timestamp expirationTime = sanction.getExpirationTime();
-            String expirationData = "0000-00-00 00:00:00";
+            String expirationDate = "0000-00-00 00:00:00";
+
             if(expirationTime != null)
-            {
-                expirationData = expirationTime.toString();
-            }
+                expirationDate = expirationTime.toString();
 
             // Query construction
-            String sql = "";
-            sql += "insert into sanctions (player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date) values (";
-            sql += "UNHEX('" + Transcoder.Encode(sanction.getPlayerUuid().toString()) + "')";
-            sql += ", " + sanctionType;
-            sql += ", '" + sanction.getReason() + "'";
-            sql += ", UNHEX('" + Transcoder.Encode(sanction.getPunisherUuid().toString()) +"')";
-            sql += ", '" + expirationData + "'";
-            sql += ", 0";
-            sql += ", now()";
-            sql += ", now())";
+            String sql = "insert into sanctions (player_uuid, type_id, reason, punisher_uuid, expiration_date, is_deleted, creation_date, update_date)";
+            sql += " values (UNHEX(?), ?, ?, UNHEX(?), ?, 0, now(), now())";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(sanction.getPlayerUuid().toString()));
+            statement.setInt(2, sanctionType);
+            statement.setString(3, sanction.getReason());
+            statement.setString(4, Transcoder.encode(sanction.getPunisherUuid().toString()));
+            statement.setString(5, expirationDate);
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -84,16 +81,17 @@ public class SanctionManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "update sanctions set is_deleted=1, update_date = now() where type_id=";
-            sql += sanctionType + " and player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
-            sql += " and is_deleted=0 order by creation_date desc limit 1";
+            String sql = "update sanctions set is_deleted=1, update_date = now() where type_id = ? and player_uuid = UNHEX(?)";
+            sql += " and is_deleted = 0 order by creation_date desc limit 1";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, sanctionType);
+            statement.setString(2, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -111,38 +109,39 @@ public class SanctionManager
     public SanctionBean getPlayerBanned(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Defines
-        SanctionBean sanction = null;
+        SanctionBean sanction;
 
         // Do the check of ban
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
-            Timestamp expirationTime = null;
+            Timestamp expirationTime;
 
             // Query construction
             String sql = "";
-            sql += "select sanction_id, (HEX(player_uuid)) as uuid , type_id, reason, (HEX(punisher_uuid)) as punisher, expiration_date, is_deleted, creation_date, update_date from sanctions";
-            sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
-            sql += " and type_id=" + SanctionBean.BAN;
-            sql += " and (expiration_date>now() or expiration_date='0000-00-00 00:00:00')";
-            sql += " and is_deleted=0";
+            sql += "select sanction_id, HEX(player_uuid) as uuid , type_id, reason, HEX(punisher_uuid) as punisher, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid=UNHEX(?) and type_id = ? and (expiration_date > now() or expiration_date= '0000-00-00 00:00:00') and is_deleted = 0";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setInt(2, SanctionBean.BAN);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result
             if (resultset.next())
             {
                 // The player is banned
                 long sanctionId =  resultset.getLong("sanction_id");
-                String banPlayer = Transcoder.Decode(resultset.getString("uuid"));
+                String banPlayer = Transcoder.decode(resultset.getString("uuid"));
                 UUID playerUuid = UUID.fromString(banPlayer);
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
-                String punisher = Transcoder.Decode(resultset.getString("punisher"));
+                String punisher = Transcoder.decode(resultset.getString("punisher"));
                 UUID punisherUuid = UUID.fromString(punisher);
+
                 try
                 {
                     expirationTime = resultset.getTimestamp("expiration_date");
@@ -151,6 +150,7 @@ public class SanctionManager
                 {
                     expirationTime = null;
                 }
+
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -179,38 +179,39 @@ public class SanctionManager
     public SanctionBean getPlayerMuted(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Defines
-        SanctionBean sanction = null;
+        SanctionBean sanction;
 
         // Do the check of mute
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
-            Timestamp expirationTime = null;
+            Timestamp expirationTime;
 
             // Query construction
             String sql = "";
-            sql += "select sanction_id, (HEX(player_uuid)) as uuid , type_id, reason, (HEX(punisher_uuid)) as punisher, expiration_date, is_deleted, creation_date, update_date from sanctions";
-            sql += " where player_uuid=UNHEX('" + Transcoder.Encode(player.getUuid().toString()) +"')";
-            sql += " and type_id=" + SanctionBean.MUTE;
-            sql += " and expiration_date>now()";
-            sql += " and is_deleted=0";
+            sql += "select sanction_id, HEX(player_uuid) as uuid , type_id, reason, HEX(punisher_uuid) as punisher, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid = UNHEX(?) and type_id = ? and expiration_date > now() and is_deleted = 0";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setInt(2, SanctionBean.MUTE);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result
             if (resultset.next())
             {
                 // The player is muted
                 long sanctionId = resultset.getLong("sanction_id");
-                String mutePlayer = Transcoder.Decode(resultset.getString("uuid"));
+                String mutePlayer = Transcoder.decode(resultset.getString("uuid"));
                 UUID playerUuid = UUID.fromString(mutePlayer);
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
-                String punisher = Transcoder.Decode(resultset.getString("punisher"));
+                String punisher = Transcoder.decode(resultset.getString("punisher"));
                 UUID punisherUuid = UUID.fromString(punisher);
+
                 try
                 {
                     expirationTime = resultset.getTimestamp("expiration_date");
@@ -219,6 +220,7 @@ public class SanctionManager
                 {
                     expirationTime = null;
                 }
+
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -244,35 +246,37 @@ public class SanctionManager
     }
 
     // Get all actives sanctions by type
-    public List<SanctionBean> getAllSanction(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
+    public List<SanctionBean> getAllSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
     {
         // Get all sanctions
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<SanctionBean> sanctionList = new ArrayList<>();
-            Timestamp expirationTime = null;
+            Timestamp expirationTime;
 
             // Query construction
-            String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
-            sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
-            sql += " and type_id=" + sanctionType;
-            sql += " order by creation_date desc";
+            String sql = "select sanction_id, HEX(player_uuid) as player_uuid, type_id, reason, HEX(punisher_uuid) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid=UNHEX(?) and type_id = ? order by creation_date desc";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(uuid.toString()));
+            statement.setInt(2, sanctionType);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
             {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
-                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
-                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
+
                 try
                 {
                     expirationTime = resultset.getTimestamp("expiration_date");
@@ -281,6 +285,7 @@ public class SanctionManager
                 {
                     expirationTime = null;
                 }
+
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -309,29 +314,30 @@ public class SanctionManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<SanctionBean> sanctionList = new ArrayList<>();
-            Timestamp expirationTime = null;
+            Timestamp expirationTime;
 
             // Query construction
-            String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
-            sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
-            sql += " and type_id=" + sanctionType;
-            sql += " and is_deleted=0";
-            sql += " order by creation_date desc";
+            String sql = "select sanction_id, HEX(player_uuid) as player_uuid, type_id, reason, HEX(punisher_uuid) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where player_uuid = UNHEX(?) and type_id = ? and is_deleted = 0 order by creation_date desc";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(uuid.toString()));
+            statement.setInt(2, sanctionType);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
             {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
-                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
-                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
+
                 try
                 {
                     expirationTime = resultset.getTimestamp("expiration_date");
@@ -340,6 +346,7 @@ public class SanctionManager
                 {
                     expirationTime = null;
                 }
+
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -369,29 +376,30 @@ public class SanctionManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<SanctionBean> sanctionList = new ArrayList<>();
-            Timestamp expirationTime = null;
+            Timestamp expirationTime;
 
             // Query construction
             String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
-            sql += " where player_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
-            sql += " and type_id=" + sanctionType;
-            sql += " and is_deleted=1";
-            sql += " order by creation_date desc";
+            sql += " where player_uuid = UNHEX(?) and type_id = ? and is_deleted = 1 order by creation_date desc";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(uuid.toString()));
+            statement.setInt(2, sanctionType);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
             {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
-                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
-                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
+
                 try
                 {
                     expirationTime = resultset.getTimestamp("expiration_date");
@@ -400,6 +408,7 @@ public class SanctionManager
                 {
                     expirationTime = null;
                 }
+
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
@@ -428,14 +437,16 @@ public class SanctionManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "update sanctions set is_deleted=" + ((status)?"1":"0") +", update_date = now() where sanction_id=" + sanctionId;
+            String sql = "update sanctions set is_deleted = ?, update_date = now() where sanction_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setBoolean(1, status);
+            statement.setLong(2, sanctionId);
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -450,34 +461,36 @@ public class SanctionManager
     }
 
     // Get sanctions by UUID
-    public List<SanctionBean> getAllModoSanctions(UUID uuid, DataSource dataSource) throws Exception
+    public List<SanctionBean> getAllModeratorSanctions(UUID uuid, DataSource dataSource) throws Exception
     {
         // Get all sanctions
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<SanctionBean> sanctionList = new ArrayList<>();
-            Timestamp expirationTime = null;
+            Timestamp expirationTime;
 
             // Query construction
-            String sql = "select sanction_id, (HEX(player_uuid)) as player_uuid, type_id, reason, (HEX(punisher_uuid)) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
-            sql += " where punisher_uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
-            sql += " order by creation_date desc";
+            String sql = "select sanction_id, HEX(player_uuid) as player_uuid, type_id, reason, HEX(punisher_uuid) as punisher_uuid, expiration_date, is_deleted, creation_date, update_date from sanctions";
+            sql += " where punisher_uuid = UNHEX(?) order by creation_date desc";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(uuid.toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
             {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
-                String playerUuid = Transcoder.Decode(resultset.getString("player_uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
                 int typeId = resultset.getInt("type_id");
                 String reason = resultset.getString("reason");
-                String punisherUUID = Transcoder.Decode(resultset.getString("punisher_uuid"));
+                String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
+
                 try
                 {
                     expirationTime = resultset.getTimestamp("expiration_date");
@@ -486,6 +499,7 @@ public class SanctionManager
                 {
                     expirationTime = null;
                 }
+
                 boolean isDeleted = resultset.getBoolean("is_deleted");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");

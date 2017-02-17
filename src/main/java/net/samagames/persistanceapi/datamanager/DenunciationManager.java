@@ -20,6 +20,7 @@ import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.UUID;
@@ -28,32 +29,28 @@ public class DenunciationManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Denunciation by a player
-    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource, PlayerManager playerManager) throws Exception
+    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource) throws Exception
     {
         // Create denunciation
         try
         {
-            // Retrieve suspect UUID
-            UUID suspectUUID = playerManager.recoverSuspect(denunciation.getSuspect_name(), dataSource);
-
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "insert into denunciations (denouncer, date, reason, suspect_name)";
-            sql += " values (UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "')";
-            sql += ", now()";
-            sql += ", '" + denunciation.getReason() + "'";
-            sql += ", '" + denunciation.getSuspect_name() + "')";
+            String sql = "insert into denunciations (denouncer, date, reason, suspect_name) values (UNHEX(?), now(), ?, ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setString(2, denunciation.getReason());
+            statement.setString(3, denunciation.getSuspectName());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {

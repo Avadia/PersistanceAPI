@@ -80,7 +80,7 @@ public class GameServiceManager
     // Make a denunciation
     public synchronized  void denouncePlayer(PlayerBean player, DenunciationBean denunciation) throws Exception
     {
-        this.denunciationManager.denouncePlayer(player, denunciation, this.databaseManager.getDataSource(), this.playerManager);
+        this.denunciationManager.denouncePlayer(player, denunciation, this.databaseManager.getDataSource());
     }
 
 
@@ -160,14 +160,14 @@ public class GameServiceManager
     }
 
     // Get all sanctions for a player and type
-    public synchronized List<SanctionBean> getAllSanction(UUID uuid, int sanctionType) throws Exception
+    public synchronized List<SanctionBean> getAllSanctions(UUID uuid, int sanctionType) throws Exception
     {
         // Get sanctions
-        return this.sanctionManager.getAllSanction(uuid, sanctionType, this.databaseManager.getDataSource());
+        return this.sanctionManager.getAllSanctions(uuid, sanctionType, this.databaseManager.getDataSource());
     }
 
     // Get all actives sanctions for a player and type
-    public synchronized List<SanctionBean> getAllActiveSanction(UUID uuid, int sanctionType) throws Exception
+    public synchronized List<SanctionBean> getAllActiveSanctions(UUID uuid, int sanctionType) throws Exception
     {
         // Get sanctions
         return this.sanctionManager.getAllActiveSanctions(uuid, sanctionType, this.databaseManager.getDataSource());
@@ -180,11 +180,11 @@ public class GameServiceManager
         return this.sanctionManager.getAllPassiveSanctions(uuid, sanctionType, this.databaseManager.getDataSource());
     }
 
-    // Get all sanctions by a modo
-    public synchronized List<SanctionBean> getAllModoSanctions(UUID uuid) throws Exception
+    // Get all sanctions by a moderator
+    public synchronized List<SanctionBean> getAllModeratorSanctions(UUID uuid) throws Exception
     {
         // Get sanctions
-        return this.sanctionManager.getAllModoSanctions(uuid, this.databaseManager.getDataSource());
+        return this.sanctionManager.getAllModeratorSanctions(uuid, this.databaseManager.getDataSource());
     }
 
 
@@ -192,18 +192,11 @@ public class GameServiceManager
       Part of statistics manager
     ============================================*/
 
-    // Get Dimension player statistics
-    public synchronized DimensionStatisticsBean getDimensionStatistics(PlayerBean player) throws Exception
+    // Get Dimensions player statistics
+    public synchronized DimensionsStatisticsBean getDimensionsStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
-        return this.statisticsManager.dimensionStatsManager.getDimensionStatistics(player, this.databaseManager.getDataSource());
-    }
-
-    // Get HeroBattle player statistics
-    public synchronized HeroBattleStatisticsBean getHeroBattleStatistics(PlayerBean player) throws Exception
-    {
-        // Get the statistics
-        return this.statisticsManager.heroBattleStatsManager.getHeroBattleStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.dimensionsStatsManager.getDimensionsStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get JukeBox player statistics
@@ -269,11 +262,11 @@ public class GameServiceManager
         return this.statisticsManager.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, this.databaseManager.getDataSource());
     }
 
-    // Get UpperVoid player statistics
+    // Get uppervoid player statistics
     public synchronized UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
-        return this.statisticsManager.upperVoidStatsManager.getUppervoidStatistics(player, this.databaseManager.getDataSource());
+        return this.statisticsManager.uppervoidStatsManager.getUppervoidStatistics(player, this.databaseManager.getDataSource());
     }
 
     // Get ChunkWars player statistics
@@ -297,18 +290,11 @@ public class GameServiceManager
         this.statisticsManager.updateAllPlayerStatistics(player, stats, this.databaseManager.getDataSource());
     }
 
-    // Update Dimension statistics
-    public synchronized void updateDimensionStatistics(PlayerBean player, DimensionStatisticsBean dimensionStats) throws Exception
+    // Update Dimensions statistics
+    public synchronized void updateDimensionsStatistics(PlayerBean player, DimensionsStatisticsBean dimensionsStats) throws Exception
     {
         // Update statistics
-        this.statisticsManager.dimensionStatsManager.updateDimensionStatistics(player, dimensionStats, this.databaseManager.getDataSource());
-    }
-
-    // Update HeroBattle statistics
-    public synchronized void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean heroBattleStats) throws Exception
-    {
-        // Update statistics
-        this.statisticsManager.heroBattleStatsManager.updateHeroBattleStatistics(player, heroBattleStats, this.databaseManager.getDataSource());
+        this.statisticsManager.dimensionsStatsManager.updateDimensionsStatistics(player, dimensionsStats, this.databaseManager.getDataSource());
     }
 
     // Update JukeBox statistics
@@ -375,10 +361,10 @@ public class GameServiceManager
     }
 
     // Update UpperVoid statistics
-    public synchronized void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean upperVoidStats) throws Exception
+    public synchronized void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats) throws Exception
     {
         // Update statistics
-        this.statisticsManager.upperVoidStatsManager.updateUppervoidStatistics(player, upperVoidStats,this.databaseManager.getDataSource());
+        this.statisticsManager.uppervoidStatsManager.updateUppervoidStatistics(player, uppervoidStats,this.databaseManager.getDataSource());
     }
 
     // Update ChunkWars statistics
@@ -389,17 +375,10 @@ public class GameServiceManager
     }
 
     // Get the dimensions leaderboard
-    public synchronized List<LeaderboardBean> getDimmensionLeaderBoard(String category) throws Exception
+    public synchronized List<LeaderboardBean> getDimensionsLeaderBoard(String category) throws Exception
     {
         // Get the leaderboard
-        return this.statisticsManager.dimensionStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
-    }
-
-    // Get the herobattle leaderboard
-    public synchronized List<LeaderboardBean> getHeroBattleLeaderBoard(String category) throws Exception
-    {
-        // Get the leaderboard
-        return this.statisticsManager.heroBattleStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+        return this.statisticsManager.dimensionsStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
     // Get the jukebox leaderboard
@@ -459,10 +438,10 @@ public class GameServiceManager
     }
 
     // Get the uppervoid leaderboard
-    public synchronized List<LeaderboardBean> getUpperVoidLeaderBoard(String category) throws Exception
+    public synchronized List<LeaderboardBean> getUppervoidLeaderBoard(String category) throws Exception
     {
         // Get the leaderboard
-        return this.statisticsManager.upperVoidStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+        return this.statisticsManager.uppervoidStatsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
     // Get the chunkwars leaderboard
@@ -478,69 +457,69 @@ public class GameServiceManager
     ============================================*/
 
     // Get API permissions
-    public synchronized APIPermissionsBean getAPIPermission(PlayerBean player)throws Exception
+    public synchronized APIPermissionsBean getAPIPermissions(PlayerBean player)throws Exception
     {
         // Get the permissions
-        return this.permissionsManager.apiPermissionManager.getAPIPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.apiPermissionsManager.getAPIPermissions(player, this.databaseManager.getDataSource());
     }
 
     // Get Bukkit permissions
-    public synchronized BukkitPermissionsBean getBukkitPermission(PlayerBean player)throws Exception
+    public synchronized BukkitPermissionsBean getBukkitPermissions(PlayerBean player)throws Exception
     {
         // Get the permissions
-        return this.permissionsManager.bukkitPermissionManager.getBukkitPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.bukkitPermissionsManager.getBukkitPermissions(player, this.databaseManager.getDataSource());
     }
 
     // Get Bungee & Redis permissions
-    public synchronized BungeeRedisPermissionsBean getBungeeRedisPemission(PlayerBean player)throws Exception
+    public synchronized BungeeRedisPermissionsBean getBungeeRedisPermissions(PlayerBean player)throws Exception
     {
         // Get the permissions
-        return this.permissionsManager.bungeeRedisPermissionManager.getBungeeRedisPemission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.bungeeRedisPermissionsManager.getBungeeRedisPermissions(player, this.databaseManager.getDataSource());
     }
 
     // Get Hub permissions
-    public synchronized HubPermissionsBean getHubPermission(PlayerBean player)throws Exception
+    public synchronized HubPermissionsBean getHubPermissions(PlayerBean player)throws Exception
     {
         // Get the permissions
-        return this.permissionsManager.hubPermissionManager.getHubPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.hubPermissionsManager.getHubPermissions(player, this.databaseManager.getDataSource());
     }
 
     // Get Moderation permissions
-    public synchronized ModerationPermissionsBean getModerationPermission(PlayerBean player)throws Exception
+    public synchronized ModerationPermissionsBean getModerationPermissions(PlayerBean player)throws Exception
     {
         // Get the permissions
-        return this.permissionsManager.moderationPermissionManager.getModerationPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.moderationPermissionsManager.getModerationPermissions(player, this.databaseManager.getDataSource());
     }
 
     // Get Proxies permissions
-    public synchronized ProxiesPermissionsBean getProxiesPermission(PlayerBean player) throws Exception
+    public synchronized ProxiesPermissionsBean getProxiesPermissions(PlayerBean player) throws Exception
     {
         // Get the permissions
-        return this.permissionsManager.proxiesPermissionManager.getProxiesPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.proxiesPermissionsManager.getProxiesPermissions(player, this.databaseManager.getDataSource());
     }
 
     // Get Staff permissions
-    public synchronized StaffPermissionsBean getStaffPermission(PlayerBean player) throws Exception
+    public synchronized StaffPermissionsBean getStaffPermissions(PlayerBean player) throws Exception
     {
         // Get the permissions
-        return this.permissionsManager.staffPermissionManager.getStaffPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.staffPermissionsManager.getStaffPermissions(player, this.databaseManager.getDataSource());
     }
 
     // Get all player permissions
-    public synchronized PlayerPermissionBean getAllPlayerPermission(PlayerBean player) throws Exception
+    public synchronized PlayerPermissionsBean getAllPlayerPermissions(PlayerBean player) throws Exception
     {
         // Get all the statistics
-        return this.permissionsManager.getAllPlayerPermission(player, this.databaseManager.getDataSource());
+        return this.permissionsManager.getAllPlayerPermissions(player, this.databaseManager.getDataSource());
     }
 
     /*============================================
       Part of groups manager
     ============================================*/
 
-    public synchronized GroupsBean getGroupPlayer(PlayerBean player)throws Exception
+    public synchronized GroupsBean getPlayerGroup(PlayerBean player)throws Exception
     {
-        // Get the groups permision for a player
-        return this.groupsManager.getGroupPlayer(player, this.databaseManager.getDataSource());
+        // Get the groups of a player
+        return this.groupsManager.getPlayerGroup(player, this.databaseManager.getDataSource());
     }
 
 

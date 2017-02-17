@@ -4,6 +4,7 @@ package net.samagames.persistanceapi.datamanager;
 import net.samagames.persistanceapi.beans.players.NicknameBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -11,7 +12,7 @@ public class NicknameManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get a random nickname
@@ -22,14 +23,14 @@ public class NicknameManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select nick_id, nickname, blacklisted, used from nickname where blacklisted=0 and used=0 order by rand() limit 1";
+            String sql = "select nick_id, nickname, blacklisted, used from nickname where blacklisted = 0 and used = 0 order by rand() limit 1";
+
+            statement = connection.prepareStatement(sql);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
@@ -69,14 +70,15 @@ public class NicknameManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select nick_id from nickname where nickname='" + nickname + "' and blacklisted=1";
+            String sql = "select nick_id from nickname where nickname = ? and blacklisted = 1";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, nickname);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // If there'a a result
             if (resultset.next())
@@ -109,14 +111,15 @@ public class NicknameManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "update nickname set used=true where nick_id=" + nick_id;
+            String sql = "update nickname set used = true where nick_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, nick_id);
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch(Exception exception)
         {
@@ -137,14 +140,15 @@ public class NicknameManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "update nickname set used=false where nickname='" + nickname +"'";
+            String sql = "update nickname set used = false where nickname = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, nickname);
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch(Exception exception)
         {

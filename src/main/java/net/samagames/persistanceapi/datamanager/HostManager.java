@@ -19,16 +19,13 @@ import net.samagames.persistanceapi.beans.statistics.HostStatisticsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 
 public class HostManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Create a record of host statistic
@@ -39,20 +36,20 @@ public class HostManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "insert into host_stats (template_id, host_id, ip_address, player_uuid, started_time, played_time)";
-            sql += " values ('" + hostStatisticsBean.getTemplateId() + "'";
-            sql += ", '" + hostStatisticsBean.getHostId() + "'";
-            sql += ", '" + hostStatisticsBean.getIpAddress() + "'";
-            sql += ", UNHEX('"+ Transcoder.Encode(hostStatisticsBean.getPlayerUuid().toString())+"')";
-            sql += ", '" + new Timestamp(hostStatisticsBean.getStartedTime()) + "'";
-            sql += ", " + hostStatisticsBean.getPlayedTime() + ")";
+            String sql = "insert into host_stats (template_id, host_id, ip_address, player_uuid, started_time, played_time) values (?, ?, ?, UNHEX(?), ?, ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, hostStatisticsBean.getTemplateId());
+            statement.setString(2, hostStatisticsBean.getHostId());
+            statement.setString(3, hostStatisticsBean.getIpAddress());
+            statement.setString(4, Transcoder.encode(hostStatisticsBean.getPlayerUuid().toString()));
+            statement.setString(5, new Timestamp(hostStatisticsBean.getStartedTime()).toString());
+            statement.setLong(6, hostStatisticsBean.getPlayedTime());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {

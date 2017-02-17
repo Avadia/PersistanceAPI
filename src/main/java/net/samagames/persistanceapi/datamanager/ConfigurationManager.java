@@ -16,6 +16,8 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
+import net.samagames.persistanceapi.utils.Transcoder;
+
 import javax.sql.DataSource;
 import java.sql.*;
 
@@ -24,7 +26,7 @@ public class ConfigurationManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the bungee config
@@ -35,14 +37,14 @@ public class ConfigurationManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select slots, motd, close_type, server_line, max_players from configuration";
+            String sql = "select slots, motd, close_type, server_line, max_players from configuration";
+
+            statement = connection.prepareStatement(sql);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
@@ -82,18 +84,19 @@ public class ConfigurationManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "update configuration set slots=" + config.getSlots();
-            sql += ", motd='" + config.getMotd() + "'";
-            sql += ", close_type='" + config.getCloseType() + "'";
-            sql += ", server_line='" + config.getServerLine() + "'";
-            sql += ", max_players=" + config.getMaxPlayers();
+            String sql = "update configuration set slots = ?, motd = ?, close_type = ?, server_line = ?, max_players = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, config.getSlots());
+            statement.setString(2, Transcoder.toUTF8(config.getMotd()));
+            statement.setString(3, config.getCloseType());
+            statement.setString(4, Transcoder.toUTF8(config.getServerLine()));
+            statement.setInt(5, config.getMaxPlayers());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {

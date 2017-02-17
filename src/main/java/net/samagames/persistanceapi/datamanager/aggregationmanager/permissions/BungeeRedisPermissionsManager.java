@@ -19,34 +19,38 @@ import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.BungeeRedisPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class BungeeRedisPermissionManager
+public class BungeeRedisPermissionsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    BungeeRedisPermissionsBean bungeeRedisPermissionsBean = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
     // Get the permissions for Bungee & Redis
-    public BungeeRedisPermissionsBean getBungeeRedisPemission(PlayerBean player, DataSource dataSource) throws Exception
+    public BungeeRedisPermissionsBean getBungeeRedisPermissions(PlayerBean player, DataSource dataSource) throws Exception
     {
+        BungeeRedisPermissionsBean bungeeRedisPermissionsBean = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select groups_id, bungeecord_command_list, bungeecord_command_find, redisbungee_command_lastseen, bungeecord_command_ip, redisbungee_command_sendtoall, ";
-            sql += "redisbungee_command_serverid, redisbunge_command_serverids, redisbungee_command_pproxy, redisbungee_command_plist, bungeecord_command_server, bungeecord_command_send, ";
-            sql += "bungeecord_command_end, bungeecord_command_alert";
-            sql += " from bungee_redis_permissions where groups_id=" + player.getGroupId();
+            String sql = "select groups_id, bungeecord_command_list, bungeecord_command_find, redisbungee_command_lastseen, bungeecord_command_ip, redisbungee_command_sendtoall";
+            sql += ", redisbungee_command_serverid, redisbunge_command_serverids, redisbungee_command_pproxy, redisbungee_command_plist, bungeecord_command_server, bungeecord_command_send";
+            sql += ", bungeecord_command_end, bungeecord_command_alert";
+            sql += " from bungee_redis_permissions where groups_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, player.getGroupId());
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if(resultset.next())
@@ -66,6 +70,7 @@ public class BungeeRedisPermissionManager
                 boolean bungeecordCommandSend = resultset.getBoolean("bungeecord_command_send");
                 boolean bungeecordCommandEnd = resultset.getBoolean("bungeecord_command_end");
                 boolean bungeecordCommandAlert = resultset.getBoolean("bungeecord_command_alert");
+
                 bungeeRedisPermissionsBean = new BungeeRedisPermissionsBean(groupId, bungeecordCommandList, bungeecordCommandFind, redisbungeeCommandLastSeen, redisbungeeCommandSendtoAll,
                         bungeecordCommandIp, redisbungeeCommandServerId, redisbungeCommandServerIds, redisbungeeCommandPproxy, redisbungeeCommandPlist,bungeecordCommandServer,
                         bungeecordCommandSend, bungeecordCommandEnd, bungeecordCommandAlert);

@@ -35,33 +35,33 @@ public class DenunciationBean
     */
 
     // Defines
-    private long denoucementId;
-    private UUID denoucer;
+    private long denouncementId;
+    private UUID denouncer;
     private UUID suspect;
     private Timestamp date;
     private String reason;
     private String suspectName;
 
     // Constructor
-    public DenunciationBean(UUID denoucer, Timestamp date, String reason, String suspectName)
+    public DenunciationBean(UUID denouncer, Timestamp date, String reason, String suspectName)
     {
-        this.denoucer = denoucer;
+        this.denouncer = denouncer;
         this.date = date;
         this.reason = reason;
         this.suspectName = suspectName;
     }
 
     // Getters
-    public long getDenoucementId() { return denoucementId; }
-    public UUID getDenoucer() { return denoucer; }
+    public long getDenouncementId() { return denouncementId; }
+    public UUID getDenouncer() { return denouncer; }
     public Timestamp getDate() { return date; }
     public String getReason() { return reason; }
-    public String getSuspect_name() { return suspectName; }
+    public String getSuspectName() { return suspectName; }
 
     // Setters
-    public void setDenoucer(UUID denoucer) { this.denoucer = denoucer; }
+    public void setDenouncer(UUID denouncer) { this.denouncer = denouncer; }
     public void setDate(Timestamp date) { this.date = date; }
     public void setReason(String reason) { this.reason = reason; }
-    public void suspectName(String suspectName) { this.suspectName = suspectName; }
+    public void setSuspectName(String suspectName) { this.suspectName = suspectName; }
 
 }

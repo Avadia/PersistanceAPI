@@ -29,33 +29,34 @@ import java.util.UUID;
 public class QuakeStatisticsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    QuakeStatisticsBean quakeStats = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
-    // Get Quake player statistics
+    // Get quake player statistics
     public QuakeStatisticsBean getQuakeStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
+        QuakeStatisticsBean quakeStats = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid)) as uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time from quake_stats";
-            sql +=" where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            String sql = "select HEX(uuid) as uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time from quake_stats where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
                 int deaths = resultset.getInt("deaths");
                 int kills = resultset.getInt("kills");
@@ -64,16 +65,19 @@ public class QuakeStatisticsManager
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 long playedTime = resultset.getLong("played_time");
+
                 quakeStats = new QuakeStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate, playedTime);
             }
             else
             {
-                // If there no HeroBattle stats int the database create empty one
+                // If there no quake stats int the database create empty one
                 this.close();
                 this.createEmptyQuakeStatistics(player, dataSource);
                 this.close();
+
                 QuakeStatisticsBean newQuakeStats = this.getQuakeStatistics(player,dataSource);
                 this.close();
+
                 return newQuakeStats;
             }
         }
@@ -87,6 +91,7 @@ public class QuakeStatisticsManager
             // Close the query environment in order to prevent leaks
             this.close();
         }
+
         return quakeStats;
     }
 
@@ -96,26 +101,24 @@ public class QuakeStatisticsManager
         try
         {
             // Create empty bean
-            quakeStats = new QuakeStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            QuakeStatisticsBean quakeStats = new QuakeStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction for create
-            String sql = "";
-            sql += "insert into quake_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
-            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-            sql += ", " + quakeStats.getDeaths();
-            sql += ", " + quakeStats.getKills();
-            sql += ", " + quakeStats.getPlayedGames();
-            sql += ", " + quakeStats.getWins();
-            sql += ", now()";
-            sql += ", now()";
-            sql += ", " + quakeStats.getPlayedTime() +")";
+            String sql = "insert into quake_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time) values (UNHEX(?), ?, ?, ?, ?, now(), now(), ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setInt(2, quakeStats.getDeaths());
+            statement.setInt(3, quakeStats.getKills());
+            statement.setInt(4, quakeStats.getPlayedGames());
+            statement.setInt(5, quakeStats.getWins());
+            statement.setLong(6, quakeStats.getPlayedTime());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -129,7 +132,7 @@ public class QuakeStatisticsManager
         }
     }
 
-    // Update Quake player statistics
+    // Update quake player statistics
     public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean quakeStats, DataSource dataSource) throws Exception
     {
         try
@@ -145,20 +148,20 @@ public class QuakeStatisticsManager
 
                 // Set connection
                 connection = dataSource.getConnection();
-                statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "";
-                sql += "update quake_stats set deaths=" + quakeStats.getDeaths();
-                sql += ", kills=" + quakeStats.getKills();
-                sql += ", played_games=" + quakeStats.getPlayedGames();
-                sql += ", wins=" + quakeStats.getWins();
-                sql += ", update_date=now()";
-                sql += ", played_time=" + quakeStats.getPlayedTime();
-                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+                String sql = "update quake_stats set deaths = ?, kills = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
+
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, quakeStats.getDeaths());
+                statement.setInt(2, quakeStats.getKills());
+                statement.setInt(3, quakeStats.getPlayedGames());
+                statement.setInt(4, quakeStats.getWins());
+                statement.setLong(5, quakeStats.getPlayedTime());
+                statement.setString(6, Transcoder.encode(player.getUuid().toString()));
 
                 // Execute the query
-                statement.executeUpdate(sql);
+                statement.executeUpdate();
             }
         }
         catch(Exception exception)
@@ -181,13 +184,16 @@ public class QuakeStatisticsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select p.name as name, d." + category + " as score from players as p, quake_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
+            String sql = "select p.name as name, d.? as score from players as p, quake_stats as d where p.uuid = d.uuid order by d.? desc limit 3";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, category);
+            statement.setString(2, category);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while(resultset.next())

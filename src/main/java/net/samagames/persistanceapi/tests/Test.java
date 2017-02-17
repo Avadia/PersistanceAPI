@@ -52,8 +52,7 @@ public class Test
             UUID uuid;
             PlayerBean player;
             PlayerBean otherPlayer;
-            DimensionStatisticsBean dimensionStats;
-            HeroBattleStatisticsBean heroBattleStats;
+            DimensionsStatisticsBean dimensionsStats;
             JukeBoxStatisticsBean jukeBoxStats;
             NetworkStatisticsBean networkStats;
             QuakeStatisticsBean quakeStats;
@@ -114,7 +113,7 @@ public class Test
             player.setCoins(20);
             player.setStars(10);
             player.setLastIP("100.100.100.100");
-            player.setToptpKey("NewKey");
+            player.setTopTpKey("NewKey");
             startTime = System.currentTimeMillis();
             manager.updatePlayer(player);
             System.out.println("Update player process time: " + (System.currentTimeMillis() - startTime) + " ms");
@@ -134,40 +133,22 @@ public class Test
             // Create dimensions statistics test
             uuid = UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd");
             otherPlayer = new PlayerBean(uuid, "thegreatancien", "the killer", 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "50.50.50.50", "AnotherKey", 1);
-            dimensionStats = new DimensionStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            dimensionsStats = new DimensionsStatisticsBean(uuid, 50, 60, 70, 80, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
             startTime = System.currentTimeMillis();
-            manager.updateDimensionStatistics(otherPlayer, dimensionStats);
+            manager.updateDimensionsStatistics(otherPlayer, dimensionsStats);
             System.out.println("Create dimension statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Update dimension statistics test
-            dimensionStats.setDeaths(0);
-            dimensionStats.setPlayedGames(0);
+            dimensionsStats.setDeaths(0);
+            dimensionsStats.setPlayedGames(0);
             startTime = System.currentTimeMillis();
-            manager.updateDimensionStatistics(otherPlayer, dimensionStats);
+            manager.updateDimensionsStatistics(otherPlayer, dimensionsStats);
             System.out.println("Update dimension statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Read dimension statistics test
             startTime = System.currentTimeMillis();
-            manager.getDimensionStatistics(otherPlayer);
+            manager.getDimensionsStatistics(otherPlayer);
             System.out.println("Read dimension statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
-
-            // Create herobattle statistics test
-            heroBattleStats = new HeroBattleStatisticsBean(uuid, 10, 20, 50, 8, 4, 2, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 100);
-            startTime = System.currentTimeMillis();
-            manager.updateHeroBattleStatistics(otherPlayer, heroBattleStats);
-            System.out.println("Create herobattle statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
-
-            // Update herobattle statistics test
-            heroBattleStats.setKills(1000);
-            heroBattleStats.setDeaths(42);
-            startTime = System.currentTimeMillis();
-            manager.updateHeroBattleStatistics(otherPlayer, heroBattleStats);
-            System.out.println("Update herobattle statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
-
-            // Read herobattle statistics test
-            startTime = System.currentTimeMillis();
-            manager.getHeroBattleStatistics(otherPlayer);
-            System.out.println("Read herobattle statistics process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create jukebox statistics test
             jukeBoxStats = new JukeBoxStatisticsBean(uuid, 10, 20, 30, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 1000);
@@ -402,67 +383,67 @@ public class Test
 
             // Get all sanctions test
             startTime = System.currentTimeMillis();
-            manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
+            manager.getAllSanctions(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
             System.out.println("Check get all sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get all actives sanctions test
             startTime = System.currentTimeMillis();
-            manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
+            manager.getAllSanctions(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
             System.out.println("Check get all actives sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get all passives sanctions test
             startTime = System.currentTimeMillis();
-            manager.getAllSanction(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
+            manager.getAllSanctions(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"), 1);
             System.out.println("Check get all passives sanctions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get all sanctions by uuid test
             startTime = System.currentTimeMillis();
-            manager.getAllModoSanctions(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"));
+            manager.getAllModeratorSanctions(UUID.fromString("7b9ffe3f-96d0-41dc-bb2a-93b7c7ba2bcd"));
             System.out.println("Check get all sanctions for uuid process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get API permissions
             startTime = System.currentTimeMillis();
-            manager.getAPIPermission(otherPlayer);
+            manager.getAPIPermissions(otherPlayer);
             System.out.println("Get API permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get Bukkit permissions
             startTime = System.currentTimeMillis();
-            manager.getBukkitPermission(otherPlayer);
+            manager.getBukkitPermissions(otherPlayer);
             System.out.println("Get Bukkit permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get Bungee & Redis permissions
             startTime = System.currentTimeMillis();
-            manager.getBungeeRedisPemission(otherPlayer);
+            manager.getBungeeRedisPermissions(otherPlayer);
             System.out.println("Get Bungee & Redis permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get Hub permissions
             startTime = System.currentTimeMillis();
-            manager.getHubPermission(otherPlayer);
+            manager.getHubPermissions(otherPlayer);
             System.out.println("Get Hub permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get moderation permissions
             startTime = System.currentTimeMillis();
-            manager.getModerationPermission(otherPlayer);
+            manager.getModerationPermissions(otherPlayer);
             System.out.println("Get moderation permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get proxies permissions
             startTime = System.currentTimeMillis();
-            manager.getProxiesPermission(otherPlayer);
+            manager.getProxiesPermissions(otherPlayer);
             System.out.println("Get proxies permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get staff permissions
             startTime = System.currentTimeMillis();
-            manager.getStaffPermission(otherPlayer);
+            manager.getStaffPermissions(otherPlayer);
             System.out.println("Get staff permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get all permissions
             startTime = System.currentTimeMillis();
-            manager.getAllPlayerPermission(otherPlayer);
+            manager.getAllPlayerPermissions(otherPlayer);
             System.out.println("Get all permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get group permission for a player
             startTime = System.currentTimeMillis();
-            manager.getGroupPlayer(otherPlayer);
+            manager.getPlayerGroup(otherPlayer);
             System.out.println("Get group permissions process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create a friendship demand
@@ -538,31 +519,17 @@ public class Test
             PlayerBean player_3 = new PlayerBean(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), "player_3", "the 3", 0, 0, 0, null, null, null, null, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee"), player_3);
             uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
-            dimensionStats = new DimensionStatisticsBean(uuid, 10, 20, 30, 40, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-            manager.updateDimensionStatistics(player_2, dimensionStats);
+            dimensionsStats = new DimensionsStatisticsBean(uuid, 10, 20, 30, 40, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            manager.updateDimensionsStatistics(player_2, dimensionsStats);
             uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
-            dimensionStats = new DimensionStatisticsBean(uuid, 100, 200, 300, 400, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-            manager.updateDimensionStatistics(player_3, dimensionStats);
+            dimensionsStats = new DimensionsStatisticsBean(uuid, 100, 200, 300, 400, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            manager.updateDimensionsStatistics(player_3, dimensionsStats);
             uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
-            dimensionStats = new DimensionStatisticsBean(uuid, 1, 2, 3, 4, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
-            manager.updateDimensionStatistics(player, dimensionStats);
+            dimensionsStats = new DimensionsStatisticsBean(uuid, 1, 2, 3, 4, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            manager.updateDimensionsStatistics(player, dimensionsStats);
             startTime = System.currentTimeMillis();
-            manager.getDimmensionLeaderBoard("deaths");
+            manager.getDimensionsLeaderBoard("deaths");
             System.out.println("Get dimensions leaderboard process time: " + (System.currentTimeMillis() - startTime) + " ms");
-
-            // Get herobattle leaderboard
-            uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
-            heroBattleStats = new HeroBattleStatisticsBean(uuid, 30, 20, 50, 8, 4, 2, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 100);
-            manager.updateHeroBattleStatistics(player_2, heroBattleStats);
-            uuid = UUID.fromString("aaaaaaaa-dddd-cccc-dddd-eeeeeeeeeeeeee");
-            heroBattleStats = new HeroBattleStatisticsBean(uuid, 20, 20, 40, 8, 4, 2, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 100);
-            manager.updateHeroBattleStatistics(player_3, heroBattleStats);
-            uuid = UUID.fromString("a9ebd2f3-271d-4c6c-ba28-50f7ddd3465d");
-            heroBattleStats = new HeroBattleStatisticsBean(uuid, 10, 20, 30, 8, 4, 2, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 100);
-            manager.updateHeroBattleStatistics(player, heroBattleStats);
-            startTime = System.currentTimeMillis();
-            manager.getHeroBattleLeaderBoard("kills");
-            System.out.println("Get herobattle leaderboard process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get jukebox leaderboard
             uuid = UUID.fromString("aaaaaaaa-cccc-cccc-dddd-eeeeeeeeeeeeee");
@@ -617,7 +584,7 @@ public class Test
             upperVoidStats = new UppervoidStatisticsBean(uuid, 50, 60, 4, 120, 2, 10, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 6000);
             manager.updateUppervoidStatistics(player, upperVoidStats);
             startTime = System.currentTimeMillis();
-            manager.getUpperVoidLeaderBoard("kills");
+            manager.getUppervoidLeaderBoard("kills");
             System.out.println("Get uppervoid leaderboard process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create player settings test
@@ -641,13 +608,8 @@ public class Test
             PlayerBean player_4 = new PlayerBean(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), "player_4", "the 4", 0, 0, 0, null, null, null, null, 1);
             manager.getPlayer(UUID.fromString("aaaaaaaa-eeee-cccc-dddd-eeeeeeeeeeeeee"), player_4);
             startTime = System.currentTimeMillis();
-            manager.getDimensionStatistics(player_4);
+            manager.getDimensionsStatistics(player_4);
             System.out.println("Create a default dimensions statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
-
-            // Create a default herobattle statistics test
-            startTime = System.currentTimeMillis();
-            manager.getHeroBattleStatistics(player_4);
-            System.out.println("Create a default herobattle statistics time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Create a default jukebox statistics test
             startTime = System.currentTimeMillis();

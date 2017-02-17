@@ -50,7 +50,7 @@ public class PlayerBean
     private Timestamp lastLogin;
     private Timestamp firstLogin;
     private String lastIP;
-    private String toptpKey;
+    private String topTpKey;
     private long groupId;
 
     //Empty constructor because we fill it when needed
@@ -60,7 +60,7 @@ public class PlayerBean
     }
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, int powders, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String toptpKey, long groupId)
+    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, int powders, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String topTpKey, long groupId)
     {
         this.uuid = uuid;
         this.name = name;
@@ -71,7 +71,7 @@ public class PlayerBean
         this.lastLogin = lastLogin;
         this.firstLogin = firstLogin;
         this.lastIP = lastIP;
-        this.toptpKey = toptpKey;
+        this.topTpKey = topTpKey;
         this.groupId = groupId;
     }
 
@@ -97,7 +97,7 @@ public class PlayerBean
     }
     public Timestamp getFirstLogin() { return this.firstLogin; }
     public String getLastIP() { return this.lastIP; }
-    public String getToptpKey() { return this.toptpKey; }
+    public String getTopTpKey() { return this.topTpKey; }
     public long getGroupId() { return this.groupId; }
 
     // Setters
@@ -127,7 +127,7 @@ public class PlayerBean
         this.firstLogin = firstLogin;
     }
     public void setLastIP(String lastIP) { this.lastIP = lastIP; }
-    public void setToptpKey(String toptpKey) { this.toptpKey = toptpKey; }
+    public void setTopTpKey(String topTpKey) { this.topTpKey = topTpKey; }
     public void setGroupId(long groupId) { this.groupId = groupId; }
 
 

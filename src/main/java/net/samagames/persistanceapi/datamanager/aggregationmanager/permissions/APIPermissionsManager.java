@@ -21,30 +21,33 @@ import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
 import javax.sql.DataSource;
 import java.sql.*;
 
-public class APIPermissionManager
+public class APIPermissionsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    APIPermissionsBean apiPermissionsBean = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
     // Get the permissions for the API
-    public APIPermissionsBean getAPIPermission(PlayerBean player, DataSource dataSource) throws Exception
+    public APIPermissionsBean getAPIPermissions(PlayerBean player, DataSource dataSource) throws Exception
     {
+        APIPermissionsBean apiPermissionsBean = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
             String sql = "select groups_id, api_servers_debug, api_permissions_refresh, api_coins_getother, api_coins_credit, api_coins_withdraw, api_inventory_show";
             sql += ", api_playerdata_show, api_playerdata_set, api_playerdata_del, api_modo_speakup, api_stars_getother, api_stars_credit, api_stars_withdraw, api_game_start, api_chat_bypass";
-            sql += " from api_permissions where groups_id=" + player.getGroupId();
+            sql += " from api_permissions where groups_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, player.getGroupId());
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if(resultset.next())
@@ -66,6 +69,7 @@ public class APIPermissionManager
                 boolean apiStarsWithdraw = resultset.getBoolean("api_stars_withdraw");
                 boolean apiGameStart = resultset.getBoolean("api_game_start");
                 boolean apiChatBypass = resultset.getBoolean("api_chat_bypass");
+
                 apiPermissionsBean = new APIPermissionsBean(groupId, apiServersDebug, apiPermissionsRefresh, apiCoinsGetOther, apiCoinsCredit, apiCoinsWithdraw, apiInventoryShow,
                         apiPlayerDataShow, apiPlayerdataSet, apiPlayerdataDel, apiModoSpeakup, apiStarsGetother, apiStarsCredit, apiStarsWithdraw, apiGameStart, apiChatBypass);
             }
@@ -85,6 +89,7 @@ public class APIPermissionManager
             // Close the query environment in order to prevent leaks
             close();
         }
+
         return apiPermissionsBean;
     }
 

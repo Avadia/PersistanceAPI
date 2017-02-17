@@ -23,33 +23,33 @@ import javax.sql.DataSource;
 public class PermissionsManager
 {
     // Defines
-    public APIPermissionManager apiPermissionManager;
-    public BukkitPermissionManager bukkitPermissionManager;
-    public BungeeRedisPermissionManager bungeeRedisPermissionManager;
-    public HubPermissionManager hubPermissionManager;
-    public ModerationPermissionManager moderationPermissionManager;
-    public ProxiesPermissionManager proxiesPermissionManager;
-    public StaffPermissionManager staffPermissionManager;
+    public APIPermissionsManager apiPermissionsManager;
+    public BukkitPermissionsManager bukkitPermissionsManager;
+    public BungeeRedisPermissionsManager bungeeRedisPermissionsManager;
+    public HubPermissionsManager hubPermissionsManager;
+    public ModerationPermissionsManager moderationPermissionsManager;
+    public ProxiesPermissionsManager proxiesPermissionsManager;
+    public StaffPermissionsManager staffPermissionsManager;
 
     // Constructor
     public PermissionsManager()
     {
-        this.apiPermissionManager =  new APIPermissionManager();
-        this.bukkitPermissionManager = new BukkitPermissionManager();
-        this.bungeeRedisPermissionManager = new BungeeRedisPermissionManager();
-        this.hubPermissionManager = new HubPermissionManager();
-        this.moderationPermissionManager = new ModerationPermissionManager();
-        this.proxiesPermissionManager = new ProxiesPermissionManager();
-        this.staffPermissionManager = new StaffPermissionManager();
+        this.apiPermissionsManager =  new APIPermissionsManager();
+        this.bukkitPermissionsManager = new BukkitPermissionsManager();
+        this.bungeeRedisPermissionsManager = new BungeeRedisPermissionsManager();
+        this.hubPermissionsManager = new HubPermissionsManager();
+        this.moderationPermissionsManager = new ModerationPermissionsManager();
+        this.proxiesPermissionsManager = new ProxiesPermissionsManager();
+        this.staffPermissionsManager = new StaffPermissionsManager();
     }
 
     // Get all player permissions
-    public PlayerPermissionBean getAllPlayerPermission(PlayerBean player, DataSource dataSource) throws Exception
+    public PlayerPermissionsBean getAllPlayerPermissions(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Declared bean
         APIPermissionsBean apiPermissions;
         BukkitPermissionsBean bukkitPermissions;
-        BungeeRedisPermissionsBean bungeeRedisPermisions;
+        BungeeRedisPermissionsBean bungeeRedisPermissions;
         HubPermissionsBean hubPermissions;
         ModerationPermissionsBean moderationPermissions;
         ProxiesPermissionsBean proxiesPermissions;
@@ -58,13 +58,13 @@ public class PermissionsManager
         // Get the different permissions bean
         try
         {
-            apiPermissions = this.apiPermissionManager.getAPIPermission(player, dataSource);
-            bukkitPermissions = this.bukkitPermissionManager.getBukkitPermission(player, dataSource);
-            bungeeRedisPermisions = this.bungeeRedisPermissionManager.getBungeeRedisPemission(player, dataSource);
-            hubPermissions = this.hubPermissionManager.getHubPermission(player, dataSource);
-            moderationPermissions = this.moderationPermissionManager.getModerationPermission(player, dataSource);
-            proxiesPermissions = this.proxiesPermissionManager.getProxiesPermission(player, dataSource);
-            staffPermissions = this.staffPermissionManager.getStaffPermission(player, dataSource);
+            apiPermissions = this.apiPermissionsManager.getAPIPermissions(player, dataSource);
+            bukkitPermissions = this.bukkitPermissionsManager.getBukkitPermissions(player, dataSource);
+            bungeeRedisPermissions = this.bungeeRedisPermissionsManager.getBungeeRedisPermissions(player, dataSource);
+            hubPermissions = this.hubPermissionsManager.getHubPermissions(player, dataSource);
+            moderationPermissions = this.moderationPermissionsManager.getModerationPermissions(player, dataSource);
+            proxiesPermissions = this.proxiesPermissionsManager.getProxiesPermissions(player, dataSource);
+            staffPermissions = this.staffPermissionsManager.getStaffPermissions(player, dataSource);
         }
         catch (Exception exception)
         {
@@ -73,8 +73,8 @@ public class PermissionsManager
         }
 
         // Create the aggregation of different permissions bean
-        PlayerPermissionBean playerPermissionBean = new PlayerPermissionBean(apiPermissions, bukkitPermissions, bungeeRedisPermisions, hubPermissions, moderationPermissions, proxiesPermissions,
-                staffPermissions);
+        PlayerPermissionsBean playerPermissionBean = new PlayerPermissionsBean(apiPermissions, bukkitPermissions, bungeeRedisPermissions, hubPermissions, moderationPermissions, proxiesPermissions, staffPermissions);
+
         return playerPermissionBean;
     }
 }

@@ -21,33 +21,36 @@ import net.samagames.persistanceapi.beans.permissions.BukkitPermissionsBean;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class BukkitPermissionManager
+public class BukkitPermissionsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    BukkitPermissionsBean bukkitPermissionsBean = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
     // Get the permissions for Bukkit
-    public BukkitPermissionsBean getBukkitPermission(PlayerBean player, DataSource dataSource) throws Exception
+    public BukkitPermissionsBean getBukkitPermissions(PlayerBean player, DataSource dataSource) throws Exception
     {
+        BukkitPermissionsBean bukkitPermissionsBean = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select groups_id, minecraft_command_op, bukkit_command_op_give, bukkit_command_effect," +
-                    "bukkit_command_gamemode, bukkit_command_teleport";
-            sql += " from bukkit_permissions where groups_id=" + player.getGroupId();
+            String sql = "select groups_id, minecraft_command_op, bukkit_command_op_give, bukkit_command_effect, bukkit_command_gamemode, bukkit_command_teleport";
+            sql += " from bukkit_permissions where groups_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, player.getGroupId());
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if(resultset.next())
@@ -59,6 +62,7 @@ public class BukkitPermissionManager
                 boolean bukkitCommandEffect = resultset.getBoolean("bukkit_command_effect");
                 boolean bukkitCommandGamemode = resultset.getBoolean("bukkit_command_gamemode");
                 boolean bukkitCommandTeleport = resultset.getBoolean("bukkit_command_teleport");
+
                 bukkitPermissionsBean = new BukkitPermissionsBean(groupId,
                         minecraftCommandOp, bukkitCommandOpGive, bukkitCommandEffect, bukkitCommandGamemode,
                         bukkitCommandTeleport);
@@ -79,6 +83,7 @@ public class BukkitPermissionManager
             // Close the query environment in order to prevent leaks
             close();
         }
+
         return bukkitPermissionsBean;
     }
 

@@ -22,10 +22,7 @@ import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,7 +31,7 @@ public class AchievementManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the category by ID
@@ -47,15 +44,15 @@ public class AchievementManager
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select category_name, category_description, item_minecraft_id, parent_id from achievement_categories";
-            sql += " where category_id=" + categoryId;
+            String sql = "select category_name, category_description, item_minecraft_id, parent_id from achievement_categories where category_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, categoryId);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if(resultset.next())
@@ -92,14 +89,14 @@ public class AchievementManager
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select category_id, category_name, category_description, item_minecraft_id, parent_id from achievement_categories";
+            String sql = "select category_id, category_name, category_description, item_minecraft_id, parent_id from achievement_categories";
+
+            statement = connection.prepareStatement(sql);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
@@ -137,15 +134,15 @@ public class AchievementManager
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select achievement_name, achievement_description, progress_target, category_id from achievements";
-            sql += " where achievement_id=" + achievementId;
+            String sql = "select achievement_name, achievement_description, progress_target, category_id from achievements where achievement_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, achievementId);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if(resultset.next())
@@ -182,14 +179,14 @@ public class AchievementManager
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select achievement_id, achievement_name, achievement_description, progress_target, category_id from achievements";
+            String sql = "select achievement_id, achievement_name, achievement_description, progress_target, category_id from achievements";
+
+            statement = connection.prepareStatement(sql);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
@@ -225,21 +222,22 @@ public class AchievementManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses";
-            sql += " where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')) and achievement_id=" + achievementId;
+            String sql = "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses where uuid_player = UNHEX(?) and achievement_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setInt(2, achievementId);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid_player"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid_player"));
                 long progressId = resultset.getLong("progress_id");
                 int achievementId2 = resultset.getInt("achievement_id");
                 int achievementProgress = resultset.getInt("progress");
@@ -292,21 +290,21 @@ public class AchievementManager
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses";
-            sql += " where uuid_player=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            String sql = "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses where uuid_player = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid_player"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid_player"));
                 long progressId = resultset.getLong("progress_id");
                 int achievementId = resultset.getInt("achievement_id");
                 int achievementProgress = resultset.getInt("progress");
@@ -348,25 +346,24 @@ public class AchievementManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             Timestamp unlockDate = progress.getUnlockDate();
             String unlockDateString = "0000-00-00 00:00:00";
 
             if(unlockDate != null)
-            {
                 unlockDateString = unlockDate.toString();
-            }
 
             // Query construction
-            String sql = "";
-            sql += "update achievement_progresses set progress=" + progress.getProgress();
-            sql += ", start_date='" + progress.getStartDate() + "'";
-            sql += ", unlock_date='" + unlockDateString + "'";
-            sql += " where progress_id=" + progress.getProgressId();
+            String sql = "update achievement_progresses set progress = ?, start_date = ?, unlock_date = ? where progress_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, progress.getProgress());
+            statement.setString(2, progress.getStartDate().toString());
+            statement.setString(3, unlockDateString);
+            statement.setLong(4, progress.getProgressId());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -388,7 +385,6 @@ public class AchievementManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             Timestamp unlockDate = progress.getUnlockDate();
             String unlockDateString = "0000-00-00 00:00:00";
@@ -399,16 +395,16 @@ public class AchievementManager
             }
 
             // Query construction
-            String sql = "";
-            sql += "insert into achievement_progresses (achievement_id, progress, start_date, unlock_date, uuid_player)";
-            sql += " values ('" + progress.getAchievementId() + "'";
-            sql += ", '" + progress.getProgress() + "'";
-            sql += ", now()";
-            sql += ", '" + unlockDateString + "'";
-            sql += ", (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')))";
+            String sql = "insert into achievement_progresses (achievement_id, progress, start_date, unlock_date, uuid_player) values (?, ?, now(), ?, UNHEX(?))";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, progress.getAchievementId());
+            statement.setInt(2, progress.getProgress());
+            statement.setString(3, unlockDateString);
+            statement.setString(4, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {

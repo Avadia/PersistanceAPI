@@ -16,67 +16,66 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
-import net.samagames.persistanceapi.beans.statistics.HeroBattleStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.DimensionsStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.utils.Transcoder;
-
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-public class HeroBattleStatisticsManager
+public class DimensionsStatisticsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    HeroBattleStatisticsBean heroBattleStats = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
-    // Get HeroBattle player statistics
-    public HeroBattleStatisticsBean getHeroBattleStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    // Get dimensions player statistics
+    public DimensionsStatisticsBean getDimensionsStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
+        DimensionsStatisticsBean dimensionsStats = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid)) as uuid, deaths, elo, kills, played_games, powerup_taken, wins, creation_date, update_date, played_time from herobattle_stats";
-            sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            String sql = "select HEX(uuid) as uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time from dimensions_stats where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
+            if(resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
                 int deaths = resultset.getInt("deaths");
-                int elo = resultset.getInt("elo");
                 int kills = resultset.getInt("kills");
                 int playedGames = resultset.getInt("played_games");
-                int powerupTaken = resultset.getInt("powerup_taken");
                 int wins = resultset.getInt("wins");
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 long playedTime = resultset.getLong("played_time");
-                heroBattleStats = new HeroBattleStatisticsBean(uuid, deaths, elo, kills, playedGames, powerupTaken, wins, creationDate, updateDate, playedTime);
+
+                dimensionsStats = new DimensionsStatisticsBean(uuid, deaths, kills, playedGames, wins, creationDate, updateDate, playedTime);
             }
             else
             {
-                // If there no HeroBattle stats int the database create empty one
+                // If there no dimensions stats int the database create empty one
                 this.close();
-                this.createEmptyHeroBattleStatistics(player, dataSource);
+                this.createEmptyDimensionsStatistics(player, dataSource);
                 this.close();
-                HeroBattleStatisticsBean newHeroBattleStats = this.getHeroBattleStatistics(player,dataSource);
+
+                DimensionsStatisticsBean newDimensionsStats = this.getDimensionsStatistics(player,dataSource);
                 this.close();
-                return newHeroBattleStats;
+
+                return newDimensionsStats;
             }
         }
         catch(Exception exception)
@@ -89,37 +88,35 @@ public class HeroBattleStatisticsManager
             // Close the query environment in order to prevent leaks
             this.close();
         }
-        return heroBattleStats;
+
+        return dimensionsStats;
     }
 
-    // Create an empty herobattle statistics
-    private void createEmptyHeroBattleStatistics(PlayerBean player, DataSource dataSource) throws Exception
+    // Create an empty dimensions statistics
+    private void createEmptyDimensionsStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
         {
-            // Create an emptu bean
-            HeroBattleStatisticsBean heroBattleStats = new HeroBattleStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
+            // Create an empty bean
+            DimensionsStatisticsBean dimensionStats = new DimensionsStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction for create
-            String sql = "";
-            sql += "insert into herobattle_stats (uuid, deaths, elo, kills, played_games, powerup_taken, wins, creation_date, update_date, played_time)";
-            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-            sql += ", " + heroBattleStats.getDeaths();
-            sql += ", " + heroBattleStats.getElo();
-            sql += ", " + heroBattleStats.getKills();
-            sql += ", " + heroBattleStats.getPlayedGames();
-            sql += ", " + heroBattleStats.getPowerUpTaken();
-            sql += ", " + heroBattleStats.getWins();
-            sql += ", now()";
-            sql += ", now()";
-            sql += ", " + heroBattleStats.getPlayedGames() + ")";
+            String sql = "insert into dimensions_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
+            sql += " values (UNHEX(?), ?, ?, ?, ?, now(), now(), ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setInt(2, dimensionStats.getDeaths());
+            statement.setInt(3, dimensionStats.getKills());
+            statement.setInt(4, dimensionStats.getPlayedGames());
+            statement.setInt(5, dimensionStats.getWins());
+            statement.setLong(6, dimensionStats.getPlayedTime());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -131,39 +128,39 @@ public class HeroBattleStatisticsManager
             // Close the query environment in order to prevent leaks
             this.close();
         }
+
     }
 
-    // Update Dimension player statistics
-    public void updateHeroBattleStatistics(PlayerBean player, HeroBattleStatisticsBean heroBattleStats, DataSource dataSource) throws Exception
+
+    // Update dimensions player statistics
+    public void updateDimensionsStatistics(PlayerBean player, DimensionsStatisticsBean dimensionsStats, DataSource dataSource) throws Exception
     {
         try
         {
             // Check if a record exists
-            if (this.getHeroBattleStatistics(player, dataSource) == null)
+            if (this.getDimensionsStatistics(player, dataSource) == null)
             {
-                // Create an empty herobattle statistics
-                this.createEmptyHeroBattleStatistics(player, dataSource);
+                // Create an empty dimensions statistics
+                this.createEmptyDimensionsStatistics(player, dataSource);
             }
             else
             {
                 // Set connection
                 connection = dataSource.getConnection();
-                statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "";
-                sql += "update herobattle_stats set deaths=" + heroBattleStats.getDeaths();
-                sql += ", elo=" + heroBattleStats.getElo();
-                sql += ", kills=" + heroBattleStats.getKills();
-                sql += ", played_games=" + heroBattleStats.getPlayedGames();
-                sql += ", powerup_taken=" + heroBattleStats.getPowerUpTaken();
-                sql += ", wins=" + heroBattleStats.getWins();
-                sql += ", update_date=now()";
-                sql += ", played_time=" + heroBattleStats.getPlayedGames();
-                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+                String sql = "update dimensions_stats set deaths = ?, kills = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
+
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, dimensionsStats.getDeaths());
+                statement.setInt(2, dimensionsStats.getKills());
+                statement.setInt(3, dimensionsStats.getPlayedGames());
+                statement.setInt(4, dimensionsStats.getWins());
+                statement.setLong(5, dimensionsStats.getPlayedTime());
+                statement.setString(6, Transcoder.encode(player.getUuid().toString()));
 
                 // Execute the query
-                statement.executeUpdate(sql);
+                statement.executeUpdate();
             }
         }
         catch(Exception exception)
@@ -186,13 +183,16 @@ public class HeroBattleStatisticsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select p.name as name, d." + category + " as score from players as p, herobattle_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
+            String sql = "select p.name as name, d.? as score from players as p, dimensions_stats as d where p.uuid = d.uuid order by d.? desc limit 3";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, category);
+            statement.setString(2, category);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while(resultset.next())

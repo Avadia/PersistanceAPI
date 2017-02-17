@@ -21,10 +21,7 @@ import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,33 +29,34 @@ import java.util.UUID;
 public class UHCRandomStatisticsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    UHCRandomStatisticsBean uhcRandomStats = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
-    // Get UHCRandom player statistics
+    // Get uhcrandom player statistics
     public UHCRandomStatisticsBean getUHCRandomStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
+        UHCRandomStatisticsBean uhcRandomStats = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid)) as uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time from uhcrandom_stats";
-            sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            String sql = "select HEX(uuid) as uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time from uhcrandom_stats where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
                 int damages = resultset.getInt("damages");
                 int deaths = resultset.getInt("deaths");
@@ -69,16 +67,19 @@ public class UHCRandomStatisticsManager
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 long playedTime = resultset.getLong("played_time");
+
                 uhcRandomStats = new UHCRandomStatisticsBean(uuid, damages, deaths, kills, maxDamages, playedGames, wins, creationDate, updateDate, playedTime);
             }
             else
             {
-                // If there no UHCRandom stats in the database create empty one
+                // If there no uhcrandom stats in the database create empty one
                 this.close();
                 this.createEmptyUHCRandomStatistics(player, dataSource);
                 this.close();
+
                 UHCRandomStatisticsBean newUHCRandomStats = this.getUHCRandomStatistics(player,dataSource);
                 this.close();
+
                 return newUHCRandomStats;
             }
         }
@@ -92,10 +93,11 @@ public class UHCRandomStatisticsManager
             // Close the query environment in order to prevent leaks
             this.close();
         }
+
         return uhcRandomStats;
     }
 
-    // Create an empty jukebox statistics
+    // Create an empty uhcrandom statistics
     private void createEmptyUHCRandomStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         try
@@ -105,22 +107,23 @@ public class UHCRandomStatisticsManager
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction for create
             String sql = "insert into uhcrandom_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
-            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-            sql += ", " + uhcRandomStats.getDamages();
-            sql += ", " + uhcRandomStats.getDeaths();
-            sql += ", " + uhcRandomStats.getKills();
-            sql += ", " + uhcRandomStats.getMaxDamages();
-            sql += ", " + uhcRandomStats.getPlayedGames();
-            sql += ", " + uhcRandomStats.getWins();
-            sql += ", now(), now()";
-            sql += ", " + uhcRandomStats.getPlayedTime() + ")";
+            sql += " values (UNHEX(?), ?, ?, ?, ?, ?, ?, now(), now(), ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setInt(2, uhcRandomStats.getDamages());
+            statement.setInt(3, uhcRandomStats.getDeaths());
+            statement.setInt(4, uhcRandomStats.getKills());
+            statement.setInt(5, uhcRandomStats.getMaxDamages());
+            statement.setInt(6, uhcRandomStats.getPlayedGames());
+            statement.setInt(7, uhcRandomStats.getWins());
+            statement.setLong(8, uhcRandomStats.getPlayedTime());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch(Exception exception)
         {
@@ -134,7 +137,7 @@ public class UHCRandomStatisticsManager
         }
     }
 
-    // Update UHCRandom player statistics
+    // Update uhcrandom player statistics
     public void updateUHCRandomStatistics(PlayerBean player, UHCRandomStatisticsBean uhcRandomStats, DataSource dataSource) throws Exception
     {
         try
@@ -142,28 +145,29 @@ public class UHCRandomStatisticsManager
             // Check if a record exists
             if (this.getUHCRandomStatistics(player, dataSource) == null)
             {
-                // Create an empty uHC statistics
+                // Create an empty uhcrandom statistics
                 this.createEmptyUHCRandomStatistics(player, dataSource);
             }
             else
             {
                 // Set connection
                 connection = dataSource.getConnection();
-                statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "update uhcrandom_stats set damages=" + uhcRandomStats.getDamages();
-                sql += ", deaths=" + uhcRandomStats.getDeaths();
-                sql += ", kills=" + uhcRandomStats.getKills();
-                sql += ", max_damages=" + uhcRandomStats.getMaxDamages();
-                sql += ", played_games=" + uhcRandomStats.getPlayedGames();
-                sql += ", wins=" + uhcRandomStats.getWins();
-                sql += ", update_date=now()";
-                sql += ", played_time=" + uhcRandomStats.getPlayedTime();
-                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+                String sql = "update uhcrandom_stats set damages = ?, deaths = ?, kills = ?, max_damages = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
+
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, uhcRandomStats.getDamages());
+                statement.setInt(2, uhcRandomStats.getDeaths());
+                statement.setInt(3, uhcRandomStats.getKills());
+                statement.setInt(4, uhcRandomStats.getMaxDamages());
+                statement.setInt(5, uhcRandomStats.getPlayedGames());
+                statement.setInt(6, uhcRandomStats.getWins());
+                statement.setLong(7, uhcRandomStats.getPlayedTime());
+                statement.setString(8, Transcoder.encode(player.getUuid().toString()));
 
                 // Execute the query
-                statement.executeUpdate(sql);
+                statement.executeUpdate();
             }
         }
         catch(Exception exception)
@@ -186,13 +190,16 @@ public class UHCRandomStatisticsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select p.name as name, d." + category + " as score from players as p, uhcrandom_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
+            String sql = "select p.name as name, d.? as score from players as p, uhcrandom_stats as d where p.uuid = d.uuid order by d.? desc limit 3";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, category);
+            statement.setString(2, category);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while(resultset.next())

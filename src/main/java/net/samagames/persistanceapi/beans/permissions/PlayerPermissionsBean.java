@@ -17,24 +17,24 @@ package net.samagames.persistanceapi.beans.permissions;
 
 import java.util.HashMap;
 
-public class PlayerPermissionBean
+public class PlayerPermissionsBean
 {
     // Defines aggregation of permissions
     private APIPermissionsBean apiPermissions;
     private BukkitPermissionsBean bukkitPermissions;
-    private BungeeRedisPermissionsBean bungeeRedisPermisions;
+    private BungeeRedisPermissionsBean bungeeRedisPermissions;
     private HubPermissionsBean hubPermissions;
     private ModerationPermissionsBean moderationPermissions;
     private ProxiesPermissionsBean proxiesPermissions;
     private StaffPermissionsBean staffPermissions;
 
     // Constructor
-    public PlayerPermissionBean(APIPermissionsBean apiPermissions, BukkitPermissionsBean bukkitPermissions, BungeeRedisPermissionsBean bungeeRedisPermisions, HubPermissionsBean hubPermissions,
+    public PlayerPermissionsBean(APIPermissionsBean apiPermissions, BukkitPermissionsBean bukkitPermissions, BungeeRedisPermissionsBean bungeeRedisPermissions, HubPermissionsBean hubPermissions,
                                 ModerationPermissionsBean moderationPermissions, ProxiesPermissionsBean proxiesPermissions, StaffPermissionsBean staffPermissions)
     {
         this.apiPermissions = apiPermissions;
         this.bukkitPermissions = bukkitPermissions;
-        this.bungeeRedisPermisions = bungeeRedisPermisions;
+        this.bungeeRedisPermissions = bungeeRedisPermissions;
         this.hubPermissions = hubPermissions;
         this.moderationPermissions = moderationPermissions;
         this.proxiesPermissions = proxiesPermissions;
@@ -44,7 +44,7 @@ public class PlayerPermissionBean
     // Getters
     public APIPermissionsBean getApiPermissions() { return apiPermissions; }
     public BukkitPermissionsBean getBukkitPermissions() { return bukkitPermissions; }
-    public BungeeRedisPermissionsBean getBungeeRedisPermisions() { return bungeeRedisPermisions; }
+    public BungeeRedisPermissionsBean getBungeeRedisPermissions() { return bungeeRedisPermissions; }
     public HubPermissionsBean getHubPermissions() { return hubPermissions; }
     public ModerationPermissionsBean getModerationPermissions() { return moderationPermissions; }
     public ProxiesPermissionsBean getProxiesPermissions() { return proxiesPermissions; }
@@ -53,7 +53,7 @@ public class PlayerPermissionBean
     // Setters
     public void setApiPermissions(APIPermissionsBean apiPermissions) { this.apiPermissions = apiPermissions; }
     public void setBukkitPermissions(BukkitPermissionsBean bukkitPermissions) { this.bukkitPermissions = bukkitPermissions; }
-    public void setBungeeRedisPermisions(BungeeRedisPermissionsBean bungeeRedisPermisions) { this.bungeeRedisPermisions = bungeeRedisPermisions; }
+    public void setBungeeRedisPermisions(BungeeRedisPermissionsBean bungeeRedisPermissions) { this.bungeeRedisPermissions = bungeeRedisPermissions; }
     public void setHubPermissions(HubPermissionsBean hubPermissions) { this.hubPermissions = hubPermissions; }
     public void setModerationPermissions(ModerationPermissionsBean moderationPermissions) { this.moderationPermissions = moderationPermissions; }
     public void setProxiesPermissions(ProxiesPermissionsBean proxiesPermissions) { this.proxiesPermissions = proxiesPermissions; }
@@ -65,7 +65,7 @@ public class PlayerPermissionBean
         HashMap<String, Boolean> permissionHashMap = new HashMap<>();
         permissionHashMap.putAll(this.apiPermissions.getHashMap());
         permissionHashMap.putAll(this.bukkitPermissions.getHashMap());
-        permissionHashMap.putAll(this.bungeeRedisPermisions.getHashMap());
+        permissionHashMap.putAll(this.bungeeRedisPermissions.getHashMap());
         permissionHashMap.putAll(this.hubPermissions.getHashMap());
         permissionHashMap.putAll(this.moderationPermissions.getHashMap());
         permissionHashMap.putAll(this.proxiesPermissions.getHashMap());

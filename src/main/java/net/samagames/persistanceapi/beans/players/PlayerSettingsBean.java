@@ -39,7 +39,7 @@ public class PlayerSettingsBean
     | click_on_me_activation    | bit(1)     | NO   |     | NULL    |       |
     | allow_statistic_onclick   | bit(1)     | NO   |     | NULL    |       |
     | allow_coins_onclick       | bit(1)     | NO   |     | NULL    |       |
-    | allow_stars_onclick       | bit(1)     | NO   |     | NULL    |       |
+    | allow_powders_onclick     | bit(1)     | NO   |     | NULL    |       |
     | allow_click_on_other      | bit(1)     | NO   |     | NULL    |       |
     | elytra_activated          | bit(1)     | NO   |     | NULL    |       |
     +---------------------------+------------+------+-----+---------+-------+
@@ -59,17 +59,17 @@ public class PlayerSettingsBean
     private boolean clickOnMeActivation;
     private boolean allowStatisticOnClick;
     private boolean allowCoinsOnClick;
-    private boolean allowStarsOnclick;
+    private boolean allowPowdersOnClick;
     private boolean allowClickOnOther;
     private boolean elytraActivated;
 
     // Constructor
     @ConstructorProperties({"uuid", "jukeboxListen", "groupDemandReceive", "friendshipDemandReceive", "notificationReceive", "privateMessageReceive",
     "chatVisible", "playerVisible", "waitingLineNotification", "otherPlayerInteraction", "clickOnMeActivation", "allowStatisticOnClick", "allowCoinsOnClick",
-    "allowStarsOnclick", "allowClickOnOther", "elytraActivated"})
+    "allowPowdersOnClick", "allowClickOnOther", "elytraActivated"})
     public PlayerSettingsBean(UUID uuid, boolean jukeboxListen, boolean groupDemandReceive, boolean friendshipDemandReceive, boolean notificationReceive, boolean privateMessageReceive,
                               boolean chatVisible, boolean playerVisible, boolean waitingLineNotification, boolean otherPlayerInteraction, boolean clickOnMeActivation,
-                              boolean allowStatisticOnClick, boolean allowCoinsOnClick, boolean allowStarsOnclick, boolean allowClickOnOther, boolean elytraActivated)
+                              boolean allowStatisticOnClick, boolean allowCoinsOnClick, boolean allowPowdersOnClick, boolean allowClickOnOther, boolean elytraActivated)
     {
         this.uuid = uuid;
         this.jukeboxListen = jukeboxListen;
@@ -84,7 +84,7 @@ public class PlayerSettingsBean
         this.clickOnMeActivation = clickOnMeActivation;
         this.allowStatisticOnClick = allowStatisticOnClick;
         this.allowCoinsOnClick = allowCoinsOnClick;
-        this.allowStarsOnclick = allowStarsOnclick;
+        this.allowPowdersOnClick = allowPowdersOnClick;
         this.allowClickOnOther = allowClickOnOther;
         this.elytraActivated = elytraActivated;
     }
@@ -103,7 +103,7 @@ public class PlayerSettingsBean
     public boolean isClickOnMeActivation() { return this.clickOnMeActivation; }
     public boolean isAllowStatisticOnClick() { return this.allowStatisticOnClick; }
     public boolean isAllowCoinsOnClick() { return this.allowCoinsOnClick; }
-    public boolean isAllowStarsOnclick() { return this.allowStarsOnclick; }
+    public boolean isAllowPowdersOnClick() { return this.allowPowdersOnClick; }
     public boolean isAllowClickOnOther() { return this.allowClickOnOther; }
     public boolean isElytraActivated() { return elytraActivated; }
 
@@ -121,7 +121,7 @@ public class PlayerSettingsBean
     public void setClickOnMeActivation(boolean clickOnMeActivation) { this.clickOnMeActivation = clickOnMeActivation; }
     public void setAllowStatisticOnClick(boolean allowStatisticOnClick) { this.allowStatisticOnClick = allowStatisticOnClick; }
     public void setAllowCoinsOnClick(boolean allowCoinsOnClick) { this.allowCoinsOnClick = allowCoinsOnClick; }
-    public void setAllowStarsOnclick(boolean allowStarsOnclick) { this.allowStarsOnclick = allowStarsOnclick; }
+    public void setAllowPowdersOnClick(boolean allowPowdersOnClick) { this.allowPowdersOnClick = allowPowdersOnClick; }
     public void setAllowClickOnOther(boolean allowClickOnOther) { this.allowClickOnOther = allowClickOnOther; }
     public void setElytraActivated(boolean elytraActivated) { this.elytraActivated = elytraActivated; }
 }

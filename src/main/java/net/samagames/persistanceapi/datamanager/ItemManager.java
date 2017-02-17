@@ -19,6 +19,7 @@ import net.samagames.persistanceapi.beans.shop.ItemDescriptionBean;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,11 +29,11 @@ public class ItemManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the item by ID
-    public ItemDescriptionBean getItemDescription(int intemId, DataSource dataSource) throws Exception
+    public ItemDescriptionBean getItemDescription(int itemId, DataSource dataSource) throws Exception
     {
         // Get item
         try
@@ -42,20 +43,21 @@ public class ItemManager
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rank_accessibility";
-            sql += " from item_description where item_id=" + intemId;
+            String sql = "select item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rank_accessibility";
+            sql += " from item_description where item_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, itemId);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())
             {
                 // There's a result
-                int itemId = resultset.getInt("item_id");
                 String itemName = resultset.getString("item_name");
                 String itemDesc = resultset.getString("item_desc");
                 int priceCoins = resultset.getInt("price_coins");
@@ -88,19 +90,20 @@ public class ItemManager
         try
         {
             // Defines
-            ItemDescriptionBean itemDescription = null;
+            ItemDescriptionBean itemDescription;
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<ItemDescriptionBean> itemList = new ArrayList<>();
 
             // Query construction
             String sql = "select item_id, item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rank_accessibility";
             sql += " from item_description";
 
+            statement = connection.prepareStatement(sql);
+
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while (resultset.next())

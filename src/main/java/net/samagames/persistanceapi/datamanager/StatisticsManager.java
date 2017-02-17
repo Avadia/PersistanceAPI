@@ -25,8 +25,7 @@ import javax.sql.DataSource;
 public class StatisticsManager
 {
     // Defines
-    public DimensionStatisticsManager dimensionStatsManager;
-    public HeroBattleStatisticsManager heroBattleStatsManager;
+    public DimensionsStatisticsManager dimensionsStatsManager;
     public JukeBoxStatisticsManager jukeBoxStatsManager;
     public QuakeStatisticsManager quakeStatsManager;
     public UHCOriginalStatisticsManager uhcOriginalStatsManager;
@@ -35,15 +34,14 @@ public class StatisticsManager
     public UHCRandomStatisticsManager uhcRandomStatsManager;
     public RandomRunStatisticsManager randomRunStatsManager;
     public UltraFlagKeeperStatisticsManager ultraFlagKeeperStatsManager;
-    public UpperVoidStatisticsManager upperVoidStatsManager;
+    public UppervoidStatisticsManager uppervoidStatsManager;
     public ChunkWarsStatisticsManager chunkWarsStatisticsManager;
     public NetworkStatisticsManager networkStatisticsManager;
 
     // Constructor
     public StatisticsManager()
     {
-        this.dimensionStatsManager = new DimensionStatisticsManager();
-        this.heroBattleStatsManager = new HeroBattleStatisticsManager();
+        this.dimensionsStatsManager = new DimensionsStatisticsManager();
         this.jukeBoxStatsManager = new JukeBoxStatisticsManager();
         this.quakeStatsManager = new QuakeStatisticsManager();
         this.uhcOriginalStatsManager = new UHCOriginalStatisticsManager();
@@ -52,7 +50,7 @@ public class StatisticsManager
         this.uhcRandomStatsManager = new UHCRandomStatisticsManager();
         this.randomRunStatsManager = new RandomRunStatisticsManager();
         this.ultraFlagKeeperStatsManager = new UltraFlagKeeperStatisticsManager();
-        this.upperVoidStatsManager = new UpperVoidStatisticsManager();
+        this.uppervoidStatsManager = new UppervoidStatisticsManager();
         this.chunkWarsStatisticsManager = new ChunkWarsStatisticsManager();
         this.networkStatisticsManager = new NetworkStatisticsManager();
     }
@@ -61,8 +59,7 @@ public class StatisticsManager
     public PlayerStatisticsBean getAllPlayerStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Declared bean
-        DimensionStatisticsBean dimensionStats;
-        HeroBattleStatisticsBean heroBattleStats;
+        DimensionsStatisticsBean dimensionsStats;
         JukeBoxStatisticsBean jukeBoxStats;
         QuakeStatisticsBean quakeStats;
         UHCOriginalStatisticsBean uhcOriginalStats;
@@ -77,8 +74,7 @@ public class StatisticsManager
         // Get the different statistics bean
         try
         {
-            dimensionStats = this.dimensionStatsManager.getDimensionStatistics(player, dataSource);
-            heroBattleStats = this.heroBattleStatsManager.getHeroBattleStatistics(player, dataSource);
+            dimensionsStats = this.dimensionsStatsManager.getDimensionsStatistics(player, dataSource);
             jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
             quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
             uhcOriginalStats = this.uhcOriginalStatsManager.getUHCOriginalStatistics(player, dataSource);
@@ -87,7 +83,7 @@ public class StatisticsManager
             uhcRandomStats = this.uhcRandomStatsManager.getUHCRandomStatistics(player, dataSource);
             randomRunStats = this.randomRunStatsManager.getRandomRunStatistics(player, dataSource);
             ultraFlagKeeperStats = this.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, dataSource);
-            upperVoidStats = this.upperVoidStatsManager.getUppervoidStatistics(player, dataSource);
+            upperVoidStats = this.uppervoidStatsManager.getUppervoidStatistics(player, dataSource);
             chunkWarsStats = this.chunkWarsStatisticsManager.getChunkWarsStatistics(player, dataSource);
         }
         catch (Exception exception)
@@ -97,7 +93,7 @@ public class StatisticsManager
         }
 
         // Create the aggregation of different statistics bean
-        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionStats, heroBattleStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats, chunkWarsStats);
+        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionsStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats, chunkWarsStats);
         return playerStatisticsBean;
     }
 
@@ -107,8 +103,7 @@ public class StatisticsManager
         // Update the different statistics bean
         try
         {
-            this.dimensionStatsManager.updateDimensionStatistics(player, datas.getDimensionStats(),dataSource);
-            this.heroBattleStatsManager.updateHeroBattleStatistics(player, datas.getHeroBattleStats(), dataSource);
+            this.dimensionsStatsManager.updateDimensionsStatistics(player, datas.getDimensionsStats(),dataSource);
             this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
             this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
             this.uhcOriginalStatsManager.updateUHCOriginalStatistics(player, datas.getUHCOriginalStats(), dataSource);
@@ -117,7 +112,7 @@ public class StatisticsManager
             this.uhcRandomStatsManager.updateUHCRandomStatistics(player, datas.getUHCRandomStats(), dataSource);
             this.randomRunStatsManager.updateRandomRunStatistics(player, datas.getRandomRunStats(), dataSource);
             this.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, datas.getUltraFlagKeeperStats(), dataSource);
-            this.upperVoidStatsManager.updateUppervoidStatistics(player, datas.getUppervoidStats(), dataSource);
+            this.uppervoidStatsManager.updateUppervoidStatistics(player, datas.getUppervoidStats(), dataSource);
             this.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, datas.getChunkWarsStats(), dataSource);
         }
         catch (Exception exception)

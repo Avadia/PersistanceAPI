@@ -27,7 +27,7 @@ public class PlayerManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get player by UUID, create if unknown
@@ -38,20 +38,21 @@ public class PlayerManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid)) as uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id from players where uuid=(UNHEX('"+ Transcoder.Encode(uuid.toString())+"'))";
+            String sql = "select HEX(uuid) as uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id from players where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(uuid.toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 String name = resultset.getString("name");
                 String nickName = resultset.getString("nickname");
                 int coins = resultset.getInt("coins");
@@ -99,20 +100,21 @@ public class PlayerManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid)) as uuid from players where name='" + suspectName + "'";
+            String sql = "select HEX(uuid) as uuid from players where name = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, suspectName);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 suspectUUID = UUID.fromString(playerUuid);
                 return suspectUUID;
             }
@@ -142,23 +144,25 @@ public class PlayerManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "update players set coins=" + player.getCoins();
-            sql += ", name='" + player.getName() + "'";
-            sql += ", stars=" + player.getStars();
-            sql += ", powders=" + player.getPowders();
-            sql += ", last_login='" + player.getLastLogin() +"'";
-            sql += ", last_ip='" + player.getLastIP() +"'";
-            sql += ", toptp_key='" + player.getToptpKey() +"'";
-            sql += ", group_id=" + player.getGroupId();
-            sql += ", nickname='" + player.getNickName() +"'";
-            sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
+            String sql = "update players set coins = ?, name = ?, stars= ?, powders = ?, last_login = ?, last_ip = ?, toptp_key = ?, group_id = ?, nickname = ?";
+            sql += " where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, player.getCoins());
+            statement.setString(2, player.getName());
+            statement.setInt(3, player.getStars());
+            statement.setInt(4, player.getPowders());
+            statement.setString(5, player.getLastLogin().toString());
+            statement.setString(6, player.getLastIP());
+            statement.setString(7, player.getTopTpKey());
+            statement.setLong(8, player.getGroupId());
+            statement.setString(9, player.getNickName());
+            statement.setString(10, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -180,24 +184,24 @@ public class PlayerManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "insert into players (uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id)";
-            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-            sql += ", '" + player.getName() + "'";
-            sql += ", '" + player.getNickName() + "'";
-            sql += ", " + player.getCoins();
-            sql += ", " + player.getStars();
-            sql += ", " + player.getPowders();
-            sql += ", now(), now()";
-            sql += ", '" + player.getLastIP() + "'";
-            sql +=", '" + player.getToptpKey() + "'";
-            sql +=", " + player.getGroupId() + ")";
+            String sql = "insert into players (uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id)";
+            sql += " values (UNHEX(?), ?, ?, ?, ?, ?, now(), now(), ?, ?, ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setString(2, player.getName());
+            statement.setString(3, player.getNickName());
+            statement.setInt(4, player.getCoins());
+            statement.setInt(5, player.getStars());
+            statement.setInt(6, player.getPowders());
+            statement.setString(7, player.getLastIP());
+            statement.setString(8, player.getTopTpKey());
+            statement.setLong(9, player.getGroupId());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {

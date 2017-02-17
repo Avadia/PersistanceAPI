@@ -16,52 +16,53 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
-import net.samagames.persistanceapi.beans.permissions.ModerationPermissionsBean;
+import net.samagames.persistanceapi.beans.permissions.ProxiesPermissionsBean;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class ModerationPermissionManager
+public class ProxiesPermissionsManager
 {
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
-    ModerationPermissionsBean moderationPermissionsBean = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
-    // Get the permissions for moderation
-    public ModerationPermissionsBean getModerationPermission(PlayerBean player, DataSource dataSource) throws Exception
+    // Get the permissions for proxies
+    public ProxiesPermissionsBean getProxiesPermissions(PlayerBean player, DataSource dataSource) throws Exception
     {
+        ProxiesPermissionsBean proxiesPermissionsBean = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select groups_id, mod_ban, mod_tp, mod_kick, mod_pardon, mod_mute_longtime, mod_mute, mod_channel, mod_channel_report, mod_quiet";
-            sql += " from moderation_permissions where groups_id=" + player.getGroupId();
+            String sql = "select groups_id, proxies_dispatch, proxies_global, proxies_debug, proxies_set_option, proxies_hydro";
+            sql += " from proxies_permissions where groups_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, player.getGroupId());
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if(resultset.next())
             {
                 // There's a result
                 long groupId = resultset.getLong("groups_id");
-                boolean modBan = resultset.getBoolean("mod_ban");
-                boolean modTp = resultset.getBoolean("mod_tp");
-                boolean modKick = resultset.getBoolean("mod_kick");
-                boolean modPardon = resultset.getBoolean("mod_pardon");
-                boolean modMuteLongtime = resultset.getBoolean("mod_mute_longtime");
-                boolean modMute = resultset.getBoolean("mod_mute");
-                boolean modChannel = resultset.getBoolean("mod_channel");
-                boolean modChannelReport = resultset.getBoolean("mod_channel_report");
-                boolean modQuiet = resultset.getBoolean("mod_quiet");
-                moderationPermissionsBean = new ModerationPermissionsBean(groupId, modBan, modTp, modKick, modPardon, modMuteLongtime, modMute, modChannel,modChannelReport, modQuiet);
+                boolean proxiesDispatch = resultset.getBoolean("proxies_dispatch");
+                boolean proxiesGlobal = resultset.getBoolean("proxies_global");
+                boolean proxiesDebug = resultset.getBoolean("proxies_debug");
+                boolean proxiesSetOption = resultset.getBoolean("proxies_set_option");
+                boolean proxiesHydro = resultset.getBoolean("proxies_hydro");
+
+                proxiesPermissionsBean = new ProxiesPermissionsBean(groupId, proxiesDispatch, proxiesGlobal, proxiesDebug, proxiesSetOption, proxiesHydro);
             }
             else
             {
@@ -79,7 +80,8 @@ public class ModerationPermissionManager
             // Close the query environment in order to prevent leaks
             close();
         }
-        return moderationPermissionsBean;
+
+        return proxiesPermissionsBean;
     }
 
     // Close all connection

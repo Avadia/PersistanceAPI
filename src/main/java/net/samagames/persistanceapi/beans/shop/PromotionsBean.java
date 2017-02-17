@@ -39,7 +39,6 @@ public class PromotionsBean
     // Defines promotions types // TODO make enum
     public static int GLOBAL = 0;
     public static int COINS = 1;
-    public static int STARS = 2;
 
     // Defines games types // TODO make enum
     //public static int GLOBAL = 0; // TODO add in enum
@@ -52,7 +51,7 @@ public class PromotionsBean
 
     // Defines
     private long promotionId;
-    private int typePromotion;
+    private int promotionType;
     private int game;
     private int multiplier;
     private String message;
@@ -60,10 +59,10 @@ public class PromotionsBean
     private Timestamp endDate;
 
     // Constructor
-    public PromotionsBean(long promotionId, int typePromotion, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate)
+    public PromotionsBean(long promotionId, int promotionType, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate)
     {
         this.promotionId = promotionId;
-        this.typePromotion = typePromotion;
+        this.promotionType = promotionType;
         this.game = game;
         this.multiplier = multiplier;
         this.message = message;
@@ -72,9 +71,9 @@ public class PromotionsBean
     }
 
     // Constructor without id
-    public PromotionsBean(int typePromotion, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate)
+    public PromotionsBean(int promotionType, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate)
     {
-        this.typePromotion = typePromotion;
+        this.promotionType = promotionType;
         this.game = game;
         this.multiplier = multiplier;
         this.message = message;
@@ -84,7 +83,7 @@ public class PromotionsBean
 
     // Getters
     public long getPromotionId() { return this.promotionId; }
-    public int getTypePromotion() { return this.typePromotion; }
+    public int getPromotionType() { return this.promotionType; }
     public int getGame() { return this.game; }
     public int getMultiplier() { return this.multiplier; }
     public String getMessage() { return this.message; }
@@ -93,7 +92,7 @@ public class PromotionsBean
 
     // Setters
     public void setPromotionId(long promotionId) { this.promotionId = promotionId; }
-    public void setTypePromotion(int typePromotion) { this.typePromotion = typePromotion; }
+    public void setPromotionType(int promotionType) { this.promotionType = promotionType; }
     public void setGame(int game) { this.game = game; }
     public void setMultiplier(int multiplier) { this.multiplier = multiplier; }
     public void setMessage(String message) { this.message = message; }

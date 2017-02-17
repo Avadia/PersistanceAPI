@@ -16,20 +16,21 @@
 package net.samagames.persistanceapi.utils;
 
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 // Utility to transcode some usual things
 public class Transcoder
 {
     // Remove dash to insert in the database
-    public static String Encode(String uuid)
+    public static String encode(String uuid)
     {
         uuid = uuid.replace("-","");
         return uuid;
     }
 
     // Put lower case and add dash for uuid
-    public static String Decode(String uuid)
+    public static String decode(String uuid)
     {
         // Regexp to format uuid
         uuid = uuid.toLowerCase();
@@ -60,6 +61,11 @@ public class Transcoder
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static String toUTF8(String text)
+    {
+        return new String(text.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
     }
 
     // Set the annotations values

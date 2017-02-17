@@ -27,7 +27,7 @@ public class PlayerSettingsManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the player ingame settings
@@ -41,22 +41,24 @@ public class PlayerSettingsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
             String sql = "";
-            sql += "select (HEX(uuid)) as uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive, chat_visible, player_visible";
+            sql += "select HEX(uuid) as uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive, chat_visible, player_visible";
             sql += ", waiting_line_notification, other_player_interaction, click_on_me_activation, allow_statistic_onclick, allow_coins_onclick, allow_stars_onclick, allow_click_on_other, elytra_activated";
-            sql += " from player_settings where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
+            sql += " from player_settings where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
                 boolean jukeboxListen = resultset.getBoolean("jukebox_listen");
                 boolean groupDemandReceive = resultset.getBoolean("group_demand_receive");
@@ -107,29 +109,34 @@ public class PlayerSettingsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
             String sql = "";
-            sql += "update player_settings set jukebox_listen=" + settingsBeans.isJukeboxListen();
-            sql += ", group_demand_receive=" +  settingsBeans.isGroupDemandReceive();
-            sql += ", friendship_demand_receive=" + settingsBeans.isFriendshipDemandReceive();
-            sql += ", notification_receive=" + settingsBeans.isNotificationReceive();
-            sql += ", private_message_receive=" + settingsBeans.isPrivateMessageReceive();
-            sql += ", chat_visible=" + settingsBeans.isChatVisible();
-            sql += ", player_visible=" + settingsBeans.isPlayerVisible();
-            sql += ", waiting_line_notification=" + settingsBeans.isWaitingLineNotification();
-            sql += ", other_player_interaction=" + settingsBeans.isOtherPlayerInteraction();
-            sql += ", click_on_me_activation=" + settingsBeans.isClickOnMeActivation();
-            sql += ", allow_statistic_onclick=" + settingsBeans.isAllowStatisticOnClick();
-            sql += ", allow_coins_onclick=" + settingsBeans.isAllowCoinsOnClick();
-            sql += ", allow_stars_onclick=" + settingsBeans.isAllowStarsOnclick();
-            sql += ", allow_click_on_other=" + settingsBeans.isAllowClickOnOther();
-            sql += ", elytra_activated=" + settingsBeans.isElytraActivated();
-             sql += " where uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
+            sql += "update player_settings set jukebox_listen = ?, group_demand_receive = ?, friendship_demand_receive = ?, notification_receive = ?";
+            sql += ", private_message_receive = ?, chat_visible = ?, player_visible = ?, waiting_line_notification = ?, other_player_interaction = ?";
+            sql += ", click_on_me_activation = ?, allow_statistic_onclick = ?, allow_coins_onclick = ?, allow_powders_onclick = ?";
+            sql += ", allow_click_on_other = ?, elytra_activated = ? where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setBoolean(1, settingsBeans.isJukeboxListen());
+            statement.setBoolean(2, settingsBeans.isGroupDemandReceive());
+            statement.setBoolean(3, settingsBeans.isFriendshipDemandReceive());
+            statement.setBoolean(4, settingsBeans.isNotificationReceive());
+            statement.setBoolean(5, settingsBeans.isPrivateMessageReceive());
+            statement.setBoolean(6, settingsBeans.isChatVisible());
+            statement.setBoolean(7, settingsBeans.isPlayerVisible());
+            statement.setBoolean(8, settingsBeans.isWaitingLineNotification());
+            statement.setBoolean(9, settingsBeans.isOtherPlayerInteraction());
+            statement.setBoolean(10, settingsBeans.isClickOnMeActivation());
+            statement.setBoolean(11, settingsBeans.isAllowStatisticOnClick());
+            statement.setBoolean(12, settingsBeans.isAllowCoinsOnClick());
+            statement.setBoolean(13, settingsBeans.isAllowPowdersOnClick());
+            statement.setBoolean(14, settingsBeans.isAllowClickOnOther());
+            statement.setBoolean(15, settingsBeans.isElytraActivated());
+            statement.setString(16, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -150,17 +157,18 @@ public class PlayerSettingsManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
             String sql = "insert into player_settings (uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive";
             sql += ", chat_visible, player_visible, waiting_line_notification, other_player_interaction, click_on_me_activation, allow_statistic_onclick, allow_coins_onclick";
-            sql += ", allow_stars_onclick, allow_click_on_other, elytra_activated)";
-            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-            sql += ", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)";
+            sql += ", allow_powders_onclick, allow_click_on_other, elytra_activated)";
+            sql += " values (UNHEX(?), true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {

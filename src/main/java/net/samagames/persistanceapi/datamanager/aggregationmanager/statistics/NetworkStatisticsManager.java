@@ -6,71 +6,59 @@ import net.samagames.persistanceapi.beans.statistics.NetworkStatisticsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * ╱╲＿＿＿＿＿＿╱╲
- * ▏╭━━╮╭━━╮▕
- * ▏┃＿＿┃┃＿＿┃▕
- * ▏┃＿▉┃┃▉＿┃▕
- * ▏╰━━╯╰━━╯▕
- * ╲╰╰╯╲╱╰╯╯╱  Created by Silvanosky on 08/08/2016
- * ╱╰╯╰╯╰╯╰╯╲
- * ▏▕╰╯╰╯╰╯▏▕
- * ▏▕╯╰╯╰╯╰▏▕
- * ╲╱╲╯╰╯╰╱╲╱
- * ＿＿╱▕▔▔▏╲＿＿
- * ＿＿▔▔＿＿▔▔＿＿
- */
-public class NetworkStatisticsManager {
+public class NetworkStatisticsManager
+{
     // Defines
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultset = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultset = null;
 
-    // Get Network player statistics
+    // Get network player statistics
     public NetworkStatisticsBean getNetworkStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
         NetworkStatisticsBean networkStats = null;
+
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "select (HEX(uuid)) as uuid, creation_date, update_date, played_time from network_stats";
-            sql +=" where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+            String sql = "select HEX(uuid) as uuid, creation_date, update_date, played_time from network_stats where uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             if (resultset.next())
             {
                 // There's a result
-                String playerUuid = Transcoder.Decode(resultset.getString("uuid"));
+                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
                 Timestamp creationDate = resultset.getTimestamp("creation_date");
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 long playedTime = resultset.getLong("played_time");
+
                 networkStats = new NetworkStatisticsBean(uuid, creationDate, updateDate, playedTime);
             }
             else
             {
-                // If there no HeroBattle stats int the database create empty one
+                // If there no network stats int the database create empty one
                 this.close();
                 this.createEmptyNetworkStatistics(player, dataSource);
                 this.close();
+
                 NetworkStatisticsBean newNetworkStats = this.getNetworkStatistics(player,dataSource);
                 this.close();
+
                 return newNetworkStats;
             }
         }
@@ -97,18 +85,16 @@ public class NetworkStatisticsManager {
 
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction for create
-            String sql = "";
-            sql += "insert into network_stats (uuid, creation_date, update_date, played_time)";
-            sql += " values (UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"')";
-            sql += ", now()";
-            sql += ", now()";
-            sql += ", played_time='" + networkStats.getPlayedTime() + "')";
+            String sql = "insert into network_stats (uuid, creation_date, update_date, played_time) values (UNHEX(?), now(), now(), played_time = ?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setLong(2, networkStats.getPlayedTime());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch (Exception exception)
         {
@@ -122,7 +108,7 @@ public class NetworkStatisticsManager {
         }
     }
 
-    // Update Network player statistics
+    // Update network player statistics
     public void updateNetworkStatistics(PlayerBean player, NetworkStatisticsBean networkStats, DataSource dataSource) throws Exception
     {
         try
@@ -137,16 +123,16 @@ public class NetworkStatisticsManager {
             {
                 // Set connection
                 connection = dataSource.getConnection();
-                statement = connection.createStatement();
 
                 // Query construction for update
-                String sql = "";
-                sql += "update network_stats set played_time='" + networkStats.getPlayedTime()+"'";
-                sql += ", update_date=now()";
-                sql += " where uuid=(UNHEX('"+ Transcoder.Encode(player.getUuid().toString())+"'))";
+                String sql = "update network_stats set played_time = ?, update_date = now() where uuid = UNHEX(?)";
+
+                statement = connection.prepareStatement(sql);
+                statement.setLong(1, networkStats.getPlayedTime());
+                statement.setString(2, Transcoder.encode(player.getUuid().toString()));
 
                 // Execute the query
-                statement.executeUpdate(sql);
+                statement.executeUpdate();
             }
         }
         catch(Exception exception)
@@ -169,13 +155,16 @@ public class NetworkStatisticsManager {
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "select p.name as name, d." + category + " as score from players as p, network_stats as d where p.uuid=d.uuid order by d." + category + " desc limit 3";
+            String sql = "select p.name as name, d.? as score from players as p, network_stats as d where p.uuid = d.uuid order by d.? desc limit 3";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, category);
+            statement.setString(2, category);
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a bean
             while(resultset.next())

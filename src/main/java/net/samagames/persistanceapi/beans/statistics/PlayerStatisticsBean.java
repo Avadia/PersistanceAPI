@@ -18,8 +18,7 @@ package net.samagames.persistanceapi.beans.statistics;
 public class PlayerStatisticsBean
 {
     // Defines aggregation of statistics
-    private DimensionStatisticsBean dimensionStats;
-    private HeroBattleStatisticsBean heroBattleStats;
+    private DimensionsStatisticsBean dimensionsStats;
     private JukeBoxStatisticsBean jukeBoxStats;
     private QuakeStatisticsBean quakeStats;
     private UHCOriginalStatisticsBean uhcOriginalStats;
@@ -38,8 +37,7 @@ public class PlayerStatisticsBean
     }
 
     // Constructor
-    public PlayerStatisticsBean(DimensionStatisticsBean dimensionStats,
-                                HeroBattleStatisticsBean heroBattleStats,
+    public PlayerStatisticsBean(DimensionsStatisticsBean dimensionsStats,
                                 JukeBoxStatisticsBean jukeBoxStats,
                                 QuakeStatisticsBean quakeStats,
                                 UHCOriginalStatisticsBean uhcOriginalStats,
@@ -51,8 +49,7 @@ public class PlayerStatisticsBean
                                 UppervoidStatisticsBean uppervoidStatisticsBean,
                                 ChunkWarsStatisticsBean chunkWarsStatisticsBean)
     {
-        this.dimensionStats = dimensionStats;
-        this.heroBattleStats = heroBattleStats;
+        this.dimensionsStats = dimensionsStats;
         this.jukeBoxStats = jukeBoxStats;
         this.quakeStats = quakeStats;
         this.uhcOriginalStats = uhcOriginalStats;
@@ -66,11 +63,8 @@ public class PlayerStatisticsBean
     }
 
     // Getters
-    public DimensionStatisticsBean getDimensionStats() {
-        return dimensionStats;
-    }
-    public HeroBattleStatisticsBean getHeroBattleStats() {
-        return heroBattleStats;
+    public DimensionsStatisticsBean getDimensionsStats() {
+        return dimensionsStats;
     }
     public JukeBoxStatisticsBean getJukeBoxStats() {
         return jukeBoxStats;
@@ -104,11 +98,8 @@ public class PlayerStatisticsBean
     }
 
     // Setters
-    public void setDimmensionStats(DimensionStatisticsBean dimensionStats) {
-        this.dimensionStats = dimensionStats;
-    }
-    public void setHeroBattleStats(HeroBattleStatisticsBean heroBattleStats) {
-        this.heroBattleStats = heroBattleStats;
+    public void setDimensionsStats(DimensionsStatisticsBean dimensionsStats) {
+        this.dimensionsStats = dimensionsStats;
     }
     public void setJukeBoxStats(JukeBoxStatisticsBean jukeBoxStats) {
         this.jukeBoxStats = jukeBoxStats;

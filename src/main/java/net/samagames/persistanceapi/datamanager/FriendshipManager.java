@@ -29,7 +29,7 @@ public class FriendshipManager
 {
     // Defines
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Make a friendship demand
@@ -39,17 +39,16 @@ public class FriendshipManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "insert into friendship(requester_uuid, recipient_uuid, demand_date, active_status)";
-            sql += " values (UNHEX('"+ Transcoder.Encode(friendship.getRequesterUUID().toString())+"')";
-            sql += ", UNHEX('"+ Transcoder.Encode(friendship.getRecipientUUID().toString())+"')";
-            sql += ", now(), false)";
+            String sql = "insert into friendship (requester_uuid, recipient_uuid, demand_date, active_status) values (UNHEX(?), UNHEX(?), now(), false)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(friendship.getRequesterUUID().toString()));
+            statement.setString(2, Transcoder.encode(friendship.getRecipientUUID().toString()));
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch(Exception exception)
         {
@@ -70,15 +69,15 @@ public class FriendshipManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "update friendship set active_status=true, acceptation_date=now()";
-            sql += "where friendship_id=" + friendship.getFriendshipId();
+            String sql = "update friendship set active_status = true, acceptation_date = now() where friendship_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, friendship.getFriendshipId());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch(Exception exception)
         {
@@ -99,14 +98,15 @@ public class FriendshipManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
 
             // Query construction
-            String sql = "";
-            sql += "delete from friendship where friendship_id=" + friendship.getFriendshipId();
+            String sql = "delete from friendship where friendship_id = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setLong(1, friendship.getFriendshipId());
 
             // Execute the query
-            statement.executeUpdate(sql);
+            statement.executeUpdate();
         }
         catch(Exception exception)
         {
@@ -127,25 +127,26 @@ public class FriendshipManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<FriendshipBean> friendshipList = new ArrayList<>();
 
             // Query construction
             String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";
-            sql += " from friendship where (recipient_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
-            sql += " or requester_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "')))";
-            sql += " and active_status=false";
+            sql += " from friendship where (recipient_uuid = UNHEX(?) or requester_uuid = UNHEX(?)) and active_status = false";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setString(2, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a list of bean
             while(resultset.next())
             {
                 long friendshipId = resultset.getLong("friendship_id");
-                String requester = Transcoder.Decode(resultset.getString("requester"));
+                String requester = Transcoder.decode(resultset.getString("requester"));
                 UUID requesterUuid = UUID.fromString(requester);
-                String recipient = Transcoder.Decode(resultset.getString("recipient"));
+                String recipient = Transcoder.decode(resultset.getString("recipient"));
                 UUID recipientUuid = UUID.fromString(recipient);
                 Timestamp demandDate = resultset.getTimestamp("demand_date");
                 Timestamp acceptationDate = resultset.getTimestamp("acceptation_date");
@@ -168,30 +169,32 @@ public class FriendshipManager
     }
 
     // Get friendship list for a player
-    public List<FriendshipBean>  getFriendshipList(PlayerBean player, DataSource dataSource) throws Exception // FIXME Make it bidirectionnal !
+    public List<FriendshipBean> getFriendshipList(PlayerBean player, DataSource dataSource) throws Exception // FIXME Make it bidirectionnal !
     {
         try
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             List<FriendshipBean> friendshipList = new ArrayList<>();
 
             // Query construction
             String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";
-            sql += " from friendship where (recipient_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "'))";
-            sql += " or requester_uuid=(UNHEX('" + Transcoder.Encode(player.getUuid().toString()) + "')))";
-            sql += " and active_status=true";
+            sql += " from friendship where (recipient_uuid = UNHEX(?) or requester_uuid = UNHEX(?)) and active_status=true";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
+            statement.setString(2, Transcoder.encode(player.getUuid().toString()));
+
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a list of bean
             while(resultset.next())
             {
                 long friendshipId = resultset.getLong("friendship_id");
-                String requester = Transcoder.Decode(resultset.getString("requester"));
+                String requester = Transcoder.decode(resultset.getString("requester"));
                 UUID requesterUuid = UUID.fromString(requester);
-                String recipient = Transcoder.Decode(resultset.getString("recipient"));
+                String recipient = Transcoder.decode(resultset.getString("recipient"));
                 UUID recipientUuid = UUID.fromString(recipient);
                 Timestamp demandDate = resultset.getTimestamp("demand_date");
                 Timestamp acceptationDate = resultset.getTimestamp("acceptation_date");
@@ -220,24 +223,26 @@ public class FriendshipManager
         {
             // Set connection
             connection = dataSource.getConnection();
-            statement = connection.createStatement();
             FriendshipBean friendshipBean = null;
 
             // Query construction
             String sql = "select friendship_id, HEX(requester_uuid) as requester, HEX(recipient_uuid) as recipient, demand_date, acceptation_date, active_status";
-            sql += " from friendship where recipient_uuid=(UNHEX('" + Transcoder.Encode(recipient.getUuid().toString()) + "'))";
-            sql += " and requester_uuid=(UNHEX('" + Transcoder.Encode(requester.getUuid().toString()) + "'))";
+            sql += " from friendship where recipient_uuid = UNHEX(?) and requester_uuid = UNHEX(?)";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, Transcoder.encode(recipient.getUuid().toString()));
+            statement.setString(2, Transcoder.encode(requester.getUuid().toString()));
 
             // Execute the query
-            resultset = statement.executeQuery(sql);
+            resultset = statement.executeQuery();
 
             // Manage the result in a list of bean
             if(resultset.next())
             {
                 long friendshipId = resultset.getLong("friendship_id");
-                String requesterName = Transcoder.Decode(resultset.getString("requester"));
+                String requesterName = Transcoder.decode(resultset.getString("requester"));
                 UUID requesterUuid = UUID.fromString(requesterName);
-                String recipientName = Transcoder.Decode(resultset.getString("recipient"));
+                String recipientName = Transcoder.decode(resultset.getString("recipient"));
                 UUID recipientUuid = UUID.fromString(recipientName);
                 Timestamp demandDate = resultset.getTimestamp("demand_date");
                 Timestamp acceptationDate = resultset.getTimestamp("acceptation_date");
