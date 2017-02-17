@@ -181,7 +181,7 @@ public class JukeBoxStatisticsManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = String.format("select p.name as name, d.%1$s as score from players as p, jukebox_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category);
+            String sql = String.format("select p.name as name, d.%1$s as score from players as p, jukebox_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);
 
             statement = connection.prepareStatement(sql);
 
