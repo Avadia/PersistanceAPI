@@ -34,7 +34,7 @@ public class PlayerSettingsManager
     public PlayerSettingsBean getPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception
     {
         // Defines
-        PlayerSettingsBean playerSettingsBean = null;
+        PlayerSettingsBean playerSettingsBean;
 
         // Make the research of player by UUID
         try
@@ -45,7 +45,7 @@ public class PlayerSettingsManager
             // Query construction
             String sql = "";
             sql += "select HEX(uuid) as uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive, chat_visible, player_visible";
-            sql += ", waiting_line_notification, other_player_interaction, click_on_me_activation, allow_statistic_onclick, allow_coins_onclick, allow_stars_onclick, allow_click_on_other, elytra_activated";
+            sql += ", waiting_line_notification, other_player_interaction, click_on_me_activation, allow_statistic_onclick, allow_coins_onclick, allow_powders_onclick, allow_click_on_other, elytra_activated";
             sql += " from player_settings where uuid = UNHEX(?)";
 
             statement = connection.prepareStatement(sql);
@@ -72,11 +72,11 @@ public class PlayerSettingsManager
                 boolean clickOnMeActivation = resultset.getBoolean("click_on_me_activation");
                 boolean allowStatisticOnClick = resultset.getBoolean("allow_statistic_onclick");
                 boolean allowCoinsOnClick = resultset.getBoolean("allow_coins_onclick");
-                boolean allowStarsOnclick = resultset.getBoolean("allow_stars_onclick");
+                boolean allowPowdersOnClick = resultset.getBoolean("allow_powders_onclick");
                 boolean allowClickOnOther = resultset.getBoolean("allow_click_on_other");
                 boolean elytraActivated = resultset.getBoolean("elytra_activated");
                 playerSettingsBean = new PlayerSettingsBean(uuid, jukeboxListen, groupDemandReceive, friendshipDemandReceive, notificationReceive, privateMessageReceive, chatVisible,
-                        playerVisible, waitingLineNotification, otherPlayerInteraction, clickOnMeActivation, allowStatisticOnClick, allowCoinsOnClick, allowStarsOnclick, allowClickOnOther, elytraActivated);
+                        playerVisible, waitingLineNotification, otherPlayerInteraction, clickOnMeActivation, allowStatisticOnClick, allowCoinsOnClick, allowPowdersOnClick, allowClickOnOther, elytraActivated);
                 return playerSettingsBean;
             }
             else
