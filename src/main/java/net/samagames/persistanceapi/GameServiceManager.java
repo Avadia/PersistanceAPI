@@ -30,6 +30,8 @@ import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
 import net.samagames.persistanceapi.datamanager.*;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -800,6 +802,12 @@ public class GameServiceManager
     public synchronized EventBean getEvent(long eventId) throws Exception
     {
         return this.eventManager.getEvent(eventId, this.databaseManager.getDataSource());
+    }
+
+    // Get a event
+    public synchronized EventBean getEvent(Timestamp eventDate) throws Exception
+    {
+        return this.eventManager.getEvent(eventDate, this.databaseManager.getDataSource());
     }
 
     // Get the events
