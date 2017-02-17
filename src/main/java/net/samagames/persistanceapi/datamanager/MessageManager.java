@@ -35,7 +35,7 @@ public class MessageManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = "select message_text, schedule_time, schedule_unit from scheduled_messages where message_id = ?";
+            String sql = "select message_text, schedule_time from scheduled_messages where message_id = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setInt(1, messageId);
@@ -49,9 +49,8 @@ public class MessageManager
                 // There's a result
                 String messageText = resultset.getString("message_text");
                 int scheduleTime = resultset.getInt("schedule_time");
-                int scheduleUnit = resultset.getInt("schedule_unit");
 
-                scheduledMessageBean = new ScheduledMessageBean(messageId, messageText, scheduleTime, scheduleUnit);
+                scheduledMessageBean = new ScheduledMessageBean(messageId, messageText, scheduleTime);
             }
 
             return scheduledMessageBean;
@@ -80,7 +79,7 @@ public class MessageManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = "select message_id, message_text, schedule_time, schedule_unit from scheduled_messages";
+            String sql = "select message_id, message_text, schedule_time from scheduled_messages";
 
             statement = connection.prepareStatement(sql);
 
@@ -91,12 +90,11 @@ public class MessageManager
             while (resultset.next())
             {
                 // There's a result
-                int messageId = resultset.getInt("event_id");
-                String messageText = resultset.getString("event_template");
-                int scheduleTime = resultset.getInt("reward_coins");
-                int scheduleUnit = resultset.getInt("reward_pearls");
+                int messageId = resultset.getInt("message_id");
+                String messageText = resultset.getString("message_text");
+                int scheduleTime = resultset.getInt("schedule_time");
 
-                scheduledMessages.add(new ScheduledMessageBean(messageId, messageText, scheduleTime, scheduleUnit));
+                scheduledMessages.add(new ScheduledMessageBean(messageId, messageText, scheduleTime));
             }
 
             return scheduledMessages;
@@ -123,13 +121,12 @@ public class MessageManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = "update scheduled_messages set message_text = ?, schedule_time = ?, schedule_unit = ? where message_id = ?";
+            String sql = "update scheduled_messages set message_text = ?, schedule_time = ? where message_id = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, scheduledMessageBean.getMessageText());
             statement.setInt(2, scheduledMessageBean.getScheduleTime());
-            statement.setInt(3, scheduledMessageBean.getScheduleUnit());
-            statement.setInt(4, scheduledMessageBean.getMessageId());
+            statement.setInt(3, scheduledMessageBean.getMessageId());
 
             // Execute the query
             statement.executeUpdate();
@@ -156,12 +153,11 @@ public class MessageManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = "insert into scheduled_messages (message_text, schedule_time, schedule_unit) values (?, ?, ?)";
+            String sql = "insert into scheduled_messages (message_text, schedule_time) values (?, ?)";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, scheduledMessageBean.getMessageText());
             statement.setInt(2, scheduledMessageBean.getScheduleTime());
-            statement.setInt(3, scheduledMessageBean.getScheduleUnit());
 
             // Execute the query
             statement.executeUpdate();
