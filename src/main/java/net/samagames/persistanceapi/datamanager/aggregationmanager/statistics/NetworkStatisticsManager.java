@@ -157,11 +157,9 @@ public class NetworkStatisticsManager
             connection = dataSource.getConnection();
 
             // Query construction
-            String sql = "select p.name as name, d.? as score from players as p, network_stats as d where p.uuid = d.uuid order by d.? desc limit 3";
+            String sql = String.format("select p.name as name, d.%1$s as score from players as p, network_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category);
 
             statement = connection.prepareStatement(sql);
-            statement.setString(1, category);
-            statement.setString(2, category);
 
             // Execute the query
             resultset = statement.executeQuery();
