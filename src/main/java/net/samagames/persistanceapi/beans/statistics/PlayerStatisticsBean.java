@@ -29,6 +29,7 @@ public class PlayerStatisticsBean
     private UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
     private UppervoidStatisticsBean uppervoidStats;
     private ChunkWarsStatisticsBean chunkWarsStats;
+    private TheDropperStatisticsBean theDropperStats;
 
     // Empty constructor for reflection creation
     public PlayerStatisticsBean()
@@ -46,8 +47,9 @@ public class PlayerStatisticsBean
                                 UHCRandomStatisticsBean uhcRandomStats,
                                 RandomRunStatisticsBean randomRunStats,
                                 UltraFlagKeeperStatisticsBean ultraFlagKeeperStats,
-                                UppervoidStatisticsBean uppervoidStatisticsBean,
-                                ChunkWarsStatisticsBean chunkWarsStatisticsBean)
+                                UppervoidStatisticsBean uppervoidStats,
+                                ChunkWarsStatisticsBean chunkWarsStats,
+                                TheDropperStatisticsBean theDropperStats)
     {
         this.dimensionsStats = dimensionsStats;
         this.jukeBoxStats = jukeBoxStats;
@@ -58,8 +60,9 @@ public class PlayerStatisticsBean
         this.uhcRandomStats = uhcRandomStats;
         this.randomRunStats = randomRunStats;
         this.ultraFlagKeeperStats = ultraFlagKeeperStats;
-        this.uppervoidStats = uppervoidStatisticsBean;
-        this.chunkWarsStats = chunkWarsStatisticsBean;
+        this.uppervoidStats = uppervoidStats;
+        this.chunkWarsStats = chunkWarsStats;
+        this.theDropperStats = theDropperStats;
     }
 
     // Getters
@@ -96,6 +99,9 @@ public class PlayerStatisticsBean
     public ChunkWarsStatisticsBean getChunkWarsStats() {
         return chunkWarsStats;
     }
+    public TheDropperStatisticsBean getTheDropperStats() {
+        return theDropperStats;
+    }
 
     // Setters
     public void setDimensionsStats(DimensionsStatisticsBean dimensionsStats) {
@@ -130,5 +136,8 @@ public class PlayerStatisticsBean
     }
     public void setChunkWarsStats(ChunkWarsStatisticsBean chunkWarsStats) {
         this.chunkWarsStats = chunkWarsStats;
+    }
+    public void setTheDropperStats(TheDropperStatisticsBean theDropperStats) {
+        this.theDropperStats = theDropperStats;
     }
 }

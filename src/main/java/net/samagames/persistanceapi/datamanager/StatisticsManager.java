@@ -36,6 +36,7 @@ public class StatisticsManager
     public UltraFlagKeeperStatisticsManager ultraFlagKeeperStatsManager;
     public UppervoidStatisticsManager uppervoidStatsManager;
     public ChunkWarsStatisticsManager chunkWarsStatisticsManager;
+    public TheDropperStatisticsManager theDropperStatisticsManager;
     public NetworkStatisticsManager networkStatisticsManager;
 
     // Constructor
@@ -52,6 +53,7 @@ public class StatisticsManager
         this.ultraFlagKeeperStatsManager = new UltraFlagKeeperStatisticsManager();
         this.uppervoidStatsManager = new UppervoidStatisticsManager();
         this.chunkWarsStatisticsManager = new ChunkWarsStatisticsManager();
+        this.theDropperStatisticsManager = new TheDropperStatisticsManager();
         this.networkStatisticsManager = new NetworkStatisticsManager();
     }
 
@@ -70,6 +72,7 @@ public class StatisticsManager
         UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
         UppervoidStatisticsBean upperVoidStats;
         ChunkWarsStatisticsBean chunkWarsStats;
+        TheDropperStatisticsBean theDropperStats;
 
         // Get the different statistics bean
         try
@@ -85,6 +88,7 @@ public class StatisticsManager
             ultraFlagKeeperStats = this.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, dataSource);
             upperVoidStats = this.uppervoidStatsManager.getUppervoidStatistics(player, dataSource);
             chunkWarsStats = this.chunkWarsStatisticsManager.getChunkWarsStatistics(player, dataSource);
+            theDropperStats = this.theDropperStatisticsManager.getTheDropperStatistics(player, dataSource);
         }
         catch (Exception exception)
         {
@@ -93,27 +97,27 @@ public class StatisticsManager
         }
 
         // Create the aggregation of different statistics bean
-        PlayerStatisticsBean playerStatisticsBean = new PlayerStatisticsBean(dimensionsStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats, chunkWarsStats);
-        return playerStatisticsBean;
+        return new PlayerStatisticsBean(dimensionsStats, jukeBoxStats, quakeStats, uhcOriginalStats, uhcRunStats, doubleRunnerStats, uhcRandomStats, randomRunStats, ultraFlagKeeperStats, upperVoidStats, chunkWarsStats, theDropperStats);
     }
 
     // Update all player statistics
-    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean datas, DataSource dataSource) throws Exception
+    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean data, DataSource dataSource) throws Exception
     {
         // Update the different statistics bean
         try
         {
-            this.dimensionsStatsManager.updateDimensionsStatistics(player, datas.getDimensionsStats(),dataSource);
-            this.jukeBoxStatsManager.updateJukeBoxStatistics(player, datas.getJukeBoxStats(), dataSource);
-            this.quakeStatsManager.updateQuakeStatistics(player, datas.getQuakeStats(), dataSource);
-            this.uhcOriginalStatsManager.updateUHCOriginalStatistics(player, datas.getUHCOriginalStats(), dataSource);
-            this.uhcRunStatsManager.updateUHCRunStatistics(player, datas.getUHCRunStats(), dataSource);
-            this.doubleRunnerStatsManager.updateDoubleRunnerStatistics(player, datas.getDoubleRunnerStats(), dataSource);
-            this.uhcRandomStatsManager.updateUHCRandomStatistics(player, datas.getUHCRandomStats(), dataSource);
-            this.randomRunStatsManager.updateRandomRunStatistics(player, datas.getRandomRunStats(), dataSource);
-            this.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, datas.getUltraFlagKeeperStats(), dataSource);
-            this.uppervoidStatsManager.updateUppervoidStatistics(player, datas.getUppervoidStats(), dataSource);
-            this.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, datas.getChunkWarsStats(), dataSource);
+            this.dimensionsStatsManager.updateDimensionsStatistics(player, data.getDimensionsStats(),dataSource);
+            this.jukeBoxStatsManager.updateJukeBoxStatistics(player, data.getJukeBoxStats(), dataSource);
+            this.quakeStatsManager.updateQuakeStatistics(player, data.getQuakeStats(), dataSource);
+            this.uhcOriginalStatsManager.updateUHCOriginalStatistics(player, data.getUHCOriginalStats(), dataSource);
+            this.uhcRunStatsManager.updateUHCRunStatistics(player, data.getUHCRunStats(), dataSource);
+            this.doubleRunnerStatsManager.updateDoubleRunnerStatistics(player, data.getDoubleRunnerStats(), dataSource);
+            this.uhcRandomStatsManager.updateUHCRandomStatistics(player, data.getUHCRandomStats(), dataSource);
+            this.randomRunStatsManager.updateRandomRunStatistics(player, data.getRandomRunStats(), dataSource);
+            this.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, data.getUltraFlagKeeperStats(), dataSource);
+            this.uppervoidStatsManager.updateUppervoidStatistics(player, data.getUppervoidStats(), dataSource);
+            this.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, data.getChunkWarsStats(), dataSource);
+            this.theDropperStatisticsManager.updateTheDropperStatistics(player, data.getTheDropperStats(), dataSource);
         }
         catch (Exception exception)
         {

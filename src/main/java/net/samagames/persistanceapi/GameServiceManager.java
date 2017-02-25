@@ -278,11 +278,25 @@ public class GameServiceManager
         return this.statisticsManager.uppervoidStatsManager.getUppervoidStatistics(player, this.databaseManager.getDataSource());
     }
 
-    // Get ChunkWars player statistics
+    // Get chunkwars player statistics
     public synchronized ChunkWarsStatisticsBean getChunkWarsStatistics(PlayerBean player) throws Exception
     {
         // Get the statistics
         return this.statisticsManager.chunkWarsStatisticsManager.getChunkWarsStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get the dropper player statistics
+    public synchronized TheDropperStatisticsBean getTheDropperStatistics(PlayerBean player) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.theDropperStatisticsManager.getTheDropperStatistics(player, this.databaseManager.getDataSource());
+    }
+
+    // Get the dropper map player statistics
+    public synchronized TheDropperMapStatisticsBean getTheDropperMapStatistics(PlayerBean player, String mapName) throws Exception
+    {
+        // Get the statistics
+        return this.statisticsManager.theDropperStatisticsManager.getTheDropperMapStatistics(player, mapName, this.databaseManager.getDataSource());
     }
 
     // Get all player statistics
@@ -369,18 +383,32 @@ public class GameServiceManager
         this.statisticsManager.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, ultraFlagKeeperStats, this.databaseManager.getDataSource());
     }
 
-    // Update UpperVoid statistics
+    // Update uppervoid statistics
     public synchronized void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats) throws Exception
     {
         // Update statistics
-        this.statisticsManager.uppervoidStatsManager.updateUppervoidStatistics(player, uppervoidStats,this.databaseManager.getDataSource());
+        this.statisticsManager.uppervoidStatsManager.updateUppervoidStatistics(player, uppervoidStats, this.databaseManager.getDataSource());
     }
 
-    // Update ChunkWars statistics
+    // Update chunkwars statistics
     public synchronized void updateChunkWarsStatistics(PlayerBean player, ChunkWarsStatisticsBean chunkWarsStats) throws Exception
     {
         // Update statistics
-        this.statisticsManager.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, chunkWarsStats,this.databaseManager.getDataSource());
+        this.statisticsManager.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, chunkWarsStats, this.databaseManager.getDataSource());
+    }
+
+    // Update the dropper statistics
+    public synchronized void updateTheDropperStatistics(PlayerBean player, TheDropperStatisticsBean theDropperStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.theDropperStatisticsManager.updateTheDropperStatistics(player, theDropperStats, this.databaseManager.getDataSource());
+    }
+
+    // Update the dropper map statistics
+    public synchronized void updateTheDropperMapStatistics(PlayerBean player, TheDropperMapStatisticsBean theDropperMapStats) throws Exception
+    {
+        // Update statistics
+        this.statisticsManager.theDropperStatisticsManager.updateTheDropperMapStatistics(player, theDropperMapStats, this.databaseManager.getDataSource());
     }
 
     // Get the dimensions leaderboard
@@ -458,6 +486,20 @@ public class GameServiceManager
     {
         // Get the leaderboard
         return this.statisticsManager.chunkWarsStatisticsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the dropper leaderboard
+    public synchronized List<LeaderboardBean> getTheDropperLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.theDropperStatisticsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
+    }
+
+    // Get the dropper map leaderboard
+    public synchronized List<LeaderboardBean> getTheDropperMapLeaderBoard(String category) throws Exception
+    {
+        // Get the leaderboard
+        return this.statisticsManager.theDropperStatisticsManager.getMapLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
 

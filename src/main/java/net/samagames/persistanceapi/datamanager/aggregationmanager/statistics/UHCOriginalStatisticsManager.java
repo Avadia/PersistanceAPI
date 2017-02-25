@@ -167,7 +167,7 @@ public class UHCOriginalStatisticsManager
                 statement.setString(8, Transcoder.encode(player.getUuid().toString()));
 
                 // Execute the query
-                statement.executeUpdate(sql);
+                statement.executeUpdate();
             }
         }
         catch(Exception exception)
