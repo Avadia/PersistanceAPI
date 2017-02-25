@@ -292,13 +292,6 @@ public class GameServiceManager
         return this.statisticsManager.theDropperStatisticsManager.getTheDropperStatistics(player, this.databaseManager.getDataSource());
     }
 
-    // Get the dropper map player statistics
-    public synchronized TheDropperMapStatisticsBean getTheDropperMapStatistics(PlayerBean player, String mapName) throws Exception
-    {
-        // Get the statistics
-        return this.statisticsManager.theDropperStatisticsManager.getTheDropperMapStatistics(player, mapName, this.databaseManager.getDataSource());
-    }
-
     // Get all player statistics
     public synchronized PlayerStatisticsBean getAllStatistics(PlayerBean player) throws Exception
     {
@@ -404,13 +397,6 @@ public class GameServiceManager
         this.statisticsManager.theDropperStatisticsManager.updateTheDropperStatistics(player, theDropperStats, this.databaseManager.getDataSource());
     }
 
-    // Update the dropper map statistics
-    public synchronized void updateTheDropperMapStatistics(PlayerBean player, TheDropperMapStatisticsBean theDropperMapStats) throws Exception
-    {
-        // Update statistics
-        this.statisticsManager.theDropperStatisticsManager.updateTheDropperMapStatistics(player, theDropperMapStats, this.databaseManager.getDataSource());
-    }
-
     // Get the dimensions leaderboard
     public synchronized List<LeaderboardBean> getDimensionsLeaderBoard(String category) throws Exception
     {
@@ -493,13 +479,6 @@ public class GameServiceManager
     {
         // Get the leaderboard
         return this.statisticsManager.theDropperStatisticsManager.getLeaderBoard(category, this.databaseManager.getDataSource());
-    }
-
-    // Get the dropper map leaderboard
-    public synchronized List<LeaderboardBean> getTheDropperMapLeaderBoard(String category) throws Exception
-    {
-        // Get the leaderboard
-        return this.statisticsManager.theDropperStatisticsManager.getMapLeaderBoard(category, this.databaseManager.getDataSource());
     }
 
 

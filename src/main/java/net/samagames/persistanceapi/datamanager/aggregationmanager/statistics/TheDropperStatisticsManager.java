@@ -2,7 +2,6 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
-import net.samagames.persistanceapi.beans.statistics.TheDropperMapStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.TheDropperStatisticsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
@@ -87,65 +86,6 @@ public class TheDropperStatisticsManager
         return theDropperStats;
     }
 
-    // Get the dropper map player statistics
-    public TheDropperMapStatisticsBean getTheDropperMapStatistics(PlayerBean player, String mapName, DataSource dataSource) throws Exception
-    {
-        TheDropperMapStatisticsBean theDropperMapStats = null;
-
-        try
-        {
-            // Set connection
-            connection = dataSource.getConnection();
-
-            // Query construction
-            String sql = "select HEX(uuid) as uuid, tries, wins, best_time from thedropper_maps_stats where uuid = UNHEX(?) and map_name = ?";
-
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
-            statement.setString(2, mapName);
-
-            // Execute the query
-            resultset = statement.executeQuery();
-
-            // Manage the result in a bean
-            if (resultset.next())
-            {
-                // There's a result
-                String playerUuid = Transcoder.decode(resultset.getString("uuid"));
-                UUID uuid = UUID.fromString(playerUuid);
-                int tries = resultset.getInt("tries");
-                int wins = resultset.getInt("wins");
-                long bestTime = resultset.getLong("best_time");
-
-                theDropperMapStats = new TheDropperMapStatisticsBean(uuid, mapName, tries, wins, bestTime);
-            }
-            else
-            {
-                // If there no the dropper map stats in the database create empty one
-                this.close();
-                this.createEmptyTheDropperMapStatistics(player, mapName, dataSource);
-                this.close();
-
-                TheDropperMapStatisticsBean newTheDropperMapStats = this.getTheDropperMapStatistics(player, mapName, dataSource);
-                this.close();
-
-                return newTheDropperMapStats;
-            }
-        }
-        catch(Exception exception)
-        {
-            exception.printStackTrace();
-            throw exception;
-        }
-        finally
-        {
-            // Close the query environment in order to prevent leaks
-            this.close();
-        }
-
-        return theDropperMapStats;
-    }
-
     // Create an empty the dropper statistics
     private void createEmptyTheDropperStatistics(PlayerBean player, DataSource dataSource) throws Exception
     {
@@ -163,42 +103,6 @@ public class TheDropperStatisticsManager
             statement = connection.prepareStatement(sql);
             statement.setString(1, Transcoder.encode(player.getUuid().toString()));
             statement.setLong(2, theDropperStats.getPlayedTime());
-
-            // Execute the query
-            statement.executeUpdate();
-        }
-        catch(Exception exception)
-        {
-            exception.printStackTrace();
-            throw exception;
-        }
-        finally
-        {
-            // Close the query environment in order to prevent leaks
-            this.close();
-        }
-    }
-
-    // Create an empty the dropper map statistics
-    private void createEmptyTheDropperMapStatistics(PlayerBean player, String mapName, DataSource dataSource) throws Exception
-    {
-        try
-        {
-            // Create an empty bean
-            TheDropperMapStatisticsBean theDropperMapStats = new TheDropperMapStatisticsBean(player.getUuid(), mapName, 0, 0, 0);
-
-            // Set connection
-            connection = dataSource.getConnection();
-
-            // Query construction for create
-            String sql = "insert into thedropper_maps_stats (uuid, map_name, tries, wins, best_time) values (UNHEX(?), ?, ?, ?, ?)";
-
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, Transcoder.encode(player.getUuid().toString()));
-            statement.setString(2, theDropperMapStats.getMapName());
-            statement.setInt(3, theDropperMapStats.getTries());
-            statement.setInt(4, theDropperMapStats.getWins());
-            statement.setLong(5, theDropperMapStats.getBestTime());
 
             // Execute the query
             statement.executeUpdate();
@@ -254,48 +158,6 @@ public class TheDropperStatisticsManager
         }
     }
 
-    // Update the dropper map player statistics
-    public void updateTheDropperMapStatistics(PlayerBean player, TheDropperMapStatisticsBean theDropperMapStats, DataSource dataSource) throws Exception
-    {
-        try
-        {
-            // Check if a record exists
-            if (this.getTheDropperMapStatistics(player, theDropperMapStats.getMapName(), dataSource) == null)
-            {
-                // Create an empty the dropper map statistics
-                this.createEmptyTheDropperMapStatistics(player, theDropperMapStats.getMapName(), dataSource);
-            }
-            else
-            {
-                // Set connection
-                connection = dataSource.getConnection();
-
-                // Query construction for update
-                String sql = "update thedropper_maps_stats set map_name = ?, tries = ?, wins = ?, best_time = ? where uuid = UNHEX(?)";
-
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, theDropperMapStats.getMapName());
-                statement.setInt(2, theDropperMapStats.getTries());
-                statement.setInt(3, theDropperMapStats.getWins());
-                statement.setLong(4, theDropperMapStats.getBestTime());
-                statement.setString(5, Transcoder.encode(player.getUuid().toString()));
-
-                // Execute the query
-                statement.executeUpdate();
-            }
-        }
-        catch(Exception exception)
-        {
-            exception.printStackTrace();
-            throw exception;
-        }
-        finally
-        {
-            // Close the query environment in order to prevent leaks
-            this.close();
-        }
-    }
-
     // Get the board for this game
     public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
     {
@@ -307,43 +169,6 @@ public class TheDropperStatisticsManager
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, thedropper_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);
-
-            statement = connection.prepareStatement(sql);
-
-            // Execute the query
-            resultset = statement.executeQuery();
-
-            // Manage the result in a bean
-            while(resultset.next())
-            {
-                LeaderboardBean bean = new LeaderboardBean(resultset.getString("name"), resultset.getInt("score"));
-                leaderBoard.add(bean);
-            }
-        }
-        catch(Exception exception)
-        {
-            exception.printStackTrace();
-            throw exception;
-        }
-        finally
-        {
-            // Close the query environment in order to prevent leaks
-            this.close();
-        }
-        return leaderBoard;
-    }
-
-    // Get the board for this map
-    public List<LeaderboardBean> getMapLeaderBoard(String category, DataSource dataSource) throws Exception
-    {
-        List<LeaderboardBean> leaderBoard = new ArrayList<>();
-        try
-        {
-            // Set connection
-            connection = dataSource.getConnection();
-
-            // Query construction
-            String sql = String.format("select p.name as name, d.%1$s as score from players as p, thedropper_maps_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);
 
             statement = connection.prepareStatement(sql);
 

@@ -21,6 +21,7 @@ import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.aggregationmanager.statistics.*;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 public class StatisticsManager
 {
