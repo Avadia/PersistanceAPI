@@ -1,18 +1,3 @@
-/*
-===============================================================
-   _____                       ______
-  / ___/____ _____ ___  ____ _/ ____/___ _____ ___  ___  _____
-  \__ \/ __ `/ __ `__ \/ __ `/ / __/ __ `/ __ `__ \/ _ \/ ___/
- ___/ / /_/ / / / / / / /_/ / /_/ / /_/ / / / / / /  __(__  )
-/____/\__,_/_/ /_/ /_/\__,_/\____/\__,_/_/ /_/ /_/\___/____/
-
-===============================================================
-  Persistance API
-  Copyright (c) for SamaGames, all right reserved
-  By MisterSatch, January 2016
-===============================================================
-*/
-
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.statistics.HostStatisticsBean;
@@ -21,6 +6,22 @@ import net.samagames.persistanceapi.utils.Transcoder;
 import javax.sql.DataSource;
 import java.sql.*;
 
+/*
+ * This file is part of PersistanceAPI.
+ *
+ * PersistanceAPI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * PersistanceAPI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
+ */
 public class HostManager
 {
     // Defines
