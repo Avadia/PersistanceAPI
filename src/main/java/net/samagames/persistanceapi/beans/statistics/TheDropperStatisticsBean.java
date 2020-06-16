@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class TheDropperStatisticsBean
-{
+public class TheDropperStatisticsBean {
     /* Database Structure
 
     Table: thedropper_stats
@@ -36,15 +35,14 @@ public class TheDropperStatisticsBean
     */
 
     // Defines
-    private UUID uuid;
+    private final UUID uuid;
     private Timestamp creationDate;
     private Timestamp updateDate;
     private long playedTime;
 
     // Constructor
     @ConstructorProperties({"uuid", "creationDate", "updateDate", "playedTime"})
-    public TheDropperStatisticsBean(UUID uuid, Timestamp creationDate, Timestamp updateDate, long playedTime)
-    {
+    public TheDropperStatisticsBean(UUID uuid, Timestamp creationDate, Timestamp updateDate, long playedTime) {
         this.uuid = uuid;
         this.creationDate = creationDate;
         this.updateDate = updateDate;
@@ -52,24 +50,28 @@ public class TheDropperStatisticsBean
     }
 
     // Getters
-    public Timestamp getCreationDate()
-    {
+    public Timestamp getCreationDate() {
         return this.creationDate;
     }
-    public Timestamp getUpdateDate()
-    {
-        return this.updateDate;
-    }
-    public long getPlayedTime() { return playedTime; }
 
     // Setters
-    public void setCreationDate(Timestamp creationDate)
-    {
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
-    public void setUpdateDate(Timestamp updateDate)
-    {
+
+    public Timestamp getUpdateDate() {
+        return this.updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
-    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
+
+    public long getPlayedTime() {
+        return playedTime;
+    }
+
+    public void setPlayedTime(long playedTime) {
+        this.playedTime = playedTime;
+    }
 }

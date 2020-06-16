@@ -5,7 +5,9 @@ import net.samagames.persistanceapi.beans.players.PlayerSettingsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.UUID;
 
 /*
@@ -24,22 +26,19 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PlayerSettingsManager
-{
+public class PlayerSettingsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the player ingame settings
-    public PlayerSettingsBean getPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public PlayerSettingsBean getPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception {
         // Defines
         PlayerSettingsBean playerSettingsBean;
 
         // Make the research of player by UUID
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -56,14 +55,13 @@ public class PlayerSettingsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
                 boolean jukeboxListen = resultset.getBoolean("jukebox_listen");
                 boolean groupDemandReceive = resultset.getBoolean("group_demand_receive");
-                boolean friendshipDemandReceive =  resultset.getBoolean("friendship_demand_receive");
+                boolean friendshipDemandReceive = resultset.getBoolean("friendship_demand_receive");
                 boolean notificationReceive = resultset.getBoolean("notification_receive");
                 boolean privateMessageReceive = resultset.getBoolean("private_message_receive");
                 boolean chatVisible = resultset.getBoolean("chat_visible");
@@ -79,9 +77,7 @@ public class PlayerSettingsManager
                 playerSettingsBean = new PlayerSettingsBean(uuid, jukeboxListen, groupDemandReceive, friendshipDemandReceive, notificationReceive, privateMessageReceive, chatVisible,
                         playerVisible, waitingLineNotification, otherPlayerInteraction, clickOnMeActivation, allowStatisticOnClick, allowCoinsOnClick, allowPowdersOnClick, allowClickOnOther, elytraActivated);
                 return playerSettingsBean;
-            }
-            else
-            {
+            } else {
                 // If there no player settings for the uuid in database create a new player settings
                 this.close();
                 this.createDefaultPlayerSettings(player, dataSource);
@@ -89,25 +85,19 @@ public class PlayerSettingsManager
                 this.close();
                 return settings;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Set player ingame settings
-    public void setPlayerSettings(PlayerBean player, PlayerSettingsBean settingsBeans, DataSource dataSource) throws Exception
-    {
+    public void setPlayerSettings(PlayerBean player, PlayerSettingsBean settingsBeans, DataSource dataSource) throws Exception {
         // Update the players data
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -138,24 +128,18 @@ public class PlayerSettingsManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Create default player settings
-    public void createDefaultPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public void createDefaultPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -170,43 +154,32 @@ public class PlayerSettingsManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Close the connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

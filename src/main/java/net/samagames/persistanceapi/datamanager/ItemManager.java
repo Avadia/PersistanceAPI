@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,19 +25,16 @@ import java.util.List;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class ItemManager
-{
+public class ItemManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the item by ID
-    public ItemDescriptionBean getItemDescription(int itemId, DataSource dataSource) throws Exception
-    {
+    public ItemDescriptionBean getItemDescription(int itemId, DataSource dataSource) throws Exception {
         // Get item
-        try
-        {
+        try {
             // Defines
             ItemDescriptionBean itemDescription = null;
 
@@ -56,8 +52,7 @@ public class ItemManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 String itemName = resultset.getString("item_name");
                 String itemDesc = resultset.getString("item_desc");
@@ -71,25 +66,19 @@ public class ItemManager
 
             }
             return itemDescription;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get all the item description
-    public List<ItemDescriptionBean> getAllItemDescription(DataSource dataSource) throws Exception
-    {
+    public List<ItemDescriptionBean> getAllItemDescription(DataSource dataSource) throws Exception {
         // Get item
-        try
-        {
+        try {
             // Defines
             ItemDescriptionBean itemDescription;
 
@@ -107,8 +96,7 @@ public class ItemManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 int itemId = resultset.getInt("item_id");
                 String itemName = resultset.getString("item_name");
@@ -123,43 +111,32 @@ public class ItemManager
                 itemList.add(itemDescription);
             }
             return itemList;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Close the connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

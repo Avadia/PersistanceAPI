@@ -1,13 +1,12 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
-import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.HubPermissionsBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 /*
  * This file is part of PersistanceAPI.
@@ -25,20 +24,17 @@ import java.sql.Statement;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class HubPermissionsManager
-{
+public class HubPermissionsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the permissions for the hub
-    public HubPermissionsBean getHubPermissions(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        HubPermissionsBean hubPermissionsBean = null;
+    public HubPermissionsBean getHubPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+        HubPermissionsBean hubPermissionsBean;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -55,8 +51,7 @@ public class HubPermissionsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long groupId = resultset.getLong("groups_id");
                 boolean hubJukeboxLock = resultset.getBoolean("hub_jukebox_lock");
@@ -85,20 +80,14 @@ public class HubPermissionsManager
                 hubPermissionsBean = new HubPermissionsBean(groupId, hubJukeboxLock, hubJukeboxNext, hubJukeBoxClear, hubModSlow, hubModShutup, hubAdminNpc, hubAdminSign, hubAnguille,
                         hubJukeboxNbs, hubAdminEvacuate, hubAnnounce, hubGadgetsCooldownbypass, hubGadgetsNuke, hubJukeboxLimitbypass, hubJukeboxLimitstaff, hubBypassmute, hubFly,
                         hubDebugSign, hubSignSelection, hubBetaVIP, hubAdminPearl, hubAnimatingEvent);
-            }
-            else
-            {
+            } else {
                 // If there no dimension stats int the database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -107,29 +96,22 @@ public class HubPermissionsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

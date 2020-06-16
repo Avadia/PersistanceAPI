@@ -6,7 +6,10 @@ import net.samagames.persistanceapi.beans.statistics.UppervoidStatisticsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,20 +30,17 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class UppervoidStatisticsManager
-{
+public class UppervoidStatisticsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get uppervoid player statistics
-    public UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        UppervoidStatisticsBean uppervoidStats = null;
+    public UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        UppervoidStatisticsBean uppervoidStats;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -54,8 +54,7 @@ public class UppervoidStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
@@ -70,27 +69,21 @@ public class UppervoidStatisticsManager
                 long playedTime = resultset.getLong("played_time");
 
                 uppervoidStats = new UppervoidStatisticsBean(uuid, blocks, grenades, kills, playedGames, tntLaunched, wins, creationDate, updateDate, playedTime);
-            }
-            else
-            {
+            } else {
                 // If there no uppervoid stats int the database create empty one
                 this.close();
                 this.createEmptyUppervoidStatistics(player, dataSource);
                 this.close();
 
-                UppervoidStatisticsBean newUppervoidStats = this.getUppervoidStatistics(player,dataSource);
+                UppervoidStatisticsBean newUppervoidStats = this.getUppervoidStatistics(player, dataSource);
                 this.close();
 
                 return newUppervoidStats;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -98,10 +91,8 @@ public class UppervoidStatisticsManager
     }
 
     // Create an empty uppervoid statistics
-    private void createEmptyUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    private void createEmptyUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        try {
             // Create an empty bean
             UppervoidStatisticsBean uppervoidStats = new UppervoidStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
@@ -124,32 +115,23 @@ public class UppervoidStatisticsManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update uppervoid player statistics
-    public void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats, DataSource dataSource) throws Exception {
+        try {
             // Check if a record exists
-            if (this.getUppervoidStatistics(player, dataSource) == null)
-            {
+            if (this.getUppervoidStatistics(player, dataSource) == null) {
                 // Create an empty uppervoid statistics
                 this.createEmptyUppervoidStatistics(player, dataSource);
-            }
-            else
-            {
+            } else {
                 // Set connection
                 connection = dataSource.getConnection();
 
@@ -169,25 +151,19 @@ public class UppervoidStatisticsManager
                 // Execute the query
                 statement.executeUpdate();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
-    {
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -200,19 +176,14 @@ public class UppervoidStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while(resultset.next())
-            {
+            while (resultset.next()) {
                 LeaderboardBean bean = new LeaderboardBean(resultset.getString("name"), resultset.getInt("score"));
                 leaderBoard.add(bean);
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -220,29 +191,22 @@ public class UppervoidStatisticsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

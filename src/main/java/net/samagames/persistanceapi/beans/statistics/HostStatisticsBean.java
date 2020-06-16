@@ -18,8 +18,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class HostStatisticsBean
-{
+public class HostStatisticsBean {
     /* Database Structure
 
     Table : host_stats
@@ -47,8 +46,7 @@ public class HostStatisticsBean
     private long playedTime;
 
     // Cosntructor
-    public HostStatisticsBean(String templateId, String hostId, String ipAddress, UUID playerUuid, long startedTime, long playedTime)
-    {
+    public HostStatisticsBean(String templateId, String hostId, String ipAddress, UUID playerUuid, long startedTime, long playedTime) {
         this.templateId = templateId;
         this.hostId = hostId;
         this.ipAddress = ipAddress;
@@ -58,19 +56,56 @@ public class HostStatisticsBean
     }
 
     // Getter
-    public long getId() { return id; }
-    public String getHostId() { return hostId; }
-    public String getIpAddress() { return ipAddress; }
-    public UUID getPlayerUuid() { return playerUuid; }
-    public long getPlayedTime() { return playedTime; }
-    public long getStartedTime() { return startedTime; }
-    public String getTemplateId() { return templateId; }
+    public long getId() {
+        return id;
+    }
+
+    public String getHostId() {
+        return hostId;
+    }
 
     // Setter
-    public void setHostId(String hostId) { this.hostId = hostId; }
-    public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
-    public void setPlayerUuid(UUID playerUuid) { this.playerUuid = playerUuid; }
-    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
-    public void setStartedTime(long startedTime) { this.startedTime = startedTime; }
-    public void setTemplateId(String templateId) { this.templateId = templateId; }
+    public void setHostId(String hostId) {
+        this.hostId = hostId;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public UUID getPlayerUuid() {
+        return playerUuid;
+    }
+
+    public void setPlayerUuid(UUID playerUuid) {
+        this.playerUuid = playerUuid;
+    }
+
+    public long getPlayedTime() {
+        return playedTime;
+    }
+
+    public void setPlayedTime(long playedTime) {
+        this.playedTime = playedTime;
+    }
+
+    public long getStartedTime() {
+        return startedTime;
+    }
+
+    public void setStartedTime(long startedTime) {
+        this.startedTime = startedTime;
+    }
+
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
 }

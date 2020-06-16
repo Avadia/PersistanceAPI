@@ -16,8 +16,7 @@ package net.samagames.persistanceapi.beans.utils;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class BungeeConfigBean
-{
+public class BungeeConfigBean {
     /* Database Structure
 
     Table : configuration
@@ -44,8 +43,7 @@ public class BungeeConfigBean
     private String welcomeMessage;
 
     // Constructor
-    public BungeeConfigBean(int slots, String motd, String closeType, String serverLine, int maxPlayers, String priorityTitle, String welcomeMessage)
-    {
+    public BungeeConfigBean(int slots, String motd, String closeType, String serverLine, int maxPlayers, String priorityTitle, String welcomeMessage) {
         this.slots = slots;
         this.motd = motd;
         this.closeType = closeType;
@@ -56,20 +54,60 @@ public class BungeeConfigBean
     }
 
     // Getters
-    public int getSlots() { return slots; }
-    public String getMotd() { return motd; }
-    public String getCloseType() { return closeType; }
-    public String getServerLine() { return serverLine; }
-    public int getMaxPlayers() { return maxPlayers; }
-    public String getPriorityTitle() { return priorityTitle; }
-    public String getWelcomeMessage() { return welcomeMessage; }
+    public int getSlots() {
+        return slots;
+    }
 
     // Setters
-    public void setSlots(int slots) { this.slots = slots; }
-    public void setMotd(String motd) { this.motd = motd; }
-    public void setCloseType(String closeType) { this.closeType = closeType; }
-    public void setServerLine(String serverLine) { this.serverLine = serverLine; }
-    public void setMaxPlayers(int maxPlayers) { this.maxPlayers = maxPlayers; }
-    public void setPriorityTitle(String priorityTitle) { this.priorityTitle = priorityTitle; }
-    public void setWelcomeMessage(String welcomeMessage) { this.welcomeMessage = welcomeMessage; }
+    public void setSlots(int slots) {
+        this.slots = slots;
+    }
+
+    public String getMotd() {
+        return motd;
+    }
+
+    public void setMotd(String motd) {
+        this.motd = motd;
+    }
+
+    public String getCloseType() {
+        return closeType;
+    }
+
+    public void setCloseType(String closeType) {
+        this.closeType = closeType;
+    }
+
+    public String getServerLine() {
+        return serverLine;
+    }
+
+    public void setServerLine(String serverLine) {
+        this.serverLine = serverLine;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public String getPriorityTitle() {
+        return priorityTitle;
+    }
+
+    public void setPriorityTitle(String priorityTitle) {
+        this.priorityTitle = priorityTitle;
+    }
+
+    public String getWelcomeMessage() {
+        return welcomeMessage;
+    }
+
+    public void setWelcomeMessage(String welcomeMessage) {
+        this.welcomeMessage = welcomeMessage;
+    }
 }

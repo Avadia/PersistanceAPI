@@ -18,8 +18,7 @@ import java.beans.ConstructorProperties;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class AchievementCategoryBean
-{
+public class AchievementCategoryBean {
     /* Database Structure
 
     Table : achievements_categories
@@ -35,7 +34,7 @@ public class AchievementCategoryBean
     */
 
     // Defines
-    private int categoryId;
+    private final int categoryId;
     private String categoryName;
     private String categoryDescription;
     private String itemMinecraftId;
@@ -43,8 +42,7 @@ public class AchievementCategoryBean
 
     // Constructor
     @ConstructorProperties({"categoryId", "categoryName", "categoryDescription", "itemMinecraftId", "parentId"})
-    public AchievementCategoryBean(int categoryId, String categoryName, String categoryDescription, String itemMinecraftId, int parentId)
-    {
+    public AchievementCategoryBean(int categoryId, String categoryName, String categoryDescription, String itemMinecraftId, int parentId) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
@@ -53,15 +51,40 @@ public class AchievementCategoryBean
     }
 
     // Getters
-    public int getCategoryId() { return this.categoryId; }
-    public String getCategoryName() { return this.categoryName; }
-    public String getCategoryDescription() { return this.categoryDescription; }
-    public String getItemMinecraftId() { return this.itemMinecraftId; }
-    public int getParentId() { return this.parentId; }
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public String getCategoryName() {
+        return this.categoryName;
+    }
 
     // Setters
-    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
-    public void setCategoryDescription(String categoryDescription) { this.categoryDescription = categoryDescription; }
-    public void setItemMinecraftId(String itemMinecraftId) { this.itemMinecraftId = itemMinecraftId; }
-    public void setParentId(int parentId) { this.parentId = parentId; }
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryDescription() {
+        return this.categoryDescription;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
+    }
+
+    public String getItemMinecraftId() {
+        return this.itemMinecraftId;
+    }
+
+    public void setItemMinecraftId(String itemMinecraftId) {
+        this.itemMinecraftId = itemMinecraftId;
+    }
+
+    public int getParentId() {
+        return this.parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
 }

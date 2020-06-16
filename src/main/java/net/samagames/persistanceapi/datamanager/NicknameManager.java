@@ -2,11 +2,11 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.NicknameBean;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 /*
  * This file is part of PersistanceAPI.
@@ -24,19 +24,16 @@ import java.sql.Statement;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class NicknameManager
-{
+public class NicknameManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get a random nickname
-    public NicknameBean getRandomNickname(DataSource dataSource) throws Exception
-    {
+    public NicknameBean getRandomNickname(DataSource dataSource) throws Exception {
         // get a free random nickname
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -49,8 +46,7 @@ public class NicknameManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long nick_id = resultset.getInt("nick_id");
                 String nickname = resultset.getString("nickname");
@@ -60,30 +56,22 @@ public class NicknameManager
                 this.close();
                 this.reserveNickname(nicknameBean.getNickId(), dataSource);
                 return nicknameBean;
-            }
-            else
-            {
+            } else {
                 // If there no more free nickname
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Check if a nickname is blacklisted
-    public boolean isNicknameBlacklisted(String nickname, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public boolean isNicknameBlacklisted(String nickname, DataSource dataSource) throws Exception {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -97,34 +85,21 @@ public class NicknameManager
             resultset = statement.executeQuery();
 
             // If there'a a result
-            if (resultset.next())
-            {
-                // There's a result
-                return true;
-            }
-            else
-            {
-                // If there no more free nickname
-                return false;
-            }
-        }
-        catch(Exception exception)
-        {
+            // There's a result
+            // If there no more free nickname
+            return resultset.next();
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Reserve a nickname
-    private void reserveNickname(long nick_id, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    private void reserveNickname(long nick_id, DataSource dataSource) throws Exception {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -136,24 +111,18 @@ public class NicknameManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Free a nickname
-    public void freeNickname(String nickname, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public void freeNickname(String nickname, DataSource dataSource) throws Exception {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -165,43 +134,32 @@ public class NicknameManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Close the connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

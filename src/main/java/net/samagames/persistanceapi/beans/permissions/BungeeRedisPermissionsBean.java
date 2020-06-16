@@ -2,6 +2,7 @@ package net.samagames.persistanceapi.beans.permissions;
 
 import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
+
 import java.util.Map;
 
 /*
@@ -20,8 +21,7 @@ import java.util.Map;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class BungeeRedisPermissionsBean
-{
+public class BungeeRedisPermissionsBean {
     /* Database Structure
 
     Table : bungee_redis_permissions
@@ -46,7 +46,7 @@ public class BungeeRedisPermissionsBean
     */
 
     // Defines
-    private long groupsId;
+    private final long groupsId;
     @Perm("bungeecord.command.list")
     private boolean bungeecordCommandList;
     @Perm("bungeecord.command.find")
@@ -77,8 +77,7 @@ public class BungeeRedisPermissionsBean
     // Constructor
     public BungeeRedisPermissionsBean(long groupsId, boolean bungeecordCommandList, boolean bungeecordCommandFind, boolean redisbungeeCommandLastSeen, boolean redisbungeeCommandSendtoAll,
                                       boolean bungeecordCommandIp, boolean redisbungeeCommandServerId, boolean redisbungeCommandServerIds, boolean redisbungeeCommandPproxy,
-                                      boolean redisbungeeCommandPlist, boolean bungeecordCommandServer, boolean bungeecordCommandSend, boolean bungeecordCommandEnd, boolean bungeecordCommandAlert)
-    {
+                                      boolean redisbungeeCommandPlist, boolean bungeecordCommandServer, boolean bungeecordCommandSend, boolean bungeecordCommandEnd, boolean bungeecordCommandAlert) {
         this.groupsId = groupsId;
         this.bungeecordCommandList = bungeecordCommandList;
         this.bungeecordCommandFind = bungeecordCommandFind;
@@ -96,45 +95,122 @@ public class BungeeRedisPermissionsBean
     }
 
     // Getters
-    public long getGroupsId() { return this.groupsId; }
-    public boolean isBungeecordCommandList() { return this.bungeecordCommandList; }
-    public boolean isBungeecordCommandFind() { return this.bungeecordCommandFind; }
-    public boolean isRedisbungeeCommandLastSeen() { return this.redisbungeeCommandLastSeen; }
-    public boolean isRedisbungeeCommandSendtoAll() { return this.redisbungeeCommandSendtoAll; }
-    public boolean isBungeecordCommandIp() { return this.bungeecordCommandIp; }
-    public boolean isRedisbungeeCommandServerId() { return this.redisbungeeCommandServerId; }
-    public boolean isRedisbungeCommandServerIds() { return this.redisbungeCommandServerIds; }
-    public boolean isRedisbungeeCommandPproxy() { return this.redisbungeeCommandPproxy; }
-    public boolean isRedisbungeeCommandPlist() { return this.redisbungeeCommandPlist; }
-    public boolean isBungeecordCommandServer() { return this.bungeecordCommandServer; }
-    public boolean isBungeecordCommandSend() { return this.bungeecordCommandSend; }
-    public boolean isBungeecordCommandEnd() { return this.bungeecordCommandEnd; }
-    public boolean isBungeecordCommandAlert() { return this.bungeecordCommandAlert; }
+    public long getGroupsId() {
+        return this.groupsId;
+    }
+
+    public boolean isBungeecordCommandList() {
+        return this.bungeecordCommandList;
+    }
 
     // Setters
-    public void setBungeecordCommandList(boolean bungeecordCommandList) { this.bungeecordCommandList = bungeecordCommandList; }
-    public void setBungeecordCommandFind(boolean bungeecordCommandFind) { this.bungeecordCommandFind = bungeecordCommandFind; }
-    public void setRedisbungeeCommandLastSeen(boolean redisbungeeCommandLastSeen) { this.redisbungeeCommandLastSeen = redisbungeeCommandLastSeen; }
-    public void setRedisbungeeCommandSendtoAll(boolean redisbungeeCommandSendtoAll) { this.redisbungeeCommandSendtoAll = redisbungeeCommandSendtoAll; }
-    public void setBungeecordCommandIp(boolean bungeecordCommandIp) { this.bungeecordCommandIp = bungeecordCommandIp; }
-    public void setRedisbungeeCommandServerId(boolean redisbungeeCommandServerId) { this.redisbungeeCommandServerId = redisbungeeCommandServerId; }
-    public void setRedisbungeCommandServerIds(boolean redisbungeCommandServerIds) { this.redisbungeCommandServerIds = redisbungeCommandServerIds; }
-    public void setRedisbungeeCommandPproxy(boolean redisbungeeCommandPproxy) { this.redisbungeeCommandPproxy = redisbungeeCommandPproxy; }
-    public void setRedisbungeeCommandPlist(boolean redisbungeeCommandPlist) { this.redisbungeeCommandPlist = redisbungeeCommandPlist; }
-    public void setBungeecordCommandServer(boolean bungeecordCommandServer) { this.bungeecordCommandServer = bungeecordCommandServer; }
-    public void setBungeecordCommandSend(boolean bungeecordCommandSend) { this.bungeecordCommandSend = bungeecordCommandSend; }
-    public void setBungeecordCommandEnd(boolean bungeecordCommandEnd) { this.bungeecordCommandEnd = bungeecordCommandEnd; }
-    public void setBungeecordCommandAlert(boolean bungeecordCommandAlert) { this.bungeecordCommandAlert = bungeecordCommandAlert; }
+    public void setBungeecordCommandList(boolean bungeecordCommandList) {
+        this.bungeecordCommandList = bungeecordCommandList;
+    }
+
+    public boolean isBungeecordCommandFind() {
+        return this.bungeecordCommandFind;
+    }
+
+    public void setBungeecordCommandFind(boolean bungeecordCommandFind) {
+        this.bungeecordCommandFind = bungeecordCommandFind;
+    }
+
+    public boolean isRedisbungeeCommandLastSeen() {
+        return this.redisbungeeCommandLastSeen;
+    }
+
+    public void setRedisbungeeCommandLastSeen(boolean redisbungeeCommandLastSeen) {
+        this.redisbungeeCommandLastSeen = redisbungeeCommandLastSeen;
+    }
+
+    public boolean isRedisbungeeCommandSendtoAll() {
+        return this.redisbungeeCommandSendtoAll;
+    }
+
+    public void setRedisbungeeCommandSendtoAll(boolean redisbungeeCommandSendtoAll) {
+        this.redisbungeeCommandSendtoAll = redisbungeeCommandSendtoAll;
+    }
+
+    public boolean isBungeecordCommandIp() {
+        return this.bungeecordCommandIp;
+    }
+
+    public void setBungeecordCommandIp(boolean bungeecordCommandIp) {
+        this.bungeecordCommandIp = bungeecordCommandIp;
+    }
+
+    public boolean isRedisbungeeCommandServerId() {
+        return this.redisbungeeCommandServerId;
+    }
+
+    public void setRedisbungeeCommandServerId(boolean redisbungeeCommandServerId) {
+        this.redisbungeeCommandServerId = redisbungeeCommandServerId;
+    }
+
+    public boolean isRedisbungeCommandServerIds() {
+        return this.redisbungeCommandServerIds;
+    }
+
+    public void setRedisbungeCommandServerIds(boolean redisbungeCommandServerIds) {
+        this.redisbungeCommandServerIds = redisbungeCommandServerIds;
+    }
+
+    public boolean isRedisbungeeCommandPproxy() {
+        return this.redisbungeeCommandPproxy;
+    }
+
+    public void setRedisbungeeCommandPproxy(boolean redisbungeeCommandPproxy) {
+        this.redisbungeeCommandPproxy = redisbungeeCommandPproxy;
+    }
+
+    public boolean isRedisbungeeCommandPlist() {
+        return this.redisbungeeCommandPlist;
+    }
+
+    public void setRedisbungeeCommandPlist(boolean redisbungeeCommandPlist) {
+        this.redisbungeeCommandPlist = redisbungeeCommandPlist;
+    }
+
+    public boolean isBungeecordCommandServer() {
+        return this.bungeecordCommandServer;
+    }
+
+    public void setBungeecordCommandServer(boolean bungeecordCommandServer) {
+        this.bungeecordCommandServer = bungeecordCommandServer;
+    }
+
+    public boolean isBungeecordCommandSend() {
+        return this.bungeecordCommandSend;
+    }
+
+    public void setBungeecordCommandSend(boolean bungeecordCommandSend) {
+        this.bungeecordCommandSend = bungeecordCommandSend;
+    }
+
+    public boolean isBungeecordCommandEnd() {
+        return this.bungeecordCommandEnd;
+    }
+
+    public void setBungeecordCommandEnd(boolean bungeecordCommandEnd) {
+        this.bungeecordCommandEnd = bungeecordCommandEnd;
+    }
+
+    public boolean isBungeecordCommandAlert() {
+        return this.bungeecordCommandAlert;
+    }
+
+    public void setBungeecordCommandAlert(boolean bungeecordCommandAlert) {
+        this.bungeecordCommandAlert = bungeecordCommandAlert;
+    }
 
     // Reverse the bean to HashMap
-    public Map<String, Boolean> getHashMap()
-    {
+    public Map<String, Boolean> getHashMap() {
         return Transcoder.getHashMapPerm(this);
     }
 
     // Set a value into the HashMap
-    public void set(String key, Boolean value)
-    {
+    public void set(String key, Boolean value) {
         Transcoder.setAnnotationValue(this, key, value);
     }
 }

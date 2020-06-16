@@ -19,8 +19,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class SanctionBean
-{
+public class SanctionBean {
     /* Database Structure
 
     Table : sanctions
@@ -58,8 +57,7 @@ public class SanctionBean
     private Timestamp updateDate;
 
     // Constructor
-    public SanctionBean(long sanctionId, UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate)
-    {
+    public SanctionBean(long sanctionId, UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted, Timestamp creationDate, Timestamp updateDate) {
         this.sanctionId = sanctionId;
         this.playerUuid = playerUuid;
         this.typeId = typeId;
@@ -72,8 +70,7 @@ public class SanctionBean
     }
 
     // Constructor without date
-    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted)
-    {
+    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, Timestamp expirationTime, boolean isDeleted) {
         this.playerUuid = playerUuid;
         this.typeId = typeId;
         this.reason = reason;
@@ -82,8 +79,7 @@ public class SanctionBean
         this.isDeleted = isDeleted;
     }
 
-    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, boolean isDeleted)
-    {
+    public SanctionBean(UUID playerUuid, int typeId, String reason, UUID punisherUuid, boolean isDeleted) {
         this.playerUuid = playerUuid;
         this.typeId = typeId;
         this.reason = reason;
@@ -92,22 +88,68 @@ public class SanctionBean
     }
 
     // Getters
-    public UUID getPlayerUuid() { return this.playerUuid; }
-    public int getTypeId() { return this.typeId; }
-    public String getReason() { return this.reason; }
-    public UUID getPunisherUuid() { return this.punisherUuid; }
-    public Timestamp getExpirationTime() { return this.expirationTime; }
-    public boolean isDeleted() { return this.isDeleted; }
-    public Timestamp getCreationDate() { return this.creationDate; }
-    public Timestamp getUpdateDate() { return this.updateDate; }
+    public UUID getPlayerUuid() {
+        return this.playerUuid;
+    }
 
     // Setters
-    public void setPlayerUuid(UUID playerUuid) { this.playerUuid = playerUuid; }
-    public void setTypeId(int typeId) { this.typeId = typeId; }
-    public void setReason(String reason) { this.reason = reason; }
-    public void setPunisherUuid(UUID punisherUuid) { this.punisherUuid = punisherUuid; }
-    public void setExpirationTime(Timestamp expirationTime) { this.expirationTime = expirationTime; }
-    public void setDeleted(boolean deleted) { isDeleted = deleted; }
-    public void setCreationDate(Timestamp creationDate) { this.creationDate = creationDate; }
-    public void setUpdateDate(Timestamp updateDate) { this.updateDate = updateDate; }
+    public void setPlayerUuid(UUID playerUuid) {
+        this.playerUuid = playerUuid;
+    }
+
+    public int getTypeId() {
+        return this.typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getReason() {
+        return this.reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public UUID getPunisherUuid() {
+        return this.punisherUuid;
+    }
+
+    public void setPunisherUuid(UUID punisherUuid) {
+        this.punisherUuid = punisherUuid;
+    }
+
+    public Timestamp getExpirationTime() {
+        return this.expirationTime;
+    }
+
+    public void setExpirationTime(Timestamp expirationTime) {
+        this.expirationTime = expirationTime;
+    }
+
+    public boolean isDeleted() {
+        return this.isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Timestamp getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return this.updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
+    }
 }

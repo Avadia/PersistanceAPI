@@ -21,8 +21,7 @@ import java.util.Map;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class BukkitPermissionsBean
-{
+public class BukkitPermissionsBean {
     /* Database Structure
 
     Table : bukkit_permissions
@@ -39,7 +38,7 @@ public class BukkitPermissionsBean
     */
 
     // Defines
-    private long groupsId;
+    private final long groupsId;
     @Perm("minecraft.command.op")
     private boolean minecraftCommandOp;
     @Perm("bukkit.command.op.give")
@@ -54,8 +53,7 @@ public class BukkitPermissionsBean
     // Constructor
     public BukkitPermissionsBean(long groupsId, boolean minecraftCommandOp, boolean bukkitCommandOpGive,
                                  boolean bukkitCommandEffect, boolean bukkitCommandGamemode,
-                                 boolean bukkitCommandTeleport)
-    {
+                                 boolean bukkitCommandTeleport) {
         this.groupsId = groupsId;
         this.minecraftCommandOp = minecraftCommandOp;
         this.bukkitCommandOpGive = bukkitCommandOpGive;
@@ -65,45 +63,58 @@ public class BukkitPermissionsBean
     }
 
     // Getters
-    public long getGroupsId() { return groupsId; }
-    public boolean isMinecraftCommandOp() { return this.minecraftCommandOp; }
-    public boolean isBukkitCommandOpGive() { return this.bukkitCommandOpGive; }
+    public long getGroupsId() {
+        return groupsId;
+    }
+
+    public boolean isMinecraftCommandOp() {
+        return this.minecraftCommandOp;
+    }
+
+    // Setters
+    public void setMinecraftCommandOp(boolean minecraftCommandOp) {
+        this.minecraftCommandOp = minecraftCommandOp;
+    }
+
     public boolean isBukkitCommandEffect() {
         return bukkitCommandEffect;
     }
+
     public boolean isBukkitCommandGamemode() {
         return bukkitCommandGamemode;
     }
+
     public boolean isBukkitCommandTeleport() {
         return bukkitCommandTeleport;
     }
 
+    public boolean isBukkitCommandOpGive() {
+        return this.bukkitCommandOpGive;
+    }
 
-    // Setters
-    public void setMinecraftCommandOp(boolean minecraftCommandOp) { this.minecraftCommandOp = minecraftCommandOp; }
-    public void setBukkitCommandOpGive(boolean bukkitCommandOpGive) { this.bukkitCommandOpGive = bukkitCommandOpGive; }
+    public void setBukkitCommandOpGive(boolean bukkitCommandOpGive) {
+        this.bukkitCommandOpGive = bukkitCommandOpGive;
+    }
+
     public void setBukkitCommandEffect(boolean bukkitCommandEffect) {
         this.bukkitCommandEffect = bukkitCommandEffect;
     }
+
     public void setBukkitCommandGamemode(boolean bukkitCommandGamemode) {
         this.bukkitCommandGamemode = bukkitCommandGamemode;
     }
+
     public void setBukkitCommandTeleport(boolean bukkitCommandTeleport) {
         this.bukkitCommandTeleport = bukkitCommandTeleport;
     }
 
     // Reverse the bean to HashMap
-    public Map<String, Boolean> getHashMap()
-    {
+    public Map<String, Boolean> getHashMap() {
         return Transcoder.getHashMapPerm(this);
     }
 
     // Set a value into the HashMap
-    public void set(String key, Boolean value)
-    {
+    public void set(String key, Boolean value) {
         Transcoder.setAnnotationValue(this, key, value);
     }
-
-
-
 }

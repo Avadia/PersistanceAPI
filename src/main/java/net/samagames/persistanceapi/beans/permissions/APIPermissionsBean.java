@@ -21,8 +21,7 @@ import java.util.Map;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class APIPermissionsBean
-{
+public class APIPermissionsBean {
     /* Database Structure
 
     Table : api_permissions
@@ -49,7 +48,7 @@ public class APIPermissionsBean
     */
 
     // Defines
-    private long groupsId;
+    private final long groupsId;
     @Perm("api.servers.debug")
     private boolean apiServersDebug;
     @Perm("api.permissions.refresh")
@@ -84,8 +83,8 @@ public class APIPermissionsBean
     // Constructor
     public APIPermissionsBean(long groupsId, boolean apiServersDebug, boolean apiPermissionsRefresh, boolean apiCoinsGetOther, boolean apiCoinsCredit, boolean apiCoinsWithdraw,
                               boolean apiInventoryShow, boolean apiPlayerDataShow, boolean apiPlayerdataSet, boolean apiPlayerdataDel, boolean apiModoSpeakup, boolean apiStarsGetother,
-                              boolean apiStarsCredit, boolean apiStarsWithdraw, boolean apiGameStart, boolean apiChatBypass)
-    {
+                              boolean apiStarsCredit, boolean apiStarsWithdraw, boolean apiGameStart, boolean apiChatBypass) {
+        this.groupsId = groupsId;
         this.apiServersDebug = apiServersDebug;
         this.apiPermissionsRefresh = apiPermissionsRefresh;
         this.apiCoinsGetOther = apiCoinsGetOther;
@@ -99,59 +98,143 @@ public class APIPermissionsBean
         this.apiStarsGetother = apiStarsGetother;
         this.apiStarsCredit = apiStarsCredit;
         this.apiStarsWithdraw = apiStarsWithdraw;
-        this.apiGameStart =apiGameStart;
+        this.apiGameStart = apiGameStart;
         this.apiChatBypass = apiChatBypass;
     }
 
     // Getters
-    public long groupsId() { return this.groupsId; }
-    public boolean isApiServersDebug() { return this.apiServersDebug; }
-    public boolean isApiPermissionsRefresh() { return this.apiPermissionsRefresh; }
-    public boolean isApiCoinsGetother() { return this.apiCoinsGetOther; }
-    public boolean isApiCoinsCredit() { return this.apiCoinsCredit; }
-    public boolean isApiCoinsWithdraw() { return this.apiCoinsWithdraw; }
-    public boolean isApiInventoryShow() { return this.apiInventoryShow; }
-    public boolean isApiPlayerDataShow() {return this.apiPlayerDataShow;}
-    public boolean isApiPlayerdataSet() { return this.apiPlayerdataSet; }
-    public boolean isApiPlayerdataDel() { return this.apiPlayerdataDel; }
-    public boolean isApiModoSpeakup() { return this.apiModoSpeakup; }
-    public boolean isApiStarsGetother() { return this.apiStarsGetother; }
-    public boolean isApiStarsCredit() { return this.apiStarsCredit; }
-    public boolean isApiStarsWithdraw() { return this.apiStarsWithdraw; }
-    public boolean isApiGameStart() { return this.apiGameStart; }
+    public long groupsId() {
+        return this.groupsId;
+    }
+
+    public boolean isApiServersDebug() {
+        return this.apiServersDebug;
+    }
+
+    // Setters
+    public void setApiServersDebug(boolean apiServersDebug) {
+        this.apiServersDebug = apiServersDebug;
+    }
+
+    public boolean isApiPermissionsRefresh() {
+        return this.apiPermissionsRefresh;
+    }
+
+    public void setApiPermissionsRefresh(boolean apiPermissionsRefresh) {
+        this.apiPermissionsRefresh = apiPermissionsRefresh;
+    }
+
+    public boolean isApiCoinsGetother() {
+        return this.apiCoinsGetOther;
+    }
+
+    public void setApiCoinsGetother(boolean apiCoinsGetother) {
+        this.apiCoinsGetOther = apiCoinsGetother;
+    }
+
+    public boolean isApiCoinsCredit() {
+        return this.apiCoinsCredit;
+    }
+
+    public void setApiCoinsCredit(boolean apiCoinsCredit) {
+        this.apiCoinsCredit = apiCoinsCredit;
+    }
+
+    public boolean isApiCoinsWithdraw() {
+        return this.apiCoinsWithdraw;
+    }
+
+    public void setApiCoinsWithdraw(boolean apiCoinsWithdraw) {
+        this.apiCoinsWithdraw = apiCoinsWithdraw;
+    }
+
+    public boolean isApiInventoryShow() {
+        return this.apiInventoryShow;
+    }
+
+    public void setApiInventoryShow(boolean apiInventoryShow) {
+        this.apiInventoryShow = apiInventoryShow;
+    }
+
+    public boolean isApiPlayerDataShow() {
+        return this.apiPlayerDataShow;
+    }
+
+    public void setApiPlayerDataShow(boolean apiPlayerDataShow) {
+        this.apiPlayerDataShow = apiPlayerDataShow;
+    }
+
     public boolean isApiChatBypass() {
         return apiChatBypass;
     }
 
-    // Setters
-    public void setApiServersDebug(boolean apiServersDebug) { this.apiServersDebug = apiServersDebug; }
-    public void setApiPermissionsRefresh(boolean apiPermissionsRefresh) { this.apiPermissionsRefresh = apiPermissionsRefresh; }
-    public void setApiCoinsGetother(boolean apiCoinsGetother) { this.apiCoinsGetOther = apiCoinsGetother; }
-    public void setApiCoinsCredit(boolean apiCoinsCredit) { this.apiCoinsCredit = apiCoinsCredit; }
-    public void setApiCoinsWithdraw(boolean apiCoinsWithdraw) { this.apiCoinsWithdraw = apiCoinsWithdraw; }
-    public void setApiInventoryShow(boolean apiInventoryShow) { this.apiInventoryShow = apiInventoryShow; }
-    public void setApiPlayerDataShow(boolean apiPlayerDataShow) { this.apiPlayerDataShow = apiPlayerDataShow; }
-    public void setApiPlayerdataSet(boolean apiPlayerdataSet) { this.apiPlayerdataSet = apiPlayerdataSet; }
-    public void setApiPlayerdataDel(boolean apiPlayerdataDel) { this.apiPlayerdataDel = apiPlayerdataDel; }
-    public void setApiModoSpeakup(boolean apiModoSpeakup) { this.apiModoSpeakup = apiModoSpeakup; }
-    public void setApiStarsGetother(boolean apiStarsGetother) { this.apiStarsGetother = apiStarsGetother; }
-    public void setApiStarsCredit(boolean apiStarsCredit) { this.apiStarsCredit = apiStarsCredit; }
-    public void setApiStarsWithdraw(boolean apiStarsWithdraw) { this.apiStarsWithdraw = apiStarsWithdraw; }
-    public void setApiGameStart(boolean apiGameStart) { this.apiGameStart = apiGameStart; }
+    public boolean isApiPlayerdataSet() {
+        return this.apiPlayerdataSet;
+    }
+
+    public void setApiPlayerdataSet(boolean apiPlayerdataSet) {
+        this.apiPlayerdataSet = apiPlayerdataSet;
+    }
+
+    public boolean isApiPlayerdataDel() {
+        return this.apiPlayerdataDel;
+    }
+
+    public void setApiPlayerdataDel(boolean apiPlayerdataDel) {
+        this.apiPlayerdataDel = apiPlayerdataDel;
+    }
+
+    public boolean isApiModoSpeakup() {
+        return this.apiModoSpeakup;
+    }
+
+    public void setApiModoSpeakup(boolean apiModoSpeakup) {
+        this.apiModoSpeakup = apiModoSpeakup;
+    }
+
+    public boolean isApiStarsGetother() {
+        return this.apiStarsGetother;
+    }
+
+    public void setApiStarsGetother(boolean apiStarsGetother) {
+        this.apiStarsGetother = apiStarsGetother;
+    }
+
+    public boolean isApiStarsCredit() {
+        return this.apiStarsCredit;
+    }
+
+    public void setApiStarsCredit(boolean apiStarsCredit) {
+        this.apiStarsCredit = apiStarsCredit;
+    }
+
+    public boolean isApiStarsWithdraw() {
+        return this.apiStarsWithdraw;
+    }
+
+    public void setApiStarsWithdraw(boolean apiStarsWithdraw) {
+        this.apiStarsWithdraw = apiStarsWithdraw;
+    }
+
+    public boolean isApiGameStart() {
+        return this.apiGameStart;
+    }
+
+    public void setApiGameStart(boolean apiGameStart) {
+        this.apiGameStart = apiGameStart;
+    }
+
     public void setApiChatBypass(boolean apiChatBypass) {
         this.apiChatBypass = apiChatBypass;
     }
 
     // Reverse the bean to HashMap
-    public Map<String, Boolean> getHashMap()
-    {
+    public Map<String, Boolean> getHashMap() {
         return Transcoder.getHashMapPerm(this);
     }
 
     // Set a value into the HashMap
-    public void set(String key, Boolean value)
-    {
+    public void set(String key, Boolean value) {
         Transcoder.setAnnotationValue(this, key, value);
     }
-
 }

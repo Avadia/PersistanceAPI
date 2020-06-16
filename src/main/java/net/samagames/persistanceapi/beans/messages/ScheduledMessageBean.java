@@ -18,8 +18,7 @@ import java.beans.ConstructorProperties;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class ScheduledMessageBean
-{
+public class ScheduledMessageBean {
     /* Database Structure
 
     Table : advertising_messages
@@ -33,25 +32,37 @@ public class ScheduledMessageBean
     */
 
     // Defines
-    private int messageId;
+    private final int messageId;
     private String messageText;
     private int scheduleTime;
 
     // Constructor
     @ConstructorProperties({"messageId", "messageText", "scheduleTime"})
-    public ScheduledMessageBean(int messageId, String messageText, int scheduleTime)
-    {
+    public ScheduledMessageBean(int messageId, String messageText, int scheduleTime) {
         this.messageId = messageId;
         this.messageText = messageText;
         this.scheduleTime = scheduleTime;
     }
 
     // Getters
-    public int getMessageId() { return this.messageId; }
-    public String getMessageText() { return this.messageText; }
-    public int getScheduleTime() { return this.scheduleTime; }
+    public int getMessageId() {
+        return this.messageId;
+    }
+
+    public String getMessageText() {
+        return this.messageText;
+    }
 
     // Setters
-    public void setMessageText(String messageText) { this.messageText = messageText; }
-    public void setScheduleTime(int scheduleTime) { this.scheduleTime = scheduleTime; }
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
+    }
+
+    public int getScheduleTime() {
+        return this.scheduleTime;
+    }
+
+    public void setScheduleTime(int scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
 }

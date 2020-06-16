@@ -1,12 +1,10 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
-import net.samagames.persistanceapi.beans.statistics.PlayerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.aggregationmanager.statistics.*;
 
 import javax.sql.DataSource;
-import java.util.List;
 
 /*
  * This file is part of PersistanceAPI.
@@ -24,8 +22,7 @@ import java.util.List;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class StatisticsManager
-{
+public class StatisticsManager {
     // Defines
     public DimensionsStatisticsManager dimensionsStatsManager;
     public JukeBoxStatisticsManager jukeBoxStatsManager;
@@ -42,8 +39,7 @@ public class StatisticsManager
     public NetworkStatisticsManager networkStatisticsManager;
 
     // Constructor
-    public StatisticsManager()
-    {
+    public StatisticsManager() {
         this.dimensionsStatsManager = new DimensionsStatisticsManager();
         this.jukeBoxStatsManager = new JukeBoxStatisticsManager();
         this.quakeStatsManager = new QuakeStatisticsManager();
@@ -60,8 +56,7 @@ public class StatisticsManager
     }
 
     // Get all player statistics
-    public PlayerStatisticsBean getAllPlayerStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public PlayerStatisticsBean getAllPlayerStatistics(PlayerBean player, DataSource dataSource) throws Exception {
         // Declared bean
         DimensionsStatisticsBean dimensionsStats;
         JukeBoxStatisticsBean jukeBoxStats;
@@ -77,8 +72,7 @@ public class StatisticsManager
         TheDropperStatisticsBean theDropperStats;
 
         // Get the different statistics bean
-        try
-        {
+        try {
             dimensionsStats = this.dimensionsStatsManager.getDimensionsStatistics(player, dataSource);
             jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
             quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
@@ -91,9 +85,7 @@ public class StatisticsManager
             upperVoidStats = this.uppervoidStatsManager.getUppervoidStatistics(player, dataSource);
             chunkWarsStats = this.chunkWarsStatisticsManager.getChunkWarsStatistics(player, dataSource);
             theDropperStats = this.theDropperStatisticsManager.getTheDropperStatistics(player, dataSource);
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }
@@ -103,12 +95,10 @@ public class StatisticsManager
     }
 
     // Update all player statistics
-    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean data, DataSource dataSource) throws Exception
-    {
+    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean data, DataSource dataSource) throws Exception {
         // Update the different statistics bean
-        try
-        {
-            this.dimensionsStatsManager.updateDimensionsStatistics(player, data.getDimensionsStats(),dataSource);
+        try {
+            this.dimensionsStatsManager.updateDimensionsStatistics(player, data.getDimensionsStats(), dataSource);
             this.jukeBoxStatsManager.updateJukeBoxStatistics(player, data.getJukeBoxStats(), dataSource);
             this.quakeStatsManager.updateQuakeStatistics(player, data.getQuakeStats(), dataSource);
             this.uhcOriginalStatsManager.updateUHCOriginalStatistics(player, data.getUHCOriginalStats(), dataSource);
@@ -120,9 +110,7 @@ public class StatisticsManager
             this.uppervoidStatsManager.updateUppervoidStatistics(player, data.getUppervoidStats(), dataSource);
             this.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, data.getChunkWarsStats(), dataSource);
             this.theDropperStatisticsManager.updateTheDropperStatistics(player, data.getTheDropperStats(), dataSource);
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

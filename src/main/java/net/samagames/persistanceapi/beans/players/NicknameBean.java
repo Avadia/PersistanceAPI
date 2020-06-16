@@ -16,8 +16,7 @@ package net.samagames.persistanceapi.beans.players;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class NicknameBean
-{
+public class NicknameBean {
     /* Database Structure
 
     Table : Nickname
@@ -38,14 +37,12 @@ public class NicknameBean
     private boolean used;
 
     //Empty constructor because we fill it when needed
-    public NicknameBean()
-    {
+    public NicknameBean() {
         super();
     }
 
     // Constructor
-    public NicknameBean(long nickId, String nickname, boolean blackListed, boolean used)
-    {
+    public NicknameBean(long nickId, String nickname, boolean blackListed, boolean used) {
         this.nickId = nickId;
         this.nickname = nickname;
         this.blackListed = blackListed;
@@ -53,13 +50,32 @@ public class NicknameBean
     }
 
     // Getters
-    public long getNickId() { return this.nickId; }
-    public String getNickname() { return this.nickname; }
-    public boolean isBlackListed() { return this.blackListed; }
-    public boolean isUsed() { return this.used; }
+    public long getNickId() {
+        return this.nickId;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
 
     // Setters
-    public void setNickname(String nickname) { this.nickname = nickname; }
-    public void setBlackListed(boolean blackListed) { this.blackListed = blackListed; }
-    public void setUsed(boolean used) { this.used = used; }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public boolean isBlackListed() {
+        return this.blackListed;
+    }
+
+    public void setBlackListed(boolean blackListed) {
+        this.blackListed = blackListed;
+    }
+
+    public boolean isUsed() {
+        return this.used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
 }

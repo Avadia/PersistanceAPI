@@ -7,7 +7,10 @@ import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,18 +31,15 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class AchievementManager
-{
+public class AchievementManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the category by ID
-    public AchievementCategoryBean getAchievementCategory(int categoryId, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public AchievementCategoryBean getAchievementCategory(int categoryId, DataSource dataSource) throws Exception {
+        try {
             // Defines
             AchievementCategoryBean achievementCategory = null;
 
@@ -56,8 +56,7 @@ public class AchievementManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String categoryName = resultset.getString("category_name");
                 String categoryDescription = resultset.getString("category_description");
@@ -67,24 +66,18 @@ public class AchievementManager
             }
 
             return achievementCategory;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the categories
-    public List<AchievementCategoryBean> getAchievementCategories(DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public List<AchievementCategoryBean> getAchievementCategories(DataSource dataSource) throws Exception {
+        try {
             // Defines
             List<AchievementCategoryBean> achievementCategories = new ArrayList<>();
 
@@ -100,8 +93,7 @@ public class AchievementManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 int categoryId = resultset.getInt("category_id");
                 String categoryName = resultset.getString("category_name");
@@ -112,24 +104,18 @@ public class AchievementManager
             }
 
             return achievementCategories;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the achievement by ID
-    public AchievementBean getAchievement(int achievementId, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public AchievementBean getAchievement(int achievementId, DataSource dataSource) throws Exception {
+        try {
             // Defines
             AchievementBean achievement = null;
 
@@ -146,8 +132,7 @@ public class AchievementManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String achievementName = resultset.getString("achievement_name");
                 String achievementDescription = resultset.getString("achievement_description");
@@ -157,24 +142,18 @@ public class AchievementManager
             }
 
             return achievement;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the achievements
-    public List<AchievementBean> getAchievements(DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public List<AchievementBean> getAchievements(DataSource dataSource) throws Exception {
+        try {
             // Defines
             List<AchievementBean> achievements = new ArrayList<>();
 
@@ -190,8 +169,7 @@ public class AchievementManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 int achievementId = resultset.getInt("achievement_id");
                 String achievementName = resultset.getString("achievement_name");
@@ -202,25 +180,19 @@ public class AchievementManager
             }
 
             return achievements;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get achievement progress by UUID and achievement id
-    public AchievementProgressBean getAchievementProgress(PlayerBean player, int achievementId, DataSource dataSource) throws Exception
-    {
+    public AchievementProgressBean getAchievementProgress(PlayerBean player, int achievementId, DataSource dataSource) throws Exception {
         // Make the research of player by UUID
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -235,8 +207,7 @@ public class AchievementManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid_player"));
                 long progressId = resultset.getLong("progress_id");
@@ -246,19 +217,14 @@ public class AchievementManager
 
                 Timestamp unlockDate;
 
-                try
-                {
+                try {
                     unlockDate = resultset.getTimestamp("unlock_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     unlockDate = null;
                 }
 
                 return new AchievementProgressBean(progressId, achievementId2, achievementProgress, startDate, unlockDate, UUID.fromString(playerUuid));
-            }
-            else
-            {
+            } else {
                 // If there no player for the uuid in database create a new player
                 this.close();
                 AchievementProgressBean achievementProgressBean = new AchievementProgressBean(0, 0, achievementId, null, null, null);
@@ -267,25 +233,19 @@ public class AchievementManager
                 this.close();
                 return achievementProgressBean;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get achievement progresses by UUID
-    public List<AchievementProgressBean> getAchievementProgresses(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public List<AchievementProgressBean> getAchievementProgresses(PlayerBean player, DataSource dataSource) throws Exception {
         // Make the research of player by UUID
-        try
-        {
+        try {
             // Defines
             List<AchievementProgressBean> achievementProgresses = new ArrayList<>();
 
@@ -302,8 +262,7 @@ public class AchievementManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid_player"));
                 long progressId = resultset.getLong("progress_id");
@@ -313,12 +272,9 @@ public class AchievementManager
 
                 Timestamp unlockDate;
 
-                try
-                {
+                try {
                     unlockDate = resultset.getTimestamp("unlock_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     unlockDate = null;
                 }
 
@@ -326,32 +282,26 @@ public class AchievementManager
             }
 
             return achievementProgresses;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update the achievement progress data
-    public void updateAchievementProgress(AchievementProgressBean progress, DataSource dataSource) throws Exception
-    {
+    public void updateAchievementProgress(AchievementProgressBean progress, DataSource dataSource) throws Exception {
         // Update the players data
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
             Timestamp unlockDate = progress.getUnlockDate();
             String unlockDateString = "0000-00-00 00:00:00";
 
-            if(unlockDate != null)
+            if (unlockDate != null)
                 unlockDateString = unlockDate.toString();
 
             // Query construction
@@ -365,33 +315,26 @@ public class AchievementManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Create the achievement progress
-    public void createAchievementProgress(PlayerBean player, AchievementProgressBean progress, DataSource dataSource) throws Exception
-    {
+    public void createAchievementProgress(PlayerBean player, AchievementProgressBean progress, DataSource dataSource) throws Exception {
         // Create the player
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
             Timestamp unlockDate = progress.getUnlockDate();
             String unlockDateString = "0000-00-00 00:00:00";
 
-            if(unlockDate != null)
-            {
+            if (unlockDate != null) {
                 unlockDateString = unlockDate.toString();
             }
 
@@ -406,43 +349,32 @@ public class AchievementManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

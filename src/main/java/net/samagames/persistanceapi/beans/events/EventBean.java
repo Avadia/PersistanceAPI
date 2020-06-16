@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class EventBean
-{
+public class EventBean {
     /* Database Structure
 
     Table : events
@@ -38,7 +37,7 @@ public class EventBean
     */
 
     // Defines
-    private long eventId;
+    private final long eventId;
     private UUID eventOrganizer;
     private String eventTemplate;
     private int rewardCoins;
@@ -47,8 +46,7 @@ public class EventBean
 
     // Constructor
     @ConstructorProperties({"eventId", "eventOrganizer", "eventTemplate", "rewardCoins", "rewardPearls", "eventDate"})
-    public EventBean(long eventId, UUID eventOrganizer, String eventTemplate, int rewardCoins, int rewardPearls, Timestamp eventDate)
-    {
+    public EventBean(long eventId, UUID eventOrganizer, String eventTemplate, int rewardCoins, int rewardPearls, Timestamp eventDate) {
         this.eventId = eventId;
         this.eventOrganizer = eventOrganizer;
         this.eventTemplate = eventTemplate;
@@ -58,17 +56,48 @@ public class EventBean
     }
 
     // Getters
-    public long getEventId() { return this.eventId; }
-    public UUID getEventOrganizer() { return this.eventOrganizer; }
-    public String getEventTemplate() { return this.eventTemplate; }
-    public int getRewardCoins() { return this.rewardCoins; }
-    public int getRewardPearls() { return this.rewardPearls; }
-    public Timestamp getEventDate() { return this.eventDate; }
+    public long getEventId() {
+        return this.eventId;
+    }
+
+    public UUID getEventOrganizer() {
+        return this.eventOrganizer;
+    }
 
     // Setters
-    public void setEventOrganizer(UUID eventOrganizer) { this.eventOrganizer = eventOrganizer; }
-    public void setEventTemplate(String eventTemplate) { this.eventTemplate = eventTemplate; }
-    public void setRewardCoins(int rewardCoins) { this.rewardCoins = rewardCoins; }
-    public void setRewardPearls(int rewardPearls) { this.rewardPearls = rewardPearls; }
-    public void setEventDate(Timestamp eventDate) { this.eventDate = eventDate; }
+    public void setEventOrganizer(UUID eventOrganizer) {
+        this.eventOrganizer = eventOrganizer;
+    }
+
+    public String getEventTemplate() {
+        return this.eventTemplate;
+    }
+
+    public void setEventTemplate(String eventTemplate) {
+        this.eventTemplate = eventTemplate;
+    }
+
+    public int getRewardCoins() {
+        return this.rewardCoins;
+    }
+
+    public void setRewardCoins(int rewardCoins) {
+        this.rewardCoins = rewardCoins;
+    }
+
+    public int getRewardPearls() {
+        return this.rewardPearls;
+    }
+
+    public void setRewardPearls(int rewardPearls) {
+        this.rewardPearls = rewardPearls;
+    }
+
+    public Timestamp getEventDate() {
+        return this.eventDate;
+    }
+
+    public void setEventDate(Timestamp eventDate) {
+        this.eventDate = eventDate;
+    }
 }

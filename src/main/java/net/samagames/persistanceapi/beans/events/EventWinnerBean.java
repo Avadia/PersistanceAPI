@@ -19,8 +19,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class EventWinnerBean
-{
+public class EventWinnerBean {
     /* Database Structure
 
     Table : event_winners
@@ -34,25 +33,37 @@ public class EventWinnerBean
     */
 
     // Defines
-    private long winId;
+    private final long winId;
     private long eventId;
     private UUID eventWinner;
 
     // Constructor
     @ConstructorProperties({"winId", "eventId", "eventWinner"})
-    public EventWinnerBean(long winId, long eventId, UUID eventWinner)
-    {
+    public EventWinnerBean(long winId, long eventId, UUID eventWinner) {
         this.winId = winId;
         this.eventId = eventId;
         this.eventWinner = eventWinner;
     }
 
     // Getters
-    public long getWinId() { return this.winId; }
-    public long getEventId() { return this.eventId; }
-    public UUID getEventWinner() { return this.eventWinner; }
+    public long getWinId() {
+        return this.winId;
+    }
+
+    public long getEventId() {
+        return this.eventId;
+    }
 
     // Setters
-    public void setEventId(long eventId) { this.eventId = eventId; }
-    public void setEventWinner(UUID eventWinner) { this.eventWinner = eventWinner; }
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
+    }
+
+    public UUID getEventWinner() {
+        return this.eventWinner;
+    }
+
+    public void setEventWinner(UUID eventWinner) {
+        this.eventWinner = eventWinner;
+    }
 }

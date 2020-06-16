@@ -25,18 +25,15 @@ import java.util.List;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class MessageManager
-{
+public class MessageManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the scheduled message by ID
-    public ScheduledMessageBean getScheduledMessage(int messageId, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public ScheduledMessageBean getScheduledMessage(int messageId, DataSource dataSource) throws Exception {
+        try {
             // Defines
             ScheduledMessageBean scheduledMessageBean = null;
 
@@ -53,8 +50,7 @@ public class MessageManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String messageText = resultset.getString("message_text");
                 int scheduleTime = resultset.getInt("schedule_time");
@@ -63,24 +59,18 @@ public class MessageManager
             }
 
             return scheduledMessageBean;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the scheduled messages
-    public List<ScheduledMessageBean> getScheduledMessages(DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public List<ScheduledMessageBean> getScheduledMessages(DataSource dataSource) throws Exception {
+        try {
             // Defines
             List<ScheduledMessageBean> scheduledMessages = new ArrayList<>();
 
@@ -96,8 +86,7 @@ public class MessageManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 int messageId = resultset.getInt("message_id");
                 String messageText = resultset.getString("message_text");
@@ -107,25 +96,19 @@ public class MessageManager
             }
 
             return scheduledMessages;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update the scheduled message
-    public void updateScheduledMessage(ScheduledMessageBean scheduledMessageBean, DataSource dataSource) throws Exception
-    {
+    public void updateScheduledMessage(ScheduledMessageBean scheduledMessageBean, DataSource dataSource) throws Exception {
         // Update the players data
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -139,25 +122,19 @@ public class MessageManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Create the scheduled message
-    public void createScheduledMessage(ScheduledMessageBean scheduledMessageBean, DataSource dataSource) throws Exception
-    {
+    public void createScheduledMessage(ScheduledMessageBean scheduledMessageBean, DataSource dataSource) throws Exception {
         // Create the player
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -170,43 +147,32 @@ public class MessageManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

@@ -19,8 +19,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PlayerSettingsBean
-{
+public class PlayerSettingsBean {
     /* Database structure
 
     Table : player_settings
@@ -66,12 +65,11 @@ public class PlayerSettingsBean
 
     // Constructor
     @ConstructorProperties({"uuid", "jukeboxListen", "groupDemandReceive", "friendshipDemandReceive", "notificationReceive", "privateMessageReceive",
-    "chatVisible", "playerVisible", "waitingLineNotification", "otherPlayerInteraction", "clickOnMeActivation", "allowStatisticOnClick", "allowCoinsOnClick",
-    "allowPowdersOnClick", "allowClickOnOther", "elytraActivated"})
+            "chatVisible", "playerVisible", "waitingLineNotification", "otherPlayerInteraction", "clickOnMeActivation", "allowStatisticOnClick", "allowCoinsOnClick",
+            "allowPowdersOnClick", "allowClickOnOther", "elytraActivated"})
     public PlayerSettingsBean(UUID uuid, boolean jukeboxListen, boolean groupDemandReceive, boolean friendshipDemandReceive, boolean notificationReceive, boolean privateMessageReceive,
                               boolean chatVisible, boolean playerVisible, boolean waitingLineNotification, boolean otherPlayerInteraction, boolean clickOnMeActivation,
-                              boolean allowStatisticOnClick, boolean allowCoinsOnClick, boolean allowPowdersOnClick, boolean allowClickOnOther, boolean elytraActivated)
-    {
+                              boolean allowStatisticOnClick, boolean allowCoinsOnClick, boolean allowPowdersOnClick, boolean allowClickOnOther, boolean elytraActivated) {
         this.uuid = uuid;
         this.jukeboxListen = jukeboxListen;
         this.groupDemandReceive = groupDemandReceive;
@@ -91,38 +89,132 @@ public class PlayerSettingsBean
     }
 
     // Getters
-    public UUID getUuid() { return this.uuid; }
-    public boolean isJukeboxListen() { return this.jukeboxListen; }
-    public boolean isGroupDemandReceive() { return this.groupDemandReceive; }
-    public boolean isFriendshipDemandReceive() { return this.friendshipDemandReceive; }
-    public boolean isNotificationReceive() { return this.notificationReceive; }
-    public boolean isPrivateMessageReceive() { return this.privateMessageReceive; }
-    public boolean isChatVisible() { return this.chatVisible; }
-    public boolean isPlayerVisible() { return this.playerVisible; }
-    public boolean isWaitingLineNotification() { return this.waitingLineNotification; }
-    public boolean isOtherPlayerInteraction() { return this.otherPlayerInteraction; }
-    public boolean isClickOnMeActivation() { return this.clickOnMeActivation; }
-    public boolean isAllowStatisticOnClick() { return this.allowStatisticOnClick; }
-    public boolean isAllowCoinsOnClick() { return this.allowCoinsOnClick; }
-    public boolean isAllowPowdersOnClick() { return this.allowPowdersOnClick; }
-    public boolean isAllowClickOnOther() { return this.allowClickOnOther; }
-    public boolean isElytraActivated() { return elytraActivated; }
+    public UUID getUuid() {
+        return this.uuid;
+    }
 
     // Setters
-    public void setUuid(UUID uuid){ this.uuid = uuid; }
-    public void setJukeboxListen(boolean jukeboxListen) { this.jukeboxListen = jukeboxListen; }
-    public void setGroupDemandReceive(boolean groupDemandReceive) { this.groupDemandReceive = groupDemandReceive; }
-    public void setFriendshipDemandReceive(boolean friendshipDemandReceive) { this.friendshipDemandReceive = friendshipDemandReceive; }
-    public void setNotificationReceive(boolean notificationReceive) { this.notificationReceive = notificationReceive; }
-    public void setPrivateMessageReceive(boolean privateMessageReceive) { this.privateMessageReceive = privateMessageReceive; }
-    public void setChatVisible(boolean chatVisible) { this.chatVisible = chatVisible; }
-    public void setPlayerVisible(boolean playerVisible) { this.playerVisible = playerVisible; }
-    public void setWaitingLineNotification(boolean waitingLineNotification) { this.waitingLineNotification = waitingLineNotification; }
-    public void setOtherPlayerInteraction(boolean otherPlayerInteraction) { this.otherPlayerInteraction = otherPlayerInteraction; }
-    public void setClickOnMeActivation(boolean clickOnMeActivation) { this.clickOnMeActivation = clickOnMeActivation; }
-    public void setAllowStatisticOnClick(boolean allowStatisticOnClick) { this.allowStatisticOnClick = allowStatisticOnClick; }
-    public void setAllowCoinsOnClick(boolean allowCoinsOnClick) { this.allowCoinsOnClick = allowCoinsOnClick; }
-    public void setAllowPowdersOnClick(boolean allowPowdersOnClick) { this.allowPowdersOnClick = allowPowdersOnClick; }
-    public void setAllowClickOnOther(boolean allowClickOnOther) { this.allowClickOnOther = allowClickOnOther; }
-    public void setElytraActivated(boolean elytraActivated) { this.elytraActivated = elytraActivated; }
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public boolean isJukeboxListen() {
+        return this.jukeboxListen;
+    }
+
+    public void setJukeboxListen(boolean jukeboxListen) {
+        this.jukeboxListen = jukeboxListen;
+    }
+
+    public boolean isGroupDemandReceive() {
+        return this.groupDemandReceive;
+    }
+
+    public void setGroupDemandReceive(boolean groupDemandReceive) {
+        this.groupDemandReceive = groupDemandReceive;
+    }
+
+    public boolean isFriendshipDemandReceive() {
+        return this.friendshipDemandReceive;
+    }
+
+    public void setFriendshipDemandReceive(boolean friendshipDemandReceive) {
+        this.friendshipDemandReceive = friendshipDemandReceive;
+    }
+
+    public boolean isNotificationReceive() {
+        return this.notificationReceive;
+    }
+
+    public void setNotificationReceive(boolean notificationReceive) {
+        this.notificationReceive = notificationReceive;
+    }
+
+    public boolean isPrivateMessageReceive() {
+        return this.privateMessageReceive;
+    }
+
+    public void setPrivateMessageReceive(boolean privateMessageReceive) {
+        this.privateMessageReceive = privateMessageReceive;
+    }
+
+    public boolean isChatVisible() {
+        return this.chatVisible;
+    }
+
+    public void setChatVisible(boolean chatVisible) {
+        this.chatVisible = chatVisible;
+    }
+
+    public boolean isPlayerVisible() {
+        return this.playerVisible;
+    }
+
+    public void setPlayerVisible(boolean playerVisible) {
+        this.playerVisible = playerVisible;
+    }
+
+    public boolean isWaitingLineNotification() {
+        return this.waitingLineNotification;
+    }
+
+    public void setWaitingLineNotification(boolean waitingLineNotification) {
+        this.waitingLineNotification = waitingLineNotification;
+    }
+
+    public boolean isOtherPlayerInteraction() {
+        return this.otherPlayerInteraction;
+    }
+
+    public void setOtherPlayerInteraction(boolean otherPlayerInteraction) {
+        this.otherPlayerInteraction = otherPlayerInteraction;
+    }
+
+    public boolean isClickOnMeActivation() {
+        return this.clickOnMeActivation;
+    }
+
+    public void setClickOnMeActivation(boolean clickOnMeActivation) {
+        this.clickOnMeActivation = clickOnMeActivation;
+    }
+
+    public boolean isAllowStatisticOnClick() {
+        return this.allowStatisticOnClick;
+    }
+
+    public void setAllowStatisticOnClick(boolean allowStatisticOnClick) {
+        this.allowStatisticOnClick = allowStatisticOnClick;
+    }
+
+    public boolean isAllowCoinsOnClick() {
+        return this.allowCoinsOnClick;
+    }
+
+    public void setAllowCoinsOnClick(boolean allowCoinsOnClick) {
+        this.allowCoinsOnClick = allowCoinsOnClick;
+    }
+
+    public boolean isAllowPowdersOnClick() {
+        return this.allowPowdersOnClick;
+    }
+
+    public void setAllowPowdersOnClick(boolean allowPowdersOnClick) {
+        this.allowPowdersOnClick = allowPowdersOnClick;
+    }
+
+    public boolean isAllowClickOnOther() {
+        return this.allowClickOnOther;
+    }
+
+    public void setAllowClickOnOther(boolean allowClickOnOther) {
+        this.allowClickOnOther = allowClickOnOther;
+    }
+
+    public boolean isElytraActivated() {
+        return elytraActivated;
+    }
+
+    public void setElytraActivated(boolean elytraActivated) {
+        this.elytraActivated = elytraActivated;
+    }
 }

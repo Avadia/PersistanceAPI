@@ -18,8 +18,7 @@ import java.util.HashMap;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PlayerPermissionsBean
-{
+public class PlayerPermissionsBean {
     // Defines aggregation of permissions
     private APIPermissionsBean apiPermissions;
     private BukkitPermissionsBean bukkitPermissions;
@@ -31,8 +30,7 @@ public class PlayerPermissionsBean
 
     // Constructor
     public PlayerPermissionsBean(APIPermissionsBean apiPermissions, BukkitPermissionsBean bukkitPermissions, BungeeRedisPermissionsBean bungeeRedisPermissions, HubPermissionsBean hubPermissions,
-                                ModerationPermissionsBean moderationPermissions, ProxiesPermissionsBean proxiesPermissions, StaffPermissionsBean staffPermissions)
-    {
+                                 ModerationPermissionsBean moderationPermissions, ProxiesPermissionsBean proxiesPermissions, StaffPermissionsBean staffPermissions) {
         this.apiPermissions = apiPermissions;
         this.bukkitPermissions = bukkitPermissions;
         this.bungeeRedisPermissions = bungeeRedisPermissions;
@@ -43,26 +41,65 @@ public class PlayerPermissionsBean
     }
 
     // Getters
-    public APIPermissionsBean getApiPermissions() { return apiPermissions; }
-    public BukkitPermissionsBean getBukkitPermissions() { return bukkitPermissions; }
-    public BungeeRedisPermissionsBean getBungeeRedisPermissions() { return bungeeRedisPermissions; }
-    public HubPermissionsBean getHubPermissions() { return hubPermissions; }
-    public ModerationPermissionsBean getModerationPermissions() { return moderationPermissions; }
-    public ProxiesPermissionsBean getProxiesPermissions() { return proxiesPermissions; }
-    public StaffPermissionsBean getStaffPermissions() { return staffPermissions; }
+    public APIPermissionsBean getApiPermissions() {
+        return apiPermissions;
+    }
 
     // Setters
-    public void setApiPermissions(APIPermissionsBean apiPermissions) { this.apiPermissions = apiPermissions; }
-    public void setBukkitPermissions(BukkitPermissionsBean bukkitPermissions) { this.bukkitPermissions = bukkitPermissions; }
-    public void setBungeeRedisPermisions(BungeeRedisPermissionsBean bungeeRedisPermissions) { this.bungeeRedisPermissions = bungeeRedisPermissions; }
-    public void setHubPermissions(HubPermissionsBean hubPermissions) { this.hubPermissions = hubPermissions; }
-    public void setModerationPermissions(ModerationPermissionsBean moderationPermissions) { this.moderationPermissions = moderationPermissions; }
-    public void setProxiesPermissions(ProxiesPermissionsBean proxiesPermissions) { this.proxiesPermissions = proxiesPermissions; }
-    public void setStaffPermissions(StaffPermissionsBean staffPermissions) { this.staffPermissions = staffPermissions; }
+    public void setApiPermissions(APIPermissionsBean apiPermissions) {
+        this.apiPermissions = apiPermissions;
+    }
+
+    public BukkitPermissionsBean getBukkitPermissions() {
+        return bukkitPermissions;
+    }
+
+    public void setBukkitPermissions(BukkitPermissionsBean bukkitPermissions) {
+        this.bukkitPermissions = bukkitPermissions;
+    }
+
+    public BungeeRedisPermissionsBean getBungeeRedisPermissions() {
+        return bungeeRedisPermissions;
+    }
+
+    public HubPermissionsBean getHubPermissions() {
+        return hubPermissions;
+    }
+
+    public void setHubPermissions(HubPermissionsBean hubPermissions) {
+        this.hubPermissions = hubPermissions;
+    }
+
+    public ModerationPermissionsBean getModerationPermissions() {
+        return moderationPermissions;
+    }
+
+    public void setModerationPermissions(ModerationPermissionsBean moderationPermissions) {
+        this.moderationPermissions = moderationPermissions;
+    }
+
+    public ProxiesPermissionsBean getProxiesPermissions() {
+        return proxiesPermissions;
+    }
+
+    public void setProxiesPermissions(ProxiesPermissionsBean proxiesPermissions) {
+        this.proxiesPermissions = proxiesPermissions;
+    }
+
+    public StaffPermissionsBean getStaffPermissions() {
+        return staffPermissions;
+    }
+
+    public void setStaffPermissions(StaffPermissionsBean staffPermissions) {
+        this.staffPermissions = staffPermissions;
+    }
+
+    public void setBungeeRedisPermisions(BungeeRedisPermissionsBean bungeeRedisPermissions) {
+        this.bungeeRedisPermissions = bungeeRedisPermissions;
+    }
 
     // Reverse the bean to HashMap
-    public HashMap<String, Boolean> getHashMap()
-    {
+    public HashMap<String, Boolean> getHashMap() {
         HashMap<String, Boolean> permissionHashMap = new HashMap<>();
         permissionHashMap.putAll(this.apiPermissions.getHashMap());
         permissionHashMap.putAll(this.bukkitPermissions.getHashMap());

@@ -1,8 +1,9 @@
 package net.samagames.persistanceapi.datamanager;
 
-import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.*;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.datamanager.aggregationmanager.permissions.*;
+
 import javax.sql.DataSource;
 
 /*
@@ -21,8 +22,7 @@ import javax.sql.DataSource;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PermissionsManager
-{
+public class PermissionsManager {
     // Defines
     public APIPermissionsManager apiPermissionsManager;
     public BukkitPermissionsManager bukkitPermissionsManager;
@@ -33,9 +33,8 @@ public class PermissionsManager
     public StaffPermissionsManager staffPermissionsManager;
 
     // Constructor
-    public PermissionsManager()
-    {
-        this.apiPermissionsManager =  new APIPermissionsManager();
+    public PermissionsManager() {
+        this.apiPermissionsManager = new APIPermissionsManager();
         this.bukkitPermissionsManager = new BukkitPermissionsManager();
         this.bungeeRedisPermissionsManager = new BungeeRedisPermissionsManager();
         this.hubPermissionsManager = new HubPermissionsManager();
@@ -45,8 +44,7 @@ public class PermissionsManager
     }
 
     // Get all player permissions
-    public PlayerPermissionsBean getAllPlayerPermissions(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public PlayerPermissionsBean getAllPlayerPermissions(PlayerBean player, DataSource dataSource) throws Exception {
         // Declared bean
         APIPermissionsBean apiPermissions;
         BukkitPermissionsBean bukkitPermissions;
@@ -57,8 +55,7 @@ public class PermissionsManager
         StaffPermissionsBean staffPermissions;
 
         // Get the different permissions bean
-        try
-        {
+        try {
             apiPermissions = this.apiPermissionsManager.getAPIPermissions(player, dataSource);
             bukkitPermissions = this.bukkitPermissionsManager.getBukkitPermissions(player, dataSource);
             bungeeRedisPermissions = this.bungeeRedisPermissionsManager.getBungeeRedisPermissions(player, dataSource);
@@ -66,16 +63,12 @@ public class PermissionsManager
             moderationPermissions = this.moderationPermissionsManager.getModerationPermissions(player, dataSource);
             proxiesPermissions = this.proxiesPermissionsManager.getProxiesPermissions(player, dataSource);
             staffPermissions = this.staffPermissionsManager.getStaffPermissions(player, dataSource);
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }
 
         // Create the aggregation of different permissions bean
-        PlayerPermissionsBean playerPermissionBean = new PlayerPermissionsBean(apiPermissions, bukkitPermissions, bungeeRedisPermissions, hubPermissions, moderationPermissions, proxiesPermissions, staffPermissions);
-
-        return playerPermissionBean;
+        return new PlayerPermissionsBean(apiPermissions, bukkitPermissions, bungeeRedisPermissions, hubPermissions, moderationPermissions, proxiesPermissions, staffPermissions);
     }
 }

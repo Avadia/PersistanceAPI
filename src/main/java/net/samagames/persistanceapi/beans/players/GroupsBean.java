@@ -16,8 +16,7 @@ package net.samagames.persistanceapi.beans.players;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class GroupsBean
-{
+public class GroupsBean {
     /* Database Structure
 
     Table : groups
@@ -44,14 +43,12 @@ public class GroupsBean
     private int multiplier;
 
     //Empty constructor because we fill it when needed
-    public GroupsBean()
-    {
+    public GroupsBean() {
         super();
     }
 
     // Constructor
-    public GroupsBean(long groupId, String groupName, int rank, String tag, String prefix, String suffix, int multiplier)
-    {
+    public GroupsBean(long groupId, String groupName, int rank, String tag, String prefix, String suffix, int multiplier) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.rank = rank;
@@ -62,21 +59,60 @@ public class GroupsBean
     }
 
     // Getters
-    public long getGroupId() { return this.groupId; }
-    public String getPgroupName() { return this.groupName; }
-    public int getRank() { return this.rank; }
-    public String getTag() { return this.tag; }
-    public String getPrefix() { return this.prefix; }
-    public String getSuffix() { return this.suffix; }
-    public int getMultiplier() { return this.multiplier; }
+    public long getGroupId() {
+        return this.groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getPgroupName() {
+        return this.groupName;
+    }
 
     // Setters
-    public void setPgroupName(String groupName) { this.groupName = groupName; }
-    public void setRank(int rank) { this.rank = rank; }
-    public void setTag(String tag) { this.tag = tag; }
-    public void setPrefix(String prefix) { this.prefix = prefix; }
-    public void setSuffix(String suffix) { this.suffix = suffix; }
-    public void setMultiplier(int multiplier) { this.multiplier = multiplier; }
-    public void setGroupId(long groupId) { this.groupId = groupId; }
+    public void setPgroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
+    public int getRank() {
+        return this.rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getTag() {
+        return this.tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getPrefix() {
+        return this.prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getSuffix() {
+        return this.suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public int getMultiplier() {
+        return this.multiplier;
+    }
+
+    public void setMultiplier(int multiplier) {
+        this.multiplier = multiplier;
+    }
 }

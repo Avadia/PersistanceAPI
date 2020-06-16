@@ -1,12 +1,12 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
-import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.BungeeRedisPermissionsBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 /*
  * This file is part of PersistanceAPI.
@@ -24,20 +24,17 @@ import java.sql.Statement;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class BungeeRedisPermissionsManager
-{
+public class BungeeRedisPermissionsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the permissions for Bungee & Redis
-    public BungeeRedisPermissionsBean getBungeeRedisPermissions(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        BungeeRedisPermissionsBean bungeeRedisPermissionsBean = null;
+    public BungeeRedisPermissionsBean getBungeeRedisPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+        BungeeRedisPermissionsBean bungeeRedisPermissionsBean;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -54,8 +51,7 @@ public class BungeeRedisPermissionsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long groupId = resultset.getLong("groups_id");
                 boolean bungeecordCommandList = resultset.getBoolean("bungeecord_command_list");
@@ -73,22 +69,16 @@ public class BungeeRedisPermissionsManager
                 boolean bungeecordCommandAlert = resultset.getBoolean("bungeecord_command_alert");
 
                 bungeeRedisPermissionsBean = new BungeeRedisPermissionsBean(groupId, bungeecordCommandList, bungeecordCommandFind, redisbungeeCommandLastSeen, redisbungeeCommandSendtoAll,
-                        bungeecordCommandIp, redisbungeeCommandServerId, redisbungeCommandServerIds, redisbungeeCommandPproxy, redisbungeeCommandPlist,bungeecordCommandServer,
+                        bungeecordCommandIp, redisbungeeCommandServerId, redisbungeCommandServerIds, redisbungeeCommandPproxy, redisbungeeCommandPlist, bungeecordCommandServer,
                         bungeecordCommandSend, bungeecordCommandEnd, bungeecordCommandAlert);
-            }
-            else
-            {
+            } else {
                 // If there no dimension stats int the database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -97,29 +87,22 @@ public class BungeeRedisPermissionsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

@@ -16,8 +16,7 @@ package net.samagames.persistanceapi.beans.statistics;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PlayerStatisticsBean
-{
+public class PlayerStatisticsBean {
     // Defines aggregation of statistics
     private DimensionsStatisticsBean dimensionsStats;
     private JukeBoxStatisticsBean jukeBoxStats;
@@ -33,8 +32,7 @@ public class PlayerStatisticsBean
     private TheDropperStatisticsBean theDropperStats;
 
     // Empty constructor for reflection creation
-    public PlayerStatisticsBean()
-    {
+    public PlayerStatisticsBean() {
         super();
     }
 
@@ -50,8 +48,7 @@ public class PlayerStatisticsBean
                                 UltraFlagKeeperStatisticsBean ultraFlagKeeperStats,
                                 UppervoidStatisticsBean uppervoidStats,
                                 ChunkWarsStatisticsBean chunkWarsStats,
-                                TheDropperStatisticsBean theDropperStats)
-    {
+                                TheDropperStatisticsBean theDropperStats) {
         this.dimensionsStats = dimensionsStats;
         this.jukeBoxStats = jukeBoxStats;
         this.quakeStats = quakeStats;
@@ -70,36 +67,47 @@ public class PlayerStatisticsBean
     public DimensionsStatisticsBean getDimensionsStats() {
         return dimensionsStats;
     }
+
     public JukeBoxStatisticsBean getJukeBoxStats() {
         return jukeBoxStats;
     }
+
     public QuakeStatisticsBean getQuakeStats() {
         return quakeStats;
     }
+
     public UHCOriginalStatisticsBean getUHCOriginalStats() {
         return uhcOriginalStats;
     }
+
     public UHCRunStatisticsBean getUHCRunStats() {
         return uhcRunStats;
     }
+
     public DoubleRunnerStatisticsBean getDoubleRunnerStats() {
         return doubleRunnerStats;
     }
+
     public UHCRandomStatisticsBean getUHCRandomStats() {
         return uhcRandomStats;
     }
+
     public RandomRunStatisticsBean getRandomRunStats() {
         return randomRunStats;
     }
+
     public UltraFlagKeeperStatisticsBean getUltraFlagKeeperStats() {
         return ultraFlagKeeperStats;
     }
+
     public UppervoidStatisticsBean getUppervoidStats() {
         return uppervoidStats;
     }
+
     public ChunkWarsStatisticsBean getChunkWarsStats() {
         return chunkWarsStats;
     }
+
     public TheDropperStatisticsBean getTheDropperStats() {
         return theDropperStats;
     }
@@ -108,36 +116,47 @@ public class PlayerStatisticsBean
     public void setDimensionsStats(DimensionsStatisticsBean dimensionsStats) {
         this.dimensionsStats = dimensionsStats;
     }
+
     public void setJukeBoxStats(JukeBoxStatisticsBean jukeBoxStats) {
         this.jukeBoxStats = jukeBoxStats;
     }
+
     public void setQuakeStats(QuakeStatisticsBean quakeStats) {
         this.quakeStats = quakeStats;
     }
+
     public void setUHCOriginalStats(UHCOriginalStatisticsBean uhcOriginalStats) {
         this.uhcOriginalStats = uhcOriginalStats;
     }
+
     public void setUHCRunStats(UHCRunStatisticsBean uhcRunStats) {
         this.uhcRunStats = uhcRunStats;
     }
+
     public void setDoubleRunnerStats(DoubleRunnerStatisticsBean doubleRunnerStats) {
         this.doubleRunnerStats = doubleRunnerStats;
     }
+
     public void setUHCRandomStats(UHCRandomStatisticsBean uhcRandomStats) {
         this.uhcRandomStats = uhcRandomStats;
     }
+
     public void setRandomRunStats(RandomRunStatisticsBean randomRunStats) {
         this.randomRunStats = randomRunStats;
     }
+
     public void setUltraFlagKeeperStats(UltraFlagKeeperStatisticsBean ultraFlagKeeperStats) {
         this.ultraFlagKeeperStats = ultraFlagKeeperStats;
     }
+
     public void setUppervoidStats(UppervoidStatisticsBean uppervoidStats) {
         this.uppervoidStats = uppervoidStats;
     }
+
     public void setChunkWarsStats(ChunkWarsStatisticsBean chunkWarsStats) {
         this.chunkWarsStats = chunkWarsStats;
     }
+
     public void setTheDropperStats(TheDropperStatisticsBean theDropperStats) {
         this.theDropperStats = theDropperStats;
     }

@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class DimensionsStatisticsBean
-{
+public class DimensionsStatisticsBean {
     /* Database Structure
 
     Table : dimensions_stats
@@ -40,7 +39,7 @@ public class DimensionsStatisticsBean
     */
 
     // Defines
-    private UUID uuid;
+    private final UUID uuid;
     private int deaths;
     private int kills;
     private int playedGames;
@@ -51,8 +50,7 @@ public class DimensionsStatisticsBean
 
     // Constructor
     @ConstructorProperties({"uuid", "deaths", "kills", "playedGames", "wins", "creationDate", "updateDate", "playedTime"})
-    public DimensionsStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
-    {
+    public DimensionsStatisticsBean(UUID uuid, int deaths, int kills, int playedGames, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime) {
         this.uuid = uuid;
         this.deaths = deaths;
         this.kills = kills;
@@ -64,53 +62,60 @@ public class DimensionsStatisticsBean
     }
 
     // Getters
-    public int getDeaths()
-    {
+    public int getDeaths() {
         return this.deaths;
     }
-    public int getKills()
-    {
+
+    // Setters
+    public void setDeaths(int deaths) {
+        this.deaths = deaths;
+    }
+
+    public int getKills() {
         return this.kills;
     }
-    public int getPlayedGames()
-    {
-        return this.playedGames;
-    }
+
     public int getWins() {
         return wins;
     }
+
     public Timestamp getCreationDate() {
         return creationDate;
     }
+
     public Timestamp getUpdateDate() {
         return updateDate;
     }
-    public long getPlayedTime() { return playedTime; }
 
-    // Setters
-    public void setDeaths(int deaths)
-    {
-        this.deaths = deaths;
-    }
-    public void setKills(int kills)
-    {
+    public void setKills(int kills) {
         this.kills = kills;
     }
-    public void setPlayedGames(int playedGames)
-    {
+
+    public int getPlayedGames() {
+        return this.playedGames;
+    }
+
+    public void setPlayedGames(int playedGames) {
         this.playedGames = playedGames;
     }
-    public void setWins(int wins)
-    {
+
+    public long getPlayedTime() {
+        return playedTime;
+    }
+
+    public void setPlayedTime(long playedTime) {
+        this.playedTime = playedTime;
+    }
+
+    public void setWins(int wins) {
         this.wins = wins;
     }
-    public void setCreationDate(Timestamp creationDate)
-    {
+
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
-    public void setUpdateDate(Timestamp updateDate)
-    {
+
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
-    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
 }

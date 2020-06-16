@@ -1,9 +1,12 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
-import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
+
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /*
  * This file is part of PersistanceAPI.
@@ -21,20 +24,17 @@ import java.sql.*;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class APIPermissionsManager
-{
+public class APIPermissionsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the permissions for the API
-    public APIPermissionsBean getAPIPermissions(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        APIPermissionsBean apiPermissionsBean = null;
+    public APIPermissionsBean getAPIPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+        APIPermissionsBean apiPermissionsBean;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -50,8 +50,7 @@ public class APIPermissionsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long groupId = resultset.getLong("groups_id");
                 boolean apiServersDebug = resultset.getBoolean("api_servers_debug");
@@ -72,20 +71,14 @@ public class APIPermissionsManager
 
                 apiPermissionsBean = new APIPermissionsBean(groupId, apiServersDebug, apiPermissionsRefresh, apiCoinsGetOther, apiCoinsCredit, apiCoinsWithdraw, apiInventoryShow,
                         apiPlayerDataShow, apiPlayerdataSet, apiPlayerdataDel, apiModoSpeakup, apiStarsGetother, apiStarsCredit, apiStarsWithdraw, apiGameStart, apiChatBypass);
-            }
-            else
-            {
+            } else {
                 // If there no dimension stats int the database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -94,29 +87,22 @@ public class APIPermissionsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

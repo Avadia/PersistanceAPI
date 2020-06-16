@@ -2,6 +2,7 @@ package net.samagames.persistanceapi.beans.permissions;
 
 import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
+
 import java.util.Map;
 
 /*
@@ -20,8 +21,7 @@ import java.util.Map;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class StaffPermissionsBean
-{
+public class StaffPermissionsBean {
     /* Database Structure
 
     Table : staff_permissions
@@ -41,7 +41,7 @@ public class StaffPermissionsBean
     */
 
     // Defines
-    private long groupsId;
+    private final long groupsId;
     @Perm("netjoin.closed")
     private boolean netjoinClosed;
     @Perm("netjoin.vip")
@@ -59,12 +59,10 @@ public class StaffPermissionsBean
     @Perm("network.admin")
     private boolean networkAdmin;
 
-
     // Constructor
     public StaffPermissionsBean(long groupsId, boolean netjoinClosed, boolean netjoinVip,
                                 boolean netjoinFull, boolean trackerFamous, boolean networkVip, boolean networkVipplus,
-                                boolean networkStaff, boolean networkAdmin)
-    {
+                                boolean networkStaff, boolean networkAdmin) {
         this.groupsId = groupsId;
         this.netjoinClosed = netjoinClosed;
         this.netjoinVip = netjoinVip;
@@ -77,36 +75,82 @@ public class StaffPermissionsBean
     }
 
     // Getters
-    public long getGroupsId() { return this.groupsId; }
-    public boolean isNetjoinClosed() { return this.netjoinClosed; }
-    public boolean isNetjoinVip() { return this.netjoinVip; }
-    public boolean isNetjoinFull() { return this.netjoinFull; }
-    public boolean isTrackerFamous() { return this.trackerFamous; }
-    public boolean isNetworkVip() { return networkVip; }
-    public boolean isNetworkVipplus() { return networkVipplus; }
-    public boolean isNetworkStaff() { return networkStaff; }
-    public boolean isNetworkAdmin() { return networkAdmin; }
+    public long getGroupsId() {
+        return this.groupsId;
+    }
+
+    public boolean isNetjoinClosed() {
+        return this.netjoinClosed;
+    }
 
     // Setters
-    public void setNetjoinClosed(boolean netjoinClosed) { this.netjoinClosed = netjoinClosed; }
-    public void setNetjoinVip(boolean netjoinVip) { this.netjoinVip = netjoinVip; }
-    public void setNetjoinFull(boolean netjoinFull) { this.netjoinFull = netjoinFull; }
-    public void setTrackerFamous(boolean trackerFamous) { this.trackerFamous = trackerFamous; }
-    public void setNetworkVip(boolean networkVip) { this.networkVip = networkVip; }
-    public void setNetworkVipplus(boolean networkVipplus) { this.networkVipplus = networkVipplus; }
-    public void setNetworkStaff(boolean networkStaff) { this.networkStaff = networkStaff; }
-    public void setNetworkAdmin(boolean networkAdmin) { this.networkAdmin = networkAdmin; }
+    public void setNetjoinClosed(boolean netjoinClosed) {
+        this.netjoinClosed = netjoinClosed;
+    }
+
+    public boolean isNetjoinVip() {
+        return this.netjoinVip;
+    }
+
+    public void setNetjoinVip(boolean netjoinVip) {
+        this.netjoinVip = netjoinVip;
+    }
+
+    public boolean isNetjoinFull() {
+        return this.netjoinFull;
+    }
+
+    public void setNetjoinFull(boolean netjoinFull) {
+        this.netjoinFull = netjoinFull;
+    }
+
+    public boolean isTrackerFamous() {
+        return this.trackerFamous;
+    }
+
+    public void setTrackerFamous(boolean trackerFamous) {
+        this.trackerFamous = trackerFamous;
+    }
+
+    public boolean isNetworkVip() {
+        return networkVip;
+    }
+
+    public void setNetworkVip(boolean networkVip) {
+        this.networkVip = networkVip;
+    }
+
+    public boolean isNetworkVipplus() {
+        return networkVipplus;
+    }
+
+    public void setNetworkVipplus(boolean networkVipplus) {
+        this.networkVipplus = networkVipplus;
+    }
+
+    public boolean isNetworkStaff() {
+        return networkStaff;
+    }
+
+    public void setNetworkStaff(boolean networkStaff) {
+        this.networkStaff = networkStaff;
+    }
+
+    public boolean isNetworkAdmin() {
+        return networkAdmin;
+    }
+
+    public void setNetworkAdmin(boolean networkAdmin) {
+        this.networkAdmin = networkAdmin;
+    }
 
     // Reverse the bean to HashMap
-    public Map<String, Boolean> getHashMap()
-    {
+    public Map<String, Boolean> getHashMap() {
         return Transcoder.getHashMapPerm(this);
     }
 
     // Set a value into the HashMap
-    public void set(String key, Boolean value)
-    {
+    public void set(String key, Boolean value) {
         Transcoder.setAnnotationValue(this, key, value);
     }
-
 }

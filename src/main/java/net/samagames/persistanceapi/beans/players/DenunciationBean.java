@@ -19,8 +19,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class DenunciationBean
-{
+public class DenunciationBean {
     /* Database Structure
 
     Table : denunciation
@@ -44,8 +43,7 @@ public class DenunciationBean
     private String suspectName;
 
     // Constructor
-    public DenunciationBean(UUID denouncer, Timestamp date, String reason, String suspectName)
-    {
+    public DenunciationBean(UUID denouncer, Timestamp date, String reason, String suspectName) {
         this.denouncer = denouncer;
         this.date = date;
         this.reason = reason;
@@ -53,16 +51,40 @@ public class DenunciationBean
     }
 
     // Getters
-    public long getDenouncementId() { return denouncementId; }
-    public UUID getDenouncer() { return denouncer; }
-    public Timestamp getDate() { return date; }
-    public String getReason() { return reason; }
-    public String getSuspectName() { return suspectName; }
+    public long getDenouncementId() {
+        return denouncementId;
+    }
+
+    public UUID getDenouncer() {
+        return denouncer;
+    }
 
     // Setters
-    public void setDenouncer(UUID denouncer) { this.denouncer = denouncer; }
-    public void setDate(Timestamp date) { this.date = date; }
-    public void setReason(String reason) { this.reason = reason; }
-    public void setSuspectName(String suspectName) { this.suspectName = suspectName; }
+    public void setDenouncer(UUID denouncer) {
+        this.denouncer = denouncer;
+    }
 
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getSuspectName() {
+        return suspectName;
+    }
+
+    public void setSuspectName(String suspectName) {
+        this.suspectName = suspectName;
+    }
 }

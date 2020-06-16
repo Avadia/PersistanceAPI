@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class JukeBoxStatisticsBean
-{
+public class JukeBoxStatisticsBean {
     /* Database Structure
 
     Table : jukebox_stats
@@ -39,7 +38,7 @@ public class JukeBoxStatisticsBean
     */
 
     // Defines
-    private UUID uuid;
+    private final UUID uuid;
     private int mehs;
     private int woots;
     private int wootsGiven;
@@ -49,8 +48,7 @@ public class JukeBoxStatisticsBean
 
     // Constructor
     @ConstructorProperties({"uuid", "mehs", "woots", "wootsGiven", "creationDate", "updateDate", "playedTime"})
-    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, int wootsGiven, Timestamp creationDate, Timestamp updateDate, long playedTime)
-    {
+    public JukeBoxStatisticsBean(UUID uuid, int mehs, int woots, int wootsGiven, Timestamp creationDate, Timestamp updateDate, long playedTime) {
         this.uuid = uuid;
         this.mehs = mehs;
         this.wootsGiven = wootsGiven;
@@ -61,46 +59,52 @@ public class JukeBoxStatisticsBean
     }
 
     // Getters
-    public int getMehs()
-    {
+    public int getMehs() {
         return this.mehs;
     }
-    public int getWoots()
-    {
-        return this.woots;
+
+    // Setters
+    public void setMehs(int mehs) {
+        this.mehs = mehs;
     }
+
     public int getWootsGiven() {
         return this.wootsGiven;
     }
-    public Timestamp getCreationDate()
-    {
-        return this.creationDate;
-    }
-    public Timestamp getUpdateDate()
-    {
-        return this.updateDate;
-    }
-    public long getPlayedTime() { return playedTime; }
 
-    // Setters
-    public void setMehs(int mehs)
-    {
-        this.mehs = mehs;
+    public int getWoots() {
+        return this.woots;
     }
-    public void setWoots(int woots)
-    {
+
+    public void setWoots(int woots) {
         this.woots = woots;
     }
+
+    public Timestamp getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return this.updateDate;
+    }
+
     public void setWootsGiven(int wootsGiven) {
         this.wootsGiven = wootsGiven;
     }
-    public void setCreationDate(Timestamp creationDate)
-    {
-        this.creationDate = creationDate;
-    }
-    public void setUpdateDate(Timestamp updateDate)
-    {
+
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
-    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
+
+    public long getPlayedTime() {
+        return playedTime;
+    }
+
+    public void setPlayedTime(long playedTime) {
+        this.playedTime = playedTime;
+    }
 }

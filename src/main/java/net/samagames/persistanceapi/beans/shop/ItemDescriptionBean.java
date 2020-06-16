@@ -18,8 +18,7 @@ import java.beans.ConstructorProperties;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class ItemDescriptionBean
-{
+public class ItemDescriptionBean {
     /* Database structure
 
     Table : item_description
@@ -51,8 +50,7 @@ public class ItemDescriptionBean
 
     // Constructor
     @ConstructorProperties({"itemId", "itemName", "itemDesc", "priceCoins", "priceStars", "gameCategory", "itemMinecraftId", "itemRarity", "rankAccessibility"})
-    public ItemDescriptionBean(int itemId, String itemName, String itemDesc, int priceCoins, int priceStars, int gameCategory, String itemMinecraftId, String itemRarity, String rankAccessibility)
-    {
+    public ItemDescriptionBean(int itemId, String itemName, String itemDesc, int priceCoins, int priceStars, int gameCategory, String itemMinecraftId, String itemRarity, String rankAccessibility) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemDesc = itemDesc;
@@ -65,27 +63,76 @@ public class ItemDescriptionBean
     }
 
     // Getters
-    public int getItemId() { return this.itemId; }
-    public String getItemName() { return this.itemName; }
-    public String getItemDesc() { return this.itemDesc; }
-    public int getPriceCoins() { return this.priceCoins; }
-    public int getPriceStars() { return this.priceStars; }
-    public int getGameCategory() { return this.gameCategory; }
-    public String getItemMinecraftId() { return this.itemMinecraftId; }
-    public String getItemRarity() { return this.itemRarity; }
-    public String getRankAccessibility() { return this.rankAccessibility; }
+    public int getItemId() {
+        return this.itemId;
+    }
+
+    public String getItemName() {
+        return this.itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemDesc() {
+        return this.itemDesc;
+    }
+
+    public void setItemDesc(String itemDesc) {
+        this.itemDesc = itemDesc;
+    }
+
+    public int getPriceCoins() {
+        return this.priceCoins;
+    }
+
+    public void setPriceCoins(int priceCoins) {
+        this.priceCoins = priceCoins;
+    }
+
+    public int getPriceStars() {
+        return this.priceStars;
+    }
+
+    public void setPriceStars(int priceStars) {
+        this.priceStars = priceStars;
+    }
 
     // Setters
-
     public void setItemId(int itemId) {
         this.itemId = itemId;
     }
-    public void setItemName(String itemName) { this.itemName = itemName; }
-    public void setItemDesc(String itemDesc) { this.itemDesc = itemDesc; }
-    public void setPriceCoins(int priceCoins) { this.priceCoins = priceCoins; }
-    public void setPriceStars(int priceStars) { this.priceStars = priceStars; }
-    public void setGameCategory(int gameCategory) { this.gameCategory = gameCategory; }
-    public void setItemMinecraftId(String itemMinecraftId) { this.itemMinecraftId = itemMinecraftId; }
-    public void setItemRarity(String itemRarity) { this.itemRarity = itemRarity; }
-    public void setRankAccessibility(String rankAccessibility) { this.rankAccessibility = rankAccessibility; }
+
+    public int getGameCategory() {
+        return this.gameCategory;
+    }
+
+    public void setGameCategory(int gameCategory) {
+        this.gameCategory = gameCategory;
+    }
+
+    public String getItemMinecraftId() {
+        return this.itemMinecraftId;
+    }
+
+    public void setItemMinecraftId(String itemMinecraftId) {
+        this.itemMinecraftId = itemMinecraftId;
+    }
+
+    public String getItemRarity() {
+        return this.itemRarity;
+    }
+
+    public void setItemRarity(String itemRarity) {
+        this.itemRarity = itemRarity;
+    }
+
+    public String getRankAccessibility() {
+        return this.rankAccessibility;
+    }
+
+    public void setRankAccessibility(String rankAccessibility) {
+        this.rankAccessibility = rankAccessibility;
+    }
 }

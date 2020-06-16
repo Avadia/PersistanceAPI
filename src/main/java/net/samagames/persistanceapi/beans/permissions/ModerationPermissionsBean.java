@@ -2,6 +2,7 @@ package net.samagames.persistanceapi.beans.permissions;
 
 import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
+
 import java.util.Map;
 
 /*
@@ -20,8 +21,7 @@ import java.util.Map;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class ModerationPermissionsBean
-{
+public class ModerationPermissionsBean {
     /* Database Structure
 
     Table : moderation_permissions
@@ -42,7 +42,7 @@ public class ModerationPermissionsBean
     */
 
     // Defines
-    private long groupsId;
+    private final long groupsId;
     @Perm("mod.ban")
     private boolean modBan;
     @Perm("mod.tp")
@@ -63,8 +63,7 @@ public class ModerationPermissionsBean
     private boolean modQuiet;
 
     // Constructor
-    public ModerationPermissionsBean(long groupsId, boolean modBan, boolean modTp, boolean modKick, boolean modPardon, boolean modMuteLongtime, boolean modMute, boolean modChannel, boolean modChannelReport, boolean modQuiet)
-    {
+    public ModerationPermissionsBean(long groupsId, boolean modBan, boolean modTp, boolean modKick, boolean modPardon, boolean modMuteLongtime, boolean modMute, boolean modChannel, boolean modChannelReport, boolean modQuiet) {
         this.groupsId = groupsId;
         this.modBan = modBan;
         this.modTp = modTp;
@@ -78,46 +77,90 @@ public class ModerationPermissionsBean
     }
 
     // Getters
-    public long getGroupsId() { return this.groupsId; }
-    public boolean isModBan() { return this.modBan; }
-    public boolean isModTp() { return this.modTp; }
-    public boolean isModKick() { return this.modKick; }
-    public boolean isModPardon() { return this.modPardon; }
-    public boolean isModMuteLongtime() { return this.modMuteLongtime; }
-    public boolean isModMute() { return this.modMute; }
-    public boolean isModChannel() { return this.modChannel; }
+    public long getGroupsId() {
+        return this.groupsId;
+    }
+
+    public boolean isModBan() {
+        return this.modBan;
+    }
+
+    // Setters
+    public void setModBan(boolean modBan) {
+        this.modBan = modBan;
+    }
+
+    public boolean isModTp() {
+        return this.modTp;
+    }
+
+    public void setModTp(boolean modTp) {
+        this.modTp = modTp;
+    }
+
+    public boolean isModKick() {
+        return this.modKick;
+    }
+
+    public void setModKick(boolean modKick) {
+        this.modKick = modKick;
+    }
+
+    public boolean isModPardon() {
+        return this.modPardon;
+    }
+
     public boolean isModChannelReport() {
         return modChannelReport;
     }
+
     public boolean isModQuiet() {
         return modQuiet;
     }
 
-    // Setters
-    public void setModBan(boolean modBan) { this.modBan = modBan; }
-    public void setModTp(boolean modTp) { this.modTp = modTp; }
-    public void setModKick(boolean modKick) { this.modKick = modKick; }
-    public void setModPardon(boolean modPardon) { this.modPardon = modPardon; }
-    public void setModMuteLongtime(boolean modMuteLongtime) { this.modMuteLongtime = modMuteLongtime; }
-    public void setModMute(boolean modMute) { this.modMute = modMute; }
-    public void setModChannel(boolean modChannel) { this.modChannel = modChannel; }
+    public void setModPardon(boolean modPardon) {
+        this.modPardon = modPardon;
+    }
+
+    public boolean isModMuteLongtime() {
+        return this.modMuteLongtime;
+    }
+
+    public void setModMuteLongtime(boolean modMuteLongtime) {
+        this.modMuteLongtime = modMuteLongtime;
+    }
+
+    public boolean isModMute() {
+        return this.modMute;
+    }
+
+    public void setModMute(boolean modMute) {
+        this.modMute = modMute;
+    }
+
+    public boolean isModChannel() {
+        return this.modChannel;
+    }
+
+    public void setModChannel(boolean modChannel) {
+        this.modChannel = modChannel;
+    }
+
     public void setModChannelReport(boolean modChannelReport) {
         this.modChannelReport = modChannelReport;
     }
+
     public void setModQuiet(boolean modQuiet) {
         this.modQuiet = modQuiet;
     }
 
     // Reverse the bean to HashMap
-    public Map<String, Boolean> getHashMap()
-    {
+    public Map<String, Boolean> getHashMap() {
         return Transcoder.getHashMapPerm(this);
     }
 
     // Set a value into the HashMap
-    public void set(String key, Boolean value)
-    {
+    public void set(String key, Boolean value) {
         Transcoder.setAnnotationValue(this, key, value);
     }
-
 }

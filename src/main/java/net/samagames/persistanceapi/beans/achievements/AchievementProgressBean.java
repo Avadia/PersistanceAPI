@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class AchievementProgressBean
-{
+public class AchievementProgressBean {
     /* Database structure
 
     Table : achievements_progress
@@ -47,8 +46,7 @@ public class AchievementProgressBean
 
     // Constructor
     @ConstructorProperties({"progressId", "achievementId", "progress", "startDate", "unlockDate", "uuidPlayer"})
-    public AchievementProgressBean(long progressId, int achievementId, int progress, Timestamp startDate, Timestamp unlockDate, UUID uuidPlayer)
-    {
+    public AchievementProgressBean(long progressId, int achievementId, int progress, Timestamp startDate, Timestamp unlockDate, UUID uuidPlayer) {
         this.progressId = progressId;
         this.achievementId = achievementId;
         this.progress = progress;
@@ -58,21 +56,53 @@ public class AchievementProgressBean
     }
 
     // Getters
-    public long getProgressId() { return this.progressId; }
-    public int getAchievementId() { return this.achievementId; }
-    public int getProgress() { return this.progress; }
-    public Timestamp getStartDate() { return this.startDate; }
-    public Timestamp getUnlockDate() { return this.unlockDate; }
-    public UUID getUuidPlayer() { return this.uuidPlayer; }
+    public long getProgressId() {
+        return this.progressId;
+    }
+
+    public int getAchievementId() {
+        return this.achievementId;
+    }
+
+    public void setAchievementId(int achievementId) {
+        this.achievementId = achievementId;
+    }
+
+    public int getProgress() {
+        return this.progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public Timestamp getStartDate() {
+        return this.startDate;
+    }
 
     // Setters
 
     public void setProgressId(long progressId) {
         this.progressId = progressId;
     }
-    public void setAchievementId(int achievementId) { this.achievementId = achievementId; }
-    public void setProgress(int progress) { this.progress = progress; }
-    public void setStartDate(Timestamp startDate) { this.startDate = startDate; }
-    public void setUnlockDate(Timestamp unlockDate) { this.unlockDate = unlockDate; }
-    public void setUuidPlayer(UUID uuidPlayer) { this.uuidPlayer = uuidPlayer; }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getUnlockDate() {
+        return this.unlockDate;
+    }
+
+    public void setUnlockDate(Timestamp unlockDate) {
+        this.unlockDate = unlockDate;
+    }
+
+    public UUID getUuidPlayer() {
+        return this.uuidPlayer;
+    }
+
+    public void setUuidPlayer(UUID uuidPlayer) {
+        this.uuidPlayer = uuidPlayer;
+    }
 }

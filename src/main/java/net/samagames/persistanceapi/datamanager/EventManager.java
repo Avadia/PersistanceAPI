@@ -29,18 +29,15 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class EventManager
-{
+public class EventManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the event by ID
-    public EventBean getEvent(long eventId, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public EventBean getEvent(long eventId, DataSource dataSource) throws Exception {
+        try {
             // Defines
             EventBean eventBean = null;
 
@@ -57,8 +54,7 @@ public class EventManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 UUID eventOrganizer = UUID.fromString(Transcoder.decode(resultset.getString("event_organizer")));
                 String eventTemplate = resultset.getString("event_template");
@@ -70,24 +66,18 @@ public class EventManager
             }
 
             return eventBean;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the event by date
-    public EventBean getEvent(Timestamp eventDate, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public EventBean getEvent(Timestamp eventDate, DataSource dataSource) throws Exception {
+        try {
             // Defines
             EventBean eventBean = null;
 
@@ -104,8 +94,7 @@ public class EventManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long eventId = resultset.getLong("event_id");
                 UUID eventOrganizer = UUID.fromString(Transcoder.decode(resultset.getString("event_organizer")));
@@ -117,24 +106,18 @@ public class EventManager
             }
 
             return eventBean;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the winners of an event
-    public List<EventWinnerBean> getEventWinners(long eventId, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public List<EventWinnerBean> getEventWinners(long eventId, DataSource dataSource) throws Exception {
+        try {
             // Defines
             List<EventWinnerBean> eventWinners = new ArrayList<>();
 
@@ -151,8 +134,7 @@ public class EventManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long winId = resultset.getLong("win_id");
                 UUID eventWinner = UUID.fromString(Transcoder.decode(resultset.getString("event_winner")));
@@ -161,24 +143,18 @@ public class EventManager
             }
 
             return eventWinners;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the events
-    public List<EventBean> getEvents(DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public List<EventBean> getEvents(DataSource dataSource) throws Exception {
+        try {
             // Defines
             List<EventBean> events = new ArrayList<>();
 
@@ -194,8 +170,7 @@ public class EventManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 long eventId = resultset.getLong("event_id");
                 UUID eventOrganizer = UUID.fromString(Transcoder.decode(resultset.getString("event_organizer")));
@@ -208,32 +183,26 @@ public class EventManager
             }
 
             return events;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update the event
-    public void updateEvent(EventBean eventBean, DataSource dataSource) throws Exception
-    {
+    public void updateEvent(EventBean eventBean, DataSource dataSource) throws Exception {
         // Update the players data
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
             Timestamp eventDate = eventBean.getEventDate();
             String eventDateString = "0000-00-00 00:00:00";
 
-            if(eventDate != null)
+            if (eventDate != null)
                 eventDateString = eventDate.toString();
 
             // Query construction
@@ -249,25 +218,19 @@ public class EventManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update the event
-    public void updateEventWinner(EventWinnerBean eventWinnerBean, DataSource dataSource) throws Exception
-    {
+    public void updateEventWinner(EventWinnerBean eventWinnerBean, DataSource dataSource) throws Exception {
         // Update the players data
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -281,32 +244,26 @@ public class EventManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Create the event
-    public void createEvent(EventBean eventBean, DataSource dataSource) throws Exception
-    {
+    public void createEvent(EventBean eventBean, DataSource dataSource) throws Exception {
         // Create the player
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
             Timestamp eventDate = eventBean.getEventDate();
             String eventDateString = "0000-00-00 00:00:00";
 
-            if(eventDate != null)
+            if (eventDate != null)
                 eventDateString = eventDate.toString();
 
             // Query construction
@@ -321,25 +278,19 @@ public class EventManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Create the event winner
-    public void createWinnerEvent(EventWinnerBean eventWinnerBean, DataSource dataSource) throws Exception
-    {
+    public void createWinnerEvent(EventWinnerBean eventWinnerBean, DataSource dataSource) throws Exception {
         // Create the player
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -352,43 +303,32 @@ public class EventManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

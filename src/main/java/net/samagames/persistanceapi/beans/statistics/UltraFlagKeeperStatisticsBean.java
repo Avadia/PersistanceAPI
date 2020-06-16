@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class UltraFlagKeeperStatisticsBean
-{
+public class UltraFlagKeeperStatisticsBean {
     /* Database Structure
 
     Table: ultraflagkeeper_stats
@@ -44,7 +43,7 @@ public class UltraFlagKeeperStatisticsBean
     */
 
     // Defines
-    private UUID uuid;
+    private final UUID uuid;
     private int damages;
     private int deaths;
     private int kills;
@@ -59,8 +58,7 @@ public class UltraFlagKeeperStatisticsBean
 
     // Constructor
     @ConstructorProperties({"uuid", "damages", "deaths", "kills", "maxDamages", "playedGames", "wins", "flagsCaptured", "flagsReturned", "creationDate", "updateDate", "playedTime"})
-    public UltraFlagKeeperStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, int flagsCaptured, int flagsReturned, Timestamp creationDate, Timestamp updateDate, long playedTime)
-    {
+    public UltraFlagKeeperStatisticsBean(UUID uuid, int damages, int deaths, int kills, int maxDamages, int playedGames, int wins, int flagsCaptured, int flagsReturned, Timestamp creationDate, Timestamp updateDate, long playedTime) {
         this.uuid = uuid;
         this.damages = damages;
         this.deaths = deaths;
@@ -76,88 +74,92 @@ public class UltraFlagKeeperStatisticsBean
     }
 
     // Getters
-    public int getDamages()
-    {
+    public int getDamages() {
         return this.damages;
     }
-    public int getDeaths()
-    {
-        return this.deaths;
-    }
-    public int getKills()
-    {
-        return this.kills;
-    }
-    public int getMaxDamages()
-    {
-        return this.maxDamages;
-    }
-    public int getPlayedGames()
-    {
-        return this.playedGames;
-    }
-    public int getWins()
-    {
-        return this.wins;
-    }
-    public int getFlagsCaptured()
-    {
-        return this.flagsCaptured;
-    }
-    public int getFlagsReturned()
-    {
-        return this.flagsReturned;
-    }
-    public Timestamp getCreationDate()
-    {
-        return this.creationDate;
-    }
-    public Timestamp getUpdateDate()
-    {
-        return this.updateDate;
-    }
-    public long getPlayedTime() { return playedTime; }
 
     // Setters
-    public void setDamages(int damages)
-    {
+    public void setDamages(int damages) {
         this.damages = damages;
     }
-    public void setDeaths(int deaths)
-    {
+
+    public int getDeaths() {
+        return this.deaths;
+    }
+
+    public void setDeaths(int deaths) {
         this.deaths = deaths;
     }
-    public void setKills(int kills)
-    {
+
+    public int getKills() {
+        return this.kills;
+    }
+
+    public void setKills(int kills) {
         this.kills = kills;
     }
-    public void setMaxDamages(int maxDamages)
-    {
+
+    public int getMaxDamages() {
+        return this.maxDamages;
+    }
+
+    public void setMaxDamages(int maxDamages) {
         this.maxDamages = maxDamages;
     }
-    public void setPlayedGames(int playedGames)
-    {
+
+    public int getPlayedGames() {
+        return this.playedGames;
+    }
+
+    public void setPlayedGames(int playedGames) {
         this.playedGames = playedGames;
     }
-    public void setWins(int wins)
-    {
+
+    public int getWins() {
+        return this.wins;
+    }
+
+    public void setWins(int wins) {
         this.wins = wins;
     }
-    public void setFlagsCaptured(int flagsCaptured)
-    {
+
+    public int getFlagsCaptured() {
+        return this.flagsCaptured;
+    }
+
+    public void setFlagsCaptured(int flagsCaptured) {
         this.flagsCaptured = flagsCaptured;
     }
-    public void setFlagsReturned(int flagsReturned)
-    {
+
+    public int getFlagsReturned() {
+        return this.flagsReturned;
+    }
+
+    public void setFlagsReturned(int flagsReturned) {
         this.flagsReturned = flagsReturned;
     }
-    public void setCreationDate(Timestamp creationDate)
-    {
+
+    public Timestamp getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
-    public void setUpdateDate(Timestamp updateDate)
-    {
+
+    public Timestamp getUpdateDate() {
+        return this.updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
-    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
+
+    public long getPlayedTime() {
+        return playedTime;
+    }
+
+    public void setPlayedTime(long playedTime) {
+        this.playedTime = playedTime;
+    }
 }

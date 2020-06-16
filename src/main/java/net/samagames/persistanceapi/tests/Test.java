@@ -1,8 +1,6 @@
 package net.samagames.persistanceapi.tests;
 
 import net.samagames.persistanceapi.GameServiceManager;
-import net.samagames.persistanceapi.beans.achievements.AchievementBean;
-import net.samagames.persistanceapi.beans.achievements.AchievementCategoryBean;
 import net.samagames.persistanceapi.beans.achievements.AchievementProgressBean;
 import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
 import net.samagames.persistanceapi.beans.players.*;
@@ -10,6 +8,7 @@ import net.samagames.persistanceapi.beans.shop.PromotionsBean;
 import net.samagames.persistanceapi.beans.shop.TransactionBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
+
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
@@ -30,10 +29,8 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class Test
-{
-    public static void main (String[] args)
-    {
+public class Test {
+    public static void main(String[] args) {
         try {
             /*
                 Pour la connetion à la Bdd en local ligne de commande :  /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
@@ -42,8 +39,7 @@ public class Test
             // Execution plateform
             String cible;
             cible = args[0];
-            if (cible == null)
-            {
+            if (cible == null) {
                 cible = "";
             }
 
@@ -511,7 +507,7 @@ public class Test
 
             // HashMap permission setup test
             startTime = System.currentTimeMillis();
-            bean.set("api.servers.debug", new Boolean(false));
+            bean.set("api.servers.debug", Boolean.FALSE);
             System.out.println("HashMap permissions setup process time: " + (System.currentTimeMillis() - startTime) + " ms");
 
             // Get dimensions leaderboard
@@ -716,9 +712,7 @@ public class Test
             manager.getAchievementProgress(player, 0);
             System.out.println("Achievement progress get time: " + (System.currentTimeMillis() - startTime) + " ms");
 
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }

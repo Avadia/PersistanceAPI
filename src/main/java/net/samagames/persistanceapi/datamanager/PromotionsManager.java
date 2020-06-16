@@ -1,8 +1,12 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.shop.PromotionsBean;
+
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,18 +26,15 @@ import java.util.List;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PromotionsManager
-{
+public class PromotionsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get all the promotions
-    public List<PromotionsBean> getAllActivePromotions(DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public List<PromotionsBean> getAllActivePromotions(DataSource dataSource) throws Exception {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             List<PromotionsBean> promotionList = new ArrayList<>();
@@ -47,8 +48,7 @@ public class PromotionsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while(resultset.next())
-            {
+            while (resultset.next()) {
                 // Manage the result in a list of bean
                 long promitionId = resultset.getLong("promotion_id");
                 int typePromotion = resultset.getInt("type_id");
@@ -61,24 +61,18 @@ public class PromotionsManager
                 promotionList.add(promotionsBean);
             }
             return promotionList;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get a special promotions
-    public List<PromotionsBean> getPromotion(DataSource dataSource, int typeId, int game) throws Exception
-    {
-        try
-        {
+    public List<PromotionsBean> getPromotion(DataSource dataSource, int typeId, int game) throws Exception {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             List<PromotionsBean> promotionList = new ArrayList<>();
@@ -95,8 +89,7 @@ public class PromotionsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while(resultset.next())
-            {
+            while (resultset.next()) {
                 // Manage the result in a list of bean
                 long promotionId = resultset.getLong("promotion_id");
                 int multiplier = resultset.getInt("multiplier");
@@ -107,22 +100,17 @@ public class PromotionsManager
                 promotionList.add(promotionsBean);
             }
             return promotionList;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Create a promotion
-    public void createPromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception
-    {
+    public void createPromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception {
         try {
             // Set connection
             connection = dataSource.getConnection();
@@ -140,14 +128,10 @@ public class PromotionsManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -155,10 +139,8 @@ public class PromotionsManager
 
 
     // Delete a promotion
-    public void deletePromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public void deletePromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -170,14 +152,10 @@ public class PromotionsManager
 
             // Execute the query
             statement.executeUpdate(sql);
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -185,29 +163,22 @@ public class PromotionsManager
 
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

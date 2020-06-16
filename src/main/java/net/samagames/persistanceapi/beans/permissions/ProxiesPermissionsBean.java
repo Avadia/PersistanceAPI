@@ -2,6 +2,7 @@ package net.samagames.persistanceapi.beans.permissions;
 
 import net.samagames.persistanceapi.utils.Perm;
 import net.samagames.persistanceapi.utils.Transcoder;
+
 import java.util.Map;
 
 /*
@@ -20,8 +21,7 @@ import java.util.Map;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class ProxiesPermissionsBean
-{
+public class ProxiesPermissionsBean {
     /* Database Structure
 
     Table : proxies_permissions
@@ -38,7 +38,7 @@ public class ProxiesPermissionsBean
     */
 
     // Defines
-    private long groupsId;
+    private final long groupsId;
     @Perm("proxies.dispatch")
     private boolean proxiesDispatch;
     @Perm("proxies.global")
@@ -52,8 +52,7 @@ public class ProxiesPermissionsBean
 
     // Constructor
     public ProxiesPermissionsBean(long groupsId, boolean proxiesDispatch, boolean proxiesGlobal,
-                                  boolean proxiesDebug, boolean proxiesSetOption, boolean proxiesHydro)
-    {
+                                  boolean proxiesDebug, boolean proxiesSetOption, boolean proxiesHydro) {
         this.groupsId = groupsId;
         this.proxiesDispatch = proxiesDispatch;
         this.proxiesGlobal = proxiesGlobal;
@@ -63,35 +62,58 @@ public class ProxiesPermissionsBean
     }
 
     // Getters
-    public long getGroupsId() { return this.groupsId; }
-    public boolean isProxiesDispatch() { return this.proxiesDispatch; }
-    public boolean isProxiesGlobal() { return this.proxiesGlobal; }
-    public boolean isProxiesDebug() { return this.proxiesDebug; }
-    public boolean isProxiesSetOption() { return this.proxiesSetOption; }
+    public long getGroupsId() {
+        return this.groupsId;
+    }
+
+    public boolean isProxiesDispatch() {
+        return this.proxiesDispatch;
+    }
+
+    // Setters
+    public void setProxiesDispatch(boolean proxiesDispatch) {
+        this.proxiesDispatch = proxiesDispatch;
+    }
+
+    public boolean isProxiesGlobal() {
+        return this.proxiesGlobal;
+    }
+
+    public void setProxiesGlobal(boolean proxiesGlobal) {
+        this.proxiesGlobal = proxiesGlobal;
+    }
+
     public boolean isProxiesHydro() {
         return proxiesHydro;
     }
 
-    // Setters
-    public void setProxiesDispatch(boolean proxiesDispatch) { this.proxiesDispatch = proxiesDispatch; }
-    public void setProxiesGlobal(boolean proxiesGlobal) { this.proxiesGlobal = proxiesGlobal; }
-    public void setProxiesDebug(boolean proxiesDebug) { this.proxiesDebug = proxiesDebug; }
-    public void setProxiesSetOption(boolean proxiesSetOption) { this.proxiesSetOption = proxiesSetOption; }
+    public boolean isProxiesDebug() {
+        return this.proxiesDebug;
+    }
+
+    public void setProxiesDebug(boolean proxiesDebug) {
+        this.proxiesDebug = proxiesDebug;
+    }
+
+    public boolean isProxiesSetOption() {
+        return this.proxiesSetOption;
+    }
+
+    public void setProxiesSetOption(boolean proxiesSetOption) {
+        this.proxiesSetOption = proxiesSetOption;
+    }
+
     public void setProxiesHydro(boolean proxiesHydro) {
         this.proxiesHydro = proxiesHydro;
     }
 
     // Reverse the bean to HashMap
-    public Map<String, Boolean> getHashMap()
-    {
+    public Map<String, Boolean> getHashMap() {
         return Transcoder.getHashMapPerm(this);
     }
 
     // Set a value into the HashMap
-    public void set(String key, Boolean value)
-    {
+    public void set(String key, Boolean value) {
         Transcoder.setAnnotationValue(this, key, value);
     }
-
-
 }

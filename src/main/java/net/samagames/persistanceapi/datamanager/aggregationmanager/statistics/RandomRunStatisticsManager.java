@@ -6,7 +6,10 @@ import net.samagames.persistanceapi.beans.statistics.RandomRunStatisticsBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,20 +30,17 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class RandomRunStatisticsManager
-{
+public class RandomRunStatisticsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get randomrun player statistics
-    public RandomRunStatisticsBean getRandomRunStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        RandomRunStatisticsBean randomRunStats = null;
+    public RandomRunStatisticsBean getRandomRunStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        RandomRunStatisticsBean randomRunStats;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -54,8 +54,7 @@ public class RandomRunStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
@@ -70,27 +69,21 @@ public class RandomRunStatisticsManager
                 long playedTime = resultset.getLong("played_time");
 
                 randomRunStats = new RandomRunStatisticsBean(uuid, damages, deaths, kills, maxDamages, playedGames, wins, creationDate, updateDate, playedTime);
-            }
-            else
-            {
+            } else {
                 // If there no randomrun stats in the database create empty one
                 this.close();
                 this.createEmptyRandomRunStatistics(player, dataSource);
                 this.close();
 
-                RandomRunStatisticsBean newRandomRunStats = this.getRandomRunStatistics(player,dataSource);
+                RandomRunStatisticsBean newRandomRunStats = this.getRandomRunStatistics(player, dataSource);
                 this.close();
 
                 return newRandomRunStats;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -99,10 +92,8 @@ public class RandomRunStatisticsManager
     }
 
     // Create an empty randomrun statistics
-    private void createEmptyRandomRunStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    private void createEmptyRandomRunStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        try {
             // Create an empty bean
             RandomRunStatisticsBean randomRunStats = new RandomRunStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
@@ -125,32 +116,23 @@ public class RandomRunStatisticsManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update randomrun player statistics
-    public void updateRandomRunStatistics(PlayerBean player, RandomRunStatisticsBean randomRunStats, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public void updateRandomRunStatistics(PlayerBean player, RandomRunStatisticsBean randomRunStats, DataSource dataSource) throws Exception {
+        try {
             // Check if a record exists
-            if (this.getRandomRunStatistics(player, dataSource) == null)
-            {
+            if (this.getRandomRunStatistics(player, dataSource) == null) {
                 // Create an empty randomrun statistics
                 this.createEmptyRandomRunStatistics(player, dataSource);
-            }
-            else
-            {
+            } else {
                 // Set connection
                 connection = dataSource.getConnection();
 
@@ -170,25 +152,19 @@ public class RandomRunStatisticsManager
                 // Execute the query
                 statement.executeUpdate();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
-    {
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -201,19 +177,14 @@ public class RandomRunStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while(resultset.next())
-            {
+            while (resultset.next()) {
                 LeaderboardBean bean = new LeaderboardBean(resultset.getString("name"), resultset.getInt("score"));
                 leaderBoard.add(bean);
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -221,29 +192,22 @@ public class RandomRunStatisticsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

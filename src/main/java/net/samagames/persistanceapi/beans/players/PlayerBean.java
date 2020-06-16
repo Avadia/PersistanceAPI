@@ -19,8 +19,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PlayerBean
-{
+public class PlayerBean {
     /* Database Structure
 
     Table : players
@@ -55,14 +54,12 @@ public class PlayerBean
     private long groupId;
 
     //Empty constructor because we fill it when needed
-    public PlayerBean()
-    {
+    public PlayerBean() {
         super();
     }
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, int powders, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String topTpKey, long groupId)
-    {
+    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, int powders, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String topTpKey, long groupId) {
         this.uuid = uuid;
         this.name = name;
         this.nickName = nickName;
@@ -80,56 +77,89 @@ public class PlayerBean
     public UUID getUuid() {
         return this.uuid;
     }
+
     public String getName() {
         return this.name;
     }
-    public String getNickName() { return this.nickName; }
+
+    public String getNickName() {
+        return this.nickName;
+    }
+
     public int getCoins() {
         return this.coins;
     }
+
     public int getStars() {
         return this.stars;
     }
+
     public int getPowders() {
         return this.powders;
     }
+
     public Timestamp getLastLogin() {
         return this.lastLogin;
     }
-    public Timestamp getFirstLogin() { return this.firstLogin; }
-    public String getLastIP() { return this.lastIP; }
-    public String getTopTpKey() { return this.topTpKey; }
-    public long getGroupId() { return this.groupId; }
 
-    // Setters
-    public void setUuid(UUID uuid)
-    {
-        this.uuid = uuid;
+    public Timestamp getFirstLogin() {
+        return this.firstLogin;
     }
+
+    public String getLastIP() {
+        return this.lastIP;
+    }
+
+    public void setLastIP(String lastIP) {
+        this.lastIP = lastIP;
+    }
+
+    public String getTopTpKey() {
+        return this.topTpKey;
+    }
+
+    public void setTopTpKey(String topTpKey) {
+        this.topTpKey = topTpKey;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
+
     public void setCoins(int coins) {
         this.coins = coins;
     }
+
     public void setStars(int stars) {
         this.stars = stars;
     }
+
     public void setPowders(int powders) {
         this.powders = powders;
     }
+
     public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
     }
+
     public void setFirstLogin(Timestamp firstLogin) {
         this.firstLogin = firstLogin;
     }
-    public void setLastIP(String lastIP) { this.lastIP = lastIP; }
-    public void setTopTpKey(String topTpKey) { this.topTpKey = topTpKey; }
-    public void setGroupId(long groupId) { this.groupId = groupId; }
 
+    public long getGroupId() {
+        return this.groupId;
+    }
 
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
+
+    // Setters
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
 }

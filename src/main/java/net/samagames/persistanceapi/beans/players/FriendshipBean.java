@@ -19,8 +19,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class FriendshipBean
-{
+public class FriendshipBean {
     /*
 
     Table :friendship
@@ -45,8 +44,7 @@ public class FriendshipBean
     private boolean activeStatus;
 
     // Constructor
-    public FriendshipBean(long friendshipId, UUID requesterUUID, UUID recipientUUID, Timestamp demandDate, Timestamp acceptationDate, boolean activeStatus)
-    {
+    public FriendshipBean(long friendshipId, UUID requesterUUID, UUID recipientUUID, Timestamp demandDate, Timestamp acceptationDate, boolean activeStatus) {
         this.friendshipId = friendshipId;
         this.requesterUUID = requesterUUID;
         this.recipientUUID = recipientUUID;
@@ -56,8 +54,7 @@ public class FriendshipBean
     }
 
     // Constructor without id
-    public FriendshipBean(UUID requesterUUID, UUID recipientUUID, Timestamp demandDate, Timestamp acceptationDate, boolean activeStatus)
-    {
+    public FriendshipBean(UUID requesterUUID, UUID recipientUUID, Timestamp demandDate, Timestamp acceptationDate, boolean activeStatus) {
         this.requesterUUID = requesterUUID;
         this.recipientUUID = recipientUUID;
         this.demandDate = demandDate;
@@ -66,17 +63,48 @@ public class FriendshipBean
     }
 
     // Getters
-    public long getFriendshipId() { return this.friendshipId; }
-    public UUID getRequesterUUID() { return this.requesterUUID; }
-    public UUID getRecipientUUID() { return this.recipientUUID; }
-    public Timestamp getDemandDate() { return this.demandDate; }
-    public Timestamp getAcceptationDate() { return this.acceptationDate; }
-    public boolean isActiveStatus() { return this.activeStatus; }
+    public long getFriendshipId() {
+        return this.friendshipId;
+    }
+
+    public UUID getRequesterUUID() {
+        return this.requesterUUID;
+    }
 
     // Setters
-    public void setRequesterUUID(UUID requesterUUID) { this.requesterUUID = requesterUUID; }
-    public void setRecipientUUID(UUID recipientUUID) { this.recipientUUID = recipientUUID; }
-    public void setDemandDate(Timestamp demandDate) { this.demandDate = demandDate; }
-    public void setAcceptationDate(Timestamp acceptationDate) { this.acceptationDate = acceptationDate; }
-    public void setActiveStatus(boolean activeStatus) { this.activeStatus = activeStatus; }
+    public void setRequesterUUID(UUID requesterUUID) {
+        this.requesterUUID = requesterUUID;
+    }
+
+    public UUID getRecipientUUID() {
+        return this.recipientUUID;
+    }
+
+    public void setRecipientUUID(UUID recipientUUID) {
+        this.recipientUUID = recipientUUID;
+    }
+
+    public Timestamp getDemandDate() {
+        return this.demandDate;
+    }
+
+    public void setDemandDate(Timestamp demandDate) {
+        this.demandDate = demandDate;
+    }
+
+    public Timestamp getAcceptationDate() {
+        return this.acceptationDate;
+    }
+
+    public void setAcceptationDate(Timestamp acceptationDate) {
+        this.acceptationDate = acceptationDate;
+    }
+
+    public boolean isActiveStatus() {
+        return this.activeStatus;
+    }
+
+    public void setActiveStatus(boolean activeStatus) {
+        this.activeStatus = activeStatus;
+    }
 }

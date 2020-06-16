@@ -16,18 +16,15 @@ package net.samagames.persistanceapi.datamanager;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class MinigameTimelineManager
-{
+public class MinigameTimelineManager {
     //
 
     // Super constructor
-    public MinigameTimelineManager()
-    {
+    public MinigameTimelineManager() {
         super();
     }
 
-    public void addEvent()
-    {
+    public void addEvent() {
 
     }
 }

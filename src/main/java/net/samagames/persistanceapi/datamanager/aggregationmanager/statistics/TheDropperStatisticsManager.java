@@ -30,20 +30,17 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class TheDropperStatisticsManager
-{
+public class TheDropperStatisticsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the dropper player statistics
-    public TheDropperStatisticsBean getTheDropperStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        TheDropperStatisticsBean theDropperStats = null;
+    public TheDropperStatisticsBean getTheDropperStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        TheDropperStatisticsBean theDropperStats;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -57,8 +54,7 @@ public class TheDropperStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
@@ -67,27 +63,21 @@ public class TheDropperStatisticsManager
                 long playedTime = resultset.getLong("played_time");
 
                 theDropperStats = new TheDropperStatisticsBean(uuid, creationDate, updateDate, playedTime);
-            }
-            else
-            {
+            } else {
                 // If there no the dropper stats in the database create empty one
                 this.close();
                 this.createEmptyTheDropperStatistics(player, dataSource);
                 this.close();
 
-                TheDropperStatisticsBean newTheDropperStats = this.getTheDropperStatistics(player,dataSource);
+                TheDropperStatisticsBean newTheDropperStats = this.getTheDropperStatistics(player, dataSource);
                 this.close();
 
                 return newTheDropperStats;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -96,10 +86,8 @@ public class TheDropperStatisticsManager
     }
 
     // Create an empty the dropper statistics
-    private void createEmptyTheDropperStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    private void createEmptyTheDropperStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        try {
             // Create an empty bean
             TheDropperStatisticsBean theDropperStats = new TheDropperStatisticsBean(player.getUuid(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
@@ -115,32 +103,23 @@ public class TheDropperStatisticsManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update the dropper player statistics
-    public void updateTheDropperStatistics(PlayerBean player, TheDropperStatisticsBean theDropperStats, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public void updateTheDropperStatistics(PlayerBean player, TheDropperStatisticsBean theDropperStats, DataSource dataSource) throws Exception {
+        try {
             // Check if a record exists
-            if (this.getTheDropperStatistics(player, dataSource) == null)
-            {
+            if (this.getTheDropperStatistics(player, dataSource) == null) {
                 // Create an empty the dropper statistics
                 this.createEmptyTheDropperStatistics(player, dataSource);
-            }
-            else
-            {
+            } else {
                 // Set connection
                 connection = dataSource.getConnection();
 
@@ -154,25 +133,19 @@ public class TheDropperStatisticsManager
                 // Execute the query
                 statement.executeUpdate();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
-    {
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -185,19 +158,14 @@ public class TheDropperStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while(resultset.next())
-            {
+            while (resultset.next()) {
                 LeaderboardBean bean = new LeaderboardBean(resultset.getString("name"), resultset.getInt("score"));
                 leaderBoard.add(bean);
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -205,29 +173,22 @@ public class TheDropperStatisticsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

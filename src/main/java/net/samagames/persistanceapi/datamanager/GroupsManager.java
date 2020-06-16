@@ -2,8 +2,11 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.GroupsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /*
  * This file is part of PersistanceAPI.
@@ -21,19 +24,16 @@ import java.sql.*;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class GroupsManager
-{
+public class GroupsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
-    private GroupsBean groupsBean = null;
 
     // Get the permission group for a player
-    public GroupsBean getPlayerGroup(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public GroupsBean getPlayerGroup(PlayerBean player, DataSource dataSource) throws Exception {
+        GroupsBean groupsBean;
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -47,8 +47,7 @@ public class GroupsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long groupId = resultset.getLong("group_id");
                 String playerName = resultset.getString("group_name");
@@ -58,20 +57,14 @@ public class GroupsManager
                 String suffix = resultset.getString("suffix");
                 int multiplier = resultset.getInt("multiplier");
                 groupsBean = new GroupsBean(groupId, playerName, rank, tag, prefix, suffix, multiplier);
-            }
-            else
-            {
+            } else {
                 // If there no dimension stats int the database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -79,29 +72,22 @@ public class GroupsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class TransactionBean
-{
+public class TransactionBean {
     /* Database structure
 
     Table : transaction_shop
@@ -49,8 +48,7 @@ public class TransactionBean
 
     // Constructor
     @ConstructorProperties({"transactionId", "itemId", "priceCoins", "priceStars", "transactionDate", "selected", "uuidBuyer"})
-    public TransactionBean(long transactionId, int itemId, int priceCoins, int priceStars, Timestamp transactionDate, boolean selected, UUID uuidBuyer)
-    {
+    public TransactionBean(long transactionId, int itemId, int priceCoins, int priceStars, Timestamp transactionDate, boolean selected, UUID uuidBuyer) {
         this.transactionId = transactionId;
         this.itemId = itemId;
         this.priceCoins = priceCoins;
@@ -61,23 +59,60 @@ public class TransactionBean
     }
 
     // Getters
-    public long getTransactionId() { return this.transactionId; }
-    public int getItemId() { return this.itemId; }
-    public int getPriceCoins() { return this.priceCoins; }
-    public int getPriceStars() { return this.priceStars; }
-    public Timestamp getTransactionDate() { return this.transactionDate; }
-    public boolean isSelected() { return this.selected; }
-    public UUID getUuidBuyer() { return this.uuidBuyer; }
+    public long getTransactionId() {
+        return this.transactionId;
+    }
+
+    public int getItemId() {
+        return this.itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
+    public int getPriceCoins() {
+        return this.priceCoins;
+    }
+
+    public void setPriceCoins(int priceCoins) {
+        this.priceCoins = priceCoins;
+    }
+
+    public int getPriceStars() {
+        return this.priceStars;
+    }
+
+    public void setPriceStars(int priceStars) {
+        this.priceStars = priceStars;
+    }
 
     // Setters
-
     public void setTransactionId(long transactionId) {
         this.transactionId = transactionId;
     }
-    public void setItemId(int itemId) { this.itemId = itemId; }
-    public void setPriceCoins(int priceCoins) { this.priceCoins = priceCoins; }
-    public void setPriceStars(int priceStars) { this.priceStars = priceStars; }
-    public void setTransactionDate(Timestamp transactionDate) { this.transactionDate = transactionDate; }
-    public void setSelected(boolean selected) { this.selected = selected; }
-    public void setUuidBuyer(UUID uuidBuyer) { this.uuidBuyer = uuidBuyer; }
+
+    public Timestamp getTransactionDate() {
+        return this.transactionDate;
+    }
+
+    public void setTransactionDate(Timestamp transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public boolean isSelected() {
+        return this.selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public UUID getUuidBuyer() {
+        return this.uuidBuyer;
+    }
+
+    public void setUuidBuyer(UUID uuidBuyer) {
+        this.uuidBuyer = uuidBuyer;
+    }
 }

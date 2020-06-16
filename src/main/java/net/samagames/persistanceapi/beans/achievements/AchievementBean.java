@@ -18,8 +18,7 @@ import java.beans.ConstructorProperties;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class AchievementBean
-{
+public class AchievementBean {
     /* Database Structure
 
     Table : achievements
@@ -35,7 +34,7 @@ public class AchievementBean
     */
 
     // Defines
-    private int achievementId;
+    private final int achievementId;
     private String achievementName;
     private String achievementDescription;
     private int progressTarget;
@@ -43,8 +42,7 @@ public class AchievementBean
 
     // Constructor
     @ConstructorProperties({"achievementId", "achievementName", "achievementDescription", "progressTarget", "categoryId"})
-    public AchievementBean(int achievementId, String achievementName, String achievementDescription, int progressTarget, int categoryId)
-    {
+    public AchievementBean(int achievementId, String achievementName, String achievementDescription, int progressTarget, int categoryId) {
         this.achievementId = achievementId;
         this.achievementName = achievementName;
         this.achievementDescription = achievementDescription;
@@ -53,15 +51,40 @@ public class AchievementBean
     }
 
     // Getters
-    public int getAchievementId() { return this.achievementId; }
-    public String getAchievementName() { return this.achievementName; }
-    public String getAchievementDescription() { return this.achievementDescription; }
-    public int getProgressTarget() { return this.progressTarget; }
-    public int getCategoryId() { return this.categoryId; }
+    public int getAchievementId() {
+        return this.achievementId;
+    }
+
+    public String getAchievementName() {
+        return this.achievementName;
+    }
 
     // Setters
-    public void setAchievementName(String achievementName) { this.achievementName = achievementName; }
-    public void setAchievementDescription(String achievementDescription) { this.achievementDescription = achievementDescription; }
-    public void setProgressTarget(int progressTarget) { this.progressTarget = progressTarget; }
-    public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
+    public void setAchievementName(String achievementName) {
+        this.achievementName = achievementName;
+    }
+
+    public String getAchievementDescription() {
+        return this.achievementDescription;
+    }
+
+    public void setAchievementDescription(String achievementDescription) {
+        this.achievementDescription = achievementDescription;
+    }
+
+    public int getProgressTarget() {
+        return this.progressTarget;
+    }
+
+    public void setProgressTarget(int progressTarget) {
+        this.progressTarget = progressTarget;
+    }
+
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 }

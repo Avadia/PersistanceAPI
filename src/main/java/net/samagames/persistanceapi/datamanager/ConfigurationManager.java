@@ -1,10 +1,11 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
-import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /*
  * This file is part of PersistanceAPI.
@@ -22,19 +23,16 @@ import java.sql.*;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class ConfigurationManager
-{
+public class ConfigurationManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the bungee config
-    public BungeeConfigBean getConfig(DataSource dataSource) throws Exception
-    {
+    public BungeeConfigBean getConfig(DataSource dataSource) throws Exception {
         // Make the research of player by UUID
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -47,8 +45,7 @@ public class ConfigurationManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 int slots = resultset.getInt("slots");
                 String motd = resultset.getString("motd");
@@ -58,33 +55,24 @@ public class ConfigurationManager
                 String priorityTitle = resultset.getString("priority_title");
                 String welcomeMessage = resultset.getString("welcome_message");
 
-                BungeeConfigBean config = new BungeeConfigBean(slots, motd, closeType, serverLine, maxPlayers, priorityTitle, welcomeMessage);
-                return config;
-            }
-            else
-            {
+                return new BungeeConfigBean(slots, motd, closeType, serverLine, maxPlayers, priorityTitle, welcomeMessage);
+            } else {
                 // If there no player for the uuid in database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Update the bungee config
-    public void updateConfig(BungeeConfigBean config, DataSource dataSource) throws Exception
-    {
+    public void updateConfig(BungeeConfigBean config, DataSource dataSource) throws Exception {
         // Update the config
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -102,43 +90,32 @@ public class ConfigurationManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Close the connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

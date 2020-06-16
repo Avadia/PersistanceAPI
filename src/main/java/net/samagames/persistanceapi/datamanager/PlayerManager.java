@@ -4,7 +4,10 @@ import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 /*
@@ -23,19 +26,16 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PlayerManager
-{
+public class PlayerManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get player by UUID, create if unknown
-    public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource) throws Exception {
         // Make the research of player by UUID
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -49,8 +49,7 @@ public class PlayerManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 String name = resultset.getString("name");
@@ -65,9 +64,7 @@ public class PlayerManager
                 long groupId = resultset.getLong("group_id");
                 player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, powders, lastLogin, firsLogin, lastIP, toptpKey, groupId);
                 return player;
-            }
-            else
-            {
+            } else {
                 // If there no player for the uuid in database create a new player
                 this.close();
                 this.createPlayer(player, dataSource);
@@ -75,29 +72,22 @@ public class PlayerManager
                 this.close();
                 return newPlayer;
             }
-         }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Try to recover a suspect UUID by name
-    public UUID recoverSuspect(String suspectName, DataSource dataSource) throws Exception
-    {
+    public UUID recoverSuspect(String suspectName, DataSource dataSource) throws Exception {
         // Defines
-        PlayerBean player = null;
-        UUID suspectUUID = null;
+        UUID suspectUUID;
 
         // Try to find the player
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -111,37 +101,28 @@ public class PlayerManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 suspectUUID = UUID.fromString(playerUuid);
                 return suspectUUID;
-            }
-            else
-            {
+            } else {
                 // If there no player for the uuid in database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update the player data
-    public void updatePlayer(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public void updatePlayer(PlayerBean player, DataSource dataSource) throws Exception {
         // Update the players data
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -163,25 +144,19 @@ public class PlayerManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Create the player
-    public void createPlayer(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public void createPlayer(PlayerBean player, DataSource dataSource) throws Exception {
         // Create the player
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -202,43 +177,32 @@ public class PlayerManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Close the connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

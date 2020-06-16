@@ -1,13 +1,12 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
-import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.StaffPermissionsBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 /*
  * This file is part of PersistanceAPI.
@@ -25,20 +24,17 @@ import java.sql.Statement;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class StaffPermissionsManager
-{
+public class StaffPermissionsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the permissions for staff
-    public StaffPermissionsBean getStaffPermissions(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        StaffPermissionsBean staffPermissionsBean = null;
+    public StaffPermissionsBean getStaffPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+        StaffPermissionsBean staffPermissionsBean;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -53,8 +49,7 @@ public class StaffPermissionsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long groupsId = resultset.getLong("groups_id");
                 boolean netjoinClosed = resultset.getBoolean("netjoin_closed");
@@ -66,20 +61,14 @@ public class StaffPermissionsManager
                 boolean networkStaff = resultset.getBoolean("network_staff");
                 boolean networkAdmin = resultset.getBoolean("network_admin");
                 staffPermissionsBean = new StaffPermissionsBean(groupsId, netjoinClosed, netjoinVip, netjoinFull, trackerFamous, networkVip, networkVipplus, networkStaff, networkAdmin);
-            }
-            else
-            {
+            } else {
                 // If there no dimension stats int the database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -88,29 +77,22 @@ public class StaffPermissionsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

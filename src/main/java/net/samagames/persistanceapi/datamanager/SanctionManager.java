@@ -5,7 +5,10 @@ import net.samagames.persistanceapi.beans.players.SanctionBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,26 +29,23 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class SanctionManager
-{
+public class SanctionManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Create a sanction
-    public void applySanction(int sanctionType, SanctionBean sanction, DataSource dataSource) throws Exception
-    {
+    public void applySanction(int sanctionType, SanctionBean sanction, DataSource dataSource) throws Exception {
         // Create the sanction
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
             Timestamp expirationTime = sanction.getExpirationTime();
             String expirationDate = "0000-00-00 00:00:00";
 
-            if(expirationTime != null)
+            if (expirationTime != null)
                 expirationDate = expirationTime.toString();
 
             // Query construction
@@ -61,25 +61,19 @@ public class SanctionManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Remove a sanction
-    public void removeSanction(int sanctionType, PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public void removeSanction(int sanctionType, PlayerBean player, DataSource dataSource) throws Exception {
         // Remove the last active sanction
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -93,28 +87,22 @@ public class SanctionManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Check if a player is banned
-    public SanctionBean getPlayerBanned(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public SanctionBean getPlayerBanned(PlayerBean player, DataSource dataSource) throws Exception {
         // Defines
         SanctionBean sanction;
 
         // Do the check of ban
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             Timestamp expirationTime;
@@ -132,10 +120,9 @@ public class SanctionManager
             resultset = statement.executeQuery();
 
             // Manage the result
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // The player is banned
-                long sanctionId =  resultset.getLong("sanction_id");
+                long sanctionId = resultset.getLong("sanction_id");
                 String banPlayer = Transcoder.decode(resultset.getString("uuid"));
                 UUID playerUuid = UUID.fromString(banPlayer);
                 int typeId = resultset.getInt("type_id");
@@ -143,12 +130,9 @@ public class SanctionManager
                 String punisher = Transcoder.decode(resultset.getString("punisher"));
                 UUID punisherUuid = UUID.fromString(punisher);
 
-                try
-                {
+                try {
                     expirationTime = resultset.getTimestamp("expiration_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     expirationTime = null;
                 }
 
@@ -157,34 +141,26 @@ public class SanctionManager
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 sanction = new SanctionBean(sanctionId, playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
                 return sanction;
-            }
-            else
-            {
+            } else {
                 // The player is not banned
                 return null;
             }
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Check if a player is muted
-    public SanctionBean getPlayerMuted(PlayerBean player, DataSource dataSource) throws Exception
-    {
+    public SanctionBean getPlayerMuted(PlayerBean player, DataSource dataSource) throws Exception {
         // Defines
         SanctionBean sanction;
 
         // Do the check of mute
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             Timestamp expirationTime;
@@ -202,8 +178,7 @@ public class SanctionManager
             resultset = statement.executeQuery();
 
             // Manage the result
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // The player is muted
                 long sanctionId = resultset.getLong("sanction_id");
                 String mutePlayer = Transcoder.decode(resultset.getString("uuid"));
@@ -213,12 +188,9 @@ public class SanctionManager
                 String punisher = Transcoder.decode(resultset.getString("punisher"));
                 UUID punisherUuid = UUID.fromString(punisher);
 
-                try
-                {
+                try {
                     expirationTime = resultset.getTimestamp("expiration_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     expirationTime = null;
                 }
 
@@ -227,31 +199,23 @@ public class SanctionManager
                 Timestamp updateDate = resultset.getTimestamp("update_date");
                 sanction = new SanctionBean(sanctionId, playerUuid, typeId, reason, punisherUuid, expirationTime, isDeleted, creationDate, updateDate);
                 return sanction;
-            }
-            else
-            {
+            } else {
                 // The player is not banned
                 return null;
             }
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Get all actives sanctions by type
-    public List<SanctionBean> getAllSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
-    {
+    public List<SanctionBean> getAllSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception {
         // Get all sanctions
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
@@ -269,8 +233,7 @@ public class SanctionManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
                 String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
@@ -278,12 +241,9 @@ public class SanctionManager
                 String reason = resultset.getString("reason");
                 String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
 
-                try
-                {
+                try {
                     expirationTime = resultset.getTimestamp("expiration_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     expirationTime = null;
                 }
 
@@ -294,25 +254,19 @@ public class SanctionManager
                 sanctionList.add(sanction);
             }
             return sanctionList;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get all non actives sanctions by type
-    public List<SanctionBean> getAllActiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
-    {
+    public List<SanctionBean> getAllActiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception {
         // Get all sanctions
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
@@ -330,8 +284,7 @@ public class SanctionManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
                 String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
@@ -339,12 +292,9 @@ public class SanctionManager
                 String reason = resultset.getString("reason");
                 String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
 
-                try
-                {
+                try {
                     expirationTime = resultset.getTimestamp("expiration_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     expirationTime = null;
                 }
 
@@ -355,14 +305,10 @@ public class SanctionManager
                 sanctionList.add(sanction);
             }
             return sanctionList;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -370,11 +316,9 @@ public class SanctionManager
 
     // Get all sanctions by type
     // Get all non actives sanctions by type
-    public List<SanctionBean> getAllPassiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception
-    {
+    public List<SanctionBean> getAllPassiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception {
         // Get all sanctions
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
@@ -392,8 +336,7 @@ public class SanctionManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
                 String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
@@ -401,12 +344,9 @@ public class SanctionManager
                 String reason = resultset.getString("reason");
                 String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
 
-                try
-                {
+                try {
                     expirationTime = resultset.getTimestamp("expiration_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     expirationTime = null;
                 }
 
@@ -417,25 +357,19 @@ public class SanctionManager
                 sanctionList.add(sanction);
             }
             return sanctionList;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update a sanction status
-    public void updateSanctionStatus(long sanctionId, boolean status, DataSource dataSource) throws Exception
-    {
+    public void updateSanctionStatus(long sanctionId, boolean status, DataSource dataSource) throws Exception {
         // Update the sanction status
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -448,25 +382,19 @@ public class SanctionManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Get sanctions by UUID
-    public List<SanctionBean> getAllModeratorSanctions(UUID uuid, DataSource dataSource) throws Exception
-    {
+    public List<SanctionBean> getAllModeratorSanctions(UUID uuid, DataSource dataSource) throws Exception {
         // Get all sanctions
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
@@ -483,8 +411,7 @@ public class SanctionManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while (resultset.next())
-            {
+            while (resultset.next()) {
                 // There's a result
                 long sanctionId = resultset.getLong("sanction_id");
                 String playerUuid = Transcoder.decode(resultset.getString("player_uuid"));
@@ -492,12 +419,9 @@ public class SanctionManager
                 String reason = resultset.getString("reason");
                 String punisherUUID = Transcoder.decode(resultset.getString("punisher_uuid"));
 
-                try
-                {
+                try {
                     expirationTime = resultset.getTimestamp("expiration_date");
-                }
-                catch (Exception dateException)
-                {
+                } catch (Exception dateException) {
                     expirationTime = null;
                 }
 
@@ -508,43 +432,32 @@ public class SanctionManager
                 sanctionList.add(sanction);
             }
             return sanctionList;
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Close the connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

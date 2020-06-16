@@ -20,8 +20,7 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class UppervoidStatisticsBean
-{
+public class UppervoidStatisticsBean {
     /* Database Structure
 
     Table : uppervoid_stats
@@ -42,7 +41,7 @@ public class UppervoidStatisticsBean
     */
 
     // Defines
-    private UUID uuid;
+    private final UUID uuid;
     private int blocks;
     private int grenades;
     private int kills;
@@ -55,8 +54,7 @@ public class UppervoidStatisticsBean
 
     // Constructor
     @ConstructorProperties({"uuid", "blocks", "grenades", "kills", "playedGames", "tntLaunched", "wins", "creationDate", "updateDate", "playedTime"})
-    public UppervoidStatisticsBean(UUID uuid, int blocks, int grenades, int kills, int playedGames, int tntLaunched, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime)
-    {
+    public UppervoidStatisticsBean(UUID uuid, int blocks, int grenades, int kills, int playedGames, int tntLaunched, int wins, Timestamp creationDate, Timestamp updateDate, long playedTime) {
         this.uuid = uuid;
         this.blocks = blocks;
         this.grenades = grenades;
@@ -70,72 +68,76 @@ public class UppervoidStatisticsBean
     }
 
     // Getters
-    public int getBlocks()
-    {
+    public int getBlocks() {
         return this.blocks;
     }
-    public int getGrenades()
-    {
-        return this.grenades;
-    }
-    public int getKills()
-    {
-        return this.kills;
-    }
-    public int getPlayedGames()
-    {
-        return this.playedGames;
-    }
-    public int getTntLaunched()
-    {
-        return this.tntLaunched;
-    }
-    public int getWins()
-    {
-        return this.wins;
-    }
-    public Timestamp getCreationDate()
-    {
-        return this.creationDate;
-    }
-    public Timestamp getUpdateDate()
-    {
-        return this.updateDate;
-    }
-    public long getPlayedTime() { return playedTime; }
 
     // Setters
-    public void setBlocks(int blocks)
-    {
+    public void setBlocks(int blocks) {
         this.blocks = blocks;
     }
-    public void setGrenades(int grenades)
-    {
+
+    public int getGrenades() {
+        return this.grenades;
+    }
+
+    public void setGrenades(int grenades) {
         this.grenades = grenades;
     }
-    public void setKills(int kills)
-    {
+
+    public int getKills() {
+        return this.kills;
+    }
+
+    public void setKills(int kills) {
         this.kills = kills;
     }
-    public void setPlayedGames(int playedGames)
-    {
+
+    public int getPlayedGames() {
+        return this.playedGames;
+    }
+
+    public void setPlayedGames(int playedGames) {
         this.playedGames = playedGames;
     }
-    public void setTntLaunched(int tntLaunched)
-    {
+
+    public int getTntLaunched() {
+        return this.tntLaunched;
+    }
+
+    public void setTntLaunched(int tntLaunched) {
         this.tntLaunched = tntLaunched;
     }
-    public void setWins(int wins)
-    {
+
+    public int getWins() {
+        return this.wins;
+    }
+
+    public void setWins(int wins) {
         this.wins = wins;
     }
-    public void setCreationDate(Timestamp creationDate)
-    {
+
+    public Timestamp getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
-    public void setUpdateDate(Timestamp updateDate)
-    {
+
+    public Timestamp getUpdateDate() {
+        return this.updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
-    public void setPlayedTime(long playedTime) { this.playedTime = playedTime; }
+
+    public long getPlayedTime() {
+        return playedTime;
+    }
+
+    public void setPlayedTime(long playedTime) {
+        this.playedTime = playedTime;
+    }
 }

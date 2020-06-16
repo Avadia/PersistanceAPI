@@ -40,9 +40,7 @@ public class NetworkStatisticsBean {
     private Timestamp updateDate;
 
     @ConstructorProperties({"uuid", "creationDate", "updateDate", "playedTime"})
-    public NetworkStatisticsBean(UUID uuid, Timestamp creationDate, Timestamp updateDate, long playedTime)
-    {
-
+    public NetworkStatisticsBean(UUID uuid, Timestamp creationDate, Timestamp updateDate, long playedTime) {
         this.uuid = uuid;
         this.playedTime = playedTime;
         this.creationDate = creationDate;

@@ -3,12 +3,10 @@ package net.samagames.persistanceapi.datamanager;
 import net.samagames.persistanceapi.beans.players.DenunciationBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.utils.Transcoder;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.UUID;
 
 /*
  * This file is part of PersistanceAPI.
@@ -26,19 +24,15 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class DenunciationManager
-{
+public class DenunciationManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
-    private ResultSet resultset = null;
 
     // Denunciation by a player
-    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource) throws Exception
-    {
+    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource) throws Exception {
         // Create denunciation
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -52,43 +46,28 @@ public class DenunciationManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
     }
 
     // Close the connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
-                // Close the resulset
-                resultset.close();
-            }
-            if (statement != null)
-            {
+        try {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

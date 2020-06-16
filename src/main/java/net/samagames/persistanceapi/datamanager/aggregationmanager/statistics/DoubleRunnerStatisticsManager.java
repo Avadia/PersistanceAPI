@@ -1,12 +1,15 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
-import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.DoubleRunnerStatisticsBean;
+import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.utils.Transcoder;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,20 +30,17 @@ import java.util.UUID;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class DoubleRunnerStatisticsManager
-{
+public class DoubleRunnerStatisticsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get doublerunner player statistics
-    public DoubleRunnerStatisticsBean getDoubleRunnerStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        DoubleRunnerStatisticsBean doubleRunnerStats = null;
+    public DoubleRunnerStatisticsBean getDoubleRunnerStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        DoubleRunnerStatisticsBean doubleRunnerStats;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -54,8 +54,7 @@ public class DoubleRunnerStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if (resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 String playerUuid = Transcoder.decode(resultset.getString("uuid"));
                 UUID uuid = UUID.fromString(playerUuid);
@@ -70,27 +69,21 @@ public class DoubleRunnerStatisticsManager
                 long playedTime = resultset.getLong("played_time");
 
                 doubleRunnerStats = new DoubleRunnerStatisticsBean(uuid, damages, deaths, kills, maxDamages, playedGames, wins, creationDate, updateDate, playedTime);
-            }
-            else
-            {
+            } else {
                 // If there no doublerunner stats in the database create empty one
                 this.close();
                 this.createEmptyDoubleRunnerStatistics(player, dataSource);
                 this.close();
 
-                DoubleRunnerStatisticsBean newDoubleRunnerStats = this.getDoubleRunnerStatistics(player,dataSource);
+                DoubleRunnerStatisticsBean newDoubleRunnerStats = this.getDoubleRunnerStatistics(player, dataSource);
                 this.close();
 
                 return newDoubleRunnerStats;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -98,10 +91,8 @@ public class DoubleRunnerStatisticsManager
     }
 
     // Create an empty doublerunner statistics
-    private void createEmptyDoubleRunnerStatistics(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    private void createEmptyDoubleRunnerStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+        try {
             // Create an empty bean
             DoubleRunnerStatisticsBean doubleRunnerStats = new DoubleRunnerStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
@@ -124,32 +115,23 @@ public class DoubleRunnerStatisticsManager
 
             // Execute the query
             statement.executeUpdate();
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Update doublerunner player statistics
-    public void updateDoubleRunnerStatistics(PlayerBean player, DoubleRunnerStatisticsBean doubleRunnerStats, DataSource dataSource) throws Exception
-    {
-        try
-        {
+    public void updateDoubleRunnerStatistics(PlayerBean player, DoubleRunnerStatisticsBean doubleRunnerStats, DataSource dataSource) throws Exception {
+        try {
             // Check if a record exists
-            if (this.getDoubleRunnerStatistics(player, dataSource) == null)
-            {
+            if (this.getDoubleRunnerStatistics(player, dataSource) == null) {
                 // Create an empty doublerunner statistics
                 this.createEmptyDoubleRunnerStatistics(player, dataSource);
-            }
-            else
-            {
+            } else {
                 // Set connection
                 connection = dataSource.getConnection();
 
@@ -169,25 +151,19 @@ public class DoubleRunnerStatisticsManager
                 // Execute the query
                 statement.executeUpdate();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception
-    {
+    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -200,19 +176,14 @@ public class DoubleRunnerStatisticsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            while(resultset.next())
-            {
+            while (resultset.next()) {
                 LeaderboardBean bean = new LeaderboardBean(resultset.getString("name"), resultset.getInt("score"));
                 leaderBoard.add(bean);
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             this.close();
         }
@@ -220,29 +191,22 @@ public class DoubleRunnerStatisticsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }

@@ -1,6 +1,5 @@
 package net.samagames.persistanceapi.beans.shop;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 /*
@@ -19,8 +18,7 @@ import java.sql.Timestamp;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class PromotionsBean
-{
+public class PromotionsBean {
     /* Database structure
 
     Table : promotions
@@ -60,8 +58,7 @@ public class PromotionsBean
     private Timestamp endDate;
 
     // Constructor
-    public PromotionsBean(long promotionId, int promotionType, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate)
-    {
+    public PromotionsBean(long promotionId, int promotionType, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate) {
         this.promotionId = promotionId;
         this.promotionType = promotionType;
         this.game = game;
@@ -72,8 +69,7 @@ public class PromotionsBean
     }
 
     // Constructor without id
-    public PromotionsBean(int promotionType, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate)
-    {
+    public PromotionsBean(int promotionType, int game, int multiplier, String message, Timestamp startDate, Timestamp endDate) {
         this.promotionType = promotionType;
         this.game = game;
         this.multiplier = multiplier;
@@ -83,20 +79,60 @@ public class PromotionsBean
     }
 
     // Getters
-    public long getPromotionId() { return this.promotionId; }
-    public int getPromotionType() { return this.promotionType; }
-    public int getGame() { return this.game; }
-    public int getMultiplier() { return this.multiplier; }
-    public String getMessage() { return this.message; }
-    public Timestamp getStartDate() { return this.startDate; }
-    public Timestamp getEndDate() { return this.endDate; }
+    public long getPromotionId() {
+        return this.promotionId;
+    }
 
     // Setters
-    public void setPromotionId(long promotionId) { this.promotionId = promotionId; }
-    public void setPromotionType(int promotionType) { this.promotionType = promotionType; }
-    public void setGame(int game) { this.game = game; }
-    public void setMultiplier(int multiplier) { this.multiplier = multiplier; }
-    public void setMessage(String message) { this.message = message; }
-    public void setStartDate(Timestamp startDate) { this.startDate = startDate; }
-    public void setEndDate(Timestamp endDate) { this.endDate = endDate; }
+    public void setPromotionId(long promotionId) {
+        this.promotionId = promotionId;
+    }
+
+    public int getPromotionType() {
+        return this.promotionType;
+    }
+
+    public void setPromotionType(int promotionType) {
+        this.promotionType = promotionType;
+    }
+
+    public int getGame() {
+        return this.game;
+    }
+
+    public void setGame(int game) {
+        this.game = game;
+    }
+
+    public int getMultiplier() {
+        return this.multiplier;
+    }
+
+    public void setMultiplier(int multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Timestamp getStartDate() {
+        return this.startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return this.endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
+    }
 }

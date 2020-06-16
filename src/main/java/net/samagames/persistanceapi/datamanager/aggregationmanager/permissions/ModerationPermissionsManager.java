@@ -1,13 +1,12 @@
 package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
-import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.permissions.ModerationPermissionsBean;
+import net.samagames.persistanceapi.beans.players.PlayerBean;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 /*
  * This file is part of PersistanceAPI.
@@ -25,20 +24,17 @@ import java.sql.Statement;
  * You should have received a copy of the GNU General Public License
  * along with PersistanceAPI.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class ModerationPermissionsManager
-{
+public class ModerationPermissionsManager {
     // Defines
     private Connection connection = null;
     private PreparedStatement statement = null;
     private ResultSet resultset = null;
 
     // Get the permissions for moderation
-    public ModerationPermissionsBean getModerationPermissions(PlayerBean player, DataSource dataSource) throws Exception
-    {
-        ModerationPermissionsBean moderationPermissionsBean = null;
+    public ModerationPermissionsBean getModerationPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+        ModerationPermissionsBean moderationPermissionsBean;
 
-        try
-        {
+        try {
             // Set connection
             connection = dataSource.getConnection();
 
@@ -53,8 +49,7 @@ public class ModerationPermissionsManager
             resultset = statement.executeQuery();
 
             // Manage the result in a bean
-            if(resultset.next())
-            {
+            if (resultset.next()) {
                 // There's a result
                 long groupId = resultset.getLong("groups_id");
                 boolean modBan = resultset.getBoolean("mod_ban");
@@ -67,21 +62,15 @@ public class ModerationPermissionsManager
                 boolean modChannelReport = resultset.getBoolean("mod_channel_report");
                 boolean modQuiet = resultset.getBoolean("mod_quiet");
 
-                moderationPermissionsBean = new ModerationPermissionsBean(groupId, modBan, modTp, modKick, modPardon, modMuteLongtime, modMute, modChannel,modChannelReport, modQuiet);
-            }
-            else
-            {
+                moderationPermissionsBean = new ModerationPermissionsBean(groupId, modBan, modTp, modKick, modPardon, modMuteLongtime, modMute, modChannel, modChannelReport, modQuiet);
+            } else {
                 // If there no dimension stats int the database
                 return null;
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
-        }
-        finally
-        {
+        } finally {
             // Close the query environment in order to prevent leaks
             close();
         }
@@ -90,29 +79,22 @@ public class ModerationPermissionsManager
     }
 
     // Close all connection
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         // Close the query environment in order to prevent leaks
-        try
-        {
-            if (resultset != null)
-            {
+        try {
+            if (resultset != null) {
                 // Close the resulset
                 resultset.close();
             }
-            if (statement != null)
-            {
+            if (statement != null) {
                 // Close the statement
                 statement.close();
             }
-            if (connection != null)
-            {
+            if (connection != null) {
                 // Close the connection
                 connection.close();
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }
