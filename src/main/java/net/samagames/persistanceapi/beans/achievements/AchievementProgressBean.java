@@ -23,7 +23,7 @@ import java.util.UUID;
 public class AchievementProgressBean {
     /* Database structure
 
-    Table : achievements_progress
+    Table : achievement_progresses
     +----------------+------------+------+-----+---------------------+----------------+
     | Field          | Type       | Null | Key | Default             | Extra          |
     +----------------+------------+------+-----+---------------------+----------------+

@@ -21,7 +21,7 @@ import java.beans.ConstructorProperties;
 public class AchievementCategoryBean {
     /* Database Structure
 
-    Table : achievements_categories
+    Table : achievement_categories
     +----------------------+--------------+------+-----+--------------+----------------+
     | Field                | Type         | Null | Key | Default      | Extra          |
     +----------------------+--------------+------+-----+--------------+----------------+

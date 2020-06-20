@@ -21,7 +21,7 @@ import java.beans.ConstructorProperties;
 public class ScheduledMessageBean {
     /* Database Structure
 
-    Table : advertising_messages
+    Table : scheduled_messages
     +-------------------------+--------------+------+-----+---------------------+----------------+
     | Field                   | Type         | Null | Key | Default             | Extra          |
     +-------------------------+--------------+------+-----+---------------------+----------------+
