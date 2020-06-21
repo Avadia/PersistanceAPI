@@ -28,7 +28,6 @@ public class ChunkWarsStatisticsBean {
     | Field         | Type       | Null | Key | Default             | Extra |
     +---------------+------------+------+-----+---------------------+-------+
     | uuid          | binary(16) | NO   | PRI | NULL                |       |
-    | damages       | int(11)    | NO   |     | NULL                |       |
     | deaths        | int(11)    | NO   |     | NULL                |       |
     | kills         | int(11)    | NO   |     | NULL                |       |
     | max_damages   | int(11)    | NO   |     | NULL                |       |
