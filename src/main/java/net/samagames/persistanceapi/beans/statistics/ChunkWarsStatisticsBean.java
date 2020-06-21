@@ -30,7 +30,6 @@ public class ChunkWarsStatisticsBean {
     | uuid          | binary(16) | NO   | PRI | NULL                |       |
     | deaths        | int(11)    | NO   |     | NULL                |       |
     | kills         | int(11)    | NO   |     | NULL                |       |
-    | max_damages   | int(11)    | NO   |     | NULL                |       |
     | played_games  | int(11)    | NO   |     | NULL                |       |
     | wins          | int(11)    | NO   |     | NULL                |       |
     | creation_date | timestamp  | NO   |     | 0000-00-00 00:00:00 |       |
