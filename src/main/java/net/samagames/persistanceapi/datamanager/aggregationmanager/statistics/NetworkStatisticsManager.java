@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.NetworkStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class NetworkStatisticsManager {
     private ResultSet resultset = null;
 
     // Get network player statistics
-    public NetworkStatisticsBean getNetworkStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public NetworkStatisticsBean getNetworkStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         NetworkStatisticsBean networkStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, creation_date, update_date, played_time from network_stats where uuid = UNHEX(?)";
@@ -66,10 +66,10 @@ public class NetworkStatisticsManager {
             } else {
                 // If there no network stats int the database create empty one
                 this.close();
-                this.createEmptyNetworkStatistics(player, dataSource);
+                this.createEmptyNetworkStatistics(player, databaseAccess);
                 this.close();
 
-                NetworkStatisticsBean newNetworkStats = this.getNetworkStatistics(player, dataSource);
+                NetworkStatisticsBean newNetworkStats = this.getNetworkStatistics(player, databaseAccess);
                 this.close();
 
                 return newNetworkStats;
@@ -85,13 +85,13 @@ public class NetworkStatisticsManager {
     }
 
     // Create an empty network statistics
-    private void createEmptyNetworkStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyNetworkStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             NetworkStatisticsBean networkStats = new NetworkStatisticsBean(player.getUuid(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into network_stats (uuid, creation_date, update_date, played_time) values (UNHEX(?), now(), now(), played_time = ?)";
@@ -112,15 +112,15 @@ public class NetworkStatisticsManager {
     }
 
     // Update network player statistics
-    public void updateNetworkStatistics(PlayerBean player, NetworkStatisticsBean networkStats, DataSource dataSource) throws Exception {
+    public void updateNetworkStatistics(PlayerBean player, NetworkStatisticsBean networkStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getNetworkStatistics(player, dataSource) == null) {
+            if (this.getNetworkStatistics(player, databaseAccess) == null) {
                 // Create an empty network statistics
-                this.createEmptyNetworkStatistics(player, dataSource);
+                this.createEmptyNetworkStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update network_stats set played_time = ?, update_date = now() where uuid = UNHEX(?)";
@@ -142,11 +142,11 @@ public class NetworkStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, network_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

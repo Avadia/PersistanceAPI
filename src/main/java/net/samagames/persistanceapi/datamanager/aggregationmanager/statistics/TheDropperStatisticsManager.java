@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.TheDropperStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class TheDropperStatisticsManager {
     private ResultSet resultset = null;
 
     // Get the dropper player statistics
-    public TheDropperStatisticsBean getTheDropperStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public TheDropperStatisticsBean getTheDropperStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         TheDropperStatisticsBean theDropperStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, creation_date, update_date, played_time from thedropper_stats where uuid = UNHEX(?)";
@@ -66,10 +66,10 @@ public class TheDropperStatisticsManager {
             } else {
                 // If there no the dropper stats in the database create empty one
                 this.close();
-                this.createEmptyTheDropperStatistics(player, dataSource);
+                this.createEmptyTheDropperStatistics(player, databaseAccess);
                 this.close();
 
-                TheDropperStatisticsBean newTheDropperStats = this.getTheDropperStatistics(player, dataSource);
+                TheDropperStatisticsBean newTheDropperStats = this.getTheDropperStatistics(player, databaseAccess);
                 this.close();
 
                 return newTheDropperStats;
@@ -86,13 +86,13 @@ public class TheDropperStatisticsManager {
     }
 
     // Create an empty the dropper statistics
-    private void createEmptyTheDropperStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyTheDropperStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             TheDropperStatisticsBean theDropperStats = new TheDropperStatisticsBean(player.getUuid(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into thedropper_stats (uuid, creation_date, update_date, played_time) values (UNHEX(?), now(), now(), ?)";
@@ -113,15 +113,15 @@ public class TheDropperStatisticsManager {
     }
 
     // Update the dropper player statistics
-    public void updateTheDropperStatistics(PlayerBean player, TheDropperStatisticsBean theDropperStats, DataSource dataSource) throws Exception {
+    public void updateTheDropperStatistics(PlayerBean player, TheDropperStatisticsBean theDropperStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getTheDropperStatistics(player, dataSource) == null) {
+            if (this.getTheDropperStatistics(player, databaseAccess) == null) {
                 // Create an empty the dropper statistics
-                this.createEmptyTheDropperStatistics(player, dataSource);
+                this.createEmptyTheDropperStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update thedropper_stats set update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -143,11 +143,11 @@ public class TheDropperStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, thedropper_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

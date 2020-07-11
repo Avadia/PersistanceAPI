@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.UltraFlagKeeperStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class UltraFlagKeeperStatisticsManager {
     private ResultSet resultset = null;
 
     // Get ultraflagkeeper player statistics
-    public UltraFlagKeeperStatisticsBean getUltraFlagKeeperStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public UltraFlagKeeperStatisticsBean getUltraFlagKeeperStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         UltraFlagKeeperStatisticsBean ultraFlagKeeperStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select (HEX(uuid)) as uuid, damages, deaths, kills, max_damages, played_games, wins, flags_captured, flags_returned, creation_date, update_date, played_time from ultraflagkeeper_stats where uuid = UNHEX(?)";
@@ -74,10 +74,10 @@ public class UltraFlagKeeperStatisticsManager {
             } else {
                 // If there no ultraflagkeeper stats in the database create empty one
                 this.close();
-                this.createEmptyUltraFlagKeeperStatistics(player, dataSource);
+                this.createEmptyUltraFlagKeeperStatistics(player, databaseAccess);
                 this.close();
 
-                UltraFlagKeeperStatisticsBean newUltraFlagKeeperStats = this.getUltraFlagKeeperStatistics(player, dataSource);
+                UltraFlagKeeperStatisticsBean newUltraFlagKeeperStats = this.getUltraFlagKeeperStatistics(player, databaseAccess);
                 this.close();
 
                 return newUltraFlagKeeperStats;
@@ -94,13 +94,13 @@ public class UltraFlagKeeperStatisticsManager {
     }
 
     // Create an empty ultraflagkeeper statistics
-    private void createEmptyUltraFlagKeeperStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyUltraFlagKeeperStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             UltraFlagKeeperStatisticsBean ultraFlagKeeperStats = new UltraFlagKeeperStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into ultraflagkeeper_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, flags_captured, flags_returned, creation_date, update_date, played_time)";
@@ -130,15 +130,15 @@ public class UltraFlagKeeperStatisticsManager {
     }
 
     // Update ultraflagkeeper player statistics
-    public void updateUltraFlagKeeperStatistics(PlayerBean player, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats, DataSource dataSource) throws Exception {
+    public void updateUltraFlagKeeperStatistics(PlayerBean player, UltraFlagKeeperStatisticsBean ultraFlagKeeperStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getUltraFlagKeeperStatistics(player, dataSource) == null) {
+            if (this.getUltraFlagKeeperStatistics(player, databaseAccess) == null) {
                 // Create an empty ultraflagkeeper statistics
-                this.createEmptyUltraFlagKeeperStatistics(player, dataSource);
+                this.createEmptyUltraFlagKeeperStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update ultraflagkeeper_stats set damages = ?, deaths = ?, kills = ?, max_damages = ?, played_games = ?, wins = ?, flags_captured = ?, flags_returned = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -168,11 +168,11 @@ public class UltraFlagKeeperStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, ultraflagkeeper_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

@@ -1,9 +1,9 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,11 +33,11 @@ public class PlayerManager {
     private ResultSet resultset = null;
 
     // Get player by UUID, create if unknown
-    public PlayerBean getPlayer(UUID uuid, PlayerBean player, DataSource dataSource) throws Exception {
+    public PlayerBean getPlayer(UUID uuid, PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Make the research of player by UUID
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id from players where uuid = UNHEX(?)";
@@ -67,8 +67,8 @@ public class PlayerManager {
             } else {
                 // If there no player for the uuid in database create a new player
                 this.close();
-                this.createPlayer(player, dataSource);
-                PlayerBean newPlayer = this.getPlayer(uuid, player, dataSource);
+                this.createPlayer(player, databaseAccess);
+                PlayerBean newPlayer = this.getPlayer(uuid, player, databaseAccess);
                 this.close();
                 return newPlayer;
             }
@@ -82,14 +82,14 @@ public class PlayerManager {
     }
 
     // Try to recover a suspect UUID by name
-    public UUID recoverSuspect(String suspectName, DataSource dataSource) throws Exception {
+    public UUID recoverSuspect(String suspectName, DatabaseAccess databaseAccess) throws Exception {
         // Defines
         UUID suspectUUID;
 
         // Try to find the player
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid from players where name = ?";
@@ -120,11 +120,11 @@ public class PlayerManager {
     }
 
     // Update the player data
-    public void updatePlayer(PlayerBean player, DataSource dataSource) throws Exception {
+    public void updatePlayer(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Update the players data
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update players set coins = ?, name = ?, stars= ?, powders = ?, last_login = ?, last_ip = ?, toptp_key = ?, group_id = ?, nickname = ?";
@@ -154,11 +154,11 @@ public class PlayerManager {
     }
 
     // Create the player
-    public void createPlayer(PlayerBean player, DataSource dataSource) throws Exception {
+    public void createPlayer(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Create the player
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into players (uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id)";

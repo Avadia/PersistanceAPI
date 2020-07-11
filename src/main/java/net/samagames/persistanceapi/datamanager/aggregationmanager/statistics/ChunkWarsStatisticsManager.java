@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.ChunkWarsStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class ChunkWarsStatisticsManager {
     private ResultSet resultset = null;
 
     // Get chunkwars player statistics
-    public ChunkWarsStatisticsBean getChunkWarsStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public ChunkWarsStatisticsBean getChunkWarsStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         ChunkWarsStatisticsBean chunkWarsStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time from chunkwars_stats where uuid = UNHEX(?)";
@@ -70,10 +70,10 @@ public class ChunkWarsStatisticsManager {
             } else {
                 // If there no chunkwars stats in the database create empty one
                 this.close();
-                this.createEmptyChunkWarsStatistics(player, dataSource);
+                this.createEmptyChunkWarsStatistics(player, databaseAccess);
                 this.close();
 
-                ChunkWarsStatisticsBean newChunkWarsStats = this.getChunkWarsStatistics(player, dataSource);
+                ChunkWarsStatisticsBean newChunkWarsStats = this.getChunkWarsStatistics(player, databaseAccess);
                 this.close();
 
                 return newChunkWarsStats;
@@ -90,13 +90,13 @@ public class ChunkWarsStatisticsManager {
     }
 
     // Create an empty chunkwars statistics
-    private void createEmptyChunkWarsStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyChunkWarsStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             ChunkWarsStatisticsBean chunkWarsStats = new ChunkWarsStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into chunkwars_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
@@ -122,15 +122,15 @@ public class ChunkWarsStatisticsManager {
     }
 
     // Update chunkwars player statistics
-    public void updateChunkWarsStatistics(PlayerBean player, ChunkWarsStatisticsBean chunkWarsStats, DataSource dataSource) throws Exception {
+    public void updateChunkWarsStatistics(PlayerBean player, ChunkWarsStatisticsBean chunkWarsStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getChunkWarsStatistics(player, dataSource) == null) {
+            if (this.getChunkWarsStatistics(player, databaseAccess) == null) {
                 // Create an empty chunkwars statistics
-                this.createEmptyChunkWarsStatistics(player, dataSource);
+                this.createEmptyChunkWarsStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update chunkwars_stats set deaths = ?, kills = ?, played_games = ? , wins = ?, update_date = now() , played_time = ? where uuid = UNHEX(?)";
@@ -156,11 +156,11 @@ public class ChunkWarsStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, chunkwars_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

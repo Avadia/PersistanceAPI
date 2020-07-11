@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.permissions.APIPermissionsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,12 +31,12 @@ public class APIPermissionsManager {
     private ResultSet resultset = null;
 
     // Get the permissions for the API
-    public APIPermissionsBean getAPIPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public APIPermissionsBean getAPIPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         APIPermissionsBean apiPermissionsBean;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select groups_id, api_servers_debug, api_permissions_refresh, api_coins_getother, api_coins_credit, api_coins_withdraw, api_inventory_show";

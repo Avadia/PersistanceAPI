@@ -1,8 +1,8 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.messages.ScheduledMessageBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,13 +32,13 @@ public class MessageManager {
     private ResultSet resultset = null;
 
     // Get the scheduled message by ID
-    public ScheduledMessageBean getScheduledMessage(int messageId, DataSource dataSource) throws Exception {
+    public ScheduledMessageBean getScheduledMessage(int messageId, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             ScheduledMessageBean scheduledMessageBean = null;
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select message_text, schedule_time from scheduled_messages where message_id = ?";
@@ -69,13 +69,13 @@ public class MessageManager {
     }
 
     // Get the scheduled messages
-    public List<ScheduledMessageBean> getScheduledMessages(DataSource dataSource) throws Exception {
+    public List<ScheduledMessageBean> getScheduledMessages(DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             List<ScheduledMessageBean> scheduledMessages = new ArrayList<>();
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select message_id, message_text, schedule_time from scheduled_messages";
@@ -106,11 +106,11 @@ public class MessageManager {
     }
 
     // Update the scheduled message
-    public void updateScheduledMessage(ScheduledMessageBean scheduledMessageBean, DataSource dataSource) throws Exception {
+    public void updateScheduledMessage(ScheduledMessageBean scheduledMessageBean, DatabaseAccess databaseAccess) throws Exception {
         // Update the players data
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update scheduled_messages set message_text = ?, schedule_time = ? where message_id = ?";
@@ -132,11 +132,11 @@ public class MessageManager {
     }
 
     // Create the scheduled message
-    public void createScheduledMessage(ScheduledMessageBean scheduledMessageBean, DataSource dataSource) throws Exception {
+    public void createScheduledMessage(ScheduledMessageBean scheduledMessageBean, DatabaseAccess databaseAccess) throws Exception {
         // Create the player
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into scheduled_messages (message_text, schedule_time) values (?, ?)";

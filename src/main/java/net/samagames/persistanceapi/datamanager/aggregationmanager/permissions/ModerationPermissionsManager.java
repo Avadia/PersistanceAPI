@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.permissions.ModerationPermissionsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,12 +31,12 @@ public class ModerationPermissionsManager {
     private ResultSet resultset = null;
 
     // Get the permissions for moderation
-    public ModerationPermissionsBean getModerationPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public ModerationPermissionsBean getModerationPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         ModerationPermissionsBean moderationPermissionsBean;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select groups_id, mod_ban, mod_tp, mod_kick, mod_pardon, mod_mute_longtime, mod_mute, mod_channel, mod_channel_report, mod_quiet";

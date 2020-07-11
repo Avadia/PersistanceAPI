@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.permissions.BukkitPermissionsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,12 +31,12 @@ public class BukkitPermissionsManager {
     private ResultSet resultset = null;
 
     // Get the permissions for Bukkit
-    public BukkitPermissionsBean getBukkitPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public BukkitPermissionsBean getBukkitPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         BukkitPermissionsBean bukkitPermissionsBean;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select groups_id, minecraft_command_op, bukkit_command_op_give, bukkit_command_effect, bukkit_command_gamemode, bukkit_command_teleport";

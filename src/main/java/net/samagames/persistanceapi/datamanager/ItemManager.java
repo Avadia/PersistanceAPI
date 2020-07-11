@@ -1,8 +1,8 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.shop.ItemDescriptionBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,14 +32,14 @@ public class ItemManager {
     private ResultSet resultset = null;
 
     // Get the item by ID
-    public ItemDescriptionBean getItemDescription(int itemId, DataSource dataSource) throws Exception {
+    public ItemDescriptionBean getItemDescription(int itemId, DatabaseAccess databaseAccess) throws Exception {
         // Get item
         try {
             // Defines
             ItemDescriptionBean itemDescription = null;
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select item_name, item_desc, price_coins, price_stars, game_category, item_minecraft_id, item_rarity, rank_accessibility";
@@ -76,14 +76,14 @@ public class ItemManager {
     }
 
     // Get all the item description
-    public List<ItemDescriptionBean> getAllItemDescription(DataSource dataSource) throws Exception {
+    public List<ItemDescriptionBean> getAllItemDescription(DatabaseAccess databaseAccess) throws Exception {
         // Get item
         try {
             // Defines
             ItemDescriptionBean itemDescription;
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<ItemDescriptionBean> itemList = new ArrayList<>();
 
             // Query construction

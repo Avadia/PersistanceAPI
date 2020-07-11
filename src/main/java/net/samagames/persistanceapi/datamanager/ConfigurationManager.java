@@ -1,8 +1,8 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.utils.BungeeConfigBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,11 +30,11 @@ public class ConfigurationManager {
     private ResultSet resultset = null;
 
     // Get the bungee config
-    public BungeeConfigBean getConfig(DataSource dataSource) throws Exception {
+    public BungeeConfigBean getConfig(DatabaseAccess databaseAccess) throws Exception {
         // Make the research of player by UUID
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select slots, motd, close_type, server_line, max_players, priority_title, welcome_message from configuration";
@@ -70,11 +70,11 @@ public class ConfigurationManager {
     }
 
     // Update the bungee config
-    public void updateConfig(BungeeConfigBean config, DataSource dataSource) throws Exception {
+    public void updateConfig(BungeeConfigBean config, DatabaseAccess databaseAccess) throws Exception {
         // Update the config
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update configuration set slots = ?, motd = ?, close_type = ?, server_line = ?, max_players = ?, priority_title = ?, welcome_message = ?";

@@ -2,9 +2,9 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.shop.TransactionBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,11 +36,11 @@ public class TransactionManager {
     private ResultSet resultset = null;
 
     // Get all the player transactions
-    public List<TransactionBean> getPlayerTransactions(PlayerBean player, DataSource dataSource) throws Exception {
+    public List<TransactionBean> getPlayerTransactions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Get all transactions
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<TransactionBean> transactionList = new ArrayList<>();
 
             // Query construction
@@ -78,11 +78,11 @@ public class TransactionManager {
     }
 
     // Get all the selected player transactions
-    public List<TransactionBean> getPlayerSelectedTransactions(PlayerBean player, DataSource dataSource) throws Exception {
+    public List<TransactionBean> getPlayerSelectedTransactions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Get all selected transactions
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<TransactionBean> transactionList = new ArrayList<>();
 
             // Query construction
@@ -120,11 +120,11 @@ public class TransactionManager {
     }
 
     // Get all the selected player transactions for a game
-    public List<TransactionBean> getPlayerGameSelectedTransactions(PlayerBean player, DataSource dataSource, int selectedGame) throws Exception {
+    public List<TransactionBean> getPlayerGameSelectedTransactions(PlayerBean player, DatabaseAccess databaseAccess, int selectedGame) throws Exception {
         // Get all selected transactions for a game
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<TransactionBean> transactionList = new ArrayList<>();
 
             // Query construction
@@ -165,11 +165,11 @@ public class TransactionManager {
 
 
     // Get all the player transactions for a selected game
-    public List<TransactionBean> getPlayerGameTransactions(PlayerBean player, DataSource dataSource, int selectedGame) throws Exception {
+    public List<TransactionBean> getPlayerGameTransactions(PlayerBean player, DatabaseAccess databaseAccess, int selectedGame) throws Exception {
         // Get all selected transactions for a game
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<TransactionBean> transactionList = new ArrayList<>();
 
             // Query construction
@@ -210,10 +210,10 @@ public class TransactionManager {
 
 
     // Create transaction
-    public void createTransaction(PlayerBean player, DataSource dataSource, TransactionBean transaction) throws Exception {
+    public void createTransaction(PlayerBean player, DatabaseAccess databaseAccess, TransactionBean transaction) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into transaction_shop (item_id, price_coins, price_stars, transaction_date, selected, uuid_buyer) values(?, ?, ?, now(), ?, UNHEX(?))";
@@ -237,10 +237,10 @@ public class TransactionManager {
     }
 
     // Update a transaction
-    public void updateTransaction(TransactionBean transaction, DataSource dataSource) throws Exception {
+    public void updateTransaction(TransactionBean transaction, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update transaction_shop set price_coins = ?, price_stars = ?, transaction_date = ?, selected = ?, uuid_buyer = UNHEX(?) where transaction_id = ?";

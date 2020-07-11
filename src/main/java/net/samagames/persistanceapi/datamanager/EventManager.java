@@ -2,9 +2,9 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.events.EventBean;
 import net.samagames.persistanceapi.beans.events.EventWinnerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,13 +36,13 @@ public class EventManager {
     private ResultSet resultset = null;
 
     // Get the event by ID
-    public EventBean getEvent(long eventId, DataSource dataSource) throws Exception {
+    public EventBean getEvent(long eventId, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             EventBean eventBean = null;
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select event_organizer, event_template, reward_coins, reward_pearls, event_date from events where event_id = ?";
@@ -76,13 +76,13 @@ public class EventManager {
     }
 
     // Get the event by date
-    public EventBean getEvent(Timestamp eventDate, DataSource dataSource) throws Exception {
+    public EventBean getEvent(Timestamp eventDate, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             EventBean eventBean = null;
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select event_id, event_organizer, event_template, reward_coins, reward_pearls from events where event_date = ?";
@@ -116,13 +116,13 @@ public class EventManager {
     }
 
     // Get the winners of an event
-    public List<EventWinnerBean> getEventWinners(long eventId, DataSource dataSource) throws Exception {
+    public List<EventWinnerBean> getEventWinners(long eventId, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             List<EventWinnerBean> eventWinners = new ArrayList<>();
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select win_id, event_winner from event_winners where event_id = ?";
@@ -153,13 +153,13 @@ public class EventManager {
     }
 
     // Get the events
-    public List<EventBean> getEvents(DataSource dataSource) throws Exception {
+    public List<EventBean> getEvents(DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             List<EventBean> events = new ArrayList<>();
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select event_id, event_organizer, event_template, reward_coins, reward_pearls, event_date from events";
@@ -193,11 +193,11 @@ public class EventManager {
     }
 
     // Update the event
-    public void updateEvent(EventBean eventBean, DataSource dataSource) throws Exception {
+    public void updateEvent(EventBean eventBean, DatabaseAccess databaseAccess) throws Exception {
         // Update the players data
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             Timestamp eventDate = eventBean.getEventDate();
             String eventDateString = "0000-00-00 00:00:00";
@@ -228,11 +228,11 @@ public class EventManager {
     }
 
     // Update the event
-    public void updateEventWinner(EventWinnerBean eventWinnerBean, DataSource dataSource) throws Exception {
+    public void updateEventWinner(EventWinnerBean eventWinnerBean, DatabaseAccess databaseAccess) throws Exception {
         // Update the players data
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update event_winners set event_id = ?, event_winner = ? where win_id = ?";
@@ -254,11 +254,11 @@ public class EventManager {
     }
 
     // Create the event
-    public void createEvent(EventBean eventBean, DataSource dataSource) throws Exception {
+    public void createEvent(EventBean eventBean, DatabaseAccess databaseAccess) throws Exception {
         // Create the player
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             Timestamp eventDate = eventBean.getEventDate();
             String eventDateString = "0000-00-00 00:00:00";
@@ -288,11 +288,11 @@ public class EventManager {
     }
 
     // Create the event winner
-    public void createWinnerEvent(EventWinnerBean eventWinnerBean, DataSource dataSource) throws Exception {
+    public void createWinnerEvent(EventWinnerBean eventWinnerBean, DatabaseAccess databaseAccess) throws Exception {
         // Create the player
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into event_winners (event_id, event_winner) values (?, UNHEX(?))";

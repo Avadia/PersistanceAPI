@@ -2,9 +2,9 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.players.SanctionBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,11 +36,11 @@ public class SanctionManager {
     private ResultSet resultset = null;
 
     // Create a sanction
-    public void applySanction(int sanctionType, SanctionBean sanction, DataSource dataSource) throws Exception {
+    public void applySanction(int sanctionType, SanctionBean sanction, DatabaseAccess databaseAccess) throws Exception {
         // Create the sanction
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             Timestamp expirationTime = sanction.getExpirationTime();
             String expirationDate = "0000-00-00 00:00:00";
@@ -71,11 +71,11 @@ public class SanctionManager {
     }
 
     // Remove a sanction
-    public void removeSanction(int sanctionType, PlayerBean player, DataSource dataSource) throws Exception {
+    public void removeSanction(int sanctionType, PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Remove the last active sanction
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update sanctions set is_deleted=1, update_date = now() where type_id = ? and player_uuid = UNHEX(?)";
@@ -97,14 +97,14 @@ public class SanctionManager {
     }
 
     // Check if a player is banned
-    public SanctionBean getPlayerBanned(PlayerBean player, DataSource dataSource) throws Exception {
+    public SanctionBean getPlayerBanned(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Defines
         SanctionBean sanction;
 
         // Do the check of ban
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             Timestamp expirationTime;
 
             // Query construction
@@ -155,14 +155,14 @@ public class SanctionManager {
     }
 
     // Check if a player is muted
-    public SanctionBean getPlayerMuted(PlayerBean player, DataSource dataSource) throws Exception {
+    public SanctionBean getPlayerMuted(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Defines
         SanctionBean sanction;
 
         // Do the check of mute
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             Timestamp expirationTime;
 
             // Query construction
@@ -213,11 +213,11 @@ public class SanctionManager {
     }
 
     // Get all actives sanctions by type
-    public List<SanctionBean> getAllSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception {
+    public List<SanctionBean> getAllSanctions(UUID uuid, int sanctionType, DatabaseAccess databaseAccess) throws Exception {
         // Get all sanctions
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
             Timestamp expirationTime;
 
@@ -264,11 +264,11 @@ public class SanctionManager {
     }
 
     // Get all non actives sanctions by type
-    public List<SanctionBean> getAllActiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception {
+    public List<SanctionBean> getAllActiveSanctions(UUID uuid, int sanctionType, DatabaseAccess databaseAccess) throws Exception {
         // Get all sanctions
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
             Timestamp expirationTime;
 
@@ -316,11 +316,11 @@ public class SanctionManager {
 
     // Get all sanctions by type
     // Get all non actives sanctions by type
-    public List<SanctionBean> getAllPassiveSanctions(UUID uuid, int sanctionType, DataSource dataSource) throws Exception {
+    public List<SanctionBean> getAllPassiveSanctions(UUID uuid, int sanctionType, DatabaseAccess databaseAccess) throws Exception {
         // Get all sanctions
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
             Timestamp expirationTime;
 
@@ -367,11 +367,11 @@ public class SanctionManager {
     }
 
     // Update a sanction status
-    public void updateSanctionStatus(long sanctionId, boolean status, DataSource dataSource) throws Exception {
+    public void updateSanctionStatus(long sanctionId, boolean status, DatabaseAccess databaseAccess) throws Exception {
         // Update the sanction status
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update sanctions set is_deleted = ?, update_date = now() where sanction_id = ?";
@@ -392,11 +392,11 @@ public class SanctionManager {
     }
 
     // Get sanctions by UUID
-    public List<SanctionBean> getAllModeratorSanctions(UUID uuid, DataSource dataSource) throws Exception {
+    public List<SanctionBean> getAllModeratorSanctions(UUID uuid, DatabaseAccess databaseAccess) throws Exception {
         // Get all sanctions
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<SanctionBean> sanctionList = new ArrayList<>();
             Timestamp expirationTime;
 

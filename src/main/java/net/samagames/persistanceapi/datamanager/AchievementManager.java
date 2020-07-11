@@ -4,9 +4,9 @@ import net.samagames.persistanceapi.beans.achievements.AchievementBean;
 import net.samagames.persistanceapi.beans.achievements.AchievementCategoryBean;
 import net.samagames.persistanceapi.beans.achievements.AchievementProgressBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,13 +38,13 @@ public class AchievementManager {
     private ResultSet resultset = null;
 
     // Get the category by ID
-    public AchievementCategoryBean getAchievementCategory(int categoryId, DataSource dataSource) throws Exception {
+    public AchievementCategoryBean getAchievementCategory(int categoryId, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             AchievementCategoryBean achievementCategory = null;
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select category_name, category_description, item_minecraft_id, parent_id from achievement_categories where category_id = ?";
@@ -76,13 +76,13 @@ public class AchievementManager {
     }
 
     // Get the categories
-    public List<AchievementCategoryBean> getAchievementCategories(DataSource dataSource) throws Exception {
+    public List<AchievementCategoryBean> getAchievementCategories(DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             List<AchievementCategoryBean> achievementCategories = new ArrayList<>();
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select category_id, category_name, category_description, item_minecraft_id, parent_id from achievement_categories";
@@ -114,13 +114,13 @@ public class AchievementManager {
     }
 
     // Get the achievement by ID
-    public AchievementBean getAchievement(int achievementId, DataSource dataSource) throws Exception {
+    public AchievementBean getAchievement(int achievementId, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             AchievementBean achievement = null;
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select achievement_name, achievement_description, progress_target, category_id from achievements where achievement_id = ?";
@@ -152,13 +152,13 @@ public class AchievementManager {
     }
 
     // Get the achievements
-    public List<AchievementBean> getAchievements(DataSource dataSource) throws Exception {
+    public List<AchievementBean> getAchievements(DatabaseAccess databaseAccess) throws Exception {
         try {
             // Defines
             List<AchievementBean> achievements = new ArrayList<>();
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select achievement_id, achievement_name, achievement_description, progress_target, category_id from achievements";
@@ -190,11 +190,11 @@ public class AchievementManager {
     }
 
     // Get achievement progress by UUID and achievement id
-    public AchievementProgressBean getAchievementProgress(PlayerBean player, int achievementId, DataSource dataSource) throws Exception {
+    public AchievementProgressBean getAchievementProgress(PlayerBean player, int achievementId, DatabaseAccess databaseAccess) throws Exception {
         // Make the research of player by UUID
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses where uuid_player = UNHEX(?) and achievement_id = ?";
@@ -228,8 +228,8 @@ public class AchievementManager {
                 // If there no player for the uuid in database create a new player
                 this.close();
                 AchievementProgressBean achievementProgressBean = new AchievementProgressBean(0, 0, achievementId, null, null, null);
-                this.createAchievementProgress(player, achievementProgressBean, dataSource);
-                achievementProgressBean = this.getAchievementProgress(player, achievementId, dataSource);
+                this.createAchievementProgress(player, achievementProgressBean, databaseAccess);
+                achievementProgressBean = this.getAchievementProgress(player, achievementId, databaseAccess);
                 this.close();
                 return achievementProgressBean;
             }
@@ -243,14 +243,14 @@ public class AchievementManager {
     }
 
     // Get achievement progresses by UUID
-    public List<AchievementProgressBean> getAchievementProgresses(PlayerBean player, DataSource dataSource) throws Exception {
+    public List<AchievementProgressBean> getAchievementProgresses(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Make the research of player by UUID
         try {
             // Defines
             List<AchievementProgressBean> achievementProgresses = new ArrayList<>();
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select (HEX(uuid_player)) as uuid_player, progress_id, achievement_id, progress, start_date, unlock_date from achievement_progresses where uuid_player = UNHEX(?)";
@@ -292,11 +292,11 @@ public class AchievementManager {
     }
 
     // Update the achievement progress data
-    public void updateAchievementProgress(AchievementProgressBean progress, DataSource dataSource) throws Exception {
+    public void updateAchievementProgress(AchievementProgressBean progress, DatabaseAccess databaseAccess) throws Exception {
         // Update the players data
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             Timestamp unlockDate = progress.getUnlockDate();
             String unlockDateString = "0000-00-00 00:00:00";
@@ -325,11 +325,11 @@ public class AchievementManager {
     }
 
     // Create the achievement progress
-    public void createAchievementProgress(PlayerBean player, AchievementProgressBean progress, DataSource dataSource) throws Exception {
+    public void createAchievementProgress(PlayerBean player, AchievementProgressBean progress, DatabaseAccess databaseAccess) throws Exception {
         // Create the player
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             Timestamp unlockDate = progress.getUnlockDate();
             String unlockDateString = "0000-00-00 00:00:00";

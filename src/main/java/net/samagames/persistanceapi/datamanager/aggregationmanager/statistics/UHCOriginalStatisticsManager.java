@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.UHCOriginalStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class UHCOriginalStatisticsManager {
     private ResultSet resultset = null;
 
     // Get uhc player statistics
-    public UHCOriginalStatisticsBean getUHCOriginalStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public UHCOriginalStatisticsBean getUHCOriginalStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         UHCOriginalStatisticsBean uhcStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time from uhcoriginal_stats where uuid = UNHEX(?)";
@@ -72,10 +72,10 @@ public class UHCOriginalStatisticsManager {
             } else {
                 // If there no uhc stats in the database create empty one
                 this.close();
-                this.createEmptyUHCOriginalStatistics(player, dataSource);
+                this.createEmptyUHCOriginalStatistics(player, databaseAccess);
                 this.close();
 
-                UHCOriginalStatisticsBean newUHCStats = this.getUHCOriginalStatistics(player, dataSource);
+                UHCOriginalStatisticsBean newUHCStats = this.getUHCOriginalStatistics(player, databaseAccess);
                 this.close();
 
                 return newUHCStats;
@@ -92,13 +92,13 @@ public class UHCOriginalStatisticsManager {
     }
 
     // Create an empty uhc statistics
-    private void createEmptyUHCOriginalStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyUHCOriginalStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             UHCOriginalStatisticsBean uhcStats = new UHCOriginalStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into uhcoriginal_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
@@ -126,15 +126,15 @@ public class UHCOriginalStatisticsManager {
     }
 
     // Update uhc player statistics
-    public void updateUHCOriginalStatistics(PlayerBean player, UHCOriginalStatisticsBean uhcStats, DataSource dataSource) throws Exception {
+    public void updateUHCOriginalStatistics(PlayerBean player, UHCOriginalStatisticsBean uhcStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getUHCOriginalStatistics(player, dataSource) == null) {
+            if (this.getUHCOriginalStatistics(player, databaseAccess) == null) {
                 // Create an empty uhc statistics
-                this.createEmptyUHCOriginalStatistics(player, dataSource);
+                this.createEmptyUHCOriginalStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update uhcoriginal_stats set damages = ?, deaths = ?, kills = ?, max_damages = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -162,11 +162,11 @@ public class UHCOriginalStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, uhcoriginal_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

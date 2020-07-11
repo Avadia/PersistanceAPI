@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.permissions.BungeeRedisPermissionsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,12 +31,12 @@ public class BungeeRedisPermissionsManager {
     private ResultSet resultset = null;
 
     // Get the permissions for Bungee & Redis
-    public BungeeRedisPermissionsBean getBungeeRedisPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public BungeeRedisPermissionsBean getBungeeRedisPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         BungeeRedisPermissionsBean bungeeRedisPermissionsBean;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select groups_id, bungeecord_command_list, bungeecord_command_find, redisbungee_command_lastseen, bungeecord_command_ip, redisbungee_command_sendtoall";

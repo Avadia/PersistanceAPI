@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.UppervoidStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class UppervoidStatisticsManager {
     private ResultSet resultset = null;
 
     // Get uppervoid player statistics
-    public UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public UppervoidStatisticsBean getUppervoidStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         UppervoidStatisticsBean uppervoidStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, blocks, grenades, kills, played_games, tnt_launched, wins, creation_date, update_date, played_time from uppervoid_stats where uuid = UNHEX(?)";
@@ -72,10 +72,10 @@ public class UppervoidStatisticsManager {
             } else {
                 // If there no uppervoid stats int the database create empty one
                 this.close();
-                this.createEmptyUppervoidStatistics(player, dataSource);
+                this.createEmptyUppervoidStatistics(player, databaseAccess);
                 this.close();
 
-                UppervoidStatisticsBean newUppervoidStats = this.getUppervoidStatistics(player, dataSource);
+                UppervoidStatisticsBean newUppervoidStats = this.getUppervoidStatistics(player, databaseAccess);
                 this.close();
 
                 return newUppervoidStats;
@@ -91,13 +91,13 @@ public class UppervoidStatisticsManager {
     }
 
     // Create an empty uppervoid statistics
-    private void createEmptyUppervoidStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyUppervoidStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             UppervoidStatisticsBean uppervoidStats = new UppervoidStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into uppervoid_stats (uuid, blocks, grenades, kills, played_games, tnt_launched, wins, creation_date, update_date, played_time)";
@@ -125,15 +125,15 @@ public class UppervoidStatisticsManager {
     }
 
     // Update uppervoid player statistics
-    public void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats, DataSource dataSource) throws Exception {
+    public void updateUppervoidStatistics(PlayerBean player, UppervoidStatisticsBean uppervoidStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getUppervoidStatistics(player, dataSource) == null) {
+            if (this.getUppervoidStatistics(player, databaseAccess) == null) {
                 // Create an empty uppervoid statistics
-                this.createEmptyUppervoidStatistics(player, dataSource);
+                this.createEmptyUppervoidStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update uppervoid_stats set blocks = ?, grenades = ?, kills = ?, played_games = ?, tnt_launched = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -161,11 +161,11 @@ public class UppervoidStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, uppervoid_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

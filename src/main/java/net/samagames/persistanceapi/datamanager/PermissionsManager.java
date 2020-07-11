@@ -3,8 +3,7 @@ package net.samagames.persistanceapi.datamanager;
 import net.samagames.persistanceapi.beans.permissions.*;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.datamanager.aggregationmanager.permissions.*;
-
-import javax.sql.DataSource;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
 /*
  * This file is part of PersistanceAPI.
@@ -44,7 +43,7 @@ public class PermissionsManager {
     }
 
     // Get all player permissions
-    public PlayerPermissionsBean getAllPlayerPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public PlayerPermissionsBean getAllPlayerPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Declared bean
         APIPermissionsBean apiPermissions;
         BukkitPermissionsBean bukkitPermissions;
@@ -56,13 +55,13 @@ public class PermissionsManager {
 
         // Get the different permissions bean
         try {
-            apiPermissions = this.apiPermissionsManager.getAPIPermissions(player, dataSource);
-            bukkitPermissions = this.bukkitPermissionsManager.getBukkitPermissions(player, dataSource);
-            bungeeRedisPermissions = this.bungeeRedisPermissionsManager.getBungeeRedisPermissions(player, dataSource);
-            hubPermissions = this.hubPermissionsManager.getHubPermissions(player, dataSource);
-            moderationPermissions = this.moderationPermissionsManager.getModerationPermissions(player, dataSource);
-            proxiesPermissions = this.proxiesPermissionsManager.getProxiesPermissions(player, dataSource);
-            staffPermissions = this.staffPermissionsManager.getStaffPermissions(player, dataSource);
+            apiPermissions = this.apiPermissionsManager.getAPIPermissions(player, databaseAccess);
+            bukkitPermissions = this.bukkitPermissionsManager.getBukkitPermissions(player, databaseAccess);
+            bungeeRedisPermissions = this.bungeeRedisPermissionsManager.getBungeeRedisPermissions(player, databaseAccess);
+            hubPermissions = this.hubPermissionsManager.getHubPermissions(player, databaseAccess);
+            moderationPermissions = this.moderationPermissionsManager.getModerationPermissions(player, databaseAccess);
+            proxiesPermissions = this.proxiesPermissionsManager.getProxiesPermissions(player, databaseAccess);
+            staffPermissions = this.staffPermissionsManager.getStaffPermissions(player, databaseAccess);
         } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;

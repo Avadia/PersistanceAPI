@@ -69,10 +69,10 @@ public class Test {
             startTime = System.currentTimeMillis();
             if (cible.equals("maison")) {
                 // For MisterSatch only
-                manager = new GameServiceManager("jdbc:mysql://127.0.0.1:8889/samagamesV3", "root", "root", 1, 10);
+                manager = new GameServiceManager("127.0.0.1", "root", "root", "samagamesV3", 8889);
             } else {
                 // For standard localhost configuration
-                manager = new GameServiceManager("jdbc:mysql://127.0.0.1:3306/samagamesv3", "root", "", 1, 10);
+                manager = new GameServiceManager("127.0.0.1", "root", "", "samagamesv3", 3306);
             }
             System.out.println("Manager init time: " + (System.currentTimeMillis() - startTime) + " ms");
 

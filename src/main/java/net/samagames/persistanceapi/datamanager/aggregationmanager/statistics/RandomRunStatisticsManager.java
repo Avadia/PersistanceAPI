@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.RandomRunStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class RandomRunStatisticsManager {
     private ResultSet resultset = null;
 
     // Get randomrun player statistics
-    public RandomRunStatisticsBean getRandomRunStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public RandomRunStatisticsBean getRandomRunStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         RandomRunStatisticsBean randomRunStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time from randomrun_stats where uuid = UNHEX(?)";
@@ -72,10 +72,10 @@ public class RandomRunStatisticsManager {
             } else {
                 // If there no randomrun stats in the database create empty one
                 this.close();
-                this.createEmptyRandomRunStatistics(player, dataSource);
+                this.createEmptyRandomRunStatistics(player, databaseAccess);
                 this.close();
 
-                RandomRunStatisticsBean newRandomRunStats = this.getRandomRunStatistics(player, dataSource);
+                RandomRunStatisticsBean newRandomRunStats = this.getRandomRunStatistics(player, databaseAccess);
                 this.close();
 
                 return newRandomRunStats;
@@ -92,13 +92,13 @@ public class RandomRunStatisticsManager {
     }
 
     // Create an empty randomrun statistics
-    private void createEmptyRandomRunStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyRandomRunStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             RandomRunStatisticsBean randomRunStats = new RandomRunStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into randomrun_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
@@ -126,15 +126,15 @@ public class RandomRunStatisticsManager {
     }
 
     // Update randomrun player statistics
-    public void updateRandomRunStatistics(PlayerBean player, RandomRunStatisticsBean randomRunStats, DataSource dataSource) throws Exception {
+    public void updateRandomRunStatistics(PlayerBean player, RandomRunStatisticsBean randomRunStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getRandomRunStatistics(player, dataSource) == null) {
+            if (this.getRandomRunStatistics(player, databaseAccess) == null) {
                 // Create an empty randomrun statistics
-                this.createEmptyRandomRunStatistics(player, dataSource);
+                this.createEmptyRandomRunStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update randomrun_stats set damages = ?, deaths = ?, kills = ?, max_damages = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -162,11 +162,11 @@ public class RandomRunStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, randomrun_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

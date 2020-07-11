@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.DimensionsStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class DimensionsStatisticsManager {
     private ResultSet resultset = null;
 
     // Get dimensions player statistics
-    public DimensionsStatisticsBean getDimensionsStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public DimensionsStatisticsBean getDimensionsStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         DimensionsStatisticsBean dimensionsStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time from dimensions_stats where uuid = UNHEX(?)";
@@ -70,10 +70,10 @@ public class DimensionsStatisticsManager {
             } else {
                 // If there no dimensions stats int the database create empty one
                 this.close();
-                this.createEmptyDimensionsStatistics(player, dataSource);
+                this.createEmptyDimensionsStatistics(player, databaseAccess);
                 this.close();
 
-                DimensionsStatisticsBean newDimensionsStats = this.getDimensionsStatistics(player, dataSource);
+                DimensionsStatisticsBean newDimensionsStats = this.getDimensionsStatistics(player, databaseAccess);
                 this.close();
 
                 return newDimensionsStats;
@@ -90,13 +90,13 @@ public class DimensionsStatisticsManager {
     }
 
     // Create an empty dimensions statistics
-    private void createEmptyDimensionsStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyDimensionsStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             DimensionsStatisticsBean dimensionStats = new DimensionsStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into dimensions_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time)";
@@ -124,15 +124,15 @@ public class DimensionsStatisticsManager {
 
 
     // Update dimensions player statistics
-    public void updateDimensionsStatistics(PlayerBean player, DimensionsStatisticsBean dimensionsStats, DataSource dataSource) throws Exception {
+    public void updateDimensionsStatistics(PlayerBean player, DimensionsStatisticsBean dimensionsStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getDimensionsStatistics(player, dataSource) == null) {
+            if (this.getDimensionsStatistics(player, databaseAccess) == null) {
                 // Create an empty dimensions statistics
-                this.createEmptyDimensionsStatistics(player, dataSource);
+                this.createEmptyDimensionsStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update dimensions_stats set deaths = ?, kills = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -158,11 +158,11 @@ public class DimensionsStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, dimensions_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

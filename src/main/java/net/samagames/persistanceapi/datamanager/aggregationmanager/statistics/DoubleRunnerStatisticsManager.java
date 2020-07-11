@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.DoubleRunnerStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class DoubleRunnerStatisticsManager {
     private ResultSet resultset = null;
 
     // Get doublerunner player statistics
-    public DoubleRunnerStatisticsBean getDoubleRunnerStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public DoubleRunnerStatisticsBean getDoubleRunnerStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         DoubleRunnerStatisticsBean doubleRunnerStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time from doublerunner_stats where uuid = UNHEX(?)";
@@ -72,10 +72,10 @@ public class DoubleRunnerStatisticsManager {
             } else {
                 // If there no doublerunner stats in the database create empty one
                 this.close();
-                this.createEmptyDoubleRunnerStatistics(player, dataSource);
+                this.createEmptyDoubleRunnerStatistics(player, databaseAccess);
                 this.close();
 
-                DoubleRunnerStatisticsBean newDoubleRunnerStats = this.getDoubleRunnerStatistics(player, dataSource);
+                DoubleRunnerStatisticsBean newDoubleRunnerStats = this.getDoubleRunnerStatistics(player, databaseAccess);
                 this.close();
 
                 return newDoubleRunnerStats;
@@ -91,13 +91,13 @@ public class DoubleRunnerStatisticsManager {
     }
 
     // Create an empty doublerunner statistics
-    private void createEmptyDoubleRunnerStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyDoubleRunnerStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             DoubleRunnerStatisticsBean doubleRunnerStats = new DoubleRunnerStatisticsBean(player.getUuid(), 0, 0, 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into doublerunner_stats (uuid, damages, deaths, kills, max_damages, played_games, wins, creation_date, update_date, played_time)";
@@ -125,15 +125,15 @@ public class DoubleRunnerStatisticsManager {
     }
 
     // Update doublerunner player statistics
-    public void updateDoubleRunnerStatistics(PlayerBean player, DoubleRunnerStatisticsBean doubleRunnerStats, DataSource dataSource) throws Exception {
+    public void updateDoubleRunnerStatistics(PlayerBean player, DoubleRunnerStatisticsBean doubleRunnerStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getDoubleRunnerStatistics(player, dataSource) == null) {
+            if (this.getDoubleRunnerStatistics(player, databaseAccess) == null) {
                 // Create an empty doublerunner statistics
-                this.createEmptyDoubleRunnerStatistics(player, dataSource);
+                this.createEmptyDoubleRunnerStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update doublerunner_stats set damages = ?, deaths = ?, kills = ?, max_damages = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -161,11 +161,11 @@ public class DoubleRunnerStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, doublerunner_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

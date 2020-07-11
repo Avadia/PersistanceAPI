@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.permissions.HubPermissionsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,12 +31,12 @@ public class HubPermissionsManager {
     private ResultSet resultset = null;
 
     // Get the permissions for the hub
-    public HubPermissionsBean getHubPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public HubPermissionsBean getHubPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         HubPermissionsBean hubPermissionsBean;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select groups_id, hub_jukebox_lock, hub_jukebox_next, hub_jukebox_clear, hub_mod_slow, hub_mod_shutup, hub_admin_npc, hub_admin_sign, hub_anguille";

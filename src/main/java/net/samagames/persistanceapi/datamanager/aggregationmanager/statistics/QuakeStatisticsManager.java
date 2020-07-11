@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
 import net.samagames.persistanceapi.beans.statistics.QuakeStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class QuakeStatisticsManager {
     private ResultSet resultset = null;
 
     // Get quake player statistics
-    public QuakeStatisticsBean getQuakeStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public QuakeStatisticsBean getQuakeStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         QuakeStatisticsBean quakeStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time from quake_stats where uuid = UNHEX(?)";
@@ -70,10 +70,10 @@ public class QuakeStatisticsManager {
             } else {
                 // If there no quake stats int the database create empty one
                 this.close();
-                this.createEmptyQuakeStatistics(player, dataSource);
+                this.createEmptyQuakeStatistics(player, databaseAccess);
                 this.close();
 
-                QuakeStatisticsBean newQuakeStats = this.getQuakeStatistics(player, dataSource);
+                QuakeStatisticsBean newQuakeStats = this.getQuakeStatistics(player, databaseAccess);
                 this.close();
 
                 return newQuakeStats;
@@ -90,13 +90,13 @@ public class QuakeStatisticsManager {
     }
 
     // Create an empty quake statistics
-    private void createEmptyQuakeStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyQuakeStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create empty bean
             QuakeStatisticsBean quakeStats = new QuakeStatisticsBean(player.getUuid(), 0, 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into quake_stats (uuid, deaths, kills, played_games, wins, creation_date, update_date, played_time) values (UNHEX(?), ?, ?, ?, ?, now(), now(), ?)";
@@ -121,16 +121,16 @@ public class QuakeStatisticsManager {
     }
 
     // Update quake player statistics
-    public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean quakeStats, DataSource dataSource) throws Exception {
+    public void updateQuakeStatistics(PlayerBean player, QuakeStatisticsBean quakeStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getQuakeStatistics(player, dataSource) == null) {
+            if (this.getQuakeStatistics(player, databaseAccess) == null) {
                 // Create an empty quake statistics
-                this.createEmptyQuakeStatistics(player, dataSource);
+                this.createEmptyQuakeStatistics(player, databaseAccess);
             } else {
 
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update quake_stats set deaths = ?, kills = ?, played_games = ?, wins = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -156,11 +156,11 @@ public class QuakeStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, quake_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

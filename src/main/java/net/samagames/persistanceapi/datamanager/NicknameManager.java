@@ -2,8 +2,8 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.NicknameBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,11 +31,11 @@ public class NicknameManager {
     private ResultSet resultset = null;
 
     // Get a random nickname
-    public NicknameBean getRandomNickname(DataSource dataSource) throws Exception {
+    public NicknameBean getRandomNickname(DatabaseAccess databaseAccess) throws Exception {
         // get a free random nickname
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select nick_id, nickname, blacklisted, used from nickname where blacklisted = 0 and used = 0 order by rand() limit 1";
@@ -54,7 +54,7 @@ public class NicknameManager {
                 boolean used = resultset.getBoolean("used");
                 NicknameBean nicknameBean = new NicknameBean(nick_id, nickname, blacklisted, used);
                 this.close();
-                this.reserveNickname(nicknameBean.getNickId(), dataSource);
+                this.reserveNickname(nicknameBean.getNickId(), databaseAccess);
                 return nicknameBean;
             } else {
                 // If there no more free nickname
@@ -70,10 +70,10 @@ public class NicknameManager {
     }
 
     // Check if a nickname is blacklisted
-    public boolean isNicknameBlacklisted(String nickname, DataSource dataSource) throws Exception {
+    public boolean isNicknameBlacklisted(String nickname, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select nick_id from nickname where nickname = ? and blacklisted = 1";
@@ -98,10 +98,10 @@ public class NicknameManager {
     }
 
     // Reserve a nickname
-    private void reserveNickname(long nick_id, DataSource dataSource) throws Exception {
+    private void reserveNickname(long nick_id, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update nickname set used = true where nick_id = ?";
@@ -121,10 +121,10 @@ public class NicknameManager {
     }
 
     // Free a nickname
-    public void freeNickname(String nickname, DataSource dataSource) throws Exception {
+    public void freeNickname(String nickname, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update nickname set used = false where nickname = ?";

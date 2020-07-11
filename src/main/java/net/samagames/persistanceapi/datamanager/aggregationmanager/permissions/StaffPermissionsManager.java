@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.permissions.StaffPermissionsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,12 +31,12 @@ public class StaffPermissionsManager {
     private ResultSet resultset = null;
 
     // Get the permissions for staff
-    public StaffPermissionsBean getStaffPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public StaffPermissionsBean getStaffPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         StaffPermissionsBean staffPermissionsBean;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select groups_id, netjoin_closed, netjoin_vip, netjoin_full, tracker_famous, network_vip, network_vip_plus, network_staff, network_admin";

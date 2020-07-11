@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.GroupsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,11 +31,11 @@ public class GroupsManager {
     private ResultSet resultset = null;
 
     // Get the permission group for a player
-    public GroupsBean getPlayerGroup(PlayerBean player, DataSource dataSource) throws Exception {
+    public GroupsBean getPlayerGroup(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         GroupsBean groupsBean;
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select group_id, group_name, rank, tag, prefix, suffix, multiplier from groups where group_id = ?";

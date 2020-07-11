@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.statistics;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.JukeBoxStatisticsBean;
 import net.samagames.persistanceapi.beans.statistics.LeaderboardBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,12 +37,12 @@ public class JukeBoxStatisticsManager {
     private ResultSet resultset = null;
 
     // Get jukebox player statistics
-    public JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public JukeBoxStatisticsBean getJukeBoxStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         JukeBoxStatisticsBean jukeBoxStats;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select HEX(uuid) as uuid, mehs, woots, woots_given, creation_date, update_date, played_time from jukebox_stats where uuid = UNHEX(?)";
@@ -69,10 +69,10 @@ public class JukeBoxStatisticsManager {
             } else {
                 // If there no jukebox stats int the database create empty one
                 this.close();
-                this.createEmptyJukeBoxStatistics(player, dataSource);
+                this.createEmptyJukeBoxStatistics(player, databaseAccess);
                 this.close();
 
-                JukeBoxStatisticsBean newJukeBoxStats = this.getJukeBoxStatistics(player, dataSource);
+                JukeBoxStatisticsBean newJukeBoxStats = this.getJukeBoxStatistics(player, databaseAccess);
                 this.close();
 
                 return newJukeBoxStats;
@@ -88,13 +88,13 @@ public class JukeBoxStatisticsManager {
     }
 
     // Create an empty jukebox statistics
-    private void createEmptyJukeBoxStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    private void createEmptyJukeBoxStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Create an empty bean
             JukeBoxStatisticsBean jukeBoxStats = new JukeBoxStatisticsBean(player.getUuid(), 0, 0, 0, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), 0);
 
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction for create
             String sql = "insert into jukebox_stats (uuid, mehs, woots, woots_given, creation_date, update_date, played_time) values (UNHEX(?), ?, ?, ?, now(), now(), played_time = ?)";
@@ -118,15 +118,15 @@ public class JukeBoxStatisticsManager {
     }
 
     // Update jukebox player statistics
-    public void updateJukeBoxStatistics(PlayerBean player, JukeBoxStatisticsBean jukeBoxStats, DataSource dataSource) throws Exception {
+    public void updateJukeBoxStatistics(PlayerBean player, JukeBoxStatisticsBean jukeBoxStats, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Check if a record exists
-            if (this.getJukeBoxStatistics(player, dataSource) == null) {
+            if (this.getJukeBoxStatistics(player, databaseAccess) == null) {
                 // Create an empty jukebox statistics
-                this.createEmptyJukeBoxStatistics(player, dataSource);
+                this.createEmptyJukeBoxStatistics(player, databaseAccess);
             } else {
                 // Set connection
-                connection = dataSource.getConnection();
+                connection = databaseAccess.getConnection();
 
                 // Query construction for update
                 String sql = "update jukebox_stats set mehs = ?, woots = ?, woots_given = ?, update_date = now(), played_time = ? where uuid = UNHEX(?)";
@@ -151,11 +151,11 @@ public class JukeBoxStatisticsManager {
     }
 
     // Get the board for this game
-    public List<LeaderboardBean> getLeaderBoard(String category, DataSource dataSource) throws Exception {
+    public List<LeaderboardBean> getLeaderBoard(String category, DatabaseAccess databaseAccess) throws Exception {
         List<LeaderboardBean> leaderBoard = new ArrayList<>();
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = String.format("select p.name as name, d.%1$s as score from players as p, jukebox_stats as d where p.uuid = d.uuid order by d.%2$s desc limit 3", category, category);

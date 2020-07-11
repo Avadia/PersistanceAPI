@@ -1,9 +1,9 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.statistics.HostStatisticsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
@@ -30,11 +30,11 @@ public class HostManager {
     private PreparedStatement statement = null;
 
     // Create a record of host statistic
-    public void createHostRecord(HostStatisticsBean hostStatisticsBean, DataSource dataSource) throws Exception {
+    public void createHostRecord(HostStatisticsBean hostStatisticsBean, DatabaseAccess databaseAccess) throws Exception {
         // Create the player
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into host_stats (template_id, host_id, ip_address, player_uuid, started_time, played_time) values (?, ?, ?, UNHEX(?), ?, ?)";

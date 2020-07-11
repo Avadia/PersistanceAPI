@@ -2,9 +2,9 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.DenunciationBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -30,11 +30,11 @@ public class DenunciationManager {
     private PreparedStatement statement = null;
 
     // Denunciation by a player
-    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DataSource dataSource) throws Exception {
+    public void denouncePlayer(PlayerBean player, DenunciationBean denunciation, DatabaseAccess databaseAccess) throws Exception {
         // Create denunciation
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into denunciations (denouncer, date, reason, suspect_name) values (UNHEX(?), now(), ?, ?)";

@@ -3,9 +3,9 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.FriendshipBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,10 +37,10 @@ public class FriendshipManager {
     private ResultSet resultset = null;
 
     // Make a friendship demand
-    public void postFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception {
+    public void postFriendshipDemand(FriendshipBean friendship, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into friendship (requester_uuid, recipient_uuid, demand_date, active_status) values (UNHEX(?), UNHEX(?), now(), false)";
@@ -61,10 +61,10 @@ public class FriendshipManager {
     }
 
     // Accept a friendship demand
-    public void acceptFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception {
+    public void acceptFriendshipDemand(FriendshipBean friendship, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "update friendship set active_status = true, acceptation_date = now() where friendship_id = ?";
@@ -84,10 +84,10 @@ public class FriendshipManager {
     }
 
     // Refuse a firendship demand
-    public void refuseFriendshipDemand(FriendshipBean friendship, DataSource dataSource) throws Exception {
+    public void refuseFriendshipDemand(FriendshipBean friendship, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "delete from friendship where friendship_id = ?";
@@ -107,10 +107,10 @@ public class FriendshipManager {
     }
 
     // Get friendship demand list
-    public List<FriendshipBean> getFriendshipDemandList(PlayerBean player, DataSource dataSource) throws Exception {
+    public List<FriendshipBean> getFriendshipDemandList(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<FriendshipBean> friendshipList = new ArrayList<>();
 
             // Query construction
@@ -148,11 +148,11 @@ public class FriendshipManager {
     }
 
     // Get friendship list for a player
-    public List<FriendshipBean> getFriendshipList(PlayerBean player, DataSource dataSource) throws Exception // FIXME Make it bidirectionnal !
+    public List<FriendshipBean> getFriendshipList(PlayerBean player, DatabaseAccess databaseAccess) throws Exception // FIXME Make it bidirectionnal !
     {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<FriendshipBean> friendshipList = new ArrayList<>();
 
             // Query construction
@@ -190,10 +190,10 @@ public class FriendshipManager {
     }
 
     // Get friendship demand list
-    public FriendshipBean getFriendshipNamedList(PlayerBean requester, PlayerBean recipient, DataSource dataSource) throws Exception {
+    public FriendshipBean getFriendshipNamedList(PlayerBean requester, PlayerBean recipient, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             FriendshipBean friendshipBean = null;
 
             // Query construction

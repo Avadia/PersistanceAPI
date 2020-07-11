@@ -2,8 +2,8 @@ package net.samagames.persistanceapi.datamanager.aggregationmanager.permissions;
 
 import net.samagames.persistanceapi.beans.permissions.ProxiesPermissionsBean;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,12 +31,12 @@ public class ProxiesPermissionsManager {
     private ResultSet resultset = null;
 
     // Get the permissions for proxies
-    public ProxiesPermissionsBean getProxiesPermissions(PlayerBean player, DataSource dataSource) throws Exception {
+    public ProxiesPermissionsBean getProxiesPermissions(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         ProxiesPermissionsBean proxiesPermissionsBean;
 
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "select groups_id, proxies_dispatch, proxies_global, proxies_debug, proxies_set_option, proxies_hydro";

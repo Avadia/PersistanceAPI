@@ -3,8 +3,7 @@ package net.samagames.persistanceapi.datamanager;
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.statistics.*;
 import net.samagames.persistanceapi.datamanager.aggregationmanager.statistics.*;
-
-import javax.sql.DataSource;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
 /*
  * This file is part of PersistanceAPI.
@@ -56,7 +55,7 @@ public class StatisticsManager {
     }
 
     // Get all player statistics
-    public PlayerStatisticsBean getAllPlayerStatistics(PlayerBean player, DataSource dataSource) throws Exception {
+    public PlayerStatisticsBean getAllPlayerStatistics(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Declared bean
         DimensionsStatisticsBean dimensionsStats;
         JukeBoxStatisticsBean jukeBoxStats;
@@ -73,18 +72,18 @@ public class StatisticsManager {
 
         // Get the different statistics bean
         try {
-            dimensionsStats = this.dimensionsStatsManager.getDimensionsStatistics(player, dataSource);
-            jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, dataSource);
-            quakeStats = this.quakeStatsManager.getQuakeStatistics(player, dataSource);
-            uhcOriginalStats = this.uhcOriginalStatsManager.getUHCOriginalStatistics(player, dataSource);
-            uhcRunStats = this.uhcRunStatsManager.getUHCRunStatistics(player, dataSource);
-            doubleRunnerStats = this.doubleRunnerStatsManager.getDoubleRunnerStatistics(player, dataSource);
-            uhcRandomStats = this.uhcRandomStatsManager.getUHCRandomStatistics(player, dataSource);
-            randomRunStats = this.randomRunStatsManager.getRandomRunStatistics(player, dataSource);
-            ultraFlagKeeperStats = this.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, dataSource);
-            upperVoidStats = this.uppervoidStatsManager.getUppervoidStatistics(player, dataSource);
-            chunkWarsStats = this.chunkWarsStatisticsManager.getChunkWarsStatistics(player, dataSource);
-            theDropperStats = this.theDropperStatisticsManager.getTheDropperStatistics(player, dataSource);
+            dimensionsStats = this.dimensionsStatsManager.getDimensionsStatistics(player, databaseAccess);
+            jukeBoxStats = this.jukeBoxStatsManager.getJukeBoxStatistics(player, databaseAccess);
+            quakeStats = this.quakeStatsManager.getQuakeStatistics(player, databaseAccess);
+            uhcOriginalStats = this.uhcOriginalStatsManager.getUHCOriginalStatistics(player, databaseAccess);
+            uhcRunStats = this.uhcRunStatsManager.getUHCRunStatistics(player, databaseAccess);
+            doubleRunnerStats = this.doubleRunnerStatsManager.getDoubleRunnerStatistics(player, databaseAccess);
+            uhcRandomStats = this.uhcRandomStatsManager.getUHCRandomStatistics(player, databaseAccess);
+            randomRunStats = this.randomRunStatsManager.getRandomRunStatistics(player, databaseAccess);
+            ultraFlagKeeperStats = this.ultraFlagKeeperStatsManager.getUltraFlagKeeperStatistics(player, databaseAccess);
+            upperVoidStats = this.uppervoidStatsManager.getUppervoidStatistics(player, databaseAccess);
+            chunkWarsStats = this.chunkWarsStatisticsManager.getChunkWarsStatistics(player, databaseAccess);
+            theDropperStats = this.theDropperStatisticsManager.getTheDropperStatistics(player, databaseAccess);
         } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
@@ -95,26 +94,24 @@ public class StatisticsManager {
     }
 
     // Update all player statistics
-    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean data, DataSource dataSource) throws Exception {
+    public void updateAllPlayerStatistics(PlayerBean player, PlayerStatisticsBean data, DatabaseAccess databaseAccess) throws Exception {
         // Update the different statistics bean
         try {
-            this.dimensionsStatsManager.updateDimensionsStatistics(player, data.getDimensionsStats(), dataSource);
-            this.jukeBoxStatsManager.updateJukeBoxStatistics(player, data.getJukeBoxStats(), dataSource);
-            this.quakeStatsManager.updateQuakeStatistics(player, data.getQuakeStats(), dataSource);
-            this.uhcOriginalStatsManager.updateUHCOriginalStatistics(player, data.getUHCOriginalStats(), dataSource);
-            this.uhcRunStatsManager.updateUHCRunStatistics(player, data.getUHCRunStats(), dataSource);
-            this.doubleRunnerStatsManager.updateDoubleRunnerStatistics(player, data.getDoubleRunnerStats(), dataSource);
-            this.uhcRandomStatsManager.updateUHCRandomStatistics(player, data.getUHCRandomStats(), dataSource);
-            this.randomRunStatsManager.updateRandomRunStatistics(player, data.getRandomRunStats(), dataSource);
-            this.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, data.getUltraFlagKeeperStats(), dataSource);
-            this.uppervoidStatsManager.updateUppervoidStatistics(player, data.getUppervoidStats(), dataSource);
-            this.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, data.getChunkWarsStats(), dataSource);
-            this.theDropperStatisticsManager.updateTheDropperStatistics(player, data.getTheDropperStats(), dataSource);
+            this.dimensionsStatsManager.updateDimensionsStatistics(player, data.getDimensionsStats(), databaseAccess);
+            this.jukeBoxStatsManager.updateJukeBoxStatistics(player, data.getJukeBoxStats(), databaseAccess);
+            this.quakeStatsManager.updateQuakeStatistics(player, data.getQuakeStats(), databaseAccess);
+            this.uhcOriginalStatsManager.updateUHCOriginalStatistics(player, data.getUHCOriginalStats(), databaseAccess);
+            this.uhcRunStatsManager.updateUHCRunStatistics(player, data.getUHCRunStats(), databaseAccess);
+            this.doubleRunnerStatsManager.updateDoubleRunnerStatistics(player, data.getDoubleRunnerStats(), databaseAccess);
+            this.uhcRandomStatsManager.updateUHCRandomStatistics(player, data.getUHCRandomStats(), databaseAccess);
+            this.randomRunStatsManager.updateRandomRunStatistics(player, data.getRandomRunStats(), databaseAccess);
+            this.ultraFlagKeeperStatsManager.updateUltraFlagKeeperStatistics(player, data.getUltraFlagKeeperStats(), databaseAccess);
+            this.uppervoidStatsManager.updateUppervoidStatistics(player, data.getUppervoidStats(), databaseAccess);
+            this.chunkWarsStatisticsManager.updateChunkWarsStatistics(player, data.getChunkWarsStats(), databaseAccess);
+            this.theDropperStatisticsManager.updateTheDropperStatistics(player, data.getTheDropperStats(), databaseAccess);
         } catch (Exception exception) {
             exception.printStackTrace();
             throw exception;
         }
-
     }
-
 }

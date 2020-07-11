@@ -2,9 +2,9 @@ package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.PlayerBean;
 import net.samagames.persistanceapi.beans.players.PlayerSettingsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 import net.samagames.persistanceapi.utils.Transcoder;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,14 +33,14 @@ public class PlayerSettingsManager {
     private ResultSet resultset = null;
 
     // Get the player ingame settings
-    public PlayerSettingsBean getPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception {
+    public PlayerSettingsBean getPlayerSettings(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         // Defines
         PlayerSettingsBean playerSettingsBean;
 
         // Make the research of player by UUID
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "";
@@ -80,8 +80,8 @@ public class PlayerSettingsManager {
             } else {
                 // If there no player settings for the uuid in database create a new player settings
                 this.close();
-                this.createDefaultPlayerSettings(player, dataSource);
-                PlayerSettingsBean settings = this.getPlayerSettings(player, dataSource);
+                this.createDefaultPlayerSettings(player, databaseAccess);
+                PlayerSettingsBean settings = this.getPlayerSettings(player, databaseAccess);
                 this.close();
                 return settings;
             }
@@ -95,11 +95,11 @@ public class PlayerSettingsManager {
     }
 
     // Set player ingame settings
-    public void setPlayerSettings(PlayerBean player, PlayerSettingsBean settingsBeans, DataSource dataSource) throws Exception {
+    public void setPlayerSettings(PlayerBean player, PlayerSettingsBean settingsBeans, DatabaseAccess databaseAccess) throws Exception {
         // Update the players data
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "";
@@ -138,10 +138,10 @@ public class PlayerSettingsManager {
     }
 
     // Create default player settings
-    public void createDefaultPlayerSettings(PlayerBean player, DataSource dataSource) throws Exception {
+    public void createDefaultPlayerSettings(PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into player_settings (uuid, jukebox_listen, group_demand_receive, friendship_demand_receive, notification_receive, private_message_receive";

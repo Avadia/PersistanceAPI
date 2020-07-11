@@ -1,8 +1,8 @@
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.shop.PromotionsBean;
+import net.samagames.persistanceapi.datamanager.database.DatabaseAccess;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,10 +33,10 @@ public class PromotionsManager {
     private ResultSet resultset = null;
 
     // Get all the promotions
-    public List<PromotionsBean> getAllActivePromotions(DataSource dataSource) throws Exception {
+    public List<PromotionsBean> getAllActivePromotions(DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<PromotionsBean> promotionList = new ArrayList<>();
 
             // Query construction
@@ -71,10 +71,10 @@ public class PromotionsManager {
     }
 
     // Get a special promotions
-    public List<PromotionsBean> getPromotion(DataSource dataSource, int typeId, int game) throws Exception {
+    public List<PromotionsBean> getPromotion(DatabaseAccess databaseAccess, int typeId, int game) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
             List<PromotionsBean> promotionList = new ArrayList<>();
 
             // Query construction
@@ -110,10 +110,10 @@ public class PromotionsManager {
     }
 
     // Create a promotion
-    public void createPromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception {
+    public void createPromotion(PromotionsBean promotionsBean, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "insert into promotions (type_id, game, multiplier, message, start_date, end_date) values (?, ?, ?, ?, ?, ?)";
@@ -139,10 +139,10 @@ public class PromotionsManager {
 
 
     // Delete a promotion
-    public void deletePromotion(PromotionsBean promotionsBean, DataSource dataSource) throws Exception {
+    public void deletePromotion(PromotionsBean promotionsBean, DatabaseAccess databaseAccess) throws Exception {
         try {
             // Set connection
-            connection = dataSource.getConnection();
+            connection = databaseAccess.getConnection();
 
             // Query construction
             String sql = "delete from promotions where promotion_id = ?";
