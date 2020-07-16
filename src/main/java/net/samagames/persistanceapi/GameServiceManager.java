@@ -61,6 +61,7 @@ public class GameServiceManager {
     public GameServiceManager(String host, String user, String pass, String dbName, int port) {
         // Singleton of DatabaseManager
         this.databaseManager = new DatabaseManager(host, user, pass, dbName, port);
+        this.databaseManager.getDatabaseAccess().initPool();
         this.playerManager = new PlayerManager();
         this.sanctionManager = new SanctionManager();
         this.statisticsManager = new StatisticsManager();
@@ -78,6 +79,16 @@ public class GameServiceManager {
         this.achievementManager = new AchievementManager();
         this.eventManager = new EventManager();
         this.messageManager = new MessageManager();
+    }
+
+
+    /*============================================
+      Close pool database
+    ============================================*/
+
+    // Disconnect from database
+    public void disconnect() {
+        databaseManager.getDatabaseAccess().closePool();
     }
 
 
