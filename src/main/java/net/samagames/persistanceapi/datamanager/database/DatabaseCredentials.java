@@ -16,7 +16,7 @@ public class DatabaseCredentials {
     }
 
     public String toURI() {
-        return "jdbc:mysql://" + host + ":" + port + "/" + dbName + "?useFractionalSeconds=true";
+        return "jdbc:mysql://" + host + ":" + port + "/" + dbName;
     }
 
     public String getUser() {
