@@ -45,7 +45,7 @@ public class EventManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "select event_organizer, event_template, reward_coins, reward_pearls, event_date from events where event_id = ?";
+            String sql = "select HEX(event_organizer) as event_organizer, event_template, reward_coins, reward_pearls, event_date from events where event_id = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setLong(1, eventId);
@@ -85,7 +85,7 @@ public class EventManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "select event_id, event_organizer, event_template, reward_coins, reward_pearls from events where event_date = ?";
+            String sql = "select event_id, HEX(event_organizer) as event_organizer, event_template, reward_coins, reward_pearls from events where event_date = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, eventDate.toString());
@@ -125,7 +125,7 @@ public class EventManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "select win_id, event_winner from event_winners where event_id = ?";
+            String sql = "select win_id, HEX(event_winner) as event_winner from event_winners where event_id = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setLong(1, eventId);
@@ -162,7 +162,7 @@ public class EventManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "select event_id, event_organizer, event_template, reward_coins, reward_pearls, event_date from events";
+            String sql = "select event_id, HEX(event_organizer) as event_organizer, event_template, reward_coins, reward_pearls, event_date from events";
 
             statement = connection.prepareStatement(sql);
 
@@ -206,7 +206,7 @@ public class EventManager {
                 eventDateString = eventDate.toString();
 
             // Query construction
-            String sql = "update events set event_organizer = ?, event_template = ?, reward_coins = ?, reward_pearls = ?, event_date = ? where event_id = ?";
+            String sql = "update events set event_organizer = UNHEX(?), event_template = ?, reward_coins = ?, reward_pearls = ?, event_date = ? where event_id = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, Transcoder.encode(eventBean.getEventOrganizer().toString()));
@@ -235,7 +235,7 @@ public class EventManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "update event_winners set event_id = ?, event_winner = ? where win_id = ?";
+            String sql = "update event_winners set event_id = ?, event_winner = UNHEX(?) where win_id = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setLong(1, eventWinnerBean.getEventId());
