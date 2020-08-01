@@ -37,6 +37,7 @@ public class PlayerBean {
     | last_ip     | varchar(15)  | YES  |     | NULL                |       |
     | toptp_key   | varchar(32)  | YES  |     | NULL                |       |
     | group_id    | bigint(20)   | NO   |     | NULL                |       |
+    | discord_id  | int(18)      | NO   |     | 0                   |       |
     +-------------+--------------+------+-----+---------------------+-------+
     */
 
@@ -52,6 +53,7 @@ public class PlayerBean {
     private String lastIP;
     private String topTpKey;
     private long groupId;
+    private long discordId;
 
     //Empty constructor because we fill it when needed
     public PlayerBean() {
@@ -59,7 +61,7 @@ public class PlayerBean {
     }
 
     // Constructor
-    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, int powders, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String topTpKey, long groupId) {
+    public PlayerBean(UUID uuid, String name, String nickName, int coins, int stars, int powders, Timestamp lastLogin, Timestamp firstLogin, String lastIP, String topTpKey, long groupId, long discordId) {
         this.uuid = uuid;
         this.name = name;
         this.nickName = nickName;
@@ -71,6 +73,7 @@ public class PlayerBean {
         this.lastIP = lastIP;
         this.topTpKey = topTpKey;
         this.groupId = groupId;
+        this.discordId = discordId;
     }
 
     // Getters
@@ -118,6 +121,14 @@ public class PlayerBean {
         return this.topTpKey;
     }
 
+    public long getDiscordId() {
+        return discordId;
+    }
+
+    public void setDiscordId(long discordId) {
+        this.discordId = discordId;
+    }
+
     public void setTopTpKey(String topTpKey) {
         this.topTpKey = topTpKey;
     }
@@ -158,7 +169,6 @@ public class PlayerBean {
         this.groupId = groupId;
     }
 
-    // Setters
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }

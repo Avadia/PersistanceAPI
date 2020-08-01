@@ -40,7 +40,7 @@ public class PlayerManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "select HEX(uuid) as uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id from players where uuid = UNHEX(?)";
+            String sql = "select HEX(uuid) as uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id, discord_id from players where uuid = UNHEX(?)";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, Transcoder.encode(uuid.toString()));
@@ -62,7 +62,8 @@ public class PlayerManager {
                 String lastIP = resultset.getString("last_ip");
                 String toptpKey = resultset.getString("toptp_key");
                 long groupId = resultset.getLong("group_id");
-                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, powders, lastLogin, firsLogin, lastIP, toptpKey, groupId);
+                long discordId = resultset.getLong("discord_id");
+                player = new PlayerBean(UUID.fromString(playerUuid), name, nickName, coins, stars, powders, lastLogin, firsLogin, lastIP, toptpKey, groupId, discordId);
                 return player;
             } else {
                 // If there no player for the uuid in database create a new player
@@ -127,7 +128,7 @@ public class PlayerManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "update players set coins = ?, name = ?, stars= ?, powders = ?, last_login = ?, last_ip = ?, toptp_key = ?, group_id = ?, nickname = ?";
+            String sql = "update players set coins = ?, name = ?, stars = ?, powders = ?, last_login = ?, last_ip = ?, toptp_key = ?, group_id = ?, discord_id = ?, nickname = ?";
             sql += " where uuid = UNHEX(?)";
 
             statement = connection.prepareStatement(sql);
@@ -139,8 +140,9 @@ public class PlayerManager {
             statement.setString(6, player.getLastIP());
             statement.setString(7, player.getTopTpKey());
             statement.setLong(8, player.getGroupId());
-            statement.setString(9, player.getNickName());
-            statement.setString(10, Transcoder.encode(player.getUuid().toString()));
+            statement.setLong(9, player.getDiscordId());
+            statement.setString(10, player.getNickName());
+            statement.setString(11, Transcoder.encode(player.getUuid().toString()));
 
             // Execute the query
             statement.executeUpdate();
@@ -161,8 +163,8 @@ public class PlayerManager {
             connection = databaseAccess.getConnection();
 
             // Query construction
-            String sql = "insert into players (uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id)";
-            sql += " values (UNHEX(?), ?, ?, ?, ?, ?, now(), now(), ?, ?, ?)";
+            String sql = "insert into players (uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id, discord_id)";
+            sql += " values (UNHEX(?), ?, ?, ?, ?, ?, now(), now(), ?, ?, ?, ?)";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, Transcoder.encode(player.getUuid().toString()));
@@ -174,6 +176,7 @@ public class PlayerManager {
             statement.setString(7, player.getLastIP());
             statement.setString(8, player.getTopTpKey());
             statement.setLong(9, player.getGroupId());
+            statement.setLong(10, player.getDiscordId());
 
             // Execute the query
             statement.executeUpdate();
