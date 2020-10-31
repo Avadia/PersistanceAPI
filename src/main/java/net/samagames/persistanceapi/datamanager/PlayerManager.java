@@ -84,7 +84,7 @@ public class PlayerManager {
 
     // Get player by name
     public PlayerBean getPlayer(String name, PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
-        // Make the research of player by UUID
+        // Make the research of player by name
         try {
             // Set connection
             connection = databaseAccess.getConnection();
