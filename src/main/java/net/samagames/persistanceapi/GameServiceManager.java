@@ -128,6 +128,12 @@ public class GameServiceManager {
         return this.playerManager.getPlayer(uuid, player, this.databaseManager.getDatabaseAccess());
     }
 
+    // Get the player by name
+    public synchronized PlayerBean getPlayer(String name, PlayerBean player) throws Exception {
+        // Get the PlayerBean
+        return this.playerManager.getPlayer(name, player, this.databaseManager.getDatabaseAccess());
+    }
+
     // Update the player
     public synchronized void updatePlayer(PlayerBean player) throws Exception {
         // Update datas of player
