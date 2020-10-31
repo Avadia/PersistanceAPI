@@ -82,6 +82,53 @@ public class PlayerManager {
         }
     }
 
+    // Get player by name
+    public PlayerBean getPlayer(String name, PlayerBean player, DatabaseAccess databaseAccess) throws Exception {
+        // Make the research of player by UUID
+        try {
+            // Set connection
+            connection = databaseAccess.getConnection();
+
+            // Query construction
+            String sql = "select HEX(uuid) as uuid, name, nickname, coins, stars, powders, last_login, first_login, last_ip, toptp_key, group_id, discord_id from players where name = ?";
+
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+
+            // Execute the query
+            resultset = statement.executeQuery();
+
+            // Manage the result in a bean
+            if (resultset.next()) {
+                // There's a result
+                String uuid = Transcoder.decode(resultset.getString("uuid"));
+                String playerName = resultset.getString("name");
+                String nickName = resultset.getString("nickname");
+                int coins = resultset.getInt("coins");
+                int stars = resultset.getInt("stars");
+                int powders = resultset.getInt("powders");
+                Timestamp lastLogin = resultset.getTimestamp("last_login");
+                Timestamp firsLogin = resultset.getTimestamp("first_login");
+                String lastIP = resultset.getString("last_ip");
+                String toptpKey = resultset.getString("toptp_key");
+                long groupId = resultset.getLong("group_id");
+                long discordId = resultset.getLong("discord_id");
+                player = new PlayerBean(UUID.fromString(uuid), playerName, nickName, coins, stars, powders, lastLogin, firsLogin, lastIP, toptpKey, groupId, discordId);
+                return player;
+            } else {
+                // If there no player for the name in database
+                this.close();
+                return player;
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw exception;
+        } finally {
+            // Close the query environment in order to prevent leaks
+            this.close();
+        }
+    }
+
     // Try to recover a suspect UUID by name
     public UUID recoverSuspect(String suspectName, DatabaseAccess databaseAccess) throws Exception {
         // Defines
