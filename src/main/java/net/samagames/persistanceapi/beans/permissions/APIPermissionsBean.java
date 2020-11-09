@@ -168,6 +168,10 @@ public class APIPermissionsBean {
         return apiChatBypass;
     }
 
+    public void setApiChatBypass(boolean apiChatBypass) {
+        this.apiChatBypass = apiChatBypass;
+    }
+
     public boolean isApiPlayerdataSet() {
         return this.apiPlayerdataSet;
     }
@@ -222,10 +226,6 @@ public class APIPermissionsBean {
 
     public void setApiGameStart(boolean apiGameStart) {
         this.apiGameStart = apiGameStart;
-    }
-
-    public void setApiChatBypass(boolean apiChatBypass) {
-        this.apiChatBypass = apiChatBypass;
     }
 
     // Reverse the bean to HashMap

@@ -87,6 +87,10 @@ public class ProxiesPermissionsBean {
         return proxiesHydro;
     }
 
+    public void setProxiesHydro(boolean proxiesHydro) {
+        this.proxiesHydro = proxiesHydro;
+    }
+
     public boolean isProxiesDebug() {
         return this.proxiesDebug;
     }
@@ -101,10 +105,6 @@ public class ProxiesPermissionsBean {
 
     public void setProxiesSetOption(boolean proxiesSetOption) {
         this.proxiesSetOption = proxiesSetOption;
-    }
-
-    public void setProxiesHydro(boolean proxiesHydro) {
-        this.proxiesHydro = proxiesHydro;
     }
 
     // Reverse the bean to HashMap

@@ -67,6 +67,11 @@ public class ItemDescriptionBean {
         return this.itemId;
     }
 
+    // Setters
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
     public String getItemName() {
         return this.itemName;
     }
@@ -97,11 +102,6 @@ public class ItemDescriptionBean {
 
     public void setPriceStars(int priceStars) {
         this.priceStars = priceStars;
-    }
-
-    // Setters
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
     }
 
     public int getGameCategory() {

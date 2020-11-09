@@ -68,93 +68,93 @@ public class PlayerStatisticsBean {
         return dimensionsStats;
     }
 
-    public JukeBoxStatisticsBean getJukeBoxStats() {
-        return jukeBoxStats;
-    }
-
-    public QuakeStatisticsBean getQuakeStats() {
-        return quakeStats;
-    }
-
-    public UHCOriginalStatisticsBean getUHCOriginalStats() {
-        return uhcOriginalStats;
-    }
-
-    public UHCRunStatisticsBean getUHCRunStats() {
-        return uhcRunStats;
-    }
-
-    public DoubleRunnerStatisticsBean getDoubleRunnerStats() {
-        return doubleRunnerStats;
-    }
-
-    public UHCRandomStatisticsBean getUHCRandomStats() {
-        return uhcRandomStats;
-    }
-
-    public RandomRunStatisticsBean getRandomRunStats() {
-        return randomRunStats;
-    }
-
-    public UltraFlagKeeperStatisticsBean getUltraFlagKeeperStats() {
-        return ultraFlagKeeperStats;
-    }
-
-    public UppervoidStatisticsBean getUppervoidStats() {
-        return uppervoidStats;
-    }
-
-    public ChunkWarsStatisticsBean getChunkWarsStats() {
-        return chunkWarsStats;
-    }
-
-    public TheDropperStatisticsBean getTheDropperStats() {
-        return theDropperStats;
-    }
-
     // Setters
     public void setDimensionsStats(DimensionsStatisticsBean dimensionsStats) {
         this.dimensionsStats = dimensionsStats;
+    }
+
+    public JukeBoxStatisticsBean getJukeBoxStats() {
+        return jukeBoxStats;
     }
 
     public void setJukeBoxStats(JukeBoxStatisticsBean jukeBoxStats) {
         this.jukeBoxStats = jukeBoxStats;
     }
 
+    public QuakeStatisticsBean getQuakeStats() {
+        return quakeStats;
+    }
+
     public void setQuakeStats(QuakeStatisticsBean quakeStats) {
         this.quakeStats = quakeStats;
+    }
+
+    public UHCOriginalStatisticsBean getUHCOriginalStats() {
+        return uhcOriginalStats;
     }
 
     public void setUHCOriginalStats(UHCOriginalStatisticsBean uhcOriginalStats) {
         this.uhcOriginalStats = uhcOriginalStats;
     }
 
+    public UHCRunStatisticsBean getUHCRunStats() {
+        return uhcRunStats;
+    }
+
     public void setUHCRunStats(UHCRunStatisticsBean uhcRunStats) {
         this.uhcRunStats = uhcRunStats;
+    }
+
+    public DoubleRunnerStatisticsBean getDoubleRunnerStats() {
+        return doubleRunnerStats;
     }
 
     public void setDoubleRunnerStats(DoubleRunnerStatisticsBean doubleRunnerStats) {
         this.doubleRunnerStats = doubleRunnerStats;
     }
 
+    public UHCRandomStatisticsBean getUHCRandomStats() {
+        return uhcRandomStats;
+    }
+
     public void setUHCRandomStats(UHCRandomStatisticsBean uhcRandomStats) {
         this.uhcRandomStats = uhcRandomStats;
+    }
+
+    public RandomRunStatisticsBean getRandomRunStats() {
+        return randomRunStats;
     }
 
     public void setRandomRunStats(RandomRunStatisticsBean randomRunStats) {
         this.randomRunStats = randomRunStats;
     }
 
+    public UltraFlagKeeperStatisticsBean getUltraFlagKeeperStats() {
+        return ultraFlagKeeperStats;
+    }
+
     public void setUltraFlagKeeperStats(UltraFlagKeeperStatisticsBean ultraFlagKeeperStats) {
         this.ultraFlagKeeperStats = ultraFlagKeeperStats;
+    }
+
+    public UppervoidStatisticsBean getUppervoidStats() {
+        return uppervoidStats;
     }
 
     public void setUppervoidStats(UppervoidStatisticsBean uppervoidStats) {
         this.uppervoidStats = uppervoidStats;
     }
 
+    public ChunkWarsStatisticsBean getChunkWarsStats() {
+        return chunkWarsStats;
+    }
+
     public void setChunkWarsStats(ChunkWarsStatisticsBean chunkWarsStats) {
         this.chunkWarsStats = chunkWarsStats;
+    }
+
+    public TheDropperStatisticsBean getTheDropperStats() {
+        return theDropperStats;
     }
 
     public void setTheDropperStats(TheDropperStatisticsBean theDropperStats) {

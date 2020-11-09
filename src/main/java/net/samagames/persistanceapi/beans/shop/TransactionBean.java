@@ -63,6 +63,11 @@ public class TransactionBean {
         return this.transactionId;
     }
 
+    // Setters
+    public void setTransactionId(long transactionId) {
+        this.transactionId = transactionId;
+    }
+
     public int getItemId() {
         return this.itemId;
     }
@@ -85,11 +90,6 @@ public class TransactionBean {
 
     public void setPriceStars(int priceStars) {
         this.priceStars = priceStars;
-    }
-
-    // Setters
-    public void setTransactionId(long transactionId) {
-        this.transactionId = transactionId;
     }
 
     public Timestamp getTransactionDate() {

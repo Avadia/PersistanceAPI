@@ -72,6 +72,10 @@ public class JukeBoxStatisticsBean {
         return this.wootsGiven;
     }
 
+    public void setWootsGiven(int wootsGiven) {
+        this.wootsGiven = wootsGiven;
+    }
+
     public int getWoots() {
         return this.woots;
     }
@@ -90,10 +94,6 @@ public class JukeBoxStatisticsBean {
 
     public Timestamp getUpdateDate() {
         return this.updateDate;
-    }
-
-    public void setWootsGiven(int wootsGiven) {
-        this.wootsGiven = wootsGiven;
     }
 
     public void setUpdateDate(Timestamp updateDate) {

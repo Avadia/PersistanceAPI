@@ -75,20 +75,32 @@ public class DimensionsStatisticsBean {
         return this.kills;
     }
 
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
     public int getWins() {
         return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
     }
 
     public Timestamp getCreationDate() {
         return creationDate;
     }
 
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Timestamp getUpdateDate() {
         return updateDate;
     }
 
-    public void setKills(int kills) {
-        this.kills = kills;
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
     }
 
     public int getPlayedGames() {
@@ -105,17 +117,5 @@ public class DimensionsStatisticsBean {
 
     public void setPlayedTime(long playedTime) {
         this.playedTime = playedTime;
-    }
-
-    public void setWins(int wins) {
-        this.wins = wins;
-    }
-
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
     }
 }

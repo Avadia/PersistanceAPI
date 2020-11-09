@@ -81,32 +81,64 @@ public class PlayerBean {
         return this.uuid;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNickName() {
         return this.nickName;
     }
 
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public int getCoins() {
         return this.coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 
     public int getStars() {
         return this.stars;
     }
 
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
     public int getPowders() {
         return this.powders;
+    }
+
+    public void setPowders(int powders) {
+        this.powders = powders;
     }
 
     public Timestamp getLastLogin() {
         return this.lastLogin;
     }
 
+    public void setLastLogin(Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
     public Timestamp getFirstLogin() {
         return this.firstLogin;
+    }
+
+    public void setFirstLogin(Timestamp firstLogin) {
+        this.firstLogin = firstLogin;
     }
 
     public String getLastIP() {
@@ -121,6 +153,10 @@ public class PlayerBean {
         return this.topTpKey;
     }
 
+    public void setTopTpKey(String topTpKey) {
+        this.topTpKey = topTpKey;
+    }
+
     public long getDiscordId() {
         return discordId;
     }
@@ -129,47 +165,11 @@ public class PlayerBean {
         this.discordId = discordId;
     }
 
-    public void setTopTpKey(String topTpKey) {
-        this.topTpKey = topTpKey;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public void setCoins(int coins) {
-        this.coins = coins;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
-    }
-
-    public void setPowders(int powders) {
-        this.powders = powders;
-    }
-
-    public void setLastLogin(Timestamp lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public void setFirstLogin(Timestamp firstLogin) {
-        this.firstLogin = firstLogin;
-    }
-
     public long getGroupId() {
         return this.groupId;
     }
 
     public void setGroupId(long groupId) {
         this.groupId = groupId;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 }

@@ -1,4 +1,3 @@
-
 package net.samagames.persistanceapi.datamanager;
 
 import net.samagames.persistanceapi.beans.players.NicknameBean;

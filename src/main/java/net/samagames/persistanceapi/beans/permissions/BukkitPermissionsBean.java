@@ -80,12 +80,24 @@ public class BukkitPermissionsBean {
         return bukkitCommandEffect;
     }
 
+    public void setBukkitCommandEffect(boolean bukkitCommandEffect) {
+        this.bukkitCommandEffect = bukkitCommandEffect;
+    }
+
     public boolean isBukkitCommandGamemode() {
         return bukkitCommandGamemode;
     }
 
+    public void setBukkitCommandGamemode(boolean bukkitCommandGamemode) {
+        this.bukkitCommandGamemode = bukkitCommandGamemode;
+    }
+
     public boolean isBukkitCommandTeleport() {
         return bukkitCommandTeleport;
+    }
+
+    public void setBukkitCommandTeleport(boolean bukkitCommandTeleport) {
+        this.bukkitCommandTeleport = bukkitCommandTeleport;
     }
 
     public boolean isBukkitCommandOpGive() {
@@ -94,18 +106,6 @@ public class BukkitPermissionsBean {
 
     public void setBukkitCommandOpGive(boolean bukkitCommandOpGive) {
         this.bukkitCommandOpGive = bukkitCommandOpGive;
-    }
-
-    public void setBukkitCommandEffect(boolean bukkitCommandEffect) {
-        this.bukkitCommandEffect = bukkitCommandEffect;
-    }
-
-    public void setBukkitCommandGamemode(boolean bukkitCommandGamemode) {
-        this.bukkitCommandGamemode = bukkitCommandGamemode;
-    }
-
-    public void setBukkitCommandTeleport(boolean bukkitCommandTeleport) {
-        this.bukkitCommandTeleport = bukkitCommandTeleport;
     }
 
     // Reverse the bean to HashMap

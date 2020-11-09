@@ -60,6 +60,10 @@ public class AchievementProgressBean {
         return this.progressId;
     }
 
+    public void setProgressId(long progressId) {
+        this.progressId = progressId;
+    }
+
     public int getAchievementId() {
         return this.achievementId;
     }
@@ -76,14 +80,10 @@ public class AchievementProgressBean {
         this.progress = progress;
     }
 
-    public Timestamp getStartDate() {
-        return this.startDate;
-    }
-
     // Setters
 
-    public void setProgressId(long progressId) {
-        this.progressId = progressId;
+    public Timestamp getStartDate() {
+        return this.startDate;
     }
 
     public void setStartDate(Timestamp startDate) {

@@ -110,16 +110,24 @@ public class ModerationPermissionsBean {
         return this.modPardon;
     }
 
+    public void setModPardon(boolean modPardon) {
+        this.modPardon = modPardon;
+    }
+
     public boolean isModChannelReport() {
         return modChannelReport;
+    }
+
+    public void setModChannelReport(boolean modChannelReport) {
+        this.modChannelReport = modChannelReport;
     }
 
     public boolean isModQuiet() {
         return modQuiet;
     }
 
-    public void setModPardon(boolean modPardon) {
-        this.modPardon = modPardon;
+    public void setModQuiet(boolean modQuiet) {
+        this.modQuiet = modQuiet;
     }
 
     public boolean isModMuteLongtime() {
@@ -144,14 +152,6 @@ public class ModerationPermissionsBean {
 
     public void setModChannel(boolean modChannel) {
         this.modChannel = modChannel;
-    }
-
-    public void setModChannelReport(boolean modChannelReport) {
-        this.modChannelReport = modChannelReport;
-    }
-
-    public void setModQuiet(boolean modQuiet) {
-        this.modQuiet = modQuiet;
     }
 
     // Reverse the bean to HashMap
